@@ -2,7 +2,7 @@ package rda.test;
 
 import rda.agent.CreateAgent;
 
-public class CreateTest{
+public class CreateAgentTest{
 
     private static void createUser(int numOfAgents){
         CreateAgent agent = new CreateAgent();

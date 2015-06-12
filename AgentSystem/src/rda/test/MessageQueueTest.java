@@ -4,29 +4,29 @@ import java.util.ArrayList;
 
 import rda.data.DataGenerator;
 import rda.data.OutputData;
-import rda.property.SetPropertry;
 import rda.queue.MessageObject;
-import rda.queue.MessageQueueException;
 import rda.queue.ReciveMessageQueue;
 
-public class MessageQueueTest extends SetPropertry{
+public class MessageQueueTest{
 	//Experiment Condition
 
 	private static ReciveMessageQueue mq = new ReciveMessageQueue("MQ0");
 
-	//Agent Define
-	public static final String AGENT_TYPE = "useragent";
-
 	private static void send(int run){
-		for(int i=0; i < run; i++){
-			DataGenerator ag = DataGenerator.getInstance();
+            MessageObject msg;
+            ArrayList<MessageObject> messageList = new ArrayList<MessageObject>();
+            
+            for(int i=0; i < run; i++){
+		DataGenerator ag = DataGenerator.getInstance();
+                msg = new MessageObject(ag.getData().agentKey, ag.getData().data);
+		
+		messageList.add(msg);
 
-			ArrayList<MessageObject> message = new ArrayList<MessageObject>();
-			message.add(new MessageObject(ag.getData().agentKey, ag.getData().data));
-
-			sendMessageQueue(mq, message);
-		}
-	}
+		//sendMessageQueue(mq, message);
+            }
+            
+            System.out.println(messageList.toString());
+    }
 
 	private static void sendMessageQueue(ReciveMessageQueue messageQueue, Object message){
 		//QueueにPutする
@@ -35,7 +35,10 @@ public class MessageQueueTest extends SetPropertry{
 
 	static OutputData out;
 	public static void main(String[] args) {
-		//Update Agent
-		send(TIME_RUN);
+            //Update Agent
+            int number = 100;
+            if(!args.equals(""))
+                number = Integer.parseInt(args[0]);
+            send(number);
 	}
 }

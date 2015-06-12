@@ -15,9 +15,11 @@ public class CreateAgentClient {
 			e.printStackTrace();
 		}
 	}
+        
 	public synchronized AgentClient getClient() {
-		return client;
+		return this.client;
 	}
+        
 	private void setClient(AgentClient client) {
 		this.client = client;
 	}

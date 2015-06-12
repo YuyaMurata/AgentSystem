@@ -18,52 +18,51 @@ public class ReciveMessageQueue extends SetPropertry{
 	}
 
 	public synchronized void putMessage(Object message) {
-		while(queue.size() >= QUEUE_LENGTH){
-			try {
-				event();
-			} catch (MessageQueueException e1) {
-			// TODO 自動生成された catch ブロック
-				e1.printEvent();
+            while(getSize() >= QUEUE_LENGTH){
+                try {
+                    event();
+                } catch (MessageQueueException mqLimitEvent) {
+                // TODO 自動生成された catch ブロック
+                    mqLimitEvent.printEvent();
 
-				try {
-					wait(AGENT_WAIT);
-				} catch (InterruptedException e) {
-					// TODO 自動生成された catch ブロック
-				}
-			}
-		}
-		queue.offer(message);
-		notify();
+                    try {
+                        wait(AGENT_WAIT);
+                    } catch (InterruptedException e) {
+                        // TODO 自動生成された catch ブロック
+                    }
+                }
+            }
+            queue.offer(message);
+            notify();
 	}
 
 	public void event() throws MessageQueueException{
-		throw new MessageQueueException(name);
+            throw new MessageQueueException(name);
 	}
 	
 	public Boolean check(){
-		if(queue.size() > 0) return true;
-		else return false;
+            return getSize() > 0;
 	}
 
 	public synchronized Object getMessage(){
-		while(queue.size() == 0){
-			try {
-				//System.out.println(name+" Empty Wait!");
-				wait();
-			} catch (InterruptedException e) {
-				// TODO 自動生成された catch ブロック
-			}
-		}
+            if(!check()){
+                try {
+                    //System.out.println(name+" Empty Wait!");
+                    wait();
+                } catch (InterruptedException e) {
+                    // TODO 自動生成された catch ブロック
+                }
+            }
 
-		notify();
-		return queue.poll();
-	}
-
-	public synchronized void close(){
-		thread.stopRunning();
+            notify();
+            return queue.poll();
 	}
 
 	public Integer getSize(){
-		return queue.size();
+            return queue.size();
+	}
+        
+	public synchronized void close(){
+            thread.stopRunning();
 	}
 }
