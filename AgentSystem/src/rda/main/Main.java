@@ -16,9 +16,9 @@ public class Main extends SetPropertry{
 		mq = new WindowController(String.valueOf("Win_Main"));
 	}
 
-	private static void create(int numOfAgents){
+	private static void createUser(int numOfAgents){
 		CreateAgent agent = new CreateAgent();
-		agent.create(numOfAgents);
+		agent.create("U#00", numOfAgents);
 	}
 
 	private static final MountData mt = new MountData();
@@ -34,7 +34,7 @@ public class Main extends SetPropertry{
 		init();
 
 		//Agentの生成
-		create(NUMBER_OF_USER_AGENTS);
+		createUser(NUMBER_OF_USER_AGENTS);
 
 		//Execute Agent System
 		long start = System.currentTimeMillis();
@@ -70,8 +70,8 @@ public class Main extends SetPropertry{
 			mq.close();
 
 		} catch (InterruptedException e) {
-		// TODO 自動生成された catch ブロック
-		e.printStackTrace();
-	}
-	}
+                    // TODO 自動生成された catch ブロック
+                    e.printStackTrace();
+                }
+        }
 }
