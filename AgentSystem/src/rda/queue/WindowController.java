@@ -7,23 +7,25 @@ import rda.property.SetPropertry;
 import test.CalcUsage;
 
 public class WindowController extends SetPropertry{
-	private ArrayList<ReciveMessageQueue> mq = new ArrayList<>();
+	private ReciveMessageQueue[] mqArray = new ReciveMessageQueue[NUMBER_OF_QUEUE];
 	private ArrayList<MessageObject> window[] = new ArrayList[NUMBER_OF_QUEUE];
 
 	private static OutputData out;
 
+        private void init(){
+            for(int i=0; i < NUMBER_OF_QUEUE; i++){
+                this.mqArray[i] = new ReciveMessageQueue("RMQ"+i);
+                window[i] = new ArrayList<>();
+            }
+
+            out = new OutputData("MQ"+NUMBER_OF_QUEUE+"_"+System.currentTimeMillis()+".csv");
+        }
+        
 	public String name;
 	public WindowController(String name) {
-		// TODO 自動生成されたコンストラクター・スタブ
-		this.name = name;
-
-		for(int i=0; i < NUMBER_OF_QUEUE; i++){
-			this.mq.add(new ReciveMessageQueue("RMQ"+i));
-			window[i] = new ArrayList<>();
-		}
-
-		out = new OutputData("MQ"+NUMBER_OF_QUEUE+"_"+System.currentTimeMillis()+".csv");
-
+            // TODO 自動生成されたコンストラクター・スタブ
+            this.name = name;
+            init();
 	}
 
 	public void sendMessage(MessageObject mes){
@@ -57,17 +59,17 @@ public class WindowController extends SetPropertry{
 
 	private void sendMessageQueue(int i, Object mes){
 		//QueueにPutする
-		mq.get(i).putMessage(mes);
+		mqArray[i].putMessage(mes);
 	}
 
 	public void close(){
-		for(int i=0; i < mq.size(); i++){
-                    try {
-                        mq.get(i).close().join();
-                    } catch (InterruptedException ex) {
-                        System.out.println(ex);
-                    }
-		}
+            for (ReciveMessageQueue mq : mqArray) {
+                try {
+                    mq.close().join();
+                }catch (InterruptedException ex) {
+                    System.out.println(ex);
+                }
+            }
 
 		out.close();
 	}
@@ -76,12 +78,12 @@ public class WindowController extends SetPropertry{
 	public  void outputMQLog(int t){
 		StringBuilder sb = new StringBuilder(t+","+getCPULoad.getUsage());
 
-		for(int i=0; i < mq.size(); i++){
-			sb.append(",");
-			sb.append(mq.get(i).getSize());
-		}
+            for (ReciveMessageQueue mq : mqArray) {
+                sb.append(",");
+                sb.append(mq.getSize());
+            }
 
-		out.write(sb.toString());
+            out.write(sb.toString());
 
 	}
 }

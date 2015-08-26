@@ -39,8 +39,10 @@ public class MessageQueueTest{
             /*oneMessage = new ArrayList<MessageObject>();
             oneMessage.add(msg);
             rmq.putMessage(oneMessage);*/
-            
         }
+        
+        //WindowContoroler  Data End
+        mq.sendMessage(new MessageObject(ag.getData().agentKey, -1));
         
         mq.close();
         
