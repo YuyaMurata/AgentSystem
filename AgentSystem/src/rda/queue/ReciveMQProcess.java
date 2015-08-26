@@ -40,8 +40,10 @@ public class ReciveMQProcess extends Thread {
                     msgMap.get(msg.agentKey).add(msg.data);
                 }
                 
-                for(AgentKey key : msgMap.keySet())
+                for(AgentKey key : msgMap.keySet()){
+                    System.out.println(msgMap.get(key).toString());
                     user.sendUpdateMessage(key, msgMap.get(key));
+                }
             }
 		
             ag.close();
