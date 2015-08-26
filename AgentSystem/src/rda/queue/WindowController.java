@@ -7,10 +7,10 @@ import rda.property.SetPropertry;
 import test.CalcUsage;
 
 public class WindowController extends SetPropertry{
-	private ReciveMessageQueue[] mqArray = new ReciveMessageQueue[NUMBER_OF_QUEUE];
-	private ArrayList<MessageObject> window[] = new ArrayList[NUMBER_OF_QUEUE];
+	private final ReciveMessageQueue[] mqArray = new ReciveMessageQueue[NUMBER_OF_QUEUE];
+	private final ArrayList<MessageObject> window[] = new ArrayList[NUMBER_OF_QUEUE];
 
-	private static OutputData out;
+	private static OutputData outdata;
 
         private void init(){
             for(int i=0; i < NUMBER_OF_QUEUE; i++){
@@ -18,7 +18,7 @@ public class WindowController extends SetPropertry{
                 window[i] = new ArrayList<>();
             }
 
-            out = new OutputData("MQ"+NUMBER_OF_QUEUE+"_"+System.currentTimeMillis()+".csv");
+            outdata = new OutputData("MQ"+NUMBER_OF_QUEUE+"_"+System.currentTimeMillis()+".csv");
         }
         
 	public String name;
@@ -52,10 +52,10 @@ public class WindowController extends SetPropertry{
                 }
             }
 
-		out.close();
+            outdata.close();
 	}
 
-	private CalcUsage getCPULoad = new CalcUsage();
+	private final CalcUsage getCPULoad = new CalcUsage();
 	public  void outputMQLog(int t){
 		StringBuilder sb = new StringBuilder(t+","+getCPULoad.getUsage());
 
@@ -64,7 +64,7 @@ public class WindowController extends SetPropertry{
                 sb.append(mq.getSize());
             }
 
-            out.write(sb.toString());
+            outdata.write(sb.toString());
 
 	}
 }
