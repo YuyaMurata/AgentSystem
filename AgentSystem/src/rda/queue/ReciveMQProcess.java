@@ -40,7 +40,8 @@ public class ReciveMQProcess extends Thread {
             System.out.println("********** Recive Message Queue "+name+" Stop!! ********** ");
 	}
 
-	public void stopRunning(){
+	public Thread stopRunning(){
 		running = false;
+                return this;
 	}
 }

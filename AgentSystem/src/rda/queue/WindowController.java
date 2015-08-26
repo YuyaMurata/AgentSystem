@@ -1,6 +1,8 @@
 package rda.queue;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import rda.data.OutputData;
 import rda.property.SetPropertry;
@@ -62,7 +64,11 @@ public class WindowController extends SetPropertry{
 
 	public void close(){
 		for(int i=0; i < mq.size(); i++){
-			mq.get(i).close();
+                    try {
+                        mq.get(i).close().join();
+                    } catch (InterruptedException ex) {
+                        System.out.println(ex);
+                    }
 		}
 
 		out.close();
