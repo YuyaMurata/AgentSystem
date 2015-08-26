@@ -37,7 +37,8 @@ public class MessageQueueTest{
             
             // Direct MessageQueue
             oneMessage = new ArrayList<MessageObject>();
-            rmq.putMessage(oneMessage.add(msg));
+            oneMessage.add(msg);
+            rmq.putMessage(oneMessage);
             
         }
         
