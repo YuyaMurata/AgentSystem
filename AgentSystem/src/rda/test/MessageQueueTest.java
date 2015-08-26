@@ -54,7 +54,7 @@ public class MessageQueueTest{
 
         //Update Agent
         int number = NUMBER_DATA;
-        if(!args.equals(""))
+        if(!args.equals(null))
             number = Integer.parseInt(args[0]);
         
         long start = System.currentTimeMillis();
