@@ -30,7 +30,6 @@ public class ReciveMQProcess extends Thread {
 		
             while(running || queue.check()){
                 ArrayList<MessageObject> messageList = (ArrayList<MessageObject>) queue.getMessage();
-		msgMap.clear();
                 //System.out.println(name+"_"+messageList.size()+":稼動中!");
 			
                 for(MessageObject msg : messageList){
@@ -40,8 +39,10 @@ public class ReciveMQProcess extends Thread {
                     msgMap.get(msg.agentKey).add(msg.data);
                 }
                 
-                for(AgentKey key : msgMap.keySet()){
-                    user.sendUpdateMessage(key, msgMap.get(key));
+                if(!queue.check()){
+                    for(AgentKey key : msgMap.keySet())
+                        user.sendUpdateMessage(key, msgMap.get(key));
+                    msgMap.clear();
                 }
             }
 		
