@@ -11,7 +11,7 @@ import rda.queue.WindowController;
 public class MessageQueueTest{
     //Experiment Condition
     private static final int NUMBER_USER = 1;
-    private static final int NUMBER_DATA = 1000;
+    private static final int NUMBER_DATA = 100000;
             
     private static void createUser(int numOfUser) {
         CreateAgent agent = new CreateAgent();
