@@ -30,12 +30,12 @@ public class WindowController extends SetPropertry{
 
 	public void sendMessage(MessageObject mes){
             int no = HashToMQN.toMQN(mes.agentKey);
-            if((mes.data != -1) && (window[no].size() <= WINDOW_SIZE)){
-                window[no].add(mes);
-            } else{
+            if(mes.data != -1) window[no].add(mes);
+            
+            if((mes.data == -1) || (window[no].size() == WINDOW_SIZE)){
                 sendMessageQueue(no, window[no].clone());
                 window[no].clear();
-            }            
+            }
 	}
 
 	private void sendMessageQueue(int i, Object mes){
