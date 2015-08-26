@@ -29,19 +29,19 @@ public class Property {
 
 	//Server Property
 	private void loadServerProperty(){
-		String filename = "server.property";
+		String filename = "property/server.property";
 		load(server, filename);
 	}
 
 	//Queue Property
 	private void loadQueueProperty(){
-		String filename = "queue.property";
+		String filename = "property/queue.property";
 		load(queue, filename);
 	}
 
 	//Agent Property
 	private void loadAgentProperty(){
-		String filename = "agent.property";
+		String filename = "property/agent.property";
 		load(agent, filename);
 	}
 
