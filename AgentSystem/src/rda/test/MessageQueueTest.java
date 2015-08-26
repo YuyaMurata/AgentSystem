@@ -53,19 +53,15 @@ public class MessageQueueTest{
         createUser(NUMBER_USER);
 
         //Update Agent
-        int number = NUMBER_DATA;
-        if(!args.equals(null))
-            number = Integer.parseInt(args[0]);
-        
         long start = System.currentTimeMillis();
 	System.out.println("Start Agent System : "+start);
         
         //Executable Test
-        execute(number);
+        execute(NUMBER_DATA);
         
         long stop = System.currentTimeMillis();
         System.out.println("Stop Agent System : "+stop);
         
-        System.out.println("transaction_time : "+(stop-start));
+        System.out.println("N="+NUMBER_USER+"D="+NUMBER_DATA+" time : "+(stop-start));
     }
 }
