@@ -1,11 +1,14 @@
 package rda.test;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rda.agent.CreateAgent;
 
 import rda.data.DataGenerator;
 import rda.data.OutputData;
 import rda.queue.MessageObject;
+import rda.queue.ReciveMessageQueue;
 import rda.queue.WindowController;
 
 public class MessageQueueTest{
@@ -19,11 +22,10 @@ public class MessageQueueTest{
     }
 
     private static void execute(int run){
-        //ReciveMessageQueue rmq = new ReciveMessageQueue("MQ0");
-        WindowController mq = new WindowController(String.valueOf("Win_Main"));
+        ReciveMessageQueue rmq = new ReciveMessageQueue("MQ0");
+        //WindowController mq = new WindowController(String.valueOf("Win_Main"));
         
         MessageObject msg;
-        ArrayList<MessageObject> messageList = new ArrayList<MessageObject>();
         ArrayList<MessageObject> oneMessage;
         DataGenerator ag = DataGenerator.getInstance();
         
@@ -31,18 +33,21 @@ public class MessageQueueTest{
             msg = new MessageObject(ag.getData().agentKey, ag.getData().data);
             
             //WindowContoroler to MQ
-            mq.sendMessage(msg);
+            //mq.sendMessage(msg);
             
             // Direct MessageQueue
-            //oneMessage = new ArrayList<MessageObject>();
-            //rmq.putMessage(oneMessage.add(msg));
+            oneMessage = new ArrayList<MessageObject>();
+            rmq.putMessage(oneMessage.add(msg));
             
         }
         
-        mq.close();
-        //rmq.close();
-            
-        System.out.println(messageList.toString());
+        //mq.close();
+        
+        try {
+            rmq.close().join();
+        } catch (InterruptedException ex) {
+            System.out.println(ex);
+        }
     }
 
     static OutputData out;

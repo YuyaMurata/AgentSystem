@@ -1,8 +1,6 @@
 package rda.queue;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import rda.data.OutputData;
 import rda.property.SetPropertry;
