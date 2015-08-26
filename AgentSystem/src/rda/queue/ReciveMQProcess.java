@@ -38,7 +38,6 @@ public class ReciveMQProcess extends Thread {
                     if(msgMap.get(msg.agentKey) == null)
                         msgMap.put(msg.agentKey, new ArrayList<Integer>());
                     msgMap.get(msg.agentKey).add(msg.data);
-                    System.out.println(msgMap.get(msg.agentKey).toString());
                 }
                 
                 for(AgentKey key : msgMap.keySet()){
