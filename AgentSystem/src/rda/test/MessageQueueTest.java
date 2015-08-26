@@ -22,8 +22,8 @@ public class MessageQueueTest{
     }
 
     private static void execute(int run){
-        ReciveMessageQueue rmq = new ReciveMessageQueue("MQ0");
-        //WindowController mq = new WindowController(String.valueOf("Win_Main"));
+        //ReciveMessageQueue rmq = new ReciveMessageQueue("MQ0");
+        WindowController mq = new WindowController(String.valueOf("Win_Main"));
         
         MessageObject msg;
         ArrayList<MessageObject> oneMessage;
@@ -33,22 +33,22 @@ public class MessageQueueTest{
             msg = new MessageObject(ag.getData().agentKey, ag.getData().data);
             
             //WindowContoroler to MQ
-            //mq.sendMessage(msg);
+            mq.sendMessage(msg);
             
             // Direct MessageQueue
-            oneMessage = new ArrayList<MessageObject>();
+            /*oneMessage = new ArrayList<MessageObject>();
             oneMessage.add(msg);
-            rmq.putMessage(oneMessage);
+            rmq.putMessage(oneMessage);*/
             
         }
         
-        //mq.close();
+        mq.close();
         
-        try {
+        /*try {
             rmq.close().join();
         } catch (InterruptedException ex) {
             System.out.println(ex);
-        }
+        }*/
     }
 
     static OutputData out;
