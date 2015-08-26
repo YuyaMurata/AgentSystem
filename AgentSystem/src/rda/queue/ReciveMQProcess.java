@@ -35,7 +35,7 @@ public class ReciveMQProcess extends Thread {
 			
                 for(MessageObject msg : messageList){
                     //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
-                    if(msgMap.get(msg.agentKey).isEmpty())
+                    if(msgMap.get(msg.agentKey) == null)
                         msgMap.put(msg.agentKey, new ArrayList<Integer>());
                     msgMap.get(msg.agentKey).add(msg.data);
                     System.out.println(msgMap.get(msg.agentKey).toString());
