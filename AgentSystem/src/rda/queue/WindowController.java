@@ -29,32 +29,13 @@ public class WindowController extends SetPropertry{
 	}
 
 	public void sendMessage(MessageObject mes){
-		if(mes.data != -1) add(HashToMQN.toMQN(mes.agentKey), mes);
-
-		check(mes.data, window);
-	}
-
-	private void add(int i, MessageObject mes){
-		window[i].add(mes);
-
-		check(i, window[i]);
-	}
-
-	private void check(int i, ArrayList<MessageObject> list){
-		if(list.size() > WINDOW_SIZE){
-			sendMessageQueue(i, list.clone());
-			list.clear();
-		}
-	}
-
-	private void check(int s, ArrayList<MessageObject>[] array){
-		if(s == -1){
-			for(int i=0; i < array.length; i++)
-				if(!array[i].isEmpty()){
-					sendMessageQueue(i, array[i].clone());
-					array[i].clear();
-				}
-		}
+            int no = HashToMQN.toMQN(mes.agentKey);
+            if((mes.data != -1) && (window[no].size() <= WINDOW_SIZE)){
+                window[no].add(mes);
+            } else{
+                sendMessageQueue(no, window[no].clone());
+                window[no].clear();
+            }            
 	}
 
 	private void sendMessageQueue(int i, Object mes){
