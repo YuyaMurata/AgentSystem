@@ -11,6 +11,7 @@ import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
+import java.util.ArrayList;
 
 public class UpdateUser implements AgentExecutor, Serializable{
 	/**
@@ -25,8 +26,8 @@ public class UpdateUser implements AgentExecutor, Serializable{
 	}
 
 	AgentKey agentKey;
-	int data;
-	public UpdateUser(AgentKey agentKey, int data) {
+	ArrayList<Integer> data;
+	public UpdateUser(AgentKey agentKey, ArrayList<Integer> data) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.agentKey = agentKey;
 		this.data = data;
@@ -67,7 +68,7 @@ public class UpdateUser implements AgentExecutor, Serializable{
 		this.client = client;
 	}
 
-	public void sendUpdateMessage(AgentKey agentKey, int data){
+	public void sendUpdateMessage(AgentKey agentKey, ArrayList<Integer> data){
 		try {
 			UpdateUser executor = new UpdateUser(agentKey, data);
 			client.execute(agentKey, executor);

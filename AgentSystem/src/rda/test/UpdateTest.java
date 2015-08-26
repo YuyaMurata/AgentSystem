@@ -1,5 +1,6 @@
 package rda.test;
 
+import java.util.ArrayList;
 import rda.agent.CreateAgentClient;
 import rda.agent.user.UpdateUser;
 import rda.data.DataGenerator;
@@ -17,7 +18,9 @@ public class UpdateTest {
 		user.setParam(agentClient.getClient());
 
 		for(int i=0; i < NUM_OF_AGENTS*num; i++){
-			user.sendUpdateMessage(ag.getData().agentKey, ag.getData().data);
+                    ArrayList<Integer> list = new ArrayList<>();
+                    list.add(ag.getData().data);
+                    user.sendUpdateMessage(ag.getData().agentKey, list);
 		}
 	}
 

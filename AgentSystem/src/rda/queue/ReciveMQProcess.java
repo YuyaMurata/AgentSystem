@@ -1,6 +1,8 @@
 package rda.queue;
 
+import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import rda.agent.CreateAgentClient;
 import rda.agent.user.UpdateUser;
@@ -24,6 +26,7 @@ public class ReciveMQProcess extends Thread {
                 
             UpdateUser user = new UpdateUser();
             user.setParam(ag.getClient());
+            HashMap<AgentKey, ArrayList<Integer>> msgMap = new HashMap<>();
 		
             while(running || queue.check()){
                 ArrayList<MessageObject> messageList = (ArrayList<MessageObject>) queue.getMessage();
@@ -32,8 +35,13 @@ public class ReciveMQProcess extends Thread {
 			
                 for(MessageObject msg : messageList){
                     //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
-                    user.sendUpdateMessage(msg.agentKey, msg.data);
+                    if(msgMap.get(msg.agentKey).isEmpty())
+                        msgMap.put(msg.agentKey, new ArrayList<Integer>());
+                    msgMap.get(msg.agentKey).add(msg.data);
                 }
+                
+                for(AgentKey key : msgMap.keySet())
+                    user.sendUpdateMessage(key, msgMap.get(key));
             }
 		
             ag.close();
