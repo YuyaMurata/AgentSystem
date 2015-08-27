@@ -52,6 +52,5 @@ public class ReciveMQProcess extends Thread {
 
     public void stopRunning(){
         running = false;
-        System.out.println("Name:"+name+"."+running);
     }
 }

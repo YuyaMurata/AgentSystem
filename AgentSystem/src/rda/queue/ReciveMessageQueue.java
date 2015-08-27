@@ -57,8 +57,7 @@ public class ReciveMessageQueue extends SetPropertry{
         return queue.size();
     }
         
-    public synchronized Thread close(){
+    public synchronized void close(){
         thread.stopRunning();
-        return thread;
     }
 }
