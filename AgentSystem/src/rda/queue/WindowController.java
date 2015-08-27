@@ -21,7 +21,7 @@ public class WindowController extends SetPropertry{
                 window[i] = new ArrayList<>();
             }
 
-            outdata = new OutputData("MQ"+numberOfMQ+"_"+System.currentTimeMillis()+".csv");
+            outdata = new OutputData("QueueLength_MQ"+numberOfMQ+"_"+System.currentTimeMillis()+".csv");
         }
         
 	public String name;

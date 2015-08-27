@@ -51,5 +51,18 @@ public class CalcUsage {
     	Thread.sleep(1000);
 	  }
   }**/
+  
+    public static void main(String[] args) {
+        //start
+        long start = System.currentTimeMillis();
+        
+        final CalcUsage getCPULoad = new CalcUsage();
+        for(int i=0; i < 1000; i++)
+            getCPULoad.getUsage();
+        
+        long stop = System.currentTimeMillis();
+        
+        System.out.println("Transaction time:"+(stop-start)+" ms");
+    }
 
 }
