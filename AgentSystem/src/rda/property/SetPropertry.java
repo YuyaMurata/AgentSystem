@@ -51,7 +51,7 @@ public abstract class SetPropertry {
 	 * number.rank.agent=1
 	 */
 	public static final Integer TIME_RUN = Integer.valueOf(prop.getValue("agent", "time.run"));
-	public static final Long TIME_PERIOD = (long) 1000; // 1sec
+	public static final Long TIME_PERIOD = Long.valueOf(prop.getValue("agent", "time.period")); // ms
 	public static final Integer NUMBER_OF_USER_AGENTS = Integer.valueOf(prop.getValue("agent", "number.user.agent"));
 	public static final Integer NUMBER_OF_RANK_AGENTS = Integer.valueOf(prop.getValue("agent", "number.rank.agent"));
 	public static final Long AGENT_WAIT = Long.valueOf(prop.getValue("agent", "wait.agent"));
