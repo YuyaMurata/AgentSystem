@@ -56,8 +56,8 @@ public class Main extends SetPropertry{
                 (mainTask, 0, TIME_PERIOD, TimeUnit.MILLISECONDS);
         
         //Stop Main Schedule
-        /*ex.schedule(new Runnable(){
+        ex.schedule(new Runnable(){
                 public void run(){ future.cancel(true);}
-            }, TIME_RUN, TimeUnit.SECONDS);*/
+            }, TIME_RUN, TimeUnit.SECONDS);
     }
 }

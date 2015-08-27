@@ -37,7 +37,7 @@ public class MainSchedule extends SetPropertry implements Runnable{
 
         //Output Queue Length
         //mq.outputMQLog(timer);
-        sendMessage(timer+1);
+        //sendMessage(timer+1);
     }
     
     public void close(){
