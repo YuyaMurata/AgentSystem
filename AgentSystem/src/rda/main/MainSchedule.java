@@ -27,6 +27,7 @@ public class MainSchedule extends SetPropertry implements Runnable{
         MessageObject msg;
         while((msg = mt.getTimeToData(t)) != null){
             mq.sendMessage(msg);
+            System.out.println("Message:"+msg.agentKey+"."+msg.data);
         }
     }
     
@@ -37,7 +38,7 @@ public class MainSchedule extends SetPropertry implements Runnable{
 
         //Output Queue Length
         //mq.outputMQLog(timer);
-        //sendMessage(timer+1);
+        sendMessage(timer+1);
     }
     
     public void close(){
