@@ -24,7 +24,7 @@ public class MessageQueueTest extends TestParameter{
         DataGenerator ag = DataGenerator.getInstance();
         
         for(int i=0; i < run; i++){
-            msg = new MessageObject(ag.getData().agentKey, ag.getData().data);
+            msg = ag.getData();
             
             //WindowContoroler to MQ
             mq.sendMessage(msg);

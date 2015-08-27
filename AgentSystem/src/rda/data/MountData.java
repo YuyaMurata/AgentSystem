@@ -12,20 +12,20 @@ public class MountData extends SetPropertry{
 		count = -1;
 	}
 
-	private static DataGenerator gen = DataGenerator.getInstance();
-
+	private static final DataGenerator gen = DataGenerator.getInstance();
 	public MessageObject getTimeToData(int t){
 		count++;
 
 		if(count < t*VOLUME) return gen.getData();
-		else if(count == t*VOLUME) return new MessageObject(null, -1);
+		else if(count == t*VOLUME) 
+                    return new MessageObject(gen.getData().agentKey, -1);
 		else{
 			count = -1;
 			return null;
 		}
 	}
 
-	
+	/**
 	public static void main(String[] args) {
 		MountData mt = new MountData();
 
@@ -43,6 +43,6 @@ public class MountData extends SetPropertry{
 
 			System.out.println("Time: " + (stop-start) +" ms");
 		}
-	}
+	}**/
 
 }
