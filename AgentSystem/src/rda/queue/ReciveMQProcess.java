@@ -30,7 +30,7 @@ public class ReciveMQProcess extends Thread {
 		
         while(running || queue.check()){
             ArrayList<MessageObject> messageList = (ArrayList<MessageObject>) queue.getMessage();
-            //System.out.println(name+"_"+messageList.size()+":稼動中!");
+            System.out.println(name+"_"+messageList.size()+":稼動中!");
 			
             for(MessageObject msg : messageList){
                 //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
