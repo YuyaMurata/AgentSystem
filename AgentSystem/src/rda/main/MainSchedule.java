@@ -27,7 +27,7 @@ public class MainSchedule extends SetPropertry implements Runnable{
         MessageObject msg;
         while((msg = mt.getTimeToData(t)) != null){
             mq.sendMessage(msg);
-            System.out.println("Message:"+msg.agentKey+"."+msg.data);
+            //System.out.println("Message:"+msg.agentKey+"."+msg.data);
         }
     }
     
