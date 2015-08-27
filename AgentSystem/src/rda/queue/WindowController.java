@@ -7,25 +7,28 @@ import rda.property.SetPropertry;
 import test.CalcUsage;
 
 public class WindowController extends SetPropertry{
-	private final ReciveMessageQueue[] mqArray = new ReciveMessageQueue[NUMBER_OF_QUEUE];
-	private final ArrayList<MessageObject> window[] = new ArrayList[NUMBER_OF_QUEUE];
+	private ReciveMessageQueue[] mqArray;
+	private ArrayList<MessageObject>[] window; 
 
 	private static OutputData outdata;
 
-        private void init(){
-            for(int i=0; i < NUMBER_OF_QUEUE; i++){
+        private void init(int numberOfMQ){
+            mqArray = new ReciveMessageQueue[numberOfMQ];
+            window = new ArrayList[numberOfMQ];
+            
+            for(int i=0; i < numberOfMQ; i++){
                 this.mqArray[i] = new ReciveMessageQueue("RMQ"+i);
                 window[i] = new ArrayList<>();
             }
 
-            outdata = new OutputData("MQ"+NUMBER_OF_QUEUE+"_"+System.currentTimeMillis()+".csv");
+            outdata = new OutputData("MQ"+numberOfMQ+"_"+System.currentTimeMillis()+".csv");
         }
         
 	public String name;
-	public WindowController(String name) {
+	public WindowController(int numberOfMQ, String name) {
             // TODO 自動生成されたコンストラクター・スタブ
             this.name = name;
-            init();
+            init(numberOfMQ);
 	}
 
 	public void sendMessage(MessageObject mes){
@@ -39,8 +42,8 @@ public class WindowController extends SetPropertry{
 	}
 
 	private void sendMessageQueue(int i, Object mes){
-		//QueueにPutする
-		mqArray[i].putMessage(mes);
+            //QueueにPutする
+            mqArray[i].putMessage(mes);
 	}
 
 	public void close(){

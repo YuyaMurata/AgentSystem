@@ -4,30 +4,37 @@ import java.util.ArrayList;
 import rda.agent.CreateAgentClient;
 import rda.agent.user.UpdateUser;
 import rda.data.DataGenerator;
-import rda.property.SetPropertry;
 
-public class UpdateTest {
-	private static final int NUM_OF_AGENTS = 1000;
+public class UpdateTest extends TestParameter{
 	
-	private static void update(int num){
-		UpdateUser user = new UpdateUser();
-		CreateAgentClient agentClient = new CreateAgentClient();
+    private static void execute(int num){
+        UpdateUser user = new UpdateUser();
+        CreateAgentClient agentClient = new CreateAgentClient();
 
-		DataGenerator ag = DataGenerator.getInstance();
+        DataGenerator ag = DataGenerator.getInstance();
 
-		user.setParam(agentClient.getClient());
+        user.setParam(agentClient.getClient());
 
-		for(int i=0; i < NUM_OF_AGENTS*num; i++){
-                    ArrayList<Integer> list = new ArrayList<>();
-                    list.add(ag.getData().data);
-                    user.sendUpdateMessage(ag.getData().agentKey, list);
-		}
-	}
+        for(int i=0; i < NUMBER_USER * num; i++){
+            ArrayList<Integer> list = new ArrayList<>();
+            list.add(ag.getData().data);
+            user.sendUpdateMessage(ag.getData().agentKey, list);
+        }
+    }
 
-	public static void main(String[] args) {
-		int num = 1;
-		if(args.length != 0) num = Integer.valueOf(args[0]);
-
-		update(Integer.valueOf(num));
-	}
+    public static void main(String[] args) {
+        //*** After CreateAgentTest ***//
+        
+        //Update Agent
+        long start = System.currentTimeMillis();
+	System.out.println("Start Agent System : "+start);
+        
+        //Executable Test
+        execute(NUMBER_RUN);
+        
+        long stop = System.currentTimeMillis();
+        System.out.println("Stop Agent System : "+stop);
+        
+        System.out.println("N="+NUMBER_USER+"R="+NUMBER_RUN+" time : "+(stop-start));
+    }
 }

@@ -1,20 +1,14 @@
 package rda.test;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.agent.CreateAgent;
 
 import rda.data.DataGenerator;
 import rda.data.OutputData;
 import rda.queue.MessageObject;
-import rda.queue.ReciveMessageQueue;
 import rda.queue.WindowController;
 
-public class MessageQueueTest{
-    //Experiment Condition
-    private static final int NUMBER_USER = 1;
-    private static final int NUMBER_DATA = 100000;
+public class MessageQueueTest extends TestParameter{
             
     private static void createUser(int numOfUser) {
         CreateAgent agent = new CreateAgent();
@@ -23,7 +17,7 @@ public class MessageQueueTest{
 
     private static void execute(int run){
         //ReciveMessageQueue rmq = new ReciveMessageQueue("MQ0");
-        WindowController mq = new WindowController(String.valueOf("Win_Main"));
+        WindowController mq = new WindowController(NUMBER_QUEUE, String.valueOf("Win_Main"));
         
         MessageObject msg;
         ArrayList<MessageObject> oneMessage;
