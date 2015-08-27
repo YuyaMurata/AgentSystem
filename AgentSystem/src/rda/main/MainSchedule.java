@@ -36,7 +36,7 @@ public class MainSchedule extends SetPropertry implements Runnable{
         System.out.println("Experiment Step :" + timer +" sec");
 
         //Output Queue Length
-        mq.outputMQLog(timer);
+        //mq.outputMQLog(timer);
         sendMessage(timer+1);
     }
     
