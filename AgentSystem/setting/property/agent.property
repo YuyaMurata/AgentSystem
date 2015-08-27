@@ -1,5 +1,5 @@
 #Thu Aug 14 15:12:48 JST 2014
-number.user.agent=1
+number.user.agent=10
 wait.agent=100
-time.run=60
+time.run=2000
 number.rank.agent=1
