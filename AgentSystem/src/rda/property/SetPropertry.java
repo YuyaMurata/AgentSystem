@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import rda.data.OutputData;
 
 public abstract class SetPropertry {
-	public static Property prop = new Property();
-	public static OutputData out = new OutputData("Ex_Mt_"+System.currentTimeMillis()+".txt");
+	public static final Property prop = new Property();
+	public static OutputData outputEvent = new OutputData("MQEvent_Ex_Mt_"+System.currentTimeMillis()+".txt");
 
 	public static final String AGENT_TYPE = "useragent";
 
@@ -21,7 +21,7 @@ public abstract class SetPropertry {
 	 */
 	public static final Integer NUMBER_OF_SERVER = Integer.valueOf(prop.getValue("server", "number.server"));
 	public static final Integer SERVER_THREAD = Integer.valueOf(prop.getValue("server","number.thread"));
-	public static ArrayList<String> HOST_ADDRESS = new ArrayList<String>();
+	public static ArrayList<String> HOST_ADDRESS = new ArrayList<>();
 	public void setHost(){
 		for(int i=0; i < NUMBER_OF_SERVER; i++)
 			HOST_ADDRESS.add(prop.getValue("server", "h"+i+".server"));

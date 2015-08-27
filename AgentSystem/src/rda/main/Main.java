@@ -5,12 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.agent.CreateAgent;
-import rda.data.MountData;
 import rda.property.SetPropertry;
-import rda.queue.MessageObject;
 import rda.queue.WindowController;
 
 public class Main extends SetPropertry{
@@ -19,8 +15,8 @@ public class Main extends SetPropertry{
         
     private static void init(){
         //File
-        out.write("MessageQueue_Event Time: Agent_"+NUMBER_OF_USER_AGENTS+", Run_"+TIME_RUN);
-        out.write("MessageQueue Property: Window Size_"+WINDOW_SIZE+", MQ Length_"+QUEUE_LENGTH+", wait_"+QUEUE_WAIT);
+        outputEvent.write("MessageQueue_Event Time: Agent_"+NUMBER_OF_USER_AGENTS+", Run_"+TIME_RUN);
+        outputEvent.write("MessageQueue Property: Window Size_"+WINDOW_SIZE+", MQ Length_"+QUEUE_LENGTH+", wait_"+QUEUE_WAIT);
 
         mainTask = new MainSchedule(new WindowController(NUMBER_OF_QUEUE ,String.valueOf("Win_Main")));
     }
@@ -38,14 +34,10 @@ public class Main extends SetPropertry{
         createUser(NUMBER_OF_USER_AGENTS);
 
         //Execute Agent System
-
         execute();
-
-        // System Log
         
-        //out.write("start_time:"+start+",stop_time:"+stop+","+(stop-start)+",[ms]");
-
-        out.close();
+        //Event Log Exit
+        outputEvent.close();
     }
 
     private static void execute(){

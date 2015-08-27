@@ -19,6 +19,6 @@ public class MessageQueueException extends Exception{
 		System.out.println(name+" : 負荷検知#"+System.currentTimeMillis()+" [ms]");
 
 		//イベントのファイル出力
-		SetPropertry.out.write(name + ","+String.valueOf(System.currentTimeMillis()));
+		SetPropertry.outputEvent.write(name + ","+String.valueOf(System.currentTimeMillis()));
 	}
 }
