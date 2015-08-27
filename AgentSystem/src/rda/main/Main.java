@@ -70,9 +70,11 @@ public class Main extends SetPropertry{
             }, TIME_RUN, TimeUnit.SECONDS);
         
         try {
-            System.out.println(future.get());
+            future.get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+        } finally {
+            ex.shutdownNow();
         }
     }
 }
