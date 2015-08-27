@@ -1,9 +1,12 @@
 package rda.main;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rda.agent.CreateAgent;
 import rda.data.MountData;
 import rda.property.SetPropertry;
@@ -66,6 +69,10 @@ public class Main extends SetPropertry{
                 }
             }, TIME_RUN, TimeUnit.SECONDS);
         
-        System.out.println(future.get());
+        try {
+            System.out.println(future.get());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }
