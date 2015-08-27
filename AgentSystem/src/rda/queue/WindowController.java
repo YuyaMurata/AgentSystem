@@ -49,11 +49,11 @@ public class WindowController extends SetPropertry{
 	public void close(){
             for (ReciveMessageQueue mq : mqArray) {
                 Thread thread = mq.close();
-                try {
+               /* try {
                     thread.join();
                 }catch (InterruptedException ex) {
                     System.out.println(ex);
-                }
+                }*/
             }
 
             outdata.close();
