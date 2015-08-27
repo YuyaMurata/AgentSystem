@@ -35,22 +35,20 @@ public class Main extends SetPropertry{
         createUser(NUMBER_OF_USER_AGENTS);
 
         //Execute Agent System
-        long start = System.currentTimeMillis();
-        System.out.println("Start Agent System : "+start);
 
         execute();
 
-        long stop = System.currentTimeMillis();
-        System.out.println("Stop Agent System : "+stop);
-
         // System Log
-        System.out.println("transaction_time : "+(stop-start));
-        out.write("start_time:"+start+",stop_time:"+stop+","+(stop-start)+",[ms]");
+        
+        //out.write("start_time:"+start+",stop_time:"+stop+","+(stop-start)+",[ms]");
 
         out.close();
     }
 
     private static void execute(){
+        final long start = System.currentTimeMillis();
+        System.out.println("Start Agent System : "+start);
+        
         //Start Main Schedule
         final ScheduledFuture future = ex.scheduleAtFixedRate
                 (mainTask, 0, TIME_PERIOD, TimeUnit.MILLISECONDS);
@@ -61,6 +59,10 @@ public class Main extends SetPropertry{
                 public void run(){
                     future.cancel(true);
                     mainTask.close();
+                    
+                    long stop = System.currentTimeMillis();
+                    System.out.println("Stop Agent System : "+stop);
+                    System.out.println("transaction_time : "+(stop-start));
                 }
             }, TIME_RUN, TimeUnit.SECONDS);
     }
