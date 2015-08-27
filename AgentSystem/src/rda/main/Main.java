@@ -50,14 +50,14 @@ public class Main extends SetPropertry{
         System.out.println("Start Agent System : "+start);
         
         //Start Main Schedule
-        final ScheduledFuture future = ex.scheduleAtFixedRate
+        final ScheduledFuture mainTaskFuture = ex.scheduleAtFixedRate
                 (mainTask, 0, TIME_PERIOD, TimeUnit.MILLISECONDS);
         
         //Stop Main Schedule
-        ex.schedule(
+        ScheduledFuture future = ex.schedule(
             new Runnable(){
                 public void run(){
-                    future.cancel(true);
+                    mainTaskFuture.cancel(true);
                     mainTask.close();
                     
                     long stop = System.currentTimeMillis();
@@ -65,5 +65,7 @@ public class Main extends SetPropertry{
                     System.out.println("transaction_time : "+(stop-start));
                 }
             }, TIME_RUN, TimeUnit.SECONDS);
+        
+        System.out.println(future.get());
     }
 }
