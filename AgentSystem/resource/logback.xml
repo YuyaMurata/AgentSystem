@@ -74,7 +74,7 @@ and open the template in the editor.
         <appender-ref ref="MQ_EVENT_INFO"/>
     </appender>
 
-    <root level="INFO">
+    <root>
         <appender-ref ref="STDOUT" />
         <appender-ref ref="ASYNC_AGENT_INFO" />
         <appender-ref ref="ASYNC_MQ_EVENT_INFO" />
