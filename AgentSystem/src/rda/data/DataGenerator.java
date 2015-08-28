@@ -11,17 +11,17 @@ public class DataGenerator extends SetProperty{
 	private static int count;
 	private static final DataGenerator data = new DataGenerator();
 	private DataGenerator(){
+            init();
 		count = 0;
 	}
 
 	// Singleton
 	public static DataGenerator getInstance(){
-		init();
 		return data;
 	}
 
 	//Set All UserID(AgentKey)
-	private static ArrayList<AgentKey> agentKey = new ArrayList<>();
+	private static final ArrayList<AgentKey> agentKey = new ArrayList<>();
 	private static void init(){
 		for(int i=0; i < NUMBER_OF_USER_AGENTS; i++){
 			String userID = "U#00"+ i;
