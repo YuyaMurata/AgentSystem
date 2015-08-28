@@ -111,8 +111,9 @@ public class Main extends SetProperty{
     
     private static void stop_debug(){
         logger.debug(mainMarker, "StopAgentSystem: {} [ms]", stop);
+        transaction = stop-start;
         logger.debug(mainMarker, 
-                    "<Initialise-ThreadShutdown>TransactionTime: {} [ms]", stop-start);
+                    "<Initialise-ThreadShutdown>TransactionTime: {} [ms]", transaction);
         
         logger.trace(mainMarker, "StopAgentSystem: {} [ms]", stop);
         logger.trace(mainMarker, 
