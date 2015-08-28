@@ -4,7 +4,7 @@ import rda.property.SetProperty;
 import rda.queue.MessageObject;
 
 public class MountData extends SetProperty{
-    public static final String name = "Mount";
+    public final String name = "Mount";
     private static Integer count;
 
 	public MountData() {
