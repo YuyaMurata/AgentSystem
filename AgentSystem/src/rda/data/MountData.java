@@ -1,15 +1,16 @@
 package rda.data;
 
-import rda.property.SetPropertry;
+import rda.property.SetProperty;
 import rda.queue.MessageObject;
 
-public class MountData extends SetPropertry{
-	private static final Integer VOLUME = 10;
-	private static Integer count;
+public class MountData extends SetProperty{
+    public final String name;
+    private static Integer count;
+        
 
 	public MountData() {
-		// TODO 自動生成されたコンストラクター・スタブ
-		count = -1;
+            this.name = "Mount";
+            count = -1;
 	}
 
 	private static final DataGenerator gen = DataGenerator.getInstance();
@@ -24,6 +25,11 @@ public class MountData extends SetPropertry{
 			return null;
 		}
 	}
+        
+        public Long getAmountData(){
+            Long n = (TIME_RUN / TIME_PERIOD) + 1; 
+            return n * (n-1) / 2 * VOLUME;
+        }
 
 	/**
 	public static void main(String[] args) {

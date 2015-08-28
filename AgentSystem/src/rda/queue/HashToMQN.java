@@ -1,10 +1,10 @@
 package rda.queue;
 
-import rda.property.SetPropertry;
+import rda.property.SetProperty;
 
 import com.ibm.agent.exa.AgentKey;
 
-public class HashToMQN extends SetPropertry{
+public class HashToMQN extends SetProperty{
 	//AgentKey Define
 	private static final int HASH_MOD = 9973;
 

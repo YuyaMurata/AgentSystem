@@ -2,12 +2,12 @@ package rda.data;
 
 import java.util.ArrayList;
 
-import rda.property.SetPropertry;
+import rda.property.SetProperty;
 import rda.queue.MessageObject;
 
 import com.ibm.agent.exa.AgentKey;
 
-public class DataGenerator extends SetPropertry{
+public class DataGenerator extends SetProperty{
 	private static int count;
 	private static final DataGenerator data = new DataGenerator();
 	private DataGenerator(){

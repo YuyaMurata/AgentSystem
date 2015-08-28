@@ -2,15 +2,12 @@ package rda.queue;
 
 import java.util.ArrayList;
 
-import rda.data.OutputData;
-import rda.property.SetPropertry;
+import rda.property.SetProperty;
 import test.CalcUsage;
 
-public class WindowController extends SetPropertry{
+public class WindowController extends SetProperty{
 	private ReciveMessageQueue[] mqArray;
 	private ArrayList<MessageObject>[] window; 
-
-	private static OutputData outdata;
 
         private void init(int numberOfMQ){
             mqArray = new ReciveMessageQueue[numberOfMQ];
@@ -20,8 +17,6 @@ public class WindowController extends SetPropertry{
                 this.mqArray[i] = new ReciveMessageQueue("RMQ"+i);
                 window[i] = new ArrayList<>();
             }
-
-            outdata = new OutputData("QueueLength_MQ"+numberOfMQ+"_"+System.currentTimeMillis()+".csv");
         }
         
 	public String name;
@@ -47,23 +42,19 @@ public class WindowController extends SetPropertry{
 	}
 
 	public void close(){
-            for (ReciveMessageQueue mq : mqArray) {
+            for (ReciveMessageQueue mq : mqArray)
                mq.close();
-            }
-
-            outdata.close();
 	}
 
+        /**
 	private final CalcUsage getCPULoad = new CalcUsage();
 	public  void outputMQLog(int t){
-		StringBuilder sb = new StringBuilder(t+","+getCPULoad.getUsage());
+            StringBuilder sb = new StringBuilder(t);
 
-            for (ReciveMessageQueue mq : mqArray) {
-                sb.append(",");
+            for (ReciveMessageQueue mq : mqArray)
                 sb.append(mq.getSize());
-            }
-
-            outdata.write(sb.toString());
-
+            
+            logger.trace(name);
 	}
+        * **/
 }

@@ -45,7 +45,7 @@ public class UpdateUser implements AgentExecutor, Serializable{
 		// TODO 自動生成されたメソッド・スタブ
 		try {
 			AgentManager agentManager = AgentManager.getAgentManager();
-
+                        
 			MessageFactory factory = MessageFactory.getFactory();
 			UpdateUserMessage msg;
 			msg = (UpdateUserMessage)factory.getMessage(MESSAGE_TYPE);
@@ -72,7 +72,7 @@ public class UpdateUser implements AgentExecutor, Serializable{
 		try {
 			UpdateUser executor = new UpdateUser(agentKey, data);
 			client.execute(agentKey, executor);
-
+                        
 			//System.out.println("A message from the agent[" + agentKey + "]: " + reply);
 		} catch (AgentException e) {
 			// TODO 自動生成された catch ブロック

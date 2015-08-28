@@ -10,11 +10,11 @@ import java.util.Date;
 
 public class OutputData {
 	private String filename;
-	public OutputData(String filename) {
+	/*public OutputData(String filename) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.filename = filename;
 		init();
-	}
+	}*/
 		
 	private PrintWriter pw;
 	private void init(){

@@ -20,7 +20,7 @@ public class Property {
         System.out.println("* Load " + filename);
 
         try{
-            prop.load(new FileInputStream(filename));
+            prop.load(getClass().getResourceAsStream(filename));
         }catch(IOException e){
                 e.printStackTrace();
         }
@@ -28,19 +28,19 @@ public class Property {
 
     //Server Property
     private void loadServerProperty(){
-        String filename = "property/server.property";
+        String filename = "/server.properties";
         load(server, filename);
     }
 
     //Queue Property
     private void loadQueueProperty(){
-        String filename = "property/queue.property";
+        String filename = "/queue.properties";
         load(queue, filename);
     }
 
     //Agent Property
     private void loadAgentProperty(){
-        String filename = "property/agent.property";
+        String filename = "/agent.properties";
         load(agent, filename);
     }
 
@@ -72,7 +72,7 @@ public class Property {
             System.out.println("* QueueProperty Value  : "+(String)key+"="+getValue("queue", (String)key));
         System.out.println("* ------------------------------------------------ *");
         
-        for(Object key: queue.keySet())
+        for(Object key: agent.keySet())
             System.out.println("* AgentProperty Value  : "+(String)key+"="+getValue("agent", (String)key));
         System.out.println("****************************************************");
     }

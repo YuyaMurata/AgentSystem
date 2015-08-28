@@ -2,10 +2,10 @@ package rda.data;
 
 import java.util.ArrayList;
 
-import rda.property.SetPropertry;
+import rda.property.SetProperty;
 import rda.queue.MessageObject;
 
-public class ImpulseData extends SetPropertry{
+public class ImpulseData extends SetProperty{
 	private static final Integer LIMIT = 1000;
 	private static ArrayList<Integer> timeRecord = new ArrayList<Integer>();
 	private static Integer timer;

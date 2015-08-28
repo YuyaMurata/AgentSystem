@@ -1,19 +1,24 @@
 package rda.property;
 
 import java.util.ArrayList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import rda.data.MountData;
 
 import rda.data.OutputData;
 
-public abstract class SetPropertry {
+public abstract class SetProperty {
 	public static final Property prop = new Property();
-	public static OutputData outputEvent = new OutputData("MQEvent_Ex_Mt_"+System.currentTimeMillis()+".txt");
+	//public static OutputData outputEvent = new OutputData("MQEvent_Ex_Mt_"+System.currentTimeMillis()+".txt");
 
 	public static final String AGENT_TYPE = "useragent";
-
+        
+        public static final MountData DATA_TYPE = new MountData();
+        public static final Integer VOLUME = 10;
+        
 	//Server Property
 	/**
 	 * file:server.property
-	 * #Thu Aug 14 15:12:48 JST 2014
 	 * h1.server=h1\:2809
 	 * h0.server=localhost\:2809
 	 * number.server=1
@@ -30,11 +35,10 @@ public abstract class SetPropertry {
 	//Queue Property
 	/**
 	 * file:queue.property
-	 * #Thu Aug 14 15:12:48 JST 2014
-	 * size.window=100
-	 * number.queue=1
-	 * length.queue=1000
-	 * wait.queue=10
+	 * size.window
+	 * number.queue
+	 * length.queue
+	 * wait.queue
 	 */
 	public static final Integer WINDOW_SIZE = Integer.valueOf(prop.getValue("queue", "size.window"));
 	public static final Integer NUMBER_OF_QUEUE = Integer.valueOf(prop.getValue("agent", "number.user.agent"));//Integer.valueOf(prop.getValue("queue", "number.queue"));
@@ -44,15 +48,23 @@ public abstract class SetPropertry {
 	//Agent Property
 	/**
 	 * file:agent.property
-	 * #Thu Aug 14 15:12:48 JST 2014
-	 * number.user.agent=1
-	 * wait.agent=10
-	 * time.run=300
-	 * number.rank.agent=1
+	 * number.user.agent
+         * time.period=
+	 * wait.agent
+	 * time.run
+	 * number.rank.agent
 	 */
 	public static final Integer TIME_RUN = Integer.valueOf(prop.getValue("agent", "time.run"));
 	public static final Long TIME_PERIOD = Long.valueOf(prop.getValue("agent", "time.period")); // ms
 	public static final Integer NUMBER_OF_USER_AGENTS = Integer.valueOf(prop.getValue("agent", "number.user.agent"));
 	public static final Integer NUMBER_OF_RANK_AGENTS = Integer.valueOf(prop.getValue("agent", "number.rank.agent"));
 	public static final Long AGENT_WAIT = Long.valueOf(prop.getValue("agent", "wait.agent"));
+        
+        //Logger SLF4J
+        /**
+         * AgentSyste_info.log element = Message Queue Length per sec
+         * Consle Output Step Time per sec
+         * vmstat.log CPU Avairability per sec
+         */
+        public static final Logger logger = LoggerFactory.getLogger(SetProperty.class);
 }

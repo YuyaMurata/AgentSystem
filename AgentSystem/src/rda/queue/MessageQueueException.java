@@ -1,24 +1,29 @@
 package rda.queue;
 
-import rda.property.SetPropertry;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+import rda.property.SetProperty;
 
 public class MessageQueueException extends Exception{
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 5686827278265942730L;
-	private String name;
+	private final String name;
+        private static final Marker mqEventMarker = MarkerFactory.getMarker("Message Queue Event");
 
 	public MessageQueueException(String name) {
 		// TODO 自動生成されたコンストラクター・スタブ
-		super(name+":MessageQueue 負荷検知#"+System.currentTimeMillis()+" [ms]");
+		super(name);
 		this.name = name;
 	}
 
 	public void printEvent(){
-		System.out.println(name+" : 負荷検知#"+System.currentTimeMillis()+" [ms]");
+		SetProperty.logger.info(mqEventMarker, 
+                        "MQName_{} : 負荷検知# Time {} [ms]", name, System.currentTimeMillis());
 
 		//イベントのファイル出力
-		SetPropertry.outputEvent.write(name + ","+String.valueOf(System.currentTimeMillis()));
+		SetProperty.logger.trace(mqEventMarker, 
+                        "MQName_{}:負荷検知#Time {} [ms]", name, System.currentTimeMillis());
 	}
 }

@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import rda.data.OutputData;
-import rda.property.SetPropertry;
+import rda.property.SetProperty;
 
-public class Mpstat extends SetPropertry implements Runnable{
+public class Mpstat extends SetProperty implements Runnable{
 	private static OutputData outcpudata;
 	public Mpstat() {
 		// TODO 自動生成されたコンストラクター・スタブ
@@ -52,10 +52,11 @@ public class Mpstat extends SetPropertry implements Runnable{
 	@Override
 	public void run() {
 		// TODO 自動生成されたメソッド・スタブ
-		outcpudata = new OutputData("MQ_"+NUMBER_OF_QUEUE+"_CPU_availablity_"+System.currentTimeMillis());
+		/*outcpudata = new OutputData("MQ_"+NUMBER_OF_QUEUE+"_CPU_availablity_"+System.currentTimeMillis());
 		outcpudata.write(getCPULoad());
 		
 		outcpudata.close();
+            */
 	}
 	
 	/**

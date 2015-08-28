@@ -1,0 +1,38 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package rda.queue;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import rda.property.SetProperty;
+
+/**
+ *
+ * @author kaeru
+ */
+public class MessageQueueTimer extends SetProperty implements Runnable{
+    private Boolean binaryTimer;
+    private static final ScheduledExecutorService ex = Executors.newSingleThreadScheduledExecutor();
+    
+    public MessageQueueTimer() {
+        this.binaryTimer = false;
+        ex.scheduleAtFixedRate(this, 0, QUEUE_WAIT, TimeUnit.MILLISECONDS);
+    }
+    
+    @Override
+    public void run() {
+        binaryTimer = !binaryTimer;
+    }
+    
+    public Boolean getTimer(){
+        return binaryTimer;
+    }
+    
+    public void close(){
+        ex.shutdownNow();
+    }
+}

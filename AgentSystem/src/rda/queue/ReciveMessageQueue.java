@@ -2,12 +2,13 @@ package rda.queue;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import rda.property.SetPropertry;
+import rda.property.SetProperty;
 
-public class ReciveMessageQueue extends SetPropertry{
-    public String name;
+public class ReciveMessageQueue extends SetProperty{
+    public final String name;
     private final ConcurrentLinkedQueue<Object> queue;
     private final ReciveMQProcess thread;
+    
     public ReciveMessageQueue(String name) {
         // TODO 自動生成されたコンストラクター・スタブ
         this.name = name;
@@ -17,12 +18,12 @@ public class ReciveMessageQueue extends SetPropertry{
     }
 
     public synchronized void putMessage(Object message) {
-        while(getSize() >= QUEUE_LENGTH){
+        while(isFull()){
             try {
                 event();
-            } catch (MessageQueueException mqLimitEvent) {
+            } catch (MessageQueueException mqEvent) {
                 // TODO 自動生成された catch ブロック
-                mqLimitEvent.printEvent();
+                mqEvent.printEvent();
 
                 try {
                     wait(AGENT_WAIT);
@@ -37,12 +38,16 @@ public class ReciveMessageQueue extends SetPropertry{
         throw new MessageQueueException(name);
     }
 	
-    public Boolean check(){
-        return getSize() > 0;
+    public Boolean isEmpty(){
+        return getSize() == 0;
+    }
+    
+    public Boolean isFull(){
+        return getSize() > QUEUE_LENGTH;
     }
 
     public synchronized Object getMessage(){
-        if(!check()){
+        if(isEmpty()){
             try {
                 //System.out.println(name+" Empty Wait!");
                 wait();

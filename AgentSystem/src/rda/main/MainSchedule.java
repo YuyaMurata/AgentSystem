@@ -5,8 +5,9 @@
  */
 package rda.main;
 
-import rda.data.MountData;
-import rda.property.SetPropertry;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+import rda.property.SetProperty;
 import rda.queue.MessageObject;
 import rda.queue.WindowController;
 
@@ -14,18 +15,18 @@ import rda.queue.WindowController;
  *
  * @author kaeru
  */
-public class MainSchedule extends SetPropertry implements Runnable{
+public class MainSchedule extends SetProperty implements Runnable{
     private static int timer = -1;
     private final WindowController mq;
+    private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");
 
     public MainSchedule(WindowController win) {
         this.mq = win;
     }
     
-    private static final MountData mt = new MountData();
     private void sendMessage(int t){
         MessageObject msg;
-        while((msg = mt.getTimeToData(t)) != null){
+        while((msg = DATA_TYPE.getTimeToData(t)) != null){
             mq.sendMessage(msg);
             //System.out.println("Message:"+msg.agentKey+"."+msg.data);
         }
@@ -34,7 +35,7 @@ public class MainSchedule extends SetPropertry implements Runnable{
     @Override
     public void run() {
         timer++;
-        System.out.println("Experiment Step :" + timer +" sec");
+        logger.info(scheduleMaker,"Experiment Step : {} [{}ms]", timer, TIME_PERIOD);
 
         //Output Queue Length
         //mq.outputMQLog(timer);
