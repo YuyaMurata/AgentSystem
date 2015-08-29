@@ -34,7 +34,7 @@ public class ReciveMQProcess extends Thread {
         user.setParam(ag.getClient());
         HashMap<AgentKey, ArrayList<Integer>> msgMap = new HashMap<>();
 		
-        while(running){
+        while(mq.isRunning()){
             ArrayList<MessageObject> msgList = (ArrayList<MessageObject>) mq.getMessage();
             //System.out.println(name+"_"+messageList.size()+":稼動中!");
 	
@@ -57,10 +57,5 @@ public class ReciveMQProcess extends Thread {
 		
         //ag.close();
         SetProperty.logger.info(rMQMarker, "********** Recive Message Queue {} Stop!! ********** ", name);
-    }
-
-    private boolean running = true;
-    public void stopRunning(){
-        running = false;
     }
 }

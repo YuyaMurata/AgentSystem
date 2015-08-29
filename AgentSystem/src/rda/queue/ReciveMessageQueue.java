@@ -1,8 +1,6 @@
 package rda.queue;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import rda.property.SetProperty;
 
@@ -10,10 +8,13 @@ public class ReciveMessageQueue extends SetProperty{
     public final String name;
     private final ConcurrentLinkedQueue<Object> queue;
     private final ReciveMQProcess thread;
+    private final WindowController window;
     
-    public ReciveMessageQueue(String name) {
+    public ReciveMessageQueue(String name, WindowController window) {
         // TODO 自動生成されたコンストラクター・スタブ
         this.name = name;
+        this.window = window;
+        
         this.queue = new ConcurrentLinkedQueue<>();
         this.thread = new ReciveMQProcess(name, this);
         thread.start();
@@ -62,7 +63,7 @@ public class ReciveMessageQueue extends SetProperty{
         return queue.size();
     }
         
-    public synchronized void close(){
-        thread.stopRunning();
+    public Boolean isRunning(){
+        return window.running;
     }
 }

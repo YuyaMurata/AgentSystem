@@ -8,13 +8,16 @@ import test.CalcUsage;
 public class WindowController extends SetProperty{
 	private ReciveMessageQueue[] mqArray;
 	private ArrayList<MessageObject>[] window; 
+        public Boolean running;
 
         private void init(int numberOfMQ){
             mqArray = new ReciveMessageQueue[numberOfMQ];
             window = new ArrayList[numberOfMQ];
             
+            running = true;
+            
             for(int i=0; i < numberOfMQ; i++){
-                this.mqArray[i] = new ReciveMessageQueue("RMQ"+i);
+                this.mqArray[i] = new ReciveMessageQueue("RMQ"+i, this);
                 window[i] = new ArrayList<>();
             }
         }
@@ -42,8 +45,7 @@ public class WindowController extends SetProperty{
 	}
 
 	public void close(){
-            for (ReciveMessageQueue mq : mqArray)
-               mq.close();
+            running = false;
 	}
 
         /**
