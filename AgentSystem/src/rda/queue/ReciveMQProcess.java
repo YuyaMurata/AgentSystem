@@ -35,9 +35,9 @@ public class ReciveMQProcess extends Thread {
         user.setParam(ag.getClient());
         HashMap<AgentKey, ArrayList<Integer>> msgMap = new HashMap<>();
 	
-        try {
+        
             while(mq.isRunning()){
-            
+            try {
                 ArrayList<MessageObject> msgList = (ArrayList<MessageObject>) mq.getMessage();
                 //System.out.println(name+"_"+messageList.size()+":稼動中!");
                 
@@ -58,10 +58,9 @@ public class ReciveMQProcess extends Thread {
                 }*/
                 
                 SetProperty.logger.info("Runnnable name_{}",name);
-            
+         } catch (InterruptedException ex) {
+            }   
         }
-            } catch (InterruptedException ex) {
-            }
         
         this.finish = true;
         SetProperty.logger.info("AgentClient Close Before name_{}",name);
