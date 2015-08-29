@@ -28,7 +28,7 @@ public class MountData implements SetProperty{
 	}
         
         public Long getAmountData(){
-            Long n = (TIME_RUN / TIME_PERIOD) + 1;
+            Long n = (TIME_RUN*1000 / TIME_PERIOD) + 1;
             
             System.out.println("MountData_N_"+n);
             
