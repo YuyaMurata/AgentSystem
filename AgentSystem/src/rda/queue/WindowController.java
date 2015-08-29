@@ -1,6 +1,8 @@
 package rda.queue;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import rda.property.SetProperty;
 import test.CalcUsage;
@@ -40,12 +42,16 @@ public class WindowController extends SetProperty{
 	}
 
 	private void sendMessageQueue(int i, Object mes){
-            //QueueにPutする
-            mqArray[i].putMessage(mes);
+            try {
+                //QueueにPutする
+                mqArray[i].putMessage(mes);
+            } catch (InterruptedException ex) {
+            }
 	}
 
 	public void close(){
             running = false;
+            notifyAll();
 	}
 
         /**

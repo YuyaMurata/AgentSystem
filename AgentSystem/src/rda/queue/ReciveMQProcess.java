@@ -3,6 +3,8 @@ package rda.queue;
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
@@ -35,26 +37,29 @@ public class ReciveMQProcess extends Thread {
         HashMap<AgentKey, ArrayList<Integer>> msgMap = new HashMap<>();
 		
         while(mq.isRunning()){
-            ArrayList<MessageObject> msgList = (ArrayList<MessageObject>) mq.getMessage();
-            //System.out.println(name+"_"+messageList.size()+":稼動中!");
-	
-            /*
-            for(MessageObject msg : msgList){
+            try {
+                ArrayList<MessageObject> msgList = (ArrayList<MessageObject>) mq.getMessage();
+                //System.out.println(name+"_"+messageList.size()+":稼動中!");
+                
+                /*
+                for(MessageObject msg : msgList){
                 //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
                 if(msgMap.get(msg.agentKey) == null)
-                    msgMap.put(msg.agentKey, new ArrayList<Integer>());
+                msgMap.put(msg.agentKey, new ArrayList<Integer>());
                 msgMap.get(msg.agentKey).add(msg.data);
-            }
+                }
                 
-            if(mq.isEmpty() || mqt.getTimer()){
+                if(mq.isEmpty() || mqt.getTimer()){
                 for(AgentKey key : msgMap.keySet())
-                    user.sendUpdateMessage(key, msgMap.get(key));
+                user.sendUpdateMessage(key, msgMap.get(key));
                 msgMap.clear();
                 
                 //MQSpecificStorage.setMQSSMap(name, mq.getSize());
-            }*/
-            
-            SetProperty.logger.info("Runnnable name_{}",name);
+                }*/
+                
+                SetProperty.logger.info("Runnnable name_{}",name);
+            } catch (InterruptedException ex) {
+            }
         }
         
         SetProperty.logger.info("AgentClient Close Before name_{}",name);

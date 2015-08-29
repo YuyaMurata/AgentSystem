@@ -20,18 +20,17 @@ public class ReciveMessageQueue extends SetProperty{
         thread.start();
     }
 
-    public synchronized void putMessage(Object message) {
+    public synchronized void putMessage(Object message) throws InterruptedException {
         while(isFull()){
             try {
                 event();
             } catch (MessageQueueException mqEvent) {
                 mqEvent.printEvent();
 
-                try {
-                    wait(AGENT_WAIT);
-                } catch (InterruptedException e) {}
+                wait(AGENT_WAIT);
             }
         }
+        
         queue.offer(message);
         notify();
     }
@@ -48,15 +47,10 @@ public class ReciveMessageQueue extends SetProperty{
         return getSize() > QUEUE_LENGTH;
     }
 
-    public synchronized Object getMessage(){
-        /**if(isEmpty()){
-            try {
-                wait();
-            } catch (InterruptedException e) {}
-        }
+    public synchronized Object getMessage() throws InterruptedException{
+        if(isEmpty()) wait();
 
         notify();
-        */
         return queue.poll();
     }
 
