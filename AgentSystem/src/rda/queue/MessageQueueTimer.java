@@ -17,10 +17,15 @@ import rda.property.SetProperty;
 public class MessageQueueTimer extends SetProperty implements Runnable{
     private Boolean binaryTimer;
     private static final ScheduledExecutorService ex = Executors.newSingleThreadScheduledExecutor();
+    private static final MessageQueueTimer timer = new MessageQueueTimer();
     
-    public MessageQueueTimer() {
+    private MessageQueueTimer() {
         this.binaryTimer = false;
         ex.scheduleAtFixedRate(this, 0, QUEUE_WAIT, TimeUnit.MILLISECONDS);
+    }
+    
+    public static MessageQueueTimer getInstance(){
+        return timer;
     }
     
     @Override

@@ -22,7 +22,8 @@ public class ReciveMQProcess extends Thread {
         
         this.name = name;
         this.mq = queue;
-        this.mqt = new MessageQueueTimer();
+        
+        this.mqt = MessageQueueTimer.getInstance();
     }
 
     public void run() {

@@ -10,6 +10,7 @@ import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.agent.CreateAgent;
 import rda.property.SetProperty;
+import rda.queue.MessageQueueTimer;
 import rda.queue.WindowController;
 
 public class Main extends SetProperty{
@@ -73,7 +74,8 @@ public class Main extends SetProperty{
             future.get();
         } catch (InterruptedException | ExecutionException e) {
         } finally {
-            ex.shutdown();
+            ex.shutdownNow();
+            MessageQueueTimer.getInstance().close();
             
             // Stop Time
             stop = System.currentTimeMillis();
