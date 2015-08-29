@@ -27,8 +27,6 @@ public class Main implements SetProperty{
                     NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, AGENT_WAIT, QUEUE_WAIT);
         logger.info(mainMarker, "Server: N_{} host_{}",NUMBER_OF_SERVER, HOST_ADDRESS);
         
-        System.out.println("DATA_N"+DATA_TYPE.getAmountData().toString()+" Server Host "+HOST_ADDRESS);
-        
         // MQ Window Start
         mainTask = new MainSchedule(new WindowController(NUMBER_OF_QUEUE ,String.valueOf("Win_Main")));
     }
