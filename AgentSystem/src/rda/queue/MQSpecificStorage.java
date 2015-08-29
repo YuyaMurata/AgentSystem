@@ -38,8 +38,8 @@ public class MQSpecificStorage implements SetProperty{
         
         ArrayList<String> str = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
-        for(String key : mqSSCollection.keySet()){
-            str.add(String.valueOf(mqSSCollection.get(key)));
+        for(int i=0; i < NUMBER_OF_QUEUE; i++){
+            str.add(String.valueOf(mqSSCollection.get("RMQ"+i)));
             sb.append("{} ");
         }
         
