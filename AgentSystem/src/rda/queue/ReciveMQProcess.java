@@ -14,10 +14,10 @@ public class ReciveMQProcess extends Thread {
     private final String name;
     private final ReciveMessageQueue mq;
     private final MessageQueueTimer mqt;
+    private final CreateAgentClient ag = new CreateAgentClient();
     private static final Marker rMQMarker = MarkerFactory.getMarker("ReciveMessageQueue");
     
     public ReciveMQProcess(String name, ReciveMessageQueue queue) {
-        // TODO 自動生成されたコンストラクター・スタブ
         SetProperty.logger.info(rMQMarker, "********** Recive Message Queue {} Start!! ********** ", name);
         
         this.name = name;
@@ -27,9 +27,6 @@ public class ReciveMQProcess extends Thread {
     }
 
     public void run() {
-        // TODO 自動生成されたメソッド・スタブ
-        CreateAgentClient ag = new CreateAgentClient();
-                
         UpdateUser user = new UpdateUser();
         user.setParam(ag.getClient());
         HashMap<AgentKey, ArrayList<Integer>> msgMap = new HashMap<>();
@@ -53,13 +50,13 @@ public class ReciveMQProcess extends Thread {
                 //MQSpecificStorage.setMQSSMap(name, mq.getSize());
             }
         }
-		
-        ag.close();
+        
         SetProperty.logger.info(rMQMarker, "********** Recive Message Queue {} Stop!! ********** ", name);
     }
 
     private boolean running = true;
     public void stopRunning(){
         running = false;
+        ag.close();
     }
 }
