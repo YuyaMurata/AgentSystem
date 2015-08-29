@@ -14,7 +14,7 @@ import rda.property.SetProperty;
  *
  * @author kaeru
  */
-public class MessageQueueTimer extends SetProperty implements Runnable{
+public class MessageQueueTimer implements Runnable, SetProperty{
     private Boolean binaryTimer;
     private static final ScheduledExecutorService ex = Executors.newSingleThreadScheduledExecutor();
     private static final MessageQueueTimer timer = new MessageQueueTimer();

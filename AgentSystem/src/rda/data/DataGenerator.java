@@ -7,7 +7,7 @@ import rda.queue.MessageObject;
 
 import com.ibm.agent.exa.AgentKey;
 
-public class DataGenerator extends SetProperty{
+public class DataGenerator implements SetProperty{
 	private static int count;
 	private static final DataGenerator data = new DataGenerator();
 

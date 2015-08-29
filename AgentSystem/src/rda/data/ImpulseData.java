@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import rda.property.SetProperty;
 import rda.queue.MessageObject;
 
-public class ImpulseData extends SetProperty{
+public class ImpulseData implements SetProperty{
 	private static final Integer LIMIT = 1000;
 	private static ArrayList<Integer> timeRecord = new ArrayList<Integer>();
 	private static Integer timer;

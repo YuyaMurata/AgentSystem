@@ -16,7 +16,7 @@ import rda.property.SetProperty;
  *
  * @author kaeru
  */
-public class MQSpecificStorage extends SetProperty{
+public class MQSpecificStorage implements SetProperty{
     private static final ConcurrentHashMap<String, Integer> mqSSCollection = new ConcurrentHashMap<>();
     private static final Marker mqSSMarker = MarkerFactory.getMarker("MessageQueueSSLength");
     

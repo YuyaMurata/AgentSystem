@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import rda.data.OutputData;
 import rda.property.SetProperty;
 
-public class Mpstat extends SetProperty implements Runnable{
+public class Mpstat implements Runnable, SetProperty{
 	private static OutputData outcpudata;
 	public Mpstat() {
 		// TODO 自動生成されたコンストラクター・スタブ

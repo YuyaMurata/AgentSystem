@@ -15,7 +15,7 @@ import rda.queue.WindowController;
  *
  * @author kaeru
  */
-public class MainSchedule extends SetProperty implements Runnable{
+public class MainSchedule implements Runnable, SetProperty{
     private static int timer = -1;
     private final WindowController mq;
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");

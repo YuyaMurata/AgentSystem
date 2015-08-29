@@ -4,7 +4,7 @@ import rda.property.SetProperty;
 
 import com.ibm.agent.exa.AgentKey;
 
-public class HashToMQN extends SetProperty{
+public class HashToMQN implements SetProperty{
 	//AgentKey Define
 	private static final int HASH_MOD = 9973;
 

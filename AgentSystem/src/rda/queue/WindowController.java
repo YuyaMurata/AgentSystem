@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import rda.property.SetProperty;
 
-public class WindowController extends SetProperty{
+public class WindowController implements SetProperty{
 	private ReciveMessageQueue[] mqArray;
 	private ArrayList<MessageObject>[] window; 
         public Boolean running;

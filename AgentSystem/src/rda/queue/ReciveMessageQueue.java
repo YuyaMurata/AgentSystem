@@ -4,7 +4,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import rda.property.SetProperty;
 
-public class ReciveMessageQueue extends SetProperty{
+public class ReciveMessageQueue implements SetProperty{
     public final String name;
     private final ConcurrentLinkedQueue<Object> queue;
     private final ReciveMQProcess thread;

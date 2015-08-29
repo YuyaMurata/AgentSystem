@@ -13,7 +13,7 @@ import rda.property.SetProperty;
 import rda.queue.MessageQueueTimer;
 import rda.queue.WindowController;
 
-public class Main extends SetProperty{
+public class Main implements SetProperty{
     private static final ScheduledExecutorService ex = Executors.newSingleThreadScheduledExecutor();
     private static MainSchedule mainTask;
     private static final Marker mainMarker = MarkerFactory.getMarker("AgentSystem Main");

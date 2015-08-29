@@ -2,6 +2,7 @@ package rda.property;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class Property {
@@ -52,6 +53,13 @@ public class Property {
             case "agent" : return agent.getProperty(key);
             default      : return null;
         }
+    }
+    
+    public ArrayList<String> setHost(int numServer){
+        ArrayList<String> host = new ArrayList<>();
+            for(int i=0; i < numServer; i++)
+                host.add(getValue("server", "h"+i+".server"));
+        return host;
     }
     
     private void loadPropertyALL(){

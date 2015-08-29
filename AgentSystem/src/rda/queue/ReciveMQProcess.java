@@ -36,29 +36,27 @@ public class ReciveMQProcess extends Thread {
         HashMap<AgentKey, ArrayList<Integer>> msgMap = new HashMap<>();
 	
         
-            while(mq.isRunning()){
+        while(mq.isRunning() || !mq.isEmpty()){
             try {
                 ArrayList<MessageObject> msgList = (ArrayList<MessageObject>) mq.getMessage();
                 //System.out.println(name+"_"+messageList.size()+":稼動中!");
                 
-                /*
                 for(MessageObject msg : msgList){
                 //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
-                if(msgMap.get(msg.agentKey) == null)
-                msgMap.put(msg.agentKey, new ArrayList<Integer>());
-                msgMap.get(msg.agentKey).add(msg.data);
+                    if(msgMap.get(msg.agentKey) == null)
+                        msgMap.put(msg.agentKey, new ArrayList<Integer>());
+                    msgMap.get(msg.agentKey).add(msg.data);
                 }
                 
                 if(mq.isEmpty() || mqt.getTimer()){
-                for(AgentKey key : msgMap.keySet())
-                user.sendUpdateMessage(key, msgMap.get(key));
-                msgMap.clear();
+                    for(AgentKey key : msgMap.keySet())
+                        user.sendUpdateMessage(key, msgMap.get(key));
+                    msgMap.clear();
                 
                 //MQSpecificStorage.setMQSSMap(name, mq.getSize());
-                }*/
+                }
                 
-                SetProperty.logger.info("Runnnable name_{}",name);
-         } catch (InterruptedException ex) {
+            } catch (InterruptedException ex) {
             }   
         }
         

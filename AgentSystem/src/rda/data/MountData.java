@@ -3,7 +3,7 @@ package rda.data;
 import rda.property.SetProperty;
 import rda.queue.MessageObject;
 
-public class MountData extends SetProperty{
+public class MountData implements SetProperty{
     public final String name = "Mount";
     private static Integer count;
     private final DataGenerator gen;
