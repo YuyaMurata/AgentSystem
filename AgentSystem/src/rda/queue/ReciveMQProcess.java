@@ -39,8 +39,6 @@ public class ReciveMQProcess extends Thread {
         
         while(mq.isRunning() || !mq.isEmpty()){
             try {
-                mqSS.setMQSSMap(name, mq.getSize());
-                
                 ArrayList<MessageObject> msgList  = (ArrayList<MessageObject>) mq.getMessage();
                 //System.out.println(name+"_"+messageList.size()+":稼動中!");
             
@@ -57,6 +55,8 @@ public class ReciveMQProcess extends Thread {
                     for(AgentKey key : msgMap.keySet())
                         user.sendUpdateMessage(key, msgMap.get(key));
                     msgMap.clear();
+                    
+                    mqSS.setMQSSMap(name, mq.getSize());
                 }
             } catch (InterruptedException ex) {
             }   
