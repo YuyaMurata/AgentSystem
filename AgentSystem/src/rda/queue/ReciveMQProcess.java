@@ -34,15 +34,13 @@ public class ReciveMQProcess extends Thread {
         UpdateUser user = new UpdateUser();
         user.setParam(ag.getClient());
         HashMap<AgentKey, ArrayList<Integer>> msgMap = new HashMap<>();
-        ArrayList<MessageObject> msgList = new ArrayList<>();
-	
         
         while(mq.isRunning() || !mq.isEmpty()){
             try {
-                msgList  = (ArrayList<MessageObject>) mq.getMessage();
+                ArrayList<MessageObject> msgList  = (ArrayList<MessageObject>) mq.getMessage();
                 //System.out.println(name+"_"+messageList.size()+":稼動中!");
             
-            
+                //if(!msgList.isEmpty())
                 for(MessageObject msg : msgList){
                 //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
                     if(msgMap.get(msg.agentKey) == null)
