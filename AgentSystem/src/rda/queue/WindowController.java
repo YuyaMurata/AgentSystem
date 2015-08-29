@@ -48,7 +48,7 @@ public class WindowController extends SetProperty{
             running = false;
             
             for(ReciveMessageQueue mq : mqArray)
-                mq.notify();
+                mq.wakeup();
 	}
 
         /**

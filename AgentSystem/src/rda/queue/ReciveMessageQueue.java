@@ -66,4 +66,8 @@ public class ReciveMessageQueue extends SetProperty{
     public Boolean isRunning(){
         return window.running;
     }
+    
+    public void wakeup(){
+        notifyAll();
+    }
 }
