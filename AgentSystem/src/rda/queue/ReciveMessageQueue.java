@@ -66,7 +66,7 @@ public class ReciveMessageQueue implements SetProperty{
     
     public synchronized void isFinish(){
         notify();
-        while(!thread.isFinish()){}
+        while(!thread.isFinish())
             try {
                 wait(10);
             } catch (InterruptedException ex) {
