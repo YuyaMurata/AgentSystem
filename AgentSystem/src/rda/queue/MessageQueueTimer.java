@@ -21,7 +21,7 @@ public class MessageQueueTimer extends SetProperty implements Runnable{
     
     private MessageQueueTimer() {
         this.binaryTimer = false;
-        //ex.scheduleAtFixedRate(this, 0, QUEUE_WAIT, TimeUnit.MILLISECONDS);
+        ex.scheduleAtFixedRate(this, 0, QUEUE_WAIT, TimeUnit.MILLISECONDS);
     }
     
     public static MessageQueueTimer getInstance(){
