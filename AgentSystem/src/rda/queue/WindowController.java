@@ -1,6 +1,8 @@
 package rda.queue;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import rda.property.SetProperty;
 
@@ -49,7 +51,15 @@ public class WindowController extends SetProperty{
 	public void close(){
             running = false;
             for(ReciveMessageQueue mq : mqArray)
-                mq.checkFinish();
+                while(!mq.isFinish()){
+                    mq.notify();
+                    
+                try {
+                    wait(AGENT_WAIT);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(WindowController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                }
 	}
 
         /**

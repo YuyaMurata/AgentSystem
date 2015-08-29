@@ -1,8 +1,6 @@
 package rda.queue;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import rda.property.SetProperty;
 
@@ -64,16 +62,7 @@ public class ReciveMessageQueue extends SetProperty{
         return window.running;
     }
     
-    public void checkFinish(){
-        while(!thread.isFinish()){
-            thread.interrupt();
-            
-            try {
-                wait(AGENT_WAIT);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(ReciveMessageQueue.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-            
+    public Boolean isFinish(){
+        return thread.isFinish();
     }
 }
