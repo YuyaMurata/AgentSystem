@@ -34,13 +34,16 @@ public class ReciveMQProcess extends Thread {
         UpdateUser user = new UpdateUser();
         user.setParam(ag.getClient());
         HashMap<AgentKey, ArrayList<Integer>> msgMap = new HashMap<>();
+        ArrayList<MessageObject> msgList = new ArrayList<>();
 	
         
         while(mq.isRunning() || !mq.isEmpty()){
             try {
-                ArrayList<MessageObject> msgList = (ArrayList<MessageObject>) mq.getMessage();
+                msgList  = (ArrayList<MessageObject>) mq.getMessage();
                 //System.out.println(name+"_"+messageList.size()+":稼動中!");
-                
+            } catch (InterruptedException ex) {
+            }
+            
                 for(MessageObject msg : msgList){
                 //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
                     if(msgMap.get(msg.agentKey) == null)
@@ -55,13 +58,10 @@ public class ReciveMQProcess extends Thread {
                 
                 //MQSpecificStorage.setMQSSMap(name, mq.getSize());
                 }
-                
-            } catch (InterruptedException ex) {
-            }   
+               
         }
         
         this.finish = true;
-        SetProperty.logger.info("AgentClient Close Before name_{}",name);
         ag.close();
         SetProperty.logger.info(rMQMarker, "********** Recive Message Queue {} Stop!! ********** ", name);
     }
