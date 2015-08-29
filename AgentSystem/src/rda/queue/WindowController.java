@@ -42,8 +42,10 @@ public class WindowController extends SetProperty{
 	}
 
 	public void close(){
-            for (ReciveMessageQueue mq : mqArray)
+            for (ReciveMessageQueue mq : mqArray){
                mq.close();
+               logger.info("Name_{} Close!",mq.name);
+            }
 	}
 
         /**
