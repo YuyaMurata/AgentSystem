@@ -13,7 +13,7 @@ import rda.property.SetProperty;
 public class ReciveMQProcess extends Thread {	
     private final String name;
     private final ReciveMessageQueue mq;
-    //private final MessageQueueTimer mqt;
+    private final MessageQueueTimer mqt;
     private static final Marker rMQMarker = MarkerFactory.getMarker("ReciveMessageQueue");
     
     public ReciveMQProcess(String name, ReciveMessageQueue queue) {
@@ -23,7 +23,7 @@ public class ReciveMQProcess extends Thread {
         this.name = name;
         this.mq = queue;
         
-        //this.mqt = MessageQueueTimer.getInstance();
+        this.mqt = MessageQueueTimer.getInstance();
     }
 
     public void run() {
@@ -53,8 +53,12 @@ public class ReciveMQProcess extends Thread {
                 
                 //MQSpecificStorage.setMQSSMap(name, mq.getSize());
             }*/
+            
+            if(mqt.getTimer())
+                SetProperty.logger.info("Runnnable name_{}",name);
         }
-		
+        
+        SetProperty.logger.info("AgentClient Close Before name_{}",name);
         ag.close();
         SetProperty.logger.info(rMQMarker, "********** Recive Message Queue {} Stop!! ********** ", name);
     }
