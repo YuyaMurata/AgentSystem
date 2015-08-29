@@ -18,9 +18,6 @@ public class Main extends SetProperty{
     private static final Marker mainMarker = MarkerFactory.getMarker("AgentSystem Main");
     
     private static void init(){
-        // Start Time
-        start = System.currentTimeMillis();
-        
         //Start System Out
         init_debug();
         logger.info(mainMarker, "Time_{}[sec] Message Period_{}[ms] UserAgent N_{} DataType_{} Data N_{}", 
@@ -40,6 +37,9 @@ public class Main extends SetProperty{
 
     private static Long start, stop, transaction;
     public static void main(String[] args) {
+        // Start Time
+        start = System.currentTimeMillis();
+        
         //initialize
         init();
 
@@ -72,6 +72,9 @@ public class Main extends SetProperty{
         } catch (InterruptedException | ExecutionException e) {
         } finally {
             ex.shutdownNow();
+            
+            // Stop Time
+            stop = System.currentTimeMillis();
             
             stop_debug();
             logger.info(mainMarker, "Stop Agent System : {}[ms]", stop);
