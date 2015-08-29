@@ -1,11 +1,8 @@
 package rda.queue;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import rda.property.SetProperty;
-import test.CalcUsage;
 
 public class WindowController extends SetProperty{
 	private ReciveMessageQueue[] mqArray;
@@ -51,7 +48,8 @@ public class WindowController extends SetProperty{
 
 	public void close(){
             running = false;
-            notifyAll();
+            for(ReciveMessageQueue mq : mqArray)
+                mq.checkFinish();
 	}
 
         /**

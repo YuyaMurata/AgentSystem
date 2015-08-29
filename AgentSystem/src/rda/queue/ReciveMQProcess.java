@@ -3,8 +3,6 @@ package rda.queue;
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
@@ -16,6 +14,7 @@ public class ReciveMQProcess extends Thread {
     private final String name;
     private final ReciveMessageQueue mq;
     private final MessageQueueTimer mqt;
+    private Boolean finish = false;
     private static final Marker rMQMarker = MarkerFactory.getMarker("ReciveMessageQueue");
     
     public ReciveMQProcess(String name, ReciveMessageQueue queue) {
@@ -62,8 +61,13 @@ public class ReciveMQProcess extends Thread {
             }
         }
         
+        this.finish = true;
         SetProperty.logger.info("AgentClient Close Before name_{}",name);
         ag.close();
         SetProperty.logger.info(rMQMarker, "********** Recive Message Queue {} Stop!! ********** ", name);
+    }
+    
+    public Boolean isFinish(){
+        return finish;
     }
 }
