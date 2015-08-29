@@ -21,8 +21,6 @@ public class ReciveMessageQueue implements SetProperty{
     }
 
     public synchronized void putMessage(Object message) throws InterruptedException {
-        logger.info("MessageQueue Name_{} Put Size_{}",name, getSize());
-        
         while(isFull()){
             try {
                 event();
@@ -34,6 +32,9 @@ public class ReciveMessageQueue implements SetProperty{
         }
         
         queue.offer(message);
+        
+        logger.info("MessageQueue Name_{} Put Size_{}",name, getSize());
+        
         notify();
     }
 
