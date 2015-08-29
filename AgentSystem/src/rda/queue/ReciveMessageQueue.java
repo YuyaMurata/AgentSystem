@@ -1,6 +1,8 @@
 package rda.queue;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import rda.property.SetProperty;
 
@@ -62,5 +64,8 @@ public class ReciveMessageQueue extends SetProperty{
         
     public synchronized void close(){
         thread.stopRunning();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {}
     }
 }
