@@ -64,8 +64,5 @@ public class ReciveMessageQueue extends SetProperty{
         
     public synchronized void close(){
         thread.stopRunning();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {}
     }
 }

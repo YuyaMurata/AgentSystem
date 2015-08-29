@@ -34,7 +34,7 @@ public class ReciveMQProcess extends Thread {
         user.setParam(ag.getClient());
         HashMap<AgentKey, ArrayList<Integer>> msgMap = new HashMap<>();
 		
-        while(running || !mq.isEmpty()){
+        while(running){
             ArrayList<MessageObject> msgList = (ArrayList<MessageObject>) mq.getMessage();
             //System.out.println(name+"_"+messageList.size()+":稼動中!");
 			
