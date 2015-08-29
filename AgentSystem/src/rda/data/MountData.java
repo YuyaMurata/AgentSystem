@@ -1,6 +1,9 @@
 package rda.data;
 
+import com.ibm.agent.exa.AgentKey;
+import java.util.HashMap;
 import rda.property.SetProperty;
+import rda.queue.HashToMQN;
 import rda.queue.MessageObject;
 
 public class MountData implements SetProperty{
@@ -35,22 +38,23 @@ public class MountData implements SetProperty{
 
 	/**
 	public static void main(String[] args) {
-                MountData dataType = new MountData();
+            MountData dataType = new MountData();
             
-		int cnt =0;
-		for(int i=0; i < 2000; i++){
-			long start = System.currentTimeMillis();
-
-			MessageObject mes;
-	
-			while((mes = dataType.getTimeToData(i+1)) != null) cnt++;
-
-			System.out.println(cnt);
-
-			long stop = System.currentTimeMillis();
-
-			System.out.println("Time: " + (stop-start) +" ms");
-		}
+            MessageObject msg;
+            HashMap<AgentKey, Integer> count = new HashMap<>();
+            for(int i=0; i < TIME_RUN; i++)
+            while((msg = DATA_TYPE.getTimeToData(i)) != null){
+                int cnt = 0;
+                
+                if(msg.data != -1){
+                    if(count.get(msg.agentKey) != null)
+                        cnt = count.get(msg.agentKey) + msg.data;
+                    count.put(msg.agentKey , cnt);
+                }
+            }
+            
+            for(AgentKey key : count.keySet())
+                System.out.println("AgentKey_"+key+" MQ_"+HashToMQN.toMQN(key)+" Count_"+count.get(key));
 	}
         **/
 }
