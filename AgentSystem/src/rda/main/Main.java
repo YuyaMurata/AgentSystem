@@ -21,13 +21,13 @@ public class Main implements SetProperty{
     private static void init(){
         //Start System Out
         init_debug();
-        logger.info(mainMarker, "Time_{}[sec] Message Period_{}[ms] UserAgent N_{} DataType_{} Data N_{}", 
-                    TIME_RUN, TIME_PERIOD, NUMBER_OF_USER_AGENTS, DATA_TYPE.name, DATA_TYPE.getAmountData());
+        logger.info(mainMarker, "Time_{}[sec] Message Period_{}[ms] UserAgent N_{} DataType_{} Amount Data N_{}", 
+                    TIME_RUN, TIME_PERIOD, NUMBER_OF_USER_AGENTS, DATA_TYPE.name, DATA_TYPE.getAmountData().toString());
         logger.info(mainMarker, "MsgQueue N_{} Max MQ Length_{} Window Size_{} Wait[ms]: Agent_{} Queue_{}", 
                     NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, AGENT_WAIT, QUEUE_WAIT);
         logger.info(mainMarker, "Server: N_{} host_{}",NUMBER_OF_SERVER, HOST_ADDRESS);
         
-        System.out.println("DATA_N"+DATA_TYPE.getAmountData()+" Server Host "+HOST_ADDRESS);
+        System.out.println("DATA_N"+DATA_TYPE.getAmountData().toString()+" Server Host "+HOST_ADDRESS);
         
         // MQ Window Start
         mainTask = new MainSchedule(new WindowController(NUMBER_OF_QUEUE ,String.valueOf("Win_Main")));

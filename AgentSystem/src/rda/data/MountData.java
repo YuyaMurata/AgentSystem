@@ -28,8 +28,9 @@ public class MountData implements SetProperty{
 	}
         
         public Long getAmountData(){
-            Long n = (TIME_RUN / TIME_PERIOD) + 1; 
-            return n * (n-1) / 2 * VOLUME;
+            Long n = (TIME_RUN / TIME_PERIOD) + 1;
+            Long result = n * (n-1) / 2 * VOLUME;
+            return result;
         }
 
 	/**

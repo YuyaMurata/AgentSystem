@@ -1,8 +1,6 @@
 package rda.queue;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import rda.property.SetProperty;
 
