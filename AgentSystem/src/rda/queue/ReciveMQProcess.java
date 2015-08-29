@@ -35,6 +35,8 @@ public class ReciveMQProcess extends Thread {
         user.setParam(ag.getClient());
         HashMap<AgentKey, ArrayList<Integer>> msgMap = new HashMap<>();
         
+        MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
+        
         while(mq.isRunning() || !mq.isEmpty()){
             try {
                 ArrayList<MessageObject> msgList  = (ArrayList<MessageObject>) mq.getMessage();
@@ -54,7 +56,7 @@ public class ReciveMQProcess extends Thread {
                         user.sendUpdateMessage(key, msgMap.get(key));
                     msgMap.clear();
                 
-                MQSpecificStorage.setMQSSMap(name, mq.getSize());
+                    mqSS.setMQSSMap(name, mq.getSize());
                 }
             } catch (InterruptedException ex) {
             }   

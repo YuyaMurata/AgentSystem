@@ -19,13 +19,22 @@ import rda.property.SetProperty;
 public class MQSpecificStorage implements SetProperty{
     private static final ConcurrentHashMap<String, Integer> mqSSCollection = new ConcurrentHashMap<>();
     private static final Marker mqSSMarker = MarkerFactory.getMarker("MessageQueueSSLength");
+    private static final MQSpecificStorage mqSS = new MQSpecificStorage();
+    
+    private MQSpecificStorage(){
+        
+    }
+    
+    public static MQSpecificStorage getInstance(){
+        return mqSS;
+    }
     
     public static void setMQSSMap(String mqName, Integer mqLength){
         mqSSCollection.put(mqName, mqLength);
         System.out.println("MQName_"+mqName+" Length_"+mqLength);
     }
     
-    public static void mqLengthLogging(){
+    public void mqLengthLogging(){
         //if(mqSSCollection.size() != NUMBER_OF_QUEUE) return;
         
         ArrayList<String> str = new ArrayList<>();

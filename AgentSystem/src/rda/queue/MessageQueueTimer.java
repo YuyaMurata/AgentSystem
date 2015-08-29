@@ -18,6 +18,7 @@ public class MessageQueueTimer implements Runnable, SetProperty{
     private Boolean binaryTimer;
     private static final ScheduledExecutorService ex = Executors.newSingleThreadScheduledExecutor();
     private static final MessageQueueTimer timer = new MessageQueueTimer();
+    public static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     
     private MessageQueueTimer() {
         this.binaryTimer = false;
@@ -31,6 +32,8 @@ public class MessageQueueTimer implements Runnable, SetProperty{
     @Override
     public void run() {
         binaryTimer = !binaryTimer;
+        mqSS.mqLengthLogging();
+        
     }
     
     public Boolean getTimer(){
