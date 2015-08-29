@@ -41,12 +41,12 @@ public class ReciveMQProcess extends Thread {
                 //System.out.println(name+"_"+messageList.size()+":稼動中!");
             
                 if(msgList != null)
-                for(MessageObject msg : msgList){
-                //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
-                    if(msgMap.get(msg.agentKey) == null)
-                        msgMap.put(msg.agentKey, new ArrayList<Integer>());
-                    msgMap.get(msg.agentKey).add(msg.data);
-                }
+                    for(MessageObject msg : msgList){
+                    //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
+                        if(msgMap.get(msg.agentKey) == null)
+                            msgMap.put(msg.agentKey, new ArrayList<Integer>());
+                        msgMap.get(msg.agentKey).add(msg.data);
+                    }
             
                 
                 if(mq.isEmpty() || mqt.getTimer()){

@@ -66,11 +66,11 @@ public class ReciveMessageQueue implements SetProperty{
     
     public synchronized void isFinish(){
         notify();
-        while(!thread.isFinish())
-            try {
+        while(!thread.isFinish()){}
+            /*try {
                 wait(AGENT_WAIT);
             } catch (InterruptedException ex) {
                 Logger.getLogger(ReciveMessageQueue.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
     }
 }
