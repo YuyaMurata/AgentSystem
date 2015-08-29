@@ -13,7 +13,7 @@ public abstract class SetProperty {
 
 	public static final String AGENT_TYPE = "useragent";
         
-        public static final MountData DATA_TYPE = new MountData();
+        public static final Integer AGENT_DEFAULT_VALUE=1;
         public static final Integer VOLUME = 10;
         
 	//Server Property
@@ -67,4 +67,6 @@ public abstract class SetProperty {
          * vmstat.log CPU Avairability per sec
          */
         public static final Logger logger = LoggerFactory.getLogger(SetProperty.class);
+        
+        public static final MountData DATA_TYPE = new MountData();
 }

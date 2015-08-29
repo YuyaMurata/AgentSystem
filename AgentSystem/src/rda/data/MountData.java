@@ -6,13 +6,16 @@ import rda.queue.MessageObject;
 public class MountData extends SetProperty{
     public final String name = "Mount";
     private static Integer count;
+    private final DataGenerator gen;
 
 	public MountData() {
             count = -1;
+            
+            this.gen = DataGenerator.getInstance();
+            gen.init();
 	}
  
 	public MessageObject getTimeToData(int t){
-            DataGenerator gen = DataGenerator.getInstance();
 		count++;
 
 		if(count < t*VOLUME) return gen.getData();
@@ -31,15 +34,15 @@ public class MountData extends SetProperty{
 
 	/**
 	public static void main(String[] args) {
-		MountData mt = new MountData();
-
+                MountData dataType = new MountData();
+            
 		int cnt =0;
 		for(int i=0; i < 2000; i++){
 			long start = System.currentTimeMillis();
 
 			MessageObject mes;
 	
-			while((mes = mt.getTimeToData(i+1)) != null) cnt++;//System.out.println("UserID:"+mes.toString());
+			while((mes = dataType.getTimeToData(i+1)) != null) cnt++;
 
 			System.out.println(cnt);
 
@@ -47,6 +50,6 @@ public class MountData extends SetProperty{
 
 			System.out.println("Time: " + (stop-start) +" ms");
 		}
-	}**/
-
+	}
+        **/
 }
