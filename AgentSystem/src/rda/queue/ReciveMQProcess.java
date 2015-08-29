@@ -41,8 +41,7 @@ public class ReciveMQProcess extends Thread {
             try {
                 msgList  = (ArrayList<MessageObject>) mq.getMessage();
                 //System.out.println(name+"_"+messageList.size()+":稼動中!");
-            } catch (InterruptedException ex) {
-            }
+            
             
                 for(MessageObject msg : msgList){
                 //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
@@ -50,6 +49,9 @@ public class ReciveMQProcess extends Thread {
                         msgMap.put(msg.agentKey, new ArrayList<Integer>());
                     msgMap.get(msg.agentKey).add(msg.data);
                 }
+            
+            } catch (InterruptedException ex) {
+            }
                 
                 if(mq.isEmpty() || mqt.getTimer()){
                     for(AgentKey key : msgMap.keySet())
