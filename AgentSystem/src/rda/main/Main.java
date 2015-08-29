@@ -66,6 +66,9 @@ public class Main extends SetProperty{
             new Runnable(){
                 public void run(){
                     mainTaskFuture.cancel(true);
+                    
+                    logger.info("Main Task is Cancelled !");
+                    
                     mainTask.close();
                 }
             }, TIME_RUN, TimeUnit.SECONDS);
