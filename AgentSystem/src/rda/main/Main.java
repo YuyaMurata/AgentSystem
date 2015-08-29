@@ -78,7 +78,7 @@ public class Main implements SetProperty{
         } catch (InterruptedException | ExecutionException e) {
         } finally {
             ex.shutdownNow();
-            //MessageQueueTimer.getInstance().close();
+            MessageQueueTimer.getInstance().close();
             
             // Stop Time
             stop = System.currentTimeMillis();
