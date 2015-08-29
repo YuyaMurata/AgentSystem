@@ -50,8 +50,6 @@ public class ReciveMQProcess extends Thread {
                     msgMap.get(msg.agentKey).add(msg.data);
                 }
             
-            } catch (InterruptedException ex) {
-            }
                 
                 if(mq.isEmpty() || mqt.getTimer()){
                     for(AgentKey key : msgMap.keySet())
@@ -60,7 +58,8 @@ public class ReciveMQProcess extends Thread {
                 
                 //MQSpecificStorage.setMQSSMap(name, mq.getSize());
                 }
-               
+            } catch (InterruptedException ex) {
+            }   
         }
         
         this.finish = true;
