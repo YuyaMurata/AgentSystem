@@ -54,8 +54,7 @@ public class ReciveMQProcess extends Thread {
                 //MQSpecificStorage.setMQSSMap(name, mq.getSize());
             }*/
             
-            if(mqt.getTimer())
-                SetProperty.logger.info("Runnnable name_{}",name);
+            SetProperty.logger.info("Runnnable name_{}",name);
         }
         
         SetProperty.logger.info("AgentClient Close Before name_{}",name);
