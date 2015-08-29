@@ -55,7 +55,7 @@ public class ReciveMQProcess extends Thread {
             }*/
         }
 		
-        ag.close();
+        //ag.close();
         SetProperty.logger.info(rMQMarker, "********** Recive Message Queue {} Stop!! ********** ", name);
     }
 
