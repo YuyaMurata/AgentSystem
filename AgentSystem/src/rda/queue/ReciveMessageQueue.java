@@ -32,9 +32,6 @@ public class ReciveMessageQueue implements SetProperty{
         }
         
         queue.offer(message);
-        
-        logger.info("MessageQueue Name_{} Put Size_{}",name, getSize());
-        
         notify();
     }
 
