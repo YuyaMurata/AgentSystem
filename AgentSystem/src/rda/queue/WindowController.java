@@ -51,15 +51,7 @@ public class WindowController extends SetProperty{
 	public void close(){
             running = false;
             for(ReciveMessageQueue mq : mqArray)
-                while(!mq.isFinish()){
-                    mq.notify();
-                    
-                try {
-                    wait(AGENT_WAIT);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(WindowController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                }
+                mq.isFinish();
 	}
 
         /**

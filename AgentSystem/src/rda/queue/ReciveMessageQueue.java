@@ -27,7 +27,7 @@ public class ReciveMessageQueue extends SetProperty{
             } catch (MessageQueueException mqEvent) {
                 mqEvent.printEvent();
 
-                wait(AGENT_WAIT);
+                thread.wait(AGENT_WAIT);
             }
         }
         
@@ -48,7 +48,7 @@ public class ReciveMessageQueue extends SetProperty{
     }
 
     public synchronized Object getMessage() throws InterruptedException{
-        if(isEmpty()) wait();
+        if(isEmpty()) thread.wait();
 
         notify();
         return queue.poll();
@@ -62,7 +62,7 @@ public class ReciveMessageQueue extends SetProperty{
         return window.running;
     }
     
-    public Boolean isFinish(){
-        return thread.isFinish();
+    public void isFinish(){
+        notifyAll();
     }
 }
