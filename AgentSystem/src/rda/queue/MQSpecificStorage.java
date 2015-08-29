@@ -31,11 +31,10 @@ public class MQSpecificStorage implements SetProperty{
     
     public static void setMQSSMap(String mqName, Integer mqLength){
         mqSSCollection.put(mqName, mqLength);
-        System.out.println("MQName_"+mqName+" Length_"+mqLength);
     }
     
     public void mqLengthLogging(){
-        //if(mqSSCollection.size() != NUMBER_OF_QUEUE) return;
+        if(mqSSCollection.size() != NUMBER_OF_QUEUE) return;
         
         ArrayList<String> str = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
