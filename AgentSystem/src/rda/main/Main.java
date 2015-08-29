@@ -24,8 +24,10 @@ public class Main extends SetProperty{
                     TIME_RUN, TIME_PERIOD, NUMBER_OF_USER_AGENTS, DATA_TYPE.name, DATA_TYPE.getAmountData());
         logger.info(mainMarker, "MsgQueue N_{} Max MQ Length_{} Window Size_{} Wait[ms]: Agent_{} Queue_{}", 
                     NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, AGENT_WAIT, QUEUE_WAIT);
-        logger.info(mainMarker, "Server: N_{} host_{}",NUMBER_OF_SERVER, HOST_ADDRESS.toString());
-
+        logger.info(mainMarker, "Server: N_{} host_{}",NUMBER_OF_SERVER, HOST_ADDRESS);
+        
+        System.out.println("DATA_N"+DATA_TYPE.getAmountData()+" Server Host "+HOST_ADDRESS);
+        
         // MQ Window Start
         mainTask = new MainSchedule(new WindowController(NUMBER_OF_QUEUE ,String.valueOf("Win_Main")));
     }
@@ -71,7 +73,7 @@ public class Main extends SetProperty{
             future.get();
         } catch (InterruptedException | ExecutionException e) {
         } finally {
-            ex.shutdownNow();
+            ex.shutdown();
             
             // Stop Time
             stop = System.currentTimeMillis();
