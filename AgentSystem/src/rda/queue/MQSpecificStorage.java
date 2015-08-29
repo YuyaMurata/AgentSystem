@@ -22,6 +22,7 @@ public class MQSpecificStorage implements SetProperty{
     
     public static void setMQSSMap(String mqName, Integer mqLength){
         mqSSCollection.put(mqName, mqLength);
+        System.out.println("MQName_"+mqName+" Length_"+mqLength);
     }
     
     public static void mqLengthLogging(){
@@ -29,7 +30,6 @@ public class MQSpecificStorage implements SetProperty{
         
         ArrayList<String> str = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
-        
         for(String key : mqSSCollection.keySet()){
             str.add(String.valueOf(mqSSCollection.get(key)));
             sb.append("{} ");
