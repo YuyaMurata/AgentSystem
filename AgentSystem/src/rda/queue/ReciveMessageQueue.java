@@ -62,7 +62,7 @@ public class ReciveMessageQueue extends SetProperty{
         return window.running;
     }
     
-    public void isFinish(){
-        notifyAll();
+    public synchronized void isFinish(){
+        notify();
     }
 }
