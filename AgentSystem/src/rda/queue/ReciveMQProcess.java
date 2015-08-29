@@ -49,7 +49,7 @@ public class ReciveMQProcess extends Thread {
                     user.sendUpdateMessage(key, msgMap.get(key));
                 msgMap.clear();
                 
-                MQSpecificStorage.setMQSSMap(name, mq.getSize());
+                //MQSpecificStorage.setMQSSMap(name, mq.getSize());
             }
         }
 		

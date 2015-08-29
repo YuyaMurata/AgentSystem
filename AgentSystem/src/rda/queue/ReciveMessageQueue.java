@@ -22,7 +22,6 @@ public class ReciveMessageQueue extends SetProperty{
             try {
                 event();
             } catch (MessageQueueException mqEvent) {
-                // TODO 自動生成された catch ブロック
                 mqEvent.printEvent();
 
                 try {
@@ -49,7 +48,6 @@ public class ReciveMessageQueue extends SetProperty{
     public synchronized Object getMessage(){
         if(isEmpty()){
             try {
-                //System.out.println(name+" Empty Wait!");
                 wait();
             } catch (InterruptedException e) {}
         }
