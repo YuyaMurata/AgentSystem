@@ -28,11 +28,11 @@ public class MQSpecificStorage{
         return mqSS;
     }
     
-    public void setMQSSMap(String mqName, Integer mqLength){
+    public static void setMQSSMap(String mqName, Integer mqLength){
         map.put(mqName, mqLength);
     }
     
-    public void mqLengthLogging(){
+    public static void mqLengthLogging(){
         StringBuilder sb = new StringBuilder();
         Object[] mapStr = new Object[map.size()];
         int i= 0;
