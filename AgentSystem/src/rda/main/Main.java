@@ -21,6 +21,9 @@ public class Main implements SetProperty{
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
     private static void init(){
+        //Time
+        initStart = System.currentTimeMillis();
+        
         //Start System Out
         init_debug();
 
@@ -29,11 +32,14 @@ public class Main implements SetProperty{
     }
 
     private static void createUser(int numOfAgents){
+        //TIme
+        createStart = System.currentTimeMillis();
+        
         CreateAgent agent = new CreateAgent();
         agent.create("U#00", numOfAgents);
     }
 
-    private static Long start, stop, transaction;
+    private static Long start, stop, initStart, createStart;
     public static void main(String[] args) {
         //initialize
         init();
@@ -103,9 +109,8 @@ public class Main implements SetProperty{
     private static void stop_debug(){
         logger.printAgentSystemSettings(mainMarker, "Stop AgentSystem", null);
         
-        transaction = stop - start;
         logger.printAgentSystemSettings(mainMarker, 
-                    "<Initialise-ThreadShutdown>TransactionTime: {} [ms]", 
-                    new Object[]{transaction});
+                    "<ALL> TransactionTime: {} [ms] (<Initialize> {} [ms] <CreateAgent> {} [ms] <MainExec> [ms])", 
+                    new Object[]{stop - initStart, createStart - initStart, start - createStart, stop - start});
     }
 }
