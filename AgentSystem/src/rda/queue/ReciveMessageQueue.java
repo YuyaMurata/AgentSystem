@@ -50,7 +50,7 @@ public class ReciveMessageQueue implements SetProperty{
         if(isEmpty()) wait();
 
         notify();
-        return null;//queue.poll());
+        return queue.poll();
     }
 
     public Integer getSize(){

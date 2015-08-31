@@ -39,7 +39,7 @@ public class MQSpecificStorage{
         }
         
         //Record MessageQueue Length
-        logger.print(mqSSMarker, sb.toString(), mapStr);
+        logger.printMQLFile(mqSSMarker, sb.toString(), mapStr);
     }
     
     /**
