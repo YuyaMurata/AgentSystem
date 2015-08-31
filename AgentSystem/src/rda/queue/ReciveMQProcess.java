@@ -51,7 +51,7 @@ public class ReciveMQProcess extends Thread{
                 
                 if(mq.isEmpty() || mqt.getTimer()){
                     for(AgentKey key : msgMap.keySet())
-                        //user.sendUpdateMessage(key, msgMap.get(key));
+                        user.sendUpdateMessage(key, msgMap.get(key));
                     msgMap.clear();
                     
                     mqSS.map.put(mq.name, mq.getSize());
