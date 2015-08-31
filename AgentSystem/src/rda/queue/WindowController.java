@@ -1,49 +1,47 @@
 package rda.queue;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import rda.property.SetProperty;
-
-public class WindowController implements SetProperty{
+public class WindowController{
 	private ReciveMessageQueue[] mqArray;
 	private ArrayList<MessageObject>[] window; 
+        private final Integer size;
         public Boolean running;
 
         private void init(int numberOfMQ){
-            mqArray = new ReciveMessageQueue[numberOfMQ];
-            window = new ArrayList[numberOfMQ];
+            this.mqArray = new ReciveMessageQueue[numberOfMQ];
+            this.window = new ArrayList[numberOfMQ];
             
             running = true;
             
             for(int i=0; i < numberOfMQ; i++){
                 this.mqArray[i] = new ReciveMessageQueue("RMQ"+i, this);
-                window[i] = new ArrayList<>();
+                this.window[i] = new ArrayList<>();
             }
         }
         
 	public String name;
-	public WindowController(int numberOfMQ, String name) {
-            // TODO 自動生成されたコンストラクター・スタブ
+	public WindowController(int numberOfMQ, int limit, String name) {
             this.name = name;
+            this.size = limit;
+            
             init(numberOfMQ);
 	}
 
 	public void sendMessage(MessageObject mes){
             int no = HashToMQN.toMQN(mes.agentKey);
-            if(mes.data != -1) window[no].add(mes);
+            if(mes.data != -1) this.window[no].add(mes);
             
-            if((mes.data == -1) || (window[no].size() == WINDOW_SIZE)){
-                sendMessageQueue(no, window[no].clone());
-                window[no].clear();
+            if((mes.data == -1) || (this.window[no].size() == size)){
+                sendMessageQueue(no, this.window[no].clone());
+                this.window[no].clear();
             }
 	}
 
 	private void sendMessageQueue(int i, Object mes){
             try {
                 //QueueにPutする
-                mqArray[i].putMessage(mes);
+                this.mqArray[i].putMessage(mes);
             } catch (InterruptedException ex) {
             }
 	}

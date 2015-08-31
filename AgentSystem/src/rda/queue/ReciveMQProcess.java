@@ -8,27 +8,25 @@ import org.slf4j.MarkerFactory;
 
 import rda.agent.CreateAgentClient;
 import rda.agent.user.UpdateUser;
-import rda.property.SetProperty;
+import rda.log.AgentSystemLogger;
 
-public class ReciveMQProcess extends Thread {	
-    private final String name;
+public class ReciveMQProcess extends Thread{
     private final ReciveMessageQueue mq;
-    private final MessageQueueTimer mqt;
-    private Boolean finish = false;
-    private static final Marker rMQMarker = MarkerFactory.getMarker("ReciveMessageQueue");
+    private static final MessageQueueTimer mqt = MessageQueueTimer.getInstance();;
     
-    public ReciveMQProcess(String name, ReciveMessageQueue queue) {
-        // TODO 自動生成されたコンストラクター・スタブ
-        SetProperty.logger.info(rMQMarker, "********** Recive Message Queue {} Start!! ********** ", name);
-        
-        this.name = name;
+    private static final Marker rMQMarker = MarkerFactory.getMarker("ReciveMessageQueue");
+    private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
+    
+    public ReciveMQProcess(ReciveMessageQueue queue) {
         this.mq = queue;
         
-        this.mqt = MessageQueueTimer.getInstance();
+        logger.print(rMQMarker, 
+                "********** Recive Message Queue {} Start!! ********** ", 
+                new String[]{mq.name});
     }
 
+    @Override
     public void run() {
-        // TODO 自動生成されたメソッド・スタブ
         CreateAgentClient ag = new CreateAgentClient();
                 
         UpdateUser user = new UpdateUser();
@@ -56,18 +54,21 @@ public class ReciveMQProcess extends Thread {
                         user.sendUpdateMessage(key, msgMap.get(key));
                     msgMap.clear();
                     
-                    mqSS.setMQSSMap(name, mq.getSize());
+                    mqSS.setMQSSMap(mq.name, mq.getSize());
                 }
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException e) {
             }   
         }
         
         this.finish = true;
         ag.close();
         
-        SetProperty.logger.info(rMQMarker, "********** Recive Message Queue {} Stop!! ********** ", name);
+        logger.print(rMQMarker, 
+                "********** Recive Message Queue {} Stop!! ********** ",
+                new String[]{mq.name});
     }
     
+    private Boolean finish = false;
     public Boolean isFinish(){
         return finish;
     }

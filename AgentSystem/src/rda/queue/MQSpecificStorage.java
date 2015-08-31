@@ -5,11 +5,10 @@
  */
 package rda.queue;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
+import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
 
 /**
@@ -17,12 +16,13 @@ import rda.property.SetProperty;
  * @author kaeru
  */
 public class MQSpecificStorage implements SetProperty{
-    private static final ConcurrentHashMap<String, Integer> mqSSCollection = new ConcurrentHashMap<>();
-    private static final Marker mqSSMarker = MarkerFactory.getMarker("MessageQueueSSLength");
+    private static final ConcurrentSkipListMap<String, Integer> map = new ConcurrentSkipListMap<>();
     private static final MQSpecificStorage mqSS = new MQSpecificStorage();
     
-    private MQSpecificStorage(){
-        
+    private static final Marker mqSSMarker = MarkerFactory.getMarker("MessageQueueSSLength");
+    private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
+    
+    private MQSpecificStorage(){   
     }
     
     public static MQSpecificStorage getInstance(){
@@ -30,19 +30,19 @@ public class MQSpecificStorage implements SetProperty{
     }
     
     public static void setMQSSMap(String mqName, Integer mqLength){
-        mqSSCollection.put(mqName, mqLength);
+        map.put(mqName, mqLength);
     }
     
-    public void mqLengthLogging(){
-        if(mqSSCollection.size() != NUMBER_OF_QUEUE) return;
-        
-        ArrayList<String> str = new ArrayList<>();
+    public static void mqLengthLogging(){
         StringBuilder sb = new StringBuilder();
-        for(int i=0; i < NUMBER_OF_QUEUE; i++){
-            str.add(String.valueOf(mqSSCollection.get("RMQ"+i)));
+        Object[] mapStr = new String[map.size()];
+        int i= -1;
+        
+        for(String key : map.keySet()){
+            mapStr[i++] = map.get(key);
             sb.append("{} ");
         }
         
-        logger.debug(mqSSMarker, sb.toString(), str.toArray());
+        logger.printMQLFile(mqSSMarker, sb.toString(), mapStr);
     }
 }

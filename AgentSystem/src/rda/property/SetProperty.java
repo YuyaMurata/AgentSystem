@@ -13,8 +13,8 @@ public interface SetProperty {
 
 	public static final String AGENT_TYPE = "useragent";
         
-        public static final Integer AGENT_DEFAULT_VALUE=1;
-        public static final Integer VOLUME = 10;
+        public static final Integer AGENT_DEFAULT_VALUE = 1;
+        public static final Integer DATA_VOLUME = 10;
         
 	//Server Property
 	/**
@@ -56,13 +56,7 @@ public interface SetProperty {
 	public static final Integer NUMBER_OF_RANK_AGENTS = Integer.valueOf(prop.getValue("agent", "number.rank.agent"));
 	public static final Long AGENT_WAIT = Long.valueOf(prop.getValue("agent", "wait.agent"));
         
-        //Logger SLF4J
-        /**
-         * AgentSyste_info.log element = Message Queue Length per sec
-         * Consle Output Step Time per sec
-         * vmstat.log CPU Avairability per sec
-         */
-        public static final Logger logger = LoggerFactory.getLogger(SetProperty.class);
+        
         
         public static final MountData DATA_TYPE = new MountData();
 }

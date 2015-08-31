@@ -17,7 +17,7 @@ public class MessageQueueTest extends TestParameter{
 
     private static void execute(int run){
         //ReciveMessageQueue rmq = new ReciveMessageQueue("MQ0");
-        WindowController mq = new WindowController(NUMBER_QUEUE, String.valueOf("Win_Main"));
+        WindowController mq = new WindowController(NUMBER_QUEUE, WINDOW_SIZE, "DataWinow");
         
         MessageObject msg;
         ArrayList<MessageObject> oneMessage;

@@ -1,9 +1,6 @@
 package rda.data;
 
-import com.ibm.agent.exa.AgentKey;
-import java.util.HashMap;
 import rda.property.SetProperty;
-import rda.queue.HashToMQN;
 import rda.queue.MessageObject;
 
 public class MountData implements SetProperty{
@@ -21,8 +18,8 @@ public class MountData implements SetProperty{
 	public MessageObject getTimeToData(int t){
 		count++;
 
-		if(count < t*VOLUME) return gen.getData();
-		else if(count == t*VOLUME) 
+		if(count < t*DATA_VOLUME) return gen.getData();
+		else if(count == t*DATA_VOLUME) 
                     return new MessageObject(gen.getData().agentKey, -1);
 		else{
 			count = -1;
@@ -32,7 +29,7 @@ public class MountData implements SetProperty{
         
         public Long getAmountData(){
             Long n = (TIME_RUN*1000 / TIME_PERIOD) + 1;
-            Long result = n * (n-1) / 2 * VOLUME;
+            Long result = n * (n-1) / 2 * DATA_VOLUME;
             return result;
         }
 

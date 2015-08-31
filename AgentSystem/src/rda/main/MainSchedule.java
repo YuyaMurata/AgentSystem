@@ -7,6 +7,7 @@ package rda.main;
 
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
+import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
 import rda.queue.MessageObject;
 import rda.queue.WindowController;
@@ -18,8 +19,10 @@ import rda.queue.WindowController;
 public class MainSchedule implements Runnable, SetProperty{
     private static int timer = -1;
     private final WindowController mq;
+    
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");
-
+    private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
+    
     public MainSchedule(WindowController win) {
         this.mq = win;
     }
@@ -34,10 +37,9 @@ public class MainSchedule implements Runnable, SetProperty{
     @Override
     public void run() {
         timer++;
-        logger.info(scheduleMaker,"Experiment Step : {} [{}ms]", timer, TIME_PERIOD);
-
-        //Output Queue Length
-        //mq.outputMQLog(timer);
+        logger.print(scheduleMaker, 
+                "Experiment Step : {} [{}ms]", new Object[]{timer, TIME_PERIOD});
+        
         sendMessage(timer);
     }
     

@@ -1,6 +1,5 @@
 package rda.main;
 
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -9,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.agent.CreateAgent;
+import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
 import rda.queue.MessageQueueTimer;
 import rda.queue.WindowController;
@@ -16,19 +16,16 @@ import rda.queue.WindowController;
 public class Main implements SetProperty{
     private static final ScheduledExecutorService ex = Executors.newSingleThreadScheduledExecutor();
     private static MainSchedule mainTask;
+    
     private static final Marker mainMarker = MarkerFactory.getMarker("AgentSystem Main");
+    private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
     private static void init(){
         //Start System Out
         init_debug();
-        logger.info(mainMarker, "Time_{}[sec] Message Period_{}[ms] UserAgent N_{} DataType_{} Amount Data N_{}", 
-                    TIME_RUN, TIME_PERIOD, NUMBER_OF_USER_AGENTS, DATA_TYPE.name, DATA_TYPE.getAmountData().toString());
-        logger.info(mainMarker, "MsgQueue N_{} Max MQ Length_{} Window Size_{} Wait[ms]: Agent_{} Queue_{}", 
-                    NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, AGENT_WAIT, QUEUE_WAIT);
-        logger.info(mainMarker, "Server: N_{} host_{}",NUMBER_OF_SERVER, HOST_ADDRESS);
-        
+
         // MQ Window Start
-        mainTask = new MainSchedule(new WindowController(NUMBER_OF_QUEUE ,String.valueOf("Win_Main")));
+        mainTask = new MainSchedule(new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow"));
     }
 
     private static void createUser(int numOfAgents){
@@ -53,7 +50,6 @@ public class Main implements SetProperty{
 
     private static void execute(){
         start_debug();
-        logger.info(mainMarker, "Start Agent System : {}[ms]", start);
         
         //Start Main Schedule
         final ScheduledFuture mainTaskFuture = ex.scheduleAtFixedRate
@@ -65,7 +61,7 @@ public class Main implements SetProperty{
                 public void run(){
                     mainTaskFuture.cancel(true);
                     
-                    logger.info("Main Task is Cancelled !");
+                    logger.print(mainMarker, "Main Task is Cancelled !", new Object[0]);
                     
                     mainTask.close();
                 }
@@ -82,49 +78,34 @@ public class Main implements SetProperty{
             stop = System.currentTimeMillis();
             
             stop_debug();
-            logger.info(mainMarker, "Stop Agent System : {}[ms]", stop);
-            logger.info(mainMarker, 
-                    "<Initialise - Thread Shutdown> Transaction Time : {}[ms]", stop-start);
         }
     }
     
     // DEBUG SYSTEM OUT
     private static void init_debug(){
-        logger.debug(mainMarker, "Time_{}[sec] MessagePeriod_{}[ms] UserAgentN_{} DataType_{} DataN_{}", 
-                    TIME_RUN, TIME_PERIOD, NUMBER_OF_USER_AGENTS, DATA_TYPE.name, DATA_TYPE.getAmountData());
-        logger.debug(mainMarker, "MsgQueueN_{} MaxMQLength_{} WindowSize_{} Wait[ms]: Agent_{} Queue_{}", 
-                    NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, AGENT_WAIT, QUEUE_WAIT);
-        logger.debug(mainMarker, "Server: N_{} Host_{}",NUMBER_OF_SERVER, HOST_ADDRESS.toString());
-        
-        logger.trace(mainMarker, "Time_{}[sec] MessagePeriod_{}[ms] UserAgentN_{} DataType_{} DataN_{}", 
-                    TIME_RUN, TIME_PERIOD, NUMBER_OF_USER_AGENTS, DATA_TYPE.name, DATA_TYPE.getAmountData());
-        logger.trace(mainMarker, "MsgQueueN_{} MaxMQLength_{} WindowSize_{} Wait[ms]: Agent_{} Queue_{}", 
-                    NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, AGENT_WAIT, QUEUE_WAIT);
-        logger.trace(mainMarker, "Server: N_{} Host_{}",NUMBER_OF_SERVER, HOST_ADDRESS.toString());
+        logger.printAgentSystemSettings(mainMarker,
+                    "ExecTime_{}[sec] MessagePeriod_{}[ms] UserAgentN_{} DataType_{} DataN_{} \n MsgQueueN_{} MaxMQLength_{} WindowSize_{} Wait[ms]: Agent_{} Queue_{} \n Server: N_{} Host_{}",
+                    new Object[]{TIME_RUN, TIME_PERIOD, NUMBER_OF_USER_AGENTS, DATA_TYPE.name, DATA_TYPE.getAmountData(), NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, AGENT_WAIT, QUEUE_WAIT, NUMBER_OF_SERVER, HOST_ADDRESS.toString()});
     }
     
     private static void start_debug(){
-        logger.debug(mainMarker, "StartAgentSystem: {} [ms]", start);
+        logger.printAgentSystemSettings(mainMarker, "Start Agent System", new Object[0]);
         
-        ArrayList<String> str = new ArrayList<>();
+        Object[] obj = new Object[NUMBER_OF_QUEUE];
         StringBuilder sb = new StringBuilder();
         for(int i=0; i < NUMBER_OF_QUEUE; i++){
-            str.add("RMQ"+i);
+            obj[i] = "RMQ"+i;
             sb.append("{} ");
         }
-        logger.debug(mainMarker, sb.toString(), str.toArray());
-        
-        logger.trace(mainMarker, "StartAgentSystem: {} [ms]", start);
+        logger.printMQLFile(mainMarker, sb.toString(), obj);
     }
     
     private static void stop_debug(){
-        logger.debug(mainMarker, "StopAgentSystem: {} [ms]", stop);
-        transaction = stop - start;
-        logger.debug(mainMarker, 
-                    "<Initialise-ThreadShutdown>TransactionTime: {} [ms]", transaction);
+        logger.printAgentSystemSettings(mainMarker, "Stop AgentSystem", null);
         
-        logger.trace(mainMarker, "StopAgentSystem: {} [ms]", stop);
-        logger.trace(mainMarker, 
-                    "<Initialise-ThreadShutdown>TransactionTime: {} [ms]", stop-start);
+        transaction = stop - start;
+        logger.printAgentSystemSettings(mainMarker, 
+                    "<Initialise-ThreadShutdown>TransactionTime: {} [ms]", 
+                    new Object[]{transaction});
     }
 }

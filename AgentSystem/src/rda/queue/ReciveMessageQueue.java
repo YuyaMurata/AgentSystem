@@ -11,12 +11,11 @@ public class ReciveMessageQueue implements SetProperty{
     private final WindowController window;
     
     public ReciveMessageQueue(String name, WindowController window) {
-        // TODO 自動生成されたコンストラクター・スタブ
         this.name = name;
         this.window = window;
         
         this.queue = new ConcurrentLinkedQueue<>();
-        this.thread = new ReciveMQProcess(name, this);
+        this.thread = new ReciveMQProcess(this);
         thread.start();
     }
 
