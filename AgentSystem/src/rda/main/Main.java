@@ -110,7 +110,7 @@ public class Main implements SetProperty{
         logger.printAgentSystemSettings(mainMarker, "Stop AgentSystem", null);
         
         logger.printAgentSystemSettings(mainMarker, 
-                    "<ALL> TransactionTime: {} [ms] (<Initialize> {} [ms] <CreateAgent> {} [ms] <MainExec> [ms])", 
+                    "<ALL> TransactionTime: {} [ms] \n(<Initialize> {} [ms] <CreateAgent> {} [ms] <MainExec> {}[ms])", 
                     new Object[]{stop - initStart, createStart - initStart, start - createStart, stop - start});
     }
 }

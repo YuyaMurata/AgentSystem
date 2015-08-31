@@ -15,7 +15,7 @@ import rda.log.AgentSystemLogger;
  * @author kaeru
  */
 public class MQSpecificStorage{
-    private static final ConcurrentSkipListMap<String, Integer> map = new ConcurrentSkipListMap<>();
+    public final ConcurrentSkipListMap<String, Integer> map = new ConcurrentSkipListMap<>();
     private static final MQSpecificStorage mqSS = new MQSpecificStorage();
     
     private static final Marker mqSSMarker = MarkerFactory.getMarker("MessageQueueSSLength");
@@ -28,11 +28,7 @@ public class MQSpecificStorage{
         return mqSS;
     }
     
-    public static void setMQSSMap(String mqName, Integer mqLength){
-        map.put(mqName, mqLength);
-    }
-    
-    public static void mqLengthLogging(){
+    public void mqLengthLogging(){
         StringBuilder sb = new StringBuilder();
         Object[] mapStr = new Object[map.size()];
         int i= 0;
@@ -43,6 +39,17 @@ public class MQSpecificStorage{
         }
         
         //Record MessageQueue Length
-        logger.printMQLFile(mqSSMarker, sb.toString(), mapStr);
+        logger.print(mqSSMarker, sb.toString(), mapStr);
     }
+    
+    /**
+    public static void main(String args[]){
+        MQSpecificStorage mq = MQSpecificStorage.getInstance();
+        
+        for(int i=0; i < 10; i++)
+            mq.map.put("key."+i, i);
+        
+        mq.mqLengthLogging();
+    }
+    * */
 }
