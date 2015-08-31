@@ -9,13 +9,12 @@ import java.util.concurrent.ConcurrentSkipListMap;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.log.AgentSystemLogger;
-import rda.property.SetProperty;
 
 /**
  *
  * @author kaeru
  */
-public class MQSpecificStorage implements SetProperty{
+public class MQSpecificStorage{
     private static final ConcurrentSkipListMap<String, Integer> map = new ConcurrentSkipListMap<>();
     private static final MQSpecificStorage mqSS = new MQSpecificStorage();
     
@@ -29,20 +28,21 @@ public class MQSpecificStorage implements SetProperty{
         return mqSS;
     }
     
-    public static void setMQSSMap(String mqName, Integer mqLength){
+    public void setMQSSMap(String mqName, Integer mqLength){
         map.put(mqName, mqLength);
     }
     
-    public static void mqLengthLogging(){
+    public void mqLengthLogging(){
         StringBuilder sb = new StringBuilder();
-        Object[] mapStr = new String[map.size()];
-        int i= -1;
+        Object[] mapStr = new Object[map.size()];
+        int i= 0;
         
         for(String key : map.keySet()){
             mapStr[i++] = map.get(key);
             sb.append("{} ");
         }
         
+        //Record MessageQueue Length
         logger.printMQLFile(mqSSMarker, sb.toString(), mapStr);
     }
 }
