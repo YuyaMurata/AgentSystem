@@ -35,9 +35,6 @@ public class Main implements SetProperty{
 
     private static Long start, stop, transaction;
     public static void main(String[] args) {
-        // Start Time
-        start = System.currentTimeMillis();
-        
         //initialize
         init();
 
@@ -51,6 +48,9 @@ public class Main implements SetProperty{
     private static void execute(){
         start_debug();
         
+        // Start Time
+        start = System.currentTimeMillis();
+        
         //Start Main Schedule
         final ScheduledFuture mainTaskFuture = ex.scheduleAtFixedRate
                 (mainTask, 0, TIME_PERIOD, TimeUnit.MILLISECONDS);
@@ -61,7 +61,7 @@ public class Main implements SetProperty{
                 public void run(){
                     mainTaskFuture.cancel(true);
                     
-                    logger.print(mainMarker, "Main Task is Cancelled !", new Object[0]);
+                    logger.print(mainMarker, "Main Task is Cancelled !", null);
                     
                     mainTask.close();
                 }
