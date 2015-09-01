@@ -24,7 +24,7 @@ public class ReciveMessageQueue implements SetProperty{
 
     public synchronized void putMessage(Object message){
         dataPushWaiting.execute(new ReciveMessageQueuePutTask(this, message));
-        
+        notifyAll();
     }
 
     public void event() throws MessageQueueException{
