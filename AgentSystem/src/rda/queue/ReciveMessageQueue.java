@@ -59,11 +59,13 @@ public class ReciveMessageQueue implements SetProperty{
     }
     
     public synchronized void isFinish(){
-        notify();
+        notifyAll();
         while(!thread.isFinish())
             try {
                 wait(10);
-            } catch (InterruptedException ex) {
+            } catch (InterruptedException e) {
             }
+        
+        dataPushWaiting.shutdown();
     }
 }
