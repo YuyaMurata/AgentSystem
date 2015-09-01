@@ -11,7 +11,6 @@ public interface SetProperty {
 	public static final String AGENT_TYPE = "useragent";
         
         public static final Integer AGENT_DEFAULT_VALUE = 1;
-        public static final Integer DATA_VOLUME = 10;
         
 	//Server Property
 	/**
@@ -52,7 +51,7 @@ public interface SetProperty {
 	public static final Integer NUMBER_OF_USER_AGENTS = Integer.valueOf(prop.getValue("agent", "number.user.agent"));
 	public static final Integer NUMBER_OF_RANK_AGENTS = Integer.valueOf(prop.getValue("agent", "number.rank.agent"));
 	public static final Long AGENT_WAIT = Long.valueOf(prop.getValue("agent", "wait.agent"));
-        
+        public static final Integer DATA_VOLUME = Integer.valueOf(prop.getValue("agent", "data.volume"));;
         
         
         public static final MountData DATA_TYPE = new MountData();
