@@ -35,7 +35,7 @@ public class ReciveMQProcess extends Thread{
         
         MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
         
-        while(mq.isRunning() || !mq.isEmpty()){
+        while(mq.isRunning()){
             ArrayList<MessageObject> msgList  = (ArrayList<MessageObject>) mq.getMessage();
             if(msgList != null)
                 for(MessageObject msg : msgList){
