@@ -1,14 +1,17 @@
 package rda.queue;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import rda.property.SetProperty;
 
 public class ReciveMessageQueue implements SetProperty{
     public final String name;
-    private final ConcurrentLinkedQueue<Object> queue;
+    public final ConcurrentLinkedQueue<Object> queue;
     private final ReciveMQProcess thread;
     private final WindowController window;
+    private final ExecutorService dataPushWaiting = Executors.newSingleThreadExecutor();
     
     public ReciveMessageQueue(String name, WindowController window) {
         this.name = name;
@@ -19,19 +22,9 @@ public class ReciveMessageQueue implements SetProperty{
         thread.start();
     }
 
-    public synchronized void putMessage(Object message) throws InterruptedException {
-        while(isFull()){
-            try {
-                event();
-            } catch (MessageQueueException mqEvent) {
-                mqEvent.printEvent();
-
-                wait(QUEUE_WAIT);
-            }
-        }
+    public synchronized void putMessage(Object message){
+        dataPushWaiting.execute(new ReciveMessageQueuePutTask(this, message));
         
-        queue.offer(message);
-        notify();
     }
 
     public void event() throws MessageQueueException{
@@ -46,10 +39,14 @@ public class ReciveMessageQueue implements SetProperty{
         return getSize() > QUEUE_LENGTH;
     }
 
-    public synchronized Object getMessage() throws InterruptedException{
-        if(isEmpty()) wait();
+    public synchronized Object getMessage(){
+        if(isEmpty()) 
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
 
-        notify();
+        notifyAll();
         return queue.poll();
     }
 

@@ -36,28 +36,21 @@ public class ReciveMQProcess extends Thread{
         MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
         
         while(mq.isRunning() || !mq.isEmpty()){
-            try {
-                ArrayList<MessageObject> msgList  = (ArrayList<MessageObject>) mq.getMessage();
-                //System.out.println(name+"_"+messageList.size()+":稼動中!");
-            
-                if(msgList != null)
-                    for(MessageObject msg : msgList){
+            ArrayList<MessageObject> msgList  = (ArrayList<MessageObject>) mq.getMessage();
+            if(msgList != null)
+                for(MessageObject msg : msgList){
                     //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
-                        if(msgMap.get(msg.agentKey) == null)
-                            msgMap.put(msg.agentKey, new ArrayList<Integer>());
-                        msgMap.get(msg.agentKey).add(msg.data);
-                    }
-            
-                
-                if(mq.isEmpty() || mqt.getTimer()){
-                    for(AgentKey key : msgMap.keySet())
-                        user.sendUpdateMessage(key, msgMap.get(key));
-                    msgMap.clear();
-                    
-                    mqSS.map.put(mq.name, mq.getSize());
+                    if(msgMap.get(msg.agentKey) == null)
+                        msgMap.put(msg.agentKey, new ArrayList<Integer>());
+                    msgMap.get(msg.agentKey).add(msg.data);
                 }
-            } catch (InterruptedException e) {
-            }   
+            if(mq.isEmpty() || mqt.getTimer()){
+                for(AgentKey key : msgMap.keySet())   
+                    user.sendUpdateMessage(key, msgMap.get(key));
+                msgMap.clear();
+                
+                mqSS.map.put(mq.name, mq.getSize());
+            }
         }
         
         this.finish = true;

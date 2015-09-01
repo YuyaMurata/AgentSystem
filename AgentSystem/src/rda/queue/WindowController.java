@@ -39,11 +39,7 @@ public class WindowController{
 	}
 
 	private void sendMessageQueue(int i, Object mes){
-            try {
-                //QueueにPutする
-                this.mqArray[i].putMessage(mes);
-            } catch (InterruptedException ex) {
-            }
+            this.mqArray[i].putMessage(mes);
 	}
 
 	public void close(){
