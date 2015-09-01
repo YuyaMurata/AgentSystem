@@ -1,11 +1,8 @@
 package rda.property;
 
 import java.util.ArrayList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import rda.data.MountData;
 
-import rda.data.OutputData;
 
 public interface SetProperty {
 	public static final Property prop = new Property();
