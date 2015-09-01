@@ -21,10 +21,34 @@ public class ReciveMessageQueue implements SetProperty{
         this.thread = new ReciveMQProcess(this);
         thread.start();
     }
+    
+    public synchronized void putWait(){
+        try {
+            wait(QUEUE_WAIT);
+        } catch (InterruptedException e) {
+        }
+    }
 
-    public synchronized void putMessage(Object message){
-        dataPushWaiting.execute(new ReciveMessageQueuePutTask(this, message));
+    public synchronized void putMessage(Object msg){
+        //dataPushWaiting.execute(new ReciveMessageQueuePutTask(this, msg));
+        
+        while(isFull()){
+            try {
+                event();
+            } catch (MessageQueueException mqEvent) {
+                mqEvent.printEvent();
+
+                putWait();
+            }
+        }
+        
+        queue.offer(msg);
+        
         notifyAll();
+    }
+    
+    public void event() throws MessageQueueException{
+        throw new MessageQueueException(name);
     }
 	
     public Boolean isEmpty(){
