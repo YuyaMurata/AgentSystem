@@ -26,10 +26,6 @@ public class ReciveMessageQueue implements SetProperty{
         dataPushWaiting.execute(new ReciveMessageQueuePutTask(this, message));
         notifyAll();
     }
-
-    public void event() throws MessageQueueException{
-        throw new MessageQueueException(name);
-    }
 	
     public Boolean isEmpty(){
         return getSize() == 0;

@@ -18,18 +18,26 @@ public class ReciveMessageQueuePutTask implements Runnable{
         this.msg = msg;
     }
     
+    public void event() throws MessageQueueException{
+        throw new MessageQueueException(mq.name);
+    }
+    
+    public synchronized void putWait(){
+        try {
+            wait(mq.QUEUE_WAIT);
+        } catch (InterruptedException e) {
+        }
+    }
+    
     @Override
     public void run() {
         while(mq.isFull()){
             try {
-                mq.event();
+                event();
             } catch (MessageQueueException mqEvent) {
                 mqEvent.printEvent();
 
-                try {
-                    wait(mq.QUEUE_WAIT);
-                } catch (InterruptedException e) {
-                }
+                putWait();
             }
         }
         
