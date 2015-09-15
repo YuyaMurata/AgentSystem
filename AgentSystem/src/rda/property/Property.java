@@ -4,8 +4,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Property {
     public Property() {
@@ -67,9 +65,15 @@ public class Property {
     
     public void storePropeties(){
         try {
-            server.store(new FileOutputStream("/server.properties"), null);
-            queue.store(new FileOutputStream("/queue.properties"), null);
-            agent.store(new FileOutputStream("/agent.properties"), null);
+            
+            String path = getClass().getResource("/server.properties").getPath();
+            server.store(new FileOutputStream(path), null);
+            
+            path = getClass().getResource("/queue.properties").getPath();
+            queue.store(new FileOutputStream(path), null);
+            
+            path = getClass().getResource("/agent.properties").getPath();
+            agent.store(new FileOutputStream(path), null);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -16,11 +16,12 @@ public class RewriteProperty implements SetProperty{
             number = args[0];
         
         System.out.println("Change Properties :");
-        System.out.println("agent : number.user.agent ("+NUMBER_OF_USER_AGENTS+" -> "+number+")");
-        System.out.println("queue : number.queue ("+NUMBER_OF_QUEUE+" -> "+number+")");
-        
+                
         prop.setValue("agent", "number.user.agent", number);
+        System.out.println("agent : number.user.agent ("+NUMBER_OF_USER_AGENTS+" -> "+prop.getValue("agent", "number.user.agent")+")");
+             
         prop.setValue("queue", "number.queue", number);
+        System.out.println("queue : number.queue ("+NUMBER_OF_QUEUE+" -> "+prop.getValue("queue", "number.queue")+")");
         
         //Store
         prop.storePropeties();
