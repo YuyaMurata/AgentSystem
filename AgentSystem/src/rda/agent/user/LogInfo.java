@@ -14,11 +14,11 @@ public class LogInfo implements Serializable{
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 	
-	/**
+	/*
 	 * <attribute name="UserID" type="string" primarykey="true" relationto="UserID" maxlength="16"/>
 	 * <attribute name="AccessID" type="string" primarykey="true" maxlength="16"/>
 	 * <attribute name="LastAccessTime" type="timestamp" />
-	 **/
+	 */
 	String userID;
 	long connectCount;
 	String accessLog;

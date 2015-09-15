@@ -12,14 +12,14 @@ public class UserInfo implements Serializable{
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 	
-	/**
+	/*
 	 * <attribute name="UserID" type="string" primarykey="true" relationto="UserID" maxlength="16"/>
 	 * <attribute name="Name" type="string" maxlength="32"/>
 	 * <attribute name="Sex" type="string" maxlength="2"/>
 	 * <attribute name="Age" type="string" maxlength="4"/>
 	 * <attribute name="Address" type="string" maxlength="64"/>
 	 * <attribute name="LastAccessTime" type="timestamp" />
-	**/
+	*/
 
 	String userID;
 	String name;
