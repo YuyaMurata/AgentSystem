@@ -21,5 +21,8 @@ public class RewriteProperty implements SetProperty{
         
         prop.setValue("agent", "number.user.agent", number);
         prop.setValue("queue", "number.queue", number);
+        
+        //Store
+        prop.storePropeties();
     }
 }

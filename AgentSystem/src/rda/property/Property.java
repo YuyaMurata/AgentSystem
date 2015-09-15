@@ -1,8 +1,11 @@
 package rda.property;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Property {
     public Property() {
@@ -59,6 +62,16 @@ public class Property {
             case "server": server.setProperty(key, value);
             case "queue" : queue.setProperty(key, value);
             case "agent" : agent.setProperty(key, value);
+        }
+    }
+    
+    public void storePropeties(){
+        try {
+            server.store(new FileOutputStream("/server.properties"), null);
+            queue.store(new FileOutputStream("/queue.properties"), null);
+            agent.store(new FileOutputStream("/agent.properties"), null);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
