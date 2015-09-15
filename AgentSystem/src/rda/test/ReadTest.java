@@ -29,10 +29,10 @@ public class ReadTest implements SetProperty{
             Long[] count = new Long[NUMBER_OF_USER_AGENTS];
             for(UserInfo result : results){
                 sb.append(",{}");
-                name[i] = result.name;
-                data[i] = result.data;
-                total = total + result.data;
-                count[i] = result.count;
+                name[i] = result.getID();
+                data[i] = result.getData();
+                total = total + result.getData();
+                count[i] = result.getCount();
                 i++;
             }
             name[name.length-1] = "Total";
