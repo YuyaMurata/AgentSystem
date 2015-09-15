@@ -26,7 +26,7 @@ and open the template in the editor.
             <onMismatch>DENY</onMismatch>
         </filter>
         
-        <file>${log.dir}${log.file}_${file.agent}.log</file>
+        <file>${log.dir}${log.file}_${file.agent}.csv</file>
         
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
@@ -50,7 +50,7 @@ and open the template in the editor.
             <onMismatch>DENY</onMismatch>
         </filter>
         
-        <file>${log.dir}${log.file}_${file.event}.log</file>
+        <file>${log.dir}${log.file}_${file.event}.csv</file>
         
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
@@ -74,7 +74,7 @@ and open the template in the editor.
             <onMismatch>DENY</onMismatch>
         </filter>
         
-        <file>${log.dir}${log.file}_${file.results}.log</file>
+        <file>${log.dir}${log.file}_${file.results}.csv</file>
         
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
