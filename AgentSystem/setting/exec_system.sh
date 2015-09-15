@@ -4,13 +4,14 @@ vmstat -n -S m -a 1 | awk '{print strftime("%H:%M:%S"), $0} { system(":") }' > v
 java -cp $CLASSPATH rda.main.Main
 
 killall vmstat
+cat vmstat.log | awk '{print $1 "," $14 "," $15}' > vmstat.csv
+
+java -cp $CLASSPATH rda.test.ReadTest
 
 mkdir logs/user
 cp logs/*.log logs/user
 cp -r logs/history logs/user
 rm -f logs/*.log
 rm -f logs/history/*
-cp vmstat.log logs/user
-echo "" > logs/user/clsql_result
-
-./clex.sh 
+mv vmstat.log logs/user
+mv vmstat.csv logs/user
