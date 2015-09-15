@@ -10,6 +10,7 @@ import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentExecutor;
+import java.util.ArrayList;
 
 public class ReadUser implements AgentExecutor, Serializable{
 	/**
@@ -58,7 +59,8 @@ public class ReadUser implements AgentExecutor, Serializable{
 		}
 	}
 
-	public void read(int numOfAgents) {
+	public ArrayList<UserInfo> read(int numOfAgents) {
+            ArrayList<UserInfo> list = new ArrayList<>();
 		try{
 
 			CreateAgentClient client = new CreateAgentClient();
@@ -76,6 +78,8 @@ public class ReadUser implements AgentExecutor, Serializable{
     				System.out.println(agentKey + "[");
     				System.out.println("    " + info.toString());
     				System.out.println("]");
+                                
+                                list.add(info);
     			} else {
     				System.out.println(userID + " was not found");
     			}
@@ -85,6 +89,8 @@ public class ReadUser implements AgentExecutor, Serializable{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+                
+                return list;
 	}
 
 }

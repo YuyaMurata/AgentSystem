@@ -17,7 +17,7 @@ public class MessageQueueTest extends TestParameter{
 
     private static void execute(int run){
         //ReciveMessageQueue rmq = new ReciveMessageQueue("MQ0");
-        WindowController mq = new WindowController(NUMBER_QUEUE, WINDOW_SIZE, "DataWinow");
+        WindowController mq = new WindowController(NUMBER_OF_QUEUE, WINDOW_SIZE, "DataWinow");
         
         MessageObject msg;
         ArrayList<MessageObject> oneMessage;
@@ -50,7 +50,7 @@ public class MessageQueueTest extends TestParameter{
     static OutputData out;
     public static void main(String[] args) {
         //Create UserAgents
-        createUser(NUMBER_USER);
+        createUser(NUMBER_OF_USER_AGENTS);
 
         //Update Agent
         long start = System.currentTimeMillis();
@@ -62,6 +62,6 @@ public class MessageQueueTest extends TestParameter{
         long stop = System.currentTimeMillis();
         System.out.println("Stop Agent System : "+stop);
         
-        System.out.println("N="+NUMBER_USER+"D="+NUMBER_DATA+" time : "+(stop-start));
+        System.out.println("N="+NUMBER_OF_USER_AGENTS+"D="+NUMBER_DATA+" time : "+(stop-start));
     }
 }

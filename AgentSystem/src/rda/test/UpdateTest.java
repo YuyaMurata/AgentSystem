@@ -15,7 +15,7 @@ public class UpdateTest extends TestParameter{
 
         user.setParam(agentClient.getClient());
 
-        for(int i=0; i < NUMBER_USER * num; i++){
+        for(int i=0; i < NUMBER_OF_USER_AGENTS * num; i++){
             ArrayList<Integer> list = new ArrayList<>();
             list.add(ag.getData().data);
             user.sendUpdateMessage(ag.getData().agentKey, list);
@@ -30,11 +30,11 @@ public class UpdateTest extends TestParameter{
 	System.out.println("Start Agent System : "+start);
         
         //Executable Test
-        execute(NUMBER_RUN);
+        execute(TIME_RUN);
         
         long stop = System.currentTimeMillis();
         System.out.println("Stop Agent System : "+stop);
         
-        System.out.println("N="+NUMBER_USER+"R="+NUMBER_RUN+" time : "+(stop-start));
+        System.out.println("N="+NUMBER_OF_USER_AGENTS+"R="+TIME_RUN+" time : "+(stop-start));
     }
 }

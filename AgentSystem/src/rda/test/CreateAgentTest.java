@@ -11,6 +11,6 @@ public class CreateAgentTest extends TestParameter{
 
     public static void main(String[] args) {
         //Agentの生成
-        createUser(NUMBER_USER);
+        createUser(NUMBER_OF_USER_AGENTS);
     }
 }
