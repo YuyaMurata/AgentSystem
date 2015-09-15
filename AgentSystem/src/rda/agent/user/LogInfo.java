@@ -2,8 +2,6 @@ package rda.agent.user;
 
 import java.io.Serializable;
 
-import rda.data.OutputData;
-
 public class LogInfo implements Serializable{
 	/**
 	 * 

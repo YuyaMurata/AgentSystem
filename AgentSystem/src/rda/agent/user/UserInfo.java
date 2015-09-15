@@ -21,14 +21,15 @@ public class UserInfo implements Serializable{
 	 * <attribute name="LastAccessTime" type="timestamp" />
 	*/
 
-	String userID;
-	String name;
-	String sex;
-	String age;
-	String address;
-	int data;
+	public String userID;
+	public String name;
+	public String sex;
+	public String age;
+	public String address;
+	public int data;
+        public long count;
 
-	public UserInfo(String userID, String name, String sex, String age, String address, int data) {
+	public UserInfo(String userID, String name, String sex, String age, String address, int data, long count) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.userID = userID;
 		this.name = name;
@@ -36,6 +37,7 @@ public class UserInfo implements Serializable{
 		this.age = age;
 		this.address = address;
 		this.data = data;
+                this.count = count;
 	}
 
 	public String toString(){
@@ -52,6 +54,8 @@ public class UserInfo implements Serializable{
 		sb.append(address);
 		sb.append(",");
 		sb.append(data);
+                sb.append(",");
+                sb.append(count);
 
 		return sb.toString();
 	}

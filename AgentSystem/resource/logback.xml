@@ -30,7 +30,7 @@ and open the template in the editor.
         
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${log.dir}${log.history}${log.file}_${file.agent}_%d{yyyy-MM-dd-HH}.zip
+                ${log.dir}${log.history}${log.file}_${file.agent}_%d{yyyy-MM-dd}.zip
             </fileNamePattern>
         </rollingPolicy>
         
@@ -54,7 +54,31 @@ and open the template in the editor.
         
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>
-                ${log.dir}${log.history}${log.file}_${file.event}_%d{yyyy-MM-dd-HH}.zip
+                ${log.dir}${log.history}${log.file}_${file.event}_%d{yyyy-MM-dd}.zip
+            </fileNamePattern>
+        </rollingPolicy>
+        
+        <encoder>
+            <!-- time level thread logger messages -->
+            <pattern>
+                %d{yyyy-MMM-dd HH:mm:ss.SSS} %marker %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    
+    <appender name="AGENT_RESULTS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        
+        <file>${log.dir}${log.file}_${file.results}.log</file>
+        
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>
+                ${log.dir}${log.history}${log.file}_${file.results}_%d{yyyy-MM-dd}.zip
             </fileNamePattern>
         </rollingPolicy>
         
@@ -74,9 +98,14 @@ and open the template in the editor.
         <appender-ref ref="MQ_EVENT_INFO"/>
     </appender>
 
+    <appender name="ASYNC_AGENT_RESULTS" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="AGENT_RESULTS"/>
+    </appender>
+
     <root level="TRACE">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="ASYNC_AGENT_INFO" />
         <appender-ref ref="ASYNC_MQ_EVENT_INFO" />
+        <appender-ref ref="ASYNC_AGENT_RESULTS" />
     </root>
 </configuration>

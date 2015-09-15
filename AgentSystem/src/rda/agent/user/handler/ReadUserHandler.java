@@ -28,7 +28,9 @@ public class ReadUserHandler extends MessageHandler{
 				/*Sex*/ 		prof.getSex(tx),
 				/*Age*/		prof.getAge(tx),
 				/*address*/	prof.getAddress(tx),
-				/*data*/		user.getData(tx));
+				/*data*/		user.getData(tx),
+                                /*count */ user.getConnectionCount(tx)
+                                );
 
 		return info;
 	}

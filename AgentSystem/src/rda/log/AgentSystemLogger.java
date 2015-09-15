@@ -52,4 +52,9 @@ public class AgentSystemLogger {
         //File Out
         logger.debug(marker, str, arr);
     }
+    
+    public void printResults(Marker marker, String str, Object[] arr){
+        //File & System Out
+        logger.warn(marker, str, arr);
+    }
 }
