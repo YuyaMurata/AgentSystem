@@ -35,8 +35,8 @@ public class ReadTest implements SetProperty{
                 count[i] = result.count;
                 i++;
             }
-            name[name.length] = "Total";
-            data[data.length] = total;
+            name[name.length-1] = "Total";
+            data[data.length-1] = total;
             
             //Output
             logger.printResults(readMarker, "UserID"+sb.toString()+",{}", name);
