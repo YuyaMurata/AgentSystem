@@ -38,6 +38,7 @@ public class AgentSystemLogger {
     public void printAgentSystemSettings(Marker marker, String str, Object[] arr){
         printMQEvent(marker, str, arr);
         printMQLFile(marker, str, arr);
+        printResults(marker, str, arr);
     }
     
     public void printMQEvent(Marker marker, String str, Object[] arr){

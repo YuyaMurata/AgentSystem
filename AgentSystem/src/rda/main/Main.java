@@ -112,5 +112,7 @@ public class Main implements SetProperty{
         logger.printAgentSystemSettings(mainMarker, 
                     "<ALL> TransactionTime: {} [ms] \n(<Initialize> {} [ms] <CreateAgent> {} [ms] <MainExec> {}[ms])", 
                     new Object[]{stop - initStart, createStart - initStart, start - createStart, stop - start});
+        
+        logger.printResults(mainMarker, "Time,{}", new Object[]{stop - start});
     }
 }
