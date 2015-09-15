@@ -37,7 +37,7 @@ and open the template in the editor.
         <encoder>
             <!-- time level thread logger messages -->
             <pattern>
-                %d{yyyy-MMM-dd HH:mm:ss.SSS} %marker %msg%n
+                %d{yyyy-MMM-dd HH:mm:ss.SSS}, %marker, %msg%n
             </pattern>
         </encoder>
     </appender>
@@ -61,7 +61,7 @@ and open the template in the editor.
         <encoder>
             <!-- time level thread logger messages -->
             <pattern>
-                %d{yyyy-MMM-dd HH:mm:ss.SSS} %marker %msg%n
+                %d{yyyy-MMM-dd HH:mm:ss.SSS,} %marker, %msg%n
             </pattern>
         </encoder>
     </appender>
@@ -85,7 +85,7 @@ and open the template in the editor.
         <encoder>
             <!-- time level thread logger messages -->
             <pattern>
-                %d{yyyy-MMM-dd HH:mm:ss.SSS} %marker %msg%n
+                %d{yyyy-MMM-dd HH:mm:ss.SSS}, %marker, %msg%n
             </pattern>
         </encoder>
     </appender>

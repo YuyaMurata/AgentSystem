@@ -24,9 +24,9 @@ public class ReadTest implements SetProperty{
             int i = 0;
             int total = 0;
             StringBuilder sb = new StringBuilder();
-            String[] name = new String[NUMBER_OF_USER_AGENTS+1];
+            String[] name = new String[NUMBER_OF_USER_AGENTS+2];
             Integer[] data = new Integer[NUMBER_OF_USER_AGENTS+1];
-            Long[] count = new Long[NUMBER_OF_USER_AGENTS];
+            Long[] count = new Long[NUMBER_OF_USER_AGENTS+1];
             for(UserInfo result : results){
                 sb.append(",{}");
                 name[i] = result.getID();
@@ -35,12 +35,14 @@ public class ReadTest implements SetProperty{
                 count[i] = result.getCount();
                 i++;
             }
-            name[name.length-1] = "Total";
+            name[name.length-2] = "Total";
+            name[name.length-1] = "Time[ms]";
             data[data.length-1] = total;
+            count[count.length-1] = TIME_RUN * TIME_PERIOD;
             
             //Output
             logger.printResults(readMarker, "UserID"+sb.toString()+",{}", name);
             logger.printResults(readMarker, "Data"+sb.toString()+",{}", data);
-            logger.printResults(readMarker, "ConnectionCount"+sb.toString(), count);
+            logger.printResults(readMarker, "ConnectionCount"+sb.toString()+",,{}", count);
 	}
 }

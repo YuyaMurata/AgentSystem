@@ -101,7 +101,7 @@ public class Main implements SetProperty{
         StringBuilder sb = new StringBuilder();
         for(int i=0; i < NUMBER_OF_QUEUE; i++){
             obj[i] = "RMQ"+i;
-            sb.append("{} ");
+            sb.append(",{} ");
         }
         logger.printMQLFile(mainMarker, sb.toString(), obj);
     }

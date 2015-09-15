@@ -35,7 +35,7 @@ public class MQSpecificStorage{
         
         for(String key : map.keySet()){
             mapStr[i++] = map.get(key);
-            sb.append("{} ");
+            sb.append(",{} ");
         }
         
         //Record MessageQueue Length
