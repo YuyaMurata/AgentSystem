@@ -60,9 +60,9 @@ public class ReadUser implements AgentExecutor, Serializable{
 	}
 
 	public ArrayList<UserInfo> read(int numOfAgents) {
-            ArrayList<UserInfo> list = new ArrayList<>();
+            
 		try{
-
+                        ArrayList<UserInfo> list = new ArrayList<>();
 			CreateAgentClient client = new CreateAgentClient();
 
 			for(int i=0; i < numOfAgents; i++){
@@ -86,11 +86,12 @@ public class ReadUser implements AgentExecutor, Serializable{
 			}
 
 			client.close();
+                        
+                        return list;
 		}catch(Exception e){
 			e.printStackTrace();
+                        return null;
 		}
-                
-                return list;
 	}
 
 }
