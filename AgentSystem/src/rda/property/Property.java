@@ -54,6 +54,14 @@ public class Property {
         }
     }
     
+    public void setValue(String prop, String key, String value){
+        switch (prop) {
+            case "server": server.setProperty(key, value);
+            case "queue" : queue.setProperty(key, value);
+            case "agent" : agent.setProperty(key, value);
+        }
+    }
+    
     public ArrayList<String> setHost(int numServer){
         ArrayList<String> host = new ArrayList<>();
             for(int i=0; i < numServer; i++)

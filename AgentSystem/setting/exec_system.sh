@@ -16,5 +16,4 @@ cp -r logs/history logs/user
 rm -f logs/*.log
 rm -f logs/history/*
 
-mv vmstat.log logs/user
-mv vmstat.csv logs/user
+mv vmstat.* logs/user
