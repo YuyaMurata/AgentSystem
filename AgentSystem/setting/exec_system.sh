@@ -9,9 +9,12 @@ cat vmstat.log | awk '{print $1 "," $14 "," $15}' > vmstat.csv
 java -cp $CLASSPATH rda.test.ReadTest
 
 mkdir logs/user
+
 cp logs/*.log logs/user
 cp -r logs/history logs/user
+
 rm -f logs/*.log
 rm -f logs/history/*
+
 mv vmstat.log logs/user
 mv vmstat.csv logs/user
