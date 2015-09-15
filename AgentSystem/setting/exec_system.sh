@@ -16,7 +16,7 @@ mkdir logs/user$i
 cp logs/*.csv logs/user$i
 cp -r logs/history logs/user$i
 
-rm -f logs/*.log
+rm -f logs/*.csv
 rm -f logs/history/*
 
 mv vmstat.* logs/user$i
