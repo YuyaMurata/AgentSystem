@@ -53,6 +53,16 @@ public interface SetProperty {
 	public static final Long AGENT_WAIT = Long.valueOf(prop.getValue("agent", "wait.agent"));
         public static final Integer DATA_VOLUME = Integer.valueOf(prop.getValue("agent", "data.volume"));;
         
+        //Log Property
+        /**
+         * log.dir=logs/
+         * log.file=AgentSystem_info
+         * log.history=history/
+         * file.agent=MQLength
+         * file.event=MQEvent
+         * file.results=AgentResults
+         */
+        public static final String LOG_DIR = prop.getValue("log", "log.dir");
         
         public static final MountData DATA_TYPE = new MountData();
 }

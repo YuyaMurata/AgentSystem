@@ -15,6 +15,7 @@ public class Property {
     private static final Properties server = new Properties();
     private static final Properties queue = new Properties();
     private static final Properties agent = new Properties();
+    private static final Properties log = new Properties();
 
     //Load Property
     private void load(Properties prop, String filename){
@@ -44,6 +45,12 @@ public class Property {
         String filename = "/agent.properties";
         load(agent, filename);
     }
+    
+    //Agent Property
+    private void loadLogProperty(){
+        String filename = "/log.properties";
+        load(log, filename);
+    }
 
     //Get Value
     public String getValue(String prop, String key){
@@ -51,6 +58,7 @@ public class Property {
             case "server": return server.getProperty(key);
             case "queue" : return queue.getProperty(key);
             case "agent" : return agent.getProperty(key);
+            case "log"   : return log.getProperty(key);
             default      : return null;
         }
     }
@@ -60,6 +68,7 @@ public class Property {
             case "server": server.setProperty(key, value);
             case "queue" : queue.setProperty(key, value);
             case "agent" : agent.setProperty(key, value);
+            case "log"   : log.setProperty(key, value);
         }
     }
     
@@ -92,6 +101,7 @@ public class Property {
         loadServerProperty();
         loadQueueProperty();
         loadAgentProperty();
+        loadLogProperty();
     }
     
     private void getValueALL(){
@@ -106,6 +116,10 @@ public class Property {
         
         for(Object key: agent.keySet())
             System.out.println("* AgentProperty Value  : "+(String)key+"="+getValue("agent", (String)key));
+        System.out.println("* ------------------------------------------------ *");
+        
+        for(Object key: log.keySet())
+            System.out.println("* LogProperty Value  : "+(String)key+"="+getValue("log", (String)key));
         System.out.println("****************************************************");
     }
     

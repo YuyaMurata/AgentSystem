@@ -18,7 +18,7 @@ public class MQSpecificStorage{
     public final ConcurrentSkipListMap<String, Integer> map = new ConcurrentSkipListMap<>();
     private static final MQSpecificStorage mqSS = new MQSpecificStorage();
     
-    private static final Marker mqSSMarker = MarkerFactory.getMarker("MessageQueueSSLength");
+    private static final Marker dataMarker = MarkerFactory.getMarker("data");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
     private MQSpecificStorage(){   
@@ -29,7 +29,7 @@ public class MQSpecificStorage{
     }
     
     public void mqLengthLogging(){
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("MQL");
         Object[] mapStr = new Object[map.size()];
         int i= 0;
         
@@ -39,7 +39,7 @@ public class MQSpecificStorage{
         }
         
         //Record MessageQueue Length
-        logger.printMQLFile(mqSSMarker, sb.toString(), mapStr);
+        logger.printMQLFile(dataMarker, sb.toString(), mapStr);
     }
     
     /**

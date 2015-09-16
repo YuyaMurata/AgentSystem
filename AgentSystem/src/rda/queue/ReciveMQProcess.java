@@ -12,7 +12,7 @@ import rda.log.AgentSystemLogger;
 
 public class ReciveMQProcess extends Thread{
     private final ReciveMessageQueue mq;
-    private static final MessageQueueTimer mqt = MessageQueueTimer.getInstance();;
+    private static final MessageQueueTimer mqt = MessageQueueTimer.getInstance();
     
     private static final Marker rMQMarker = MarkerFactory.getMarker("ReciveMessageQueue");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();

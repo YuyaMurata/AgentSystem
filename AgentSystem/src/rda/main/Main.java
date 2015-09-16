@@ -10,6 +10,7 @@ import org.slf4j.MarkerFactory;
 import rda.agent.CreateAgent;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
+import rda.queue.MQSpecificStorage;
 import rda.queue.MessageQueueTimer;
 import rda.queue.WindowController;
 
@@ -88,31 +89,54 @@ public class Main implements SetProperty{
     }
     
     // DEBUG SYSTEM OUT
+    private static final Marker initMarker = MarkerFactory.getMarker("init");
     private static void init_debug(){
-        logger.printAgentSystemSettings(mainMarker,
-                    "ExecTime_{}[sec] MessagePeriod_{}[ms] UserAgentN_{} DataType_{} DataN_{} \n MsgQueueN_{} MaxMQLength_{} WindowSize_{} Wait[ms]: Agent_{} Queue_{} \n Server: N_{} Host_{}",
-                    new Object[]{TIME_RUN, TIME_PERIOD, NUMBER_OF_USER_AGENTS, DATA_TYPE.name, DATA_TYPE.getAmountData(), NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, AGENT_WAIT, QUEUE_WAIT, NUMBER_OF_SERVER, HOST_ADDRESS.toString()});
+        logger.printAgentSystemSettings(initMarker,
+                "ExecTime_{}[sec] DataPeriod_{}[ms] DataType_{} DataN_{}  ",
+                new Object[]{TIME_RUN, TIME_PERIOD, DATA_TYPE.name, DATA_TYPE.getAmountData()});
+        logger.printAgentSystemSettings(initMarker, 
+                "Server: N_{} Host_{}", 
+                new Object[]{NUMBER_OF_SERVER, HOST_ADDRESS.toString()});
+        logger.printAgentSystemSettings(initMarker, 
+                "UserAgentN_{} Wait[ms]: Agent_{}", 
+                new Object[]{NUMBER_OF_USER_AGENTS, AGENT_WAIT});      
+        logger.printAgentSystemSettings(initMarker, 
+                "MsgQueueN_{} MaxMQLength_{} WindowSize_{} Wait[ms]: Queue_{}", 
+                new Object[]{NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, QUEUE_WAIT});
     }
     
+    private static final Marker startMarker = MarkerFactory.getMarker("start");
+    private static final Marker fieldMarker = MarkerFactory.getMarker("field");
     private static void start_debug(){
-        logger.printAgentSystemSettings(mainMarker, "Start Agent System", new Object[0]);
+        logger.printAgentSystemSettings(startMarker, "Start Agent System", null);
+        
+        logger.printMQEvent(fieldMarker, "MQ LimitEvent, MQName, EventMessage", null);
+        
+        MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
         
         Object[] obj = new Object[NUMBER_OF_QUEUE];
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("MQName");
+        String mqName;
         for(int i=0; i < NUMBER_OF_QUEUE; i++){
-            obj[i] = "RMQ"+i;
+            mqName = "RMQ"+i;
+            obj[i] = mqName;
+            mqSS.map.put(mqName, 0);
             sb.append(",{} ");
         }
-        logger.printMQLFile(mainMarker, sb.toString(), obj);
+        logger.printMQLFile(fieldMarker, sb.toString(), obj);
     }
     
+    private static final Marker stopMarker = MarkerFactory.getMarker("stop");
+    private static final Marker dataMarker = MarkerFactory.getMarker("data");
     private static void stop_debug(){
-        logger.printAgentSystemSettings(mainMarker, "Stop AgentSystem", null);
-        
+        logger.printAgentSystemSettings(stopMarker, "Stop Agent System", null);       
         logger.printAgentSystemSettings(mainMarker, 
-                    "<ALL> TransactionTime: {} [ms] \n(<Initialize> {} [ms] <CreateAgent> {} [ms] <MainExec> {}[ms])", 
-                    new Object[]{stop - initStart, createStart - initStart, start - createStart, stop - start});
+                "<ALL> TransactionTime: {} [ms]", 
+                new Object[]{stop - initStart});
+        logger.printAgentSystemSettings(mainMarker, 
+                "(<Initialize> {} [ms] <CreateAgent> {} [ms] <MainExec> {}[ms])", 
+                new Object[]{createStart - initStart, start - createStart, stop - start});
         
-        logger.printResults(mainMarker, "Time,{}", new Object[]{stop - start});
+        logger.printResults(dataMarker, "Time,{}", new Object[]{stop - start});
     }
 }

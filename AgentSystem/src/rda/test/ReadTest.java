@@ -11,7 +11,8 @@ import rda.property.SetProperty;
 
 public class ReadTest implements SetProperty{
     
-    private static final Marker readMarker = MarkerFactory.getMarker("Read AgentInfo");
+    private static final Marker dataMarker = MarkerFactory.getMarker("data");
+     private static final Marker fieldMarker = MarkerFactory.getMarker("field");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
 	
 	public static void main(String[] args) {
@@ -45,8 +46,8 @@ public class ReadTest implements SetProperty{
             count[count.length-1] = countTotal;
             
             //Output
-            logger.printResults(readMarker, "UserID"+sb.toString()+",{}", name);
-            logger.printResults(readMarker, "Data"+sb.toString()+",{}", data);
-            logger.printResults(readMarker, "ConnectionCount"+sb.toString()+",{}", count);
+            logger.printResults(fieldMarker, "UserID"+sb.toString()+",{}", name);
+            logger.printResults(dataMarker, "Transaction"+sb.toString()+",{}", data);
+            logger.printResults(dataMarker, "ConnectionCount"+sb.toString()+",{}", count);
 	}
 }

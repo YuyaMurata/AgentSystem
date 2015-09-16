@@ -1,0 +1,7 @@
+2015-9-16 05:57:17.223, AgentSystem Main, ExecTime_3600[sec] MessagePeriod_1000[ms] UserAgentN_10 DataType_Mount DataN_64818000 
+ MsgQueueN_10 MaxMQLength_1000 WindowSize_100 Wait[ms]: Agent_100 Queue_100 
+ Server: N_1 Host_[localhost:2809]
+2015-9-16 05:57:19.047, AgentSystem Main, Start Agent System
+2015-9-16 06:57:19.102, AgentSystem Main, Stop AgentSystem
+2015-9-16 06:57:19.103, AgentSystem Main, <ALL> TransactionTime: 3601896 [ms] 
+(<Initialize> 46 [ms] <CreateAgent> 1796 [ms] <MainExec> 3600054[ms])
