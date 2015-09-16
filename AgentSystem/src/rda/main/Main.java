@@ -92,7 +92,7 @@ public class Main implements SetProperty{
     private static final Marker initMarker = MarkerFactory.getMarker("init");
     private static void init_debug(){
         logger.printAgentSystemSettings(initMarker,
-                "ExecTime_{}[sec] DataPeriod_{}[ms] DataType_{} DataN_{}  ",
+                "ExecTime_{} [sec] DataPeriod_{} [ms] DataType_{} DataN_{}  ",
                 new Object[]{TIME_RUN, TIME_PERIOD, DATA_TYPE.name, DATA_TYPE.getAmountData()});
         logger.printAgentSystemSettings(initMarker, 
                 "Server: N_{} Host_{}", 
@@ -101,7 +101,7 @@ public class Main implements SetProperty{
                 "UserAgentN_{} Wait[ms]: Agent_{}", 
                 new Object[]{NUMBER_OF_USER_AGENTS, AGENT_WAIT});      
         logger.printAgentSystemSettings(initMarker, 
-                "MsgQueueN_{} MaxMQLength_{} WindowSize_{} Wait[ms]: Queue_{}", 
+                "MsgQueueN_{} MaxMQLength_{} WindowSize_{} Wait[ms]: Queue_{} ", 
                 new Object[]{NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, QUEUE_WAIT});
     }
     
@@ -130,11 +130,11 @@ public class Main implements SetProperty{
     private static final Marker dataMarker = MarkerFactory.getMarker("data");
     private static void stop_debug(){
         logger.printAgentSystemSettings(stopMarker, "Stop Agent System", null);       
-        logger.printAgentSystemSettings(mainMarker, 
-                "<ALL> TransactionTime: {} [ms]", 
+        logger.printAgentSystemSettings(initMarker, 
+                "<ALL> TransactionTime:_{} [ms]", 
                 new Object[]{stop - initStart});
         logger.printAgentSystemSettings(mainMarker, 
-                "(<Initialize> {} [ms] <CreateAgent> {} [ms] <MainExec> {}[ms])", 
+                "(<Initialize> _{} [ms] <CreateAgent> _{} [ms] <MainExec> _{}[ms])", 
                 new Object[]{createStart - initStart, start - createStart, stop - start});
         
         logger.printResults(dataMarker, "Time,{}", new Object[]{stop - start});

@@ -60,9 +60,17 @@ public interface SetProperty {
          * log.history=history/
          * file.agent=MQLength
          * file.event=MQEvent
+         * file.cpu=vmstat
          * file.results=AgentResults
+         * file.all=ALLData
          */
         public static final String LOG_DIR = prop.getValue("log", "log.dir");
+        public static final String LOG_FILE = prop.getValue("log", "log.file");
+        public static final String LOG_MQL = prop.getValue("log", "file.agent");
+        public static final String LOG_MQE = prop.getValue("log", "file.event");
+        public static final String LOG_CPU = prop.getValue("log", "file.cpu");
+        public static final String LOG_RESULTS = prop.getValue("log", "file.results");
+        public static final String LOG_ALL = prop.getValue("log", "file.all");
         
         public static final MountData DATA_TYPE = new MountData();
 }
