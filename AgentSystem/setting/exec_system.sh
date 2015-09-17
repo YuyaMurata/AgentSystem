@@ -5,7 +5,7 @@ do
 
 java -cp $CLASSPATH rda.property.RewriteProperty $i
 
-vmstat -n -S m -a 1 | awk '{print strftime("%Y-%m-%d %H:%M:%S.%N"), $0} { system(":") }' > vmstat.log &
+vmstat -n -S m -a 1 | awk '{print strftime("%Y-%m-%d %H:%M:%S.000"), $0} { system(":") }' > vmstat.log &
 java -cp $CLASSPATH rda.main.Main
 
 killall vmstat
