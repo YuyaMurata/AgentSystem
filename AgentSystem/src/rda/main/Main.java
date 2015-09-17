@@ -128,12 +128,13 @@ public class Main implements SetProperty{
     
     private static final Marker stopMarker = MarkerFactory.getMarker("stop");
     private static final Marker dataMarker = MarkerFactory.getMarker("data");
+    private static final Marker endMarker = MarkerFactory.getMarker("end");
     private static void stop_debug(){
         logger.printAgentSystemSettings(stopMarker, "Stop Agent System", null);       
         logger.printAgentSystemSettings(initMarker, 
                 "<ALL> TransactionTime:_{} [ms]", 
                 new Object[]{stop - initStart});
-        logger.printAgentSystemSettings(mainMarker, 
+        logger.printAgentSystemSettings(endMarker, 
                 "(<Initialize> _{} [ms] <CreateAgent> _{} [ms] <MainExec> _{}[ms])", 
                 new Object[]{createStart - initStart, start - createStart, stop - start});
         
