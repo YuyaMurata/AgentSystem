@@ -9,7 +9,7 @@ vmstat -n -S m -a 1 | awk '{print strftime("%Y-%m-%d %H:%M:%S.000"), $0} { syste
 java -cp $CLASSPATH rda.main.Main
 
 killall vmstat
-cat vmstat.log | awk '{print $1 "," $14 "," $15}' > vmstat.csv
+cat vmstat.log | awk '{print $1$2 "," $15 "," $16}' > vmstat.csv
 
 java -cp $CLASSPATH rda.test.ReadTest
 
