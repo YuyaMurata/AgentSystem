@@ -180,17 +180,18 @@ public class ResutsDataForming implements SetProperty{
         csv.flush();
         
         fieldIn.setTime(csvMQLReader.readNext()[0]);
-        fieldIn.cehckTime(csvMQEReader.readNext()[0]);
-        fieldIn.cehckTime(csvCPUReader.readNext()[0]);
+        fieldIn.checkTime(csvMQEReader.readNext()[0]);
+        fieldIn.checkTime(csvCPUReader.readNext()[0]);
         
-        /**
+        int test = 0;
         for(String[] mql: csvMQLReader.readAll()){
             if(mql.length > 1)
                 if(mql[1].contains("data")){
                     fieldIn.setTime(mql[0]);
                     
+                    fieldIn.setLengthData(mql);
                 }
-        }**/
+        }
             
     }
 }
