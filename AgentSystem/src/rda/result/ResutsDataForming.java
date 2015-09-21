@@ -28,7 +28,7 @@ public class ResutsDataForming implements SetProperty{
     
     public static void main(String[] args) 
             throws FileNotFoundException, UnsupportedEncodingException, IOException, ParseException{
-        String folderName = "user10";
+        String folderName = "user";
         if(args.length == 1)
             folderName = folderName + args[0];
         
