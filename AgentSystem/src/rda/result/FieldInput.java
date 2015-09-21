@@ -107,6 +107,7 @@ public class FieldInput {
         
         //init EventCount
         for(String key : eventCount.keySet()) eventCount.put(key, 0);
+        eventMapToList();
         
         return data.toArray(new String[0]);
     }

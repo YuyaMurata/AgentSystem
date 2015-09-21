@@ -190,11 +190,7 @@ public class ResutsDataForming implements SetProperty{
                     
                     fieldIn.setLengthData(mql);
                     while(fieldIn.setEventData(eventList.get(i))) i++;
-                    while(fieldIn.setCPUData(cpuList.get(j))){
-                        j++;
-                        
-                    }
-                    System.out.println("CPUList index:"+j);
+                    while(fieldIn.setCPUData(cpuList.get(j))) j++;
                     
                     csv.writeNext((String[]) fieldIn.formingData());
                 }
