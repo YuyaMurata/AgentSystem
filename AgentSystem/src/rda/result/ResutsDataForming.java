@@ -175,9 +175,7 @@ public class ResutsDataForming implements SetProperty{
         fieldIn.setCPUField(field);
         
         csv.writeNext((String[]) fieldIn.formingData());
-        //--
         csv.flush();
-        //--
         
         //initialise index and setData
         List<String[]> eventList = csvMQEReader.readAll();
