@@ -176,22 +176,33 @@ public class ResutsDataForming implements SetProperty{
         
         csv.writeNext((String[]) fieldIn.formingData());
         //--
-        
         csv.flush();
+        //--
         
-        fieldIn.setTime(csvMQLReader.readNext()[0]);
-        fieldIn.checkTime(csvMQEReader.readNext()[0]);
-        fieldIn.checkTime(csvCPUReader.readNext()[0]);
-        
-        int test = 0;
+        //initialise index and setData
+        List<String[]> eventList = csvMQEReader.readAll();
+        List<String[]> cpuList = csvCPUReader.readAll();
+        fieldIn.eventMapToList();
+        int i=0 , j=0;
+
         for(String[] mql: csvMQLReader.readAll()){
             if(mql.length > 1)
                 if(mql[1].contains("data")){
                     fieldIn.setTime(mql[0]);
                     
                     fieldIn.setLengthData(mql);
+                    while(fieldIn.setEventData(eventList.get(i))) i++;
+                    while(fieldIn.setCPUData(cpuList.get(j))){
+                        j++;
+                        
+                    }
+                    System.out.println("CPUList index:"+j);
+                    
+                    csv.writeNext((String[]) fieldIn.formingData());
                 }
         }
-            
+        
+        csv.flush();
+          
     }
 }
