@@ -24,7 +24,7 @@ import rda.property.SetProperty;
  *
  * @author kaeru
  */
-public class ResutsDataForming implements SetProperty{
+public class ResultsDataForming implements SetProperty{
     
     public static void main(String[] args) 
             throws FileNotFoundException, UnsupportedEncodingException, IOException, ParseException{
