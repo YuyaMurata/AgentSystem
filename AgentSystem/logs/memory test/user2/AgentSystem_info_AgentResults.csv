@@ -1,0 +1,12 @@
+2015-09-21 17:14:54.930, init, ExecTime_1000 [sec] DataPeriod_1000 [ms] DataType_Mount DataN_500500000  
+2015-09-21 17:14:54.930, init, Server: N_1 Host_[localhost:2809]
+2015-09-21 17:14:54.931, init, UserAgentN_2 Wait[ms]: Agent_100
+2015-09-21 17:14:54.932, init, MsgQueueN_2 MaxMQLength_1000 WindowSize_100 Wait[ms]: Queue_100 
+2015-09-21 17:14:56.605, start, Start Agent System
+2015-09-21 17:31:36.920, stop, Stop Agent System
+2015-09-21 17:31:36.920, init, <ALL> TransactionTime:_1002011 [ms]
+2015-09-21 17:31:36.920, end, (<Initialize> _32 [ms] <CreateAgent> _1667 [ms] <MainExec> _1000312[ms])
+2015-09-21 17:31:36.920, data, Time,1000312
+2015-09-21 17:31:39.407, field, UserID,U#000,U#001,Total
+2015-09-21 17:31:39.415, data, Transaction,250189500,250189400,500378900
+2015-09-21 17:31:39.416, data, ConnectionCount,143606,142112,285718
