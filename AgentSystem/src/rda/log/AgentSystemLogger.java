@@ -46,7 +46,7 @@ public class AgentSystemLogger {
         logger.trace(marker, str, arr);
         
         //Console Out
-        //print(marker, str, arr);
+        //print(marker, str, arr); 
     }
     
     public void printMQLFile(Marker marker, String str, Object[] arr){
