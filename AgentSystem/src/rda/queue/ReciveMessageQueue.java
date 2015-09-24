@@ -36,7 +36,7 @@ public class ReciveMessageQueue implements SetProperty{
             try {
                 event();
             } catch (MessageQueueException mqEvent) {
-                //mqEvent.printEvent();
+                mqEvent.printEvent();
 
                 putWait();
             }
