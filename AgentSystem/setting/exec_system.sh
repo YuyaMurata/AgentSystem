@@ -27,6 +27,6 @@ rm -f logs/history/*
 
 mv vmstat.* logs/user$i
 
-java -cp $CLASSPATH rda.result.ResultsDataForming $i
+java -cp $CLASSPATH -Xms4096m -Xmx4096m rda.result.ResultsDataForming $i
 
 done
