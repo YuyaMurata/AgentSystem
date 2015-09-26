@@ -43,7 +43,7 @@ public class AgentSystemLogger {
     
     public void printMQEvent(Marker marker, String str, Object[] arr){
         //File Out
-        logger.trace(marker, str, arr);
+        //logger.trace(marker, str, arr);
         
         //Console Out
         //print(marker, str, arr); 
@@ -51,7 +51,7 @@ public class AgentSystemLogger {
     
     public void printMQLFile(Marker marker, String str, Object[] arr){
         //File Out
-        logger.debug(marker, str, arr);
+        //logger.debug(marker, str, arr);
     }
     
     public void printResults(Marker marker, String str, Object[] arr){
