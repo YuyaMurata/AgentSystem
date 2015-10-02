@@ -6,7 +6,7 @@ public class WindowController{
 	private ReciveMessageQueue[] mqArray;
 	private ArrayList<MessageObject>[] window; 
         private final Integer size;
-        public Boolean running;
+        public static Boolean running;
 
         private void init(int numberOfMQ){
             this.mqArray = new ReciveMessageQueue[numberOfMQ];

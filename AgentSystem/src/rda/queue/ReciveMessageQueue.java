@@ -11,7 +11,7 @@ public class ReciveMessageQueue implements SetProperty{
     public final ConcurrentLinkedQueue<Object> queue;
     private final ReciveMQProcess thread;
     private final WindowController window;
-    private final ExecutorService dataPushWaiting = Executors.newSingleThreadExecutor();
+    //private final ExecutorService dataPushWaiting = Executors.newSingleThreadExecutor();
     
     public ReciveMessageQueue(String name, WindowController window) {
         this.name = name;
@@ -80,12 +80,13 @@ public class ReciveMessageQueue implements SetProperty{
     
     public synchronized void isFinish(){
         notifyAll();
+        
         while(!thread.isFinish())
             try {
                 wait(10);
             } catch (InterruptedException e) {
             }
         
-        dataPushWaiting.shutdown();
+        //dataPushWaiting.shutdown();
     }
 }
