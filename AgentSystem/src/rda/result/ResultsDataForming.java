@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import rda.property.SetProperty;
@@ -131,20 +132,29 @@ public class ResultsDataForming implements SetProperty{
         
         csv.writeNext(new String[]{""});
         
+        ArrayList<String> total = new ArrayList<>();
+        
         for(String[] strArr : list)
             if(strArr.length > 2){
                 if(strArr[1].contains("field")){
                     String[] strArrSub = new String[strArr.length - 3];
                     System.arraycopy(strArr, 2, strArrSub, 0, strArrSub.length);
+                    
+                    total.add(strArr[strArr.length-1]);
+                    
                     csv.writeNext(strArrSub);
                 } else if(strArr[1].contains("data") && !strArr[2].contains("Time")){
                     String[] strArrSub = new String[strArr.length - 3];
                     System.arraycopy(strArr, 2, strArrSub, 0, strArrSub.length);
+                    
+                    total.add(strArr[strArr.length-1]);
+                    
                     csv.writeNext(strArrSub);
                 }
             }
         
         csv.writeNext(new String[]{""});
+        csv.writeNext((String[])total.toArray());
         
         csv.flush();
     }

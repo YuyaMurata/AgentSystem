@@ -14,7 +14,7 @@ import java.util.Iterator;
  * <p>entity type="useragent tablename="useragent <br>
  * attribute name="UserID" type="STRING" primarykey="true" <br>
  * attribute name="Profile" type="profile" <br>
- * attribute name="Data" type="INT" <br>
+ * attribute name="Data" type="LONG" <br>
  * attribute name="ConnectionCount" type="LONG" <br>
  * attribute name="Log" type="log" <br>
 **/
@@ -120,9 +120,9 @@ public class Useragent extends HPAEntity {
     /**
      * @return Data
      **/
-    public final int getData(TxID tx) {
+    public final long getData(TxID tx) {
         // generated code
-        return getInt(tx,2);
+        return getLong(tx,2);
     }
 
     /**
@@ -130,9 +130,9 @@ public class Useragent extends HPAEntity {
      * @param tx a transaction context
      * @param value a value to be set to Data
      **/
-    public final void  setData(TxID tx, int value) throws AgentException {
+    public final void  setData(TxID tx, long value) throws AgentException {
         // generated code
-        setInt(tx,2,value);
+        setLong(tx,2,value);
     }
 
     /**

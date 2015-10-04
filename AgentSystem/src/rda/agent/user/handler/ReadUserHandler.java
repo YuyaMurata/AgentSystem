@@ -24,12 +24,12 @@ public class ReadUserHandler extends MessageHandler{
 
 		UserInfo info = new UserInfo(
 				/*UserID*/	user.getUserID(tx),
-				/*Name*/ 		prof.getName(tx),
-				/*Sex*/ 		prof.getSex(tx),
+				/*Name*/ 	prof.getName(tx),
+				/*Sex*/ 	prof.getSex(tx),
 				/*Age*/		prof.getAge(tx),
 				/*address*/	prof.getAddress(tx),
-				/*data*/		user.getData(tx),
-                                /*count */ user.getConnectionCount(tx)
+				/*data*/	user.getData(tx),
+                                /*count */      user.getConnectionCount(tx)
                                 );
 
 		return info;

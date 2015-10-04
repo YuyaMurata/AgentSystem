@@ -26,10 +26,10 @@ public class UserInfo implements Serializable{
 	String sex;
 	String age;
 	String address;
-	int data;
+	long data;
         long count;
 
-	public UserInfo(String userID, String name, String sex, String age, String address, int data, long count) {
+	public UserInfo(String userID, String name, String sex, String age, String address, long data, long count) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.userID = userID;
 		this.name = name;
@@ -63,7 +63,7 @@ public class UserInfo implements Serializable{
         public String getID(){
             return this.userID;
         }
-        public Integer getData(){
+        public Long getData(){
             return this.data;
         }
         public Long getCount(){

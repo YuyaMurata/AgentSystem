@@ -23,11 +23,11 @@ public class ReadTest implements SetProperty{
             //log.get(NUMBER_USER);
             
             int i = 0;
-            int total = 0;
+            long total = 0;
             long countTotal = 0;
             StringBuilder sb = new StringBuilder();
             String[] name = new String[NUMBER_OF_USER_AGENTS+1];
-            Integer[] data = new Integer[NUMBER_OF_USER_AGENTS+1];
+            Long[] data = new Long[NUMBER_OF_USER_AGENTS+1];
             Long[] count = new Long[NUMBER_OF_USER_AGENTS+1];
             for(UserInfo result : results){
                 sb.append(",{}");
