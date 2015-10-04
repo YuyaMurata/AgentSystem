@@ -26,7 +26,7 @@
 
 CREATE TRANSIENT TABLE useragent (
 	UserID VARCHAR(16) NOT NULL,
-	Data INTEGER,
+	Data BIGINT,
 	ConnectionCount BIGINT,
 	PRIMARY KEY(UserID)
 );
