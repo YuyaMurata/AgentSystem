@@ -5,7 +5,7 @@
 		<entity type="useragent">
 			<attribute name="UserID" type="string" primarykey="true" maxlength="16"/>
 			<attribute name="Profile" type="profile" singleentity="true"/>
-			<attribute name="Data" type="int" />
+			<attribute name="Data" type="long" />
 			<attribute name="ConnectionCount" type="long" />
 			<attribute name="Log" type="log" />
 		</entity>
