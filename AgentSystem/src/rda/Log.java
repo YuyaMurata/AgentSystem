@@ -10,7 +10,7 @@ import com.ibm.agent.exa.TxID;
  * <p>entity type="log tablename="log <br>
  * attribute name="UserID" type="STRING" primarykey="true" relationto="UserID" <br>
  * attribute name="AccessID" type="STRING" primarykey="true" <br>
- * attribute name="LastAccessTime" type="TIMESTAMP" <br>
+ * attribute name="LastAccessTime" type="TIMESTAMP" <br> 
 **/
 public class Log extends HPAEntity {
     /**

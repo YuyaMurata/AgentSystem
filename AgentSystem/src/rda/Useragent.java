@@ -14,7 +14,7 @@ import java.util.Iterator;
  * <p>entity type="useragent tablename="useragent <br>
  * attribute name="UserID" type="STRING" primarykey="true" <br>
  * attribute name="Profile" type="profile" <br>
- * attribute name="Data" type="LONG" <br>
+ * attribute name="Data" type="LONG" <br> 
  * attribute name="ConnectionCount" type="LONG" <br>
  * attribute name="Log" type="log" <br>
 **/

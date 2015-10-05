@@ -12,7 +12,7 @@ import com.ibm.agent.exa.TxID;
  * attribute name="Name" type="STRING" <br>
  * attribute name="Sex" type="STRING" <br>
  * attribute name="Age" type="STRING" <br>
- * attribute name="Address" type="STRING" <br>
+ * attribute name="Address" type="STRING" <br> 
  * attribute name="LastAccessTime" type="TIMESTAMP" <br>
 **/
 public class Profile extends HPAEntity {
