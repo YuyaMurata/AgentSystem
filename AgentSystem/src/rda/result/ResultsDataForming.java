@@ -152,9 +152,9 @@ public class ResultsDataForming implements SetProperty{
                     csv.writeNext(strArrSub);
                 }
             }
-        
+                
         csv.writeNext(new String[]{""});
-        csv.writeNext((String[])total.toArray());
+        csv.writeNext(new String[]{total.get(0), total.get(1), total.get(2)});
         
         csv.flush();
     }
