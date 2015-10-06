@@ -1,13 +1,15 @@
-package rda.queue;
+package old;
 
+import rda.queue.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import rda.property.SetProperty;
 
 public class ReciveMessageQueue implements SetProperty{
     public final String name;
-    public final BlockingQueue<Object> queue;
+    public final ConcurrentLinkedQueue<Object> queue;
     private final ReciveMQProcess thread;
     private final WindowController window;
     private Boolean runnable;
@@ -19,7 +21,7 @@ public class ReciveMessageQueue implements SetProperty{
         
         this.window = window;
         
-        this.queue = new ArrayBlockingQueue<>(QUEUE_LENGTH);
+        this.queue = new ConcurrentLinkedQueue<>();
         this.thread = new ReciveMQProcess(this);
         thread.start();
     }
@@ -31,22 +33,22 @@ public class ReciveMessageQueue implements SetProperty{
         }
     }
 
-    public void putMessage(Object msg) throws InterruptedException{
+    public synchronized void putMessage(Object msg){
         //dataPushWaiting.execute(new ReciveMessageQueuePutTask(this, msg));
-        synchronized(this){
-            if(!isRunning()) throw new IllegalStateException();
-        }
-        if(isFull()){
+        if(!isRunning()) throw new IllegalStateException();
+        while(isFull()){
             try {
                 event();
             } catch (MessageQueueException mqEvent) {
                 mqEvent.printEvent();
 
-                //putWait();
+                putWait();
             }
         }
         
-        queue.put(msg);
+        queue.offer(msg);
+        
+        notifyAll();
     }
     
     public void event() throws MessageQueueException{
@@ -63,9 +65,11 @@ public class ReciveMessageQueue implements SetProperty{
 
     public synchronized Object getMessage() throws InterruptedException{
         if(!isRunning()) throw new IllegalStateException();
+
         if(isEmpty()) wait();
         
-        return queue.take();
+        notifyAll();
+        return queue.poll();
     }
 
     public Integer getSize(){
@@ -76,7 +80,8 @@ public class ReciveMessageQueue implements SetProperty{
         return runnable;
     }
     
-    public void isFinish(){
+    public synchronized void isFinish(){
+        notifyAll();
         runnable = false;
         
         thread.interrupt();

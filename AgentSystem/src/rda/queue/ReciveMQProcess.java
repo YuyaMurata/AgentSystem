@@ -37,28 +37,36 @@ public class ReciveMQProcess extends Thread{
         
         MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
         
-        while(mq.isRunning()){
-            ArrayList<MessageObject> msgList  = (ArrayList<MessageObject>) mq.getMessage();
+        try{
+            while(true){
+                try{
+                    synchronized(this){
+                        if(!mq.isRunning()) break;
+                    }
+                    ArrayList<MessageObject> msgList  = (ArrayList<MessageObject>) mq.getMessage();
             
-            if(msgList != null)
-                for(MessageObject msg : msgList){
-                    //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
-                    dataList.add(msg.data);
-                    key = msg.agentKey;
-                }
+                    if(msgList != null)
+                        for(MessageObject msg : msgList){
+                            //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
+                            dataList.add(msg.data);
+                            key = msg.agentKey;
+                        }
             
-            if(mq.isEmpty() || mqt.getTimer()){
-                user.sendUpdateMessage(key, dataList);
-                dataList.clear();
+                    if(mq.isEmpty() || mqt.getTimer()){
+                        user.sendUpdateMessage(key, dataList);
+                        dataList.clear();
                 
-                mqSS.map.put(mq.name, mq.getSize());
+                        mqSS.map.put(mq.name, mq.getSize());
+                    }
+                } catch (InterruptedException e) {}
             }
-        }
+        } finally {
         
-        ag.close();
+            ag.close();
         
-        logger.print(rMQMarker, 
+            logger.print(rMQMarker, 
                 "********** Recive Message Queue {} Stop!! ********** ",
                 new String[]{mq.name});
+        }
     } 
 }

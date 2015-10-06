@@ -4,6 +4,8 @@ import rda.queue.*;
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 
@@ -37,7 +39,12 @@ public class ReciveMQProcess extends Thread{
         MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
         
         while(mq.isRunning()){
-            ArrayList<MessageObject> msgList  = (ArrayList<MessageObject>) mq.getMessage();
+            ArrayList<MessageObject> msgList = null;
+            try {
+                msgList = (ArrayList<MessageObject>) mq.getMessage();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ReciveMQProcess.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if(msgList != null)
                 for(MessageObject msg : msgList){
                     //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
