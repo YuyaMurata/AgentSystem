@@ -41,7 +41,7 @@ public class ReciveMessageQueuePutTask implements Runnable{
             }
         }
         
-        mq.queue.offer(msg);
+        //mq.queue.offer(msg);
     }
     
 }

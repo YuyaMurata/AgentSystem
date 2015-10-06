@@ -7,7 +7,7 @@ import rda.property.SetProperty;
 
 public class ReciveMessageQueue implements SetProperty{
     public final String name;
-    public final BlockingQueue<Object> queue;
+    private final BlockingQueue<Object> queue;
     private final ReciveMQProcess thread;
     private final WindowController window;
     private Boolean runnable;
@@ -23,13 +23,6 @@ public class ReciveMessageQueue implements SetProperty{
         this.thread = new ReciveMQProcess(this);
         thread.start();
     }
-    
-    public synchronized void putWait(){
-        try {
-            wait(QUEUE_WAIT);
-        } catch (InterruptedException e) {
-        }
-    }
 
     public void putMessage(Object msg) throws InterruptedException{
         //dataPushWaiting.execute(new ReciveMessageQueuePutTask(this, msg));
@@ -41,8 +34,6 @@ public class ReciveMessageQueue implements SetProperty{
                 event();
             } catch (MessageQueueException mqEvent) {
                 mqEvent.printEvent();
-
-                //putWait();
             }
         }
         
@@ -52,18 +43,17 @@ public class ReciveMessageQueue implements SetProperty{
     public void event() throws MessageQueueException{
         throw new MessageQueueException(name);
     }
-	
-    public Boolean isEmpty(){
-        return getSize() == 0;
-    }
     
     public Boolean isFull(){
-        return getSize() > QUEUE_LENGTH;
+        return getSize() >= QUEUE_LENGTH;
+    }
+    
+    public Boolean isEmpty(){
+        return getSize() == 0;
     }
 
     public Object getMessage() throws InterruptedException{
         if(!isRunning()) throw new IllegalStateException();
-        //if(isEmpty()) wait();
         
         return queue.take();
     }

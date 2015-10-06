@@ -43,10 +43,10 @@ public class ReciveMQProcess extends Thread{
                     synchronized(this){
                         if(!mq.isRunning()) break;
                     }
-                    ArrayList<MessageObject> msgList  = (ArrayList<MessageObject>) mq.getMessage();
+                    //ArrayList<MessageObject> msgList  = (ArrayList<MessageObject>) mq.getMessage();
             
-                    if(msgList != null)
-                        for(MessageObject msg : msgList){
+                    //if(msgList != null)
+                        for(MessageObject msg : (ArrayList<MessageObject>)mq.getMessage()){
                             //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
                             dataList.add(msg.data);
                             key = msg.agentKey;
