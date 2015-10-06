@@ -62,9 +62,9 @@ public class ReciveMessageQueue implements SetProperty{
         return getSize() > QUEUE_LENGTH;
     }
 
-    public synchronized Object getMessage() throws InterruptedException{
+    public Object getMessage() throws InterruptedException{
         if(!isRunning()) throw new IllegalStateException();
-        if(isEmpty()) wait();
+        //if(isEmpty()) wait();
         
         return queue.take();
     }
