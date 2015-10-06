@@ -1,5 +1,6 @@
-package rda.queue;
+package old;
 
+import rda.queue.*;
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,34 +32,38 @@ public class ReciveMQProcess extends Thread{
                 
         UpdateUser user = new UpdateUser();
         user.setParam(ag.getClient());
-        
-        ArrayList<Integer> dataList = new ArrayList<>();
-        AgentKey key = null;
+        HashMap<AgentKey, ArrayList<Integer>> msgMap = new HashMap<>();
         
         MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
         
         while(mq.isRunning()){
             ArrayList<MessageObject> msgList  = (ArrayList<MessageObject>) mq.getMessage();
-            
             if(msgList != null)
                 for(MessageObject msg : msgList){
                     //System.out.print("ReciveMessageQueue "+name+" execute Agent["+mes.toString()+"]");
-                    dataList.add(msg.data);
-                    key = msg.agentKey;
+                    if(msgMap.get(msg.agentKey) == null)
+                        msgMap.put(msg.agentKey, new ArrayList<Integer>());
+                    msgMap.get(msg.agentKey).add(msg.data);
                 }
-            
             if(mq.isEmpty() || mqt.getTimer()){
-                user.sendUpdateMessage(key, dataList);
-                dataList.clear();
+                for(AgentKey key : msgMap.keySet())   
+                    user.sendUpdateMessage(key, msgMap.get(key));
+                msgMap.clear();
                 
                 mqSS.map.put(mq.name, mq.getSize());
             }
         }
         
+        this.finish = true;
         ag.close();
         
         logger.print(rMQMarker, 
                 "********** Recive Message Queue {} Stop!! ********** ",
                 new String[]{mq.name});
-    } 
+    }
+    
+    private Boolean finish = false;
+    public Boolean isFinish(){
+        return finish;
+    }
 }

@@ -6,14 +6,11 @@ public class WindowController{
 	private ReciveMessageQueue[] mqArray;
 	private ArrayList<MessageObject>[] window; 
         private final Integer size;
-        public static Boolean running;
-
+        
         private void init(int numberOfMQ){
             this.mqArray = new ReciveMessageQueue[numberOfMQ];
             this.window = new ArrayList[numberOfMQ];
-            
-            running = true;
-            
+                        
             for(int i=0; i < numberOfMQ; i++){
                 this.mqArray[i] = new ReciveMessageQueue("RMQ"+i, this);
                 this.window[i] = new ArrayList<>();
@@ -43,20 +40,7 @@ public class WindowController{
 	}
 
 	public void close(){
-            running = false;
             for(ReciveMessageQueue mq : mqArray)
                 mq.isFinish();
 	}
-
-        /**
-	private final CalcUsage getCPULoad = new CalcUsage();
-	public  void outputMQLog(int t){
-            StringBuilder sb = new StringBuilder(t);
-
-            for (ReciveMessageQueue mq : mqArray)
-                sb.append(mq.getSize());
-            
-            logger.trace(name);
-	}
-        * **/
 }

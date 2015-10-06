@@ -69,6 +69,7 @@ public class UpdateUser implements AgentExecutor, Serializable{
 	}
 
 	public void sendUpdateMessage(AgentKey agentKey, ArrayList<Integer> data){
+            if(agentKey != null)
 		try {
 			UpdateUser executor = new UpdateUser(agentKey, data);
 			client.execute(agentKey, executor);

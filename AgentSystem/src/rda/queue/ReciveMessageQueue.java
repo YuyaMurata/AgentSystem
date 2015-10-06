@@ -1,8 +1,6 @@
 package rda.queue;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import rda.property.SetProperty;
 
@@ -11,10 +9,13 @@ public class ReciveMessageQueue implements SetProperty{
     public final ConcurrentLinkedQueue<Object> queue;
     private final ReciveMQProcess thread;
     private final WindowController window;
+    private Boolean runnable;
     //private final ExecutorService dataPushWaiting = Executors.newSingleThreadExecutor();
     
     public ReciveMessageQueue(String name, WindowController window) {
         this.name = name;
+        this.runnable = true;
+        
         this.window = window;
         
         this.queue = new ConcurrentLinkedQueue<>();
@@ -75,18 +76,16 @@ public class ReciveMessageQueue implements SetProperty{
     }
         
     public Boolean isRunning(){
-        return window.running;
+        return runnable;
     }
     
     public synchronized void isFinish(){
         notifyAll();
+        runnable = false;
         
-        while(!thread.isFinish())
-            try {
-                wait(10);
-            } catch (InterruptedException e) {
-            }
-        
-        //dataPushWaiting.shutdown();
+        try {
+            thread.join();
+        } catch (InterruptedException ex) {
+        }
     }
 }
