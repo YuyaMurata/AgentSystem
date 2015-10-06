@@ -58,6 +58,7 @@ public class ReciveMessageQueue implements SetProperty{
     }
     
     public Boolean isFull(){
+        System.out.println("MQ_size."+getSize());
         return getSize() > QUEUE_LENGTH;
     }
 
