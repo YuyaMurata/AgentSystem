@@ -1,6 +1,8 @@
 package rda.queue;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class WindowController{
 	private ReciveMessageQueue[] mqArray;
@@ -36,7 +38,10 @@ public class WindowController{
 	}
 
 	private void sendMessageQueue(int i, Object mes){
-            this.mqArray[i].putMessage(mes);
+            try {
+                this.mqArray[i].putMessage(mes);
+            } catch (InterruptedException ex) {
+            }
 	}
 
 	public void close(){
