@@ -1,8 +1,6 @@
 package rda.queue;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class WindowController{
 	private ReciveMessageQueue[] mqArray;
