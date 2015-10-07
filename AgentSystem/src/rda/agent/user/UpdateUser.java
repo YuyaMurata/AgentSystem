@@ -21,8 +21,10 @@ public class UpdateUser implements AgentExecutor, Serializable{
 	private static final String AGENT_TYPE = "useragent";
 	private static final String MESSAGE_TYPE = "updateUserAgent";
 
-	public UpdateUser() {
-		// TODO 自動生成されたコンストラクター・スタブ
+        private AgentClient client;
+	public UpdateUser(AgentClient client) {
+            // TODO 自動生成されたコンストラクター・スタブ
+            this.client = client;
 	}
 
 	AgentKey agentKey;
@@ -58,14 +60,8 @@ public class UpdateUser implements AgentExecutor, Serializable{
 			return ret;
 		} catch (IllegalAccessException | InstantiationException e) {
 			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
 			return e;
 		}
-	}
-
-	AgentClient client;
-	public void setParam(AgentClient client){
-		this.client = client;
 	}
 
 	public void sendUpdateMessage(AgentKey agentKey, ArrayList<Integer> data){

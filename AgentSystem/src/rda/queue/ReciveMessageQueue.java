@@ -2,30 +2,32 @@ package rda.queue;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+import rda.log.AgentSystemLogger;
 
 import rda.property.SetProperty;
 
 public class ReciveMessageQueue implements SetProperty{
     public final String name;
     private final BlockingQueue<Object> queue;
-    private final ReciveMQProcess thread;
-    private final WindowController window;
+    private final ReciveMQProcess mqThread;
     private Boolean runnable;
+    
+    private static final Marker rMQMarker = MarkerFactory.getMarker("ReciveMessageQueue");
+    private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
+    private static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
+    
     //private final ExecutorService dataPushWaiting = Executors.newSingleThreadExecutor();
     
-    public ReciveMessageQueue(String name, WindowController window) {
+    public ReciveMessageQueue(String name) {
         this.name = name;
-        this.runnable = true;
-        
-        this.window = window;
         
         this.queue = new ArrayBlockingQueue<>(QUEUE_LENGTH);
-        this.thread = new ReciveMQProcess(this);
-        thread.start();
+        this.mqThread = new ReciveMQProcess(this);
     }
 
     public void putMessage(Object msg) throws InterruptedException{
-        //dataPushWaiting.execute(new ReciveMessageQueuePutTask(this, msg));
         synchronized(this){
             if(!isRunning()) throw new IllegalStateException();
         }
@@ -66,9 +68,25 @@ public class ReciveMessageQueue implements SetProperty{
         return runnable;
     }
     
-    public void isFinish(){
-        runnable = false;
+    public void start(){
+        synchronized(this) { runnable = true; }
+        mqThread.start();
         
-        thread.interrupt();
+        logger.print(rMQMarker, 
+                "********** Recive Message Queue {} Start!! ********** ", 
+                new String[]{name});
+    }
+    
+    public void stop(){
+        synchronized(this){ runnable = false; }
+        mqThread.interrupt();
+        
+        logger.print(rMQMarker, 
+                "********** Recive Message Queue {} Stop!! ********** ",
+                new String[]{name});
+    }
+    
+    public void log(){
+        mqSS.map.put(name, getSize());
     }
 }

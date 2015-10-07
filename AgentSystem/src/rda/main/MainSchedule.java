@@ -43,7 +43,7 @@ public class MainSchedule implements Runnable, SetProperty{
         sendMessage(timer);
     }
     
-    public void close(){
+    public void isFinish(){
         mq.close();
     }
 }

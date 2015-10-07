@@ -8,12 +8,10 @@ import rda.data.DataGenerator;
 public class UpdateTest extends TestParameter{
 	
     private static void execute(int num){
-        UpdateUser user = new UpdateUser();
         CreateAgentClient agentClient = new CreateAgentClient();
-
+        UpdateUser user = new UpdateUser(agentClient.getClient());
+        
         DataGenerator ag = DataGenerator.getInstance();
-
-        user.setParam(agentClient.getClient());
 
         for(int i=0; i < NUMBER_OF_USER_AGENTS * num; i++){
             ArrayList<Integer> list = new ArrayList<>();

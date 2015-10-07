@@ -12,9 +12,12 @@ public class WindowController{
             this.window = new ArrayList[numberOfMQ];
                         
             for(int i=0; i < numberOfMQ; i++){
-                this.mqArray[i] = new ReciveMessageQueue("RMQ"+i, this);
+                this.mqArray[i] = new ReciveMessageQueue("RMQ"+i);
                 this.window[i] = new ArrayList<>();
             }
+            
+            for(ReciveMessageQueue mq : mqArray)
+                mq.start();
         }
         
 	public String name;
@@ -44,6 +47,6 @@ public class WindowController{
 
 	public void close(){
             for(ReciveMessageQueue mq : mqArray)
-                mq.isFinish();
+                mq.stop();
 	}
 }

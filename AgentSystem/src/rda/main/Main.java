@@ -70,7 +70,7 @@ public class Main implements SetProperty{
                     
                     logger.print(mainMarker, "Main Task is Cancelled !", null);
                     
-                    mainTask.close();
+                    mainTask.isFinish();
                 }
             }, TIME_RUN, TimeUnit.SECONDS);
         
