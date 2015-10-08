@@ -10,7 +10,7 @@ public interface SetProperty {
 
 	public static final String AGENT_TYPE = "useragent";
         
-        public static final Integer AGENT_DEFAULT_VALUE = 1;
+        public static final Integer AGENT_DEFAULT_VALUE = 2;
         
 	//Server Property
 	/**
