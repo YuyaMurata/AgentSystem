@@ -22,7 +22,7 @@ public class UpdateUserHandler extends MessageHandler{
 
 		// トランザクションIDを取得
 		TxID tx = getTx();
-                int updateData = 0;
+                long updateData = 0;
                 for(Integer data : updateMsg.data)
                     updateData =  updateData + data;
 		user.setData(tx, user.getData(tx)+updateData);

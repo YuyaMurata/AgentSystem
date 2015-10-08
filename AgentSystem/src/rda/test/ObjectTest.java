@@ -15,12 +15,9 @@ public class ObjectTest {
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
         
-        ArrayList<Integer> arr = new ArrayList<>();
-        for(int i = 0; i < 1000000; i++){
-            //ArrayList<Integer> arr = new ArrayList<>();
-            arr.add(i);
-            arr.clear();
-        }
+        System.out.println("MAX_Integer = "+Integer.MAX_VALUE);
+        System.out.println("MAX_Long = "+Long.MAX_VALUE);
+        
         long stop = System.currentTimeMillis();
         
         System.out.println("time:"+(stop-start)+" [ms]");
