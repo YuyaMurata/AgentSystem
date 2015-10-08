@@ -16,7 +16,7 @@ import org.slf4j.Marker;
 public class AgentSystemLogger {
     //Logger SLF4J
     /**
-    * AgentSyste_info.log element = Message Queue Length per sec
+    * AgentSystem_info.log element = Message Queue Length per sec
     * Consle Output Step Time per sec
     * vmstat.log CPU Avairability per sec
     */
