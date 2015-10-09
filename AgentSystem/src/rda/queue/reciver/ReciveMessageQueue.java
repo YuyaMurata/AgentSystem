@@ -1,4 +1,4 @@
-package rda.queue;
+package rda.queue.reciver;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -7,6 +7,8 @@ import org.slf4j.MarkerFactory;
 import rda.log.AgentSystemLogger;
 
 import rda.property.SetProperty;
+import rda.queue.log.MQSpecificStorage;
+import rda.queue.MessageQueueException;
 
 public class ReciveMessageQueue implements SetProperty{
     public final String name;

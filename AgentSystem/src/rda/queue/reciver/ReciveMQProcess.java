@@ -1,10 +1,12 @@
-package rda.queue;
+package rda.queue.reciver;
 
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 
 import rda.agent.CreateAgentClient;
 import rda.agent.user.UpdateUser;
+import rda.queue.MessageObject;
+import rda.queue.MessageQueueTimer;
 
 public class ReciveMQProcess extends Thread{
     private final ReciveMessageQueue mq;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rda.queue;
+package rda.queue.log;
 
 import java.util.concurrent.ConcurrentSkipListMap;
 import org.slf4j.Marker;

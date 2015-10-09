@@ -6,7 +6,7 @@ import rda.agent.CreateAgent;
 import rda.data.DataGenerator;
 import rda.data.OutputData;
 import rda.queue.MessageObject;
-import rda.queue.WindowController;
+import rda.window.WindowController;
 
 public class MessageQueueTest extends TestParameter{
             

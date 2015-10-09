@@ -5,7 +5,7 @@ import rda.queue.MessageObject;
 
 public class MountData implements SetProperty{
     public final String name = "Mount";
-    private static Integer count;
+    private static long count;
     private final DataGenerator gen;
 
 	public MountData() {
@@ -16,19 +16,19 @@ public class MountData implements SetProperty{
 	}
  
 	public MessageObject getTimeToData(int t){
-		count++;
+            count++;
 
-		if(count < t*DATA_VOLUME) return gen.getData();
-		else if(count == t*DATA_VOLUME) 
-                    return new MessageObject(gen.getData().agentKey, -1);
-		else{
-			count = -1;
-			return null;
-		}
+            if(count <= t*DATA_VOLUME) return gen.getData();
+            else if(count == t * DATA_VOLUME + 1) 
+                return new MessageObject(gen.getData().agentKey, -1);
+            else{
+                count = -1;
+                return null;
+            }
 	}
         
-        public Long getAmountData(){
-            Long n = (TIME_RUN*1000 / TIME_PERIOD) + 1;
+        public static Long getAmountData(){
+            Long n = TIME_RUN * 1000 / TIME_PERIOD;
             Long result = n * (n-1) / 2 * DATA_VOLUME;
             return result;
         }
@@ -38,20 +38,16 @@ public class MountData implements SetProperty{
             MountData dataType = new MountData();
             
             MessageObject msg;
-            HashMap<AgentKey, Integer> count = new HashMap<>();
-            for(int i=0; i < TIME_RUN; i++)
-            while((msg = DATA_TYPE.getTimeToData(i)) != null){
-                int cnt = 0;
-                
-                if(msg.data != -1){
-                    if(count.get(msg.agentKey) != null)
-                        cnt = count.get(msg.agentKey) + msg.data;
-                    count.put(msg.agentKey , cnt);
+            long total = 0;
+            for(int i=0; i < TIME_RUN*10; i++){
+                while((msg = DATA_TYPE.getTimeToData(i)) != null){
+                    total = total + msg.data;
                 }
             }
+            System.out.println("Total:"+total);
             
-            for(AgentKey key : count.keySet())
-                System.out.println("AgentKey_"+key+" MQ_"+HashToMQN.toMQN(key)+" Count_"+count.get(key));
+            //Total:17969999400
+            System.out.println("Data.N:"+getAmountData());
 	}
-        **/
+        */
 }

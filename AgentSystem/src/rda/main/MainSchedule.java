@@ -10,7 +10,7 @@ import org.slf4j.MarkerFactory;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
 import rda.queue.MessageObject;
-import rda.queue.WindowController;
+import rda.window.WindowController;
 
 /**
  *
