@@ -15,7 +15,7 @@ public class MountData implements SetProperty{
             gen.init();
 	}
  
-	public MessageObject getTimeToData(long t){
+	public MessageObject getTimeToData(Long t){
             count++;
 
             if(count <= t*DATA_VOLUME) return gen.getData();

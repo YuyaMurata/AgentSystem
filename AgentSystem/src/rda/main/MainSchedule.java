@@ -17,19 +17,20 @@ import rda.window.WindowController;
  * @author kaeru
  */
 public class MainSchedule implements Runnable, SetProperty{
-    private static int timer = -1;
+    private Long timer;
     private final WindowController mq;
     
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
-    long total = 0;
+    Long total = 0L;
     
     public MainSchedule(WindowController win) {
         this.mq = win;
+        this.timer = -1L;
     }
     
-    private void sendMessage(int t){
+    private void sendMessage(Long t){
         MessageObject msg;
         while((msg = DATA_TYPE.getTimeToData(t)) != null){
             //mq.sendMessage(msg);
