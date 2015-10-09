@@ -33,7 +33,7 @@ public class MainSchedule implements Runnable, SetProperty{
         MessageObject msg;
         while((msg = DATA_TYPE.getTimeToData(t)) != null){
             //mq.sendMessage(msg);
-            total = total + msg.data;
+            total = total + 1;
         }
     }
     
