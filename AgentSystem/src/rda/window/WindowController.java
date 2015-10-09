@@ -9,7 +9,6 @@ public class WindowController{
 	private ReciveMessageQueue[] mqArray;
 	private ArrayList<MessageObject>[] window; 
         private final Integer size;
-        private long total = 0;
         
         private void init(int numberOfMQ){
             this.mqArray = new ReciveMessageQueue[numberOfMQ];
@@ -45,7 +44,6 @@ public class WindowController{
 	private void sendMessageQueue(int i, Object mes){
             try {
                 this.mqArray[i].putMessage(mes);
-                total = total + ((ArrayList<MessageObject>) mes).size();
             } catch (InterruptedException ex) {
             }
 	}
@@ -53,7 +51,5 @@ public class WindowController{
 	public void close(){
             for(ReciveMessageQueue mq : mqArray)
                 mq.stop();
-            
-            System.out.println("AllData Transaction WindowContoroller Total:"+total);
 	}
 }

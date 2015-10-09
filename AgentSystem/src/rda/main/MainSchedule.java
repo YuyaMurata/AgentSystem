@@ -23,6 +23,8 @@ public class MainSchedule implements Runnable, SetProperty{
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
+    long total = 0;
+    
     public MainSchedule(WindowController win) {
         this.mq = win;
     }
@@ -31,6 +33,7 @@ public class MainSchedule implements Runnable, SetProperty{
         MessageObject msg;
         while((msg = DATA_TYPE.getTimeToData(t)) != null){
             mq.sendMessage(msg);
+            total = total + msg.data;
         }
     }
     
@@ -45,5 +48,7 @@ public class MainSchedule implements Runnable, SetProperty{
     
     public void isFinish(){
         mq.close();
+        
+        System.out.println(" Transaction of MainSchedule Total:"+total);
     }
 }
