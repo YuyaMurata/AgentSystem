@@ -44,12 +44,12 @@ public class MainSchedule implements Runnable, SetProperty{
         logger.print(scheduleMaker, 
                 "Experiment Step : {} [{}ms]", new Object[]{timer, TIME_PERIOD});
         
+        System.out.println(" Transaction of MainSchedule Total:"+total);
+        
         sendMessage(timer);
     }
     
     public void isFinish(){
         mq.close();
-        
-        System.out.println(" Transaction of MainSchedule Total:"+total);
     }
 }

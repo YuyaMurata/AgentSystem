@@ -2,6 +2,7 @@ package rda.data;
 
 import rda.property.SetProperty;
 import rda.queue.MessageObject;
+import rda.queue.MessageQueueTimer;
 
 public class MountData implements SetProperty{
     public final String name = "Mount";
@@ -33,21 +34,26 @@ public class MountData implements SetProperty{
             return result;
         }
 
-	/**
+	
 	public static void main(String[] args) {
             MountData dataType = new MountData();
+            MessageQueueTimer timer = MessageQueueTimer.getInstance();
+            long t = 0L;
             
             MessageObject msg;
             long total = 0;
-            for(int i=0; i < TIME_RUN*10; i++){
+            for(long i=0; i < TIME_RUN * 10; i++){
                 while((msg = DATA_TYPE.getTimeToData(i)) != null){
-                    total = total + msg.data;
+                    total = total + 1;
+                    if(timer.getTimer()) {
+                        t++;
+                        System.out.println("T="+t+":"+total);
+                    }
                 }
             }
             System.out.println("Total:"+total);
-            
+            timer.close();
             //Total:17969999400
             System.out.println("Data.N:"+getAmountData());
 	}
-        */
 }
