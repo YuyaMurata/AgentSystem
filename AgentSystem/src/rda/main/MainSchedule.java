@@ -18,7 +18,7 @@ import rda.window.WindowController;
  */
 public class MainSchedule implements Runnable, SetProperty{
     private Long timer;
-    private final WindowController mq;
+    //private final WindowController mq;
     
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
@@ -26,7 +26,7 @@ public class MainSchedule implements Runnable, SetProperty{
     Long total = 0L;
     
     public MainSchedule(WindowController win) {
-        this.mq = win;
+        //this.mq = win;
         this.timer = -1L;
     }
     
@@ -41,6 +41,7 @@ public class MainSchedule implements Runnable, SetProperty{
     @Override
     public void run() {
         timer++;
+        
         logger.print(scheduleMaker, 
                 "Experiment Step : {} [{}ms]", new Object[]{timer, TIME_PERIOD});
         
@@ -50,6 +51,6 @@ public class MainSchedule implements Runnable, SetProperty{
     }
     
     public void isFinish(){
-        mq.close();
+        //mq.close();
     }
 }
