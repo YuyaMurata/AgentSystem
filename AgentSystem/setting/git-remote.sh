@@ -2,7 +2,7 @@ git pull
 
 sleep 1
 
-if [$1 = "f"]; then
+if [$1 = "-f"]; then
     rm -fr $CETA_HOME/classes/rda
     rm -fr $CETA_HOME/classes/test
 fi
