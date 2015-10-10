@@ -2,7 +2,14 @@ git pull
 
 sleep 1
 
-if [$1 = "-f"]; then
+while getopts f OPT
+do
+  case $OPT in
+    "f" ) FLG_F="TRUE" ;;
+  esac
+done
+
+if ["$FLG_F" = "TRUE"]; then
     rm -fr $CETA_HOME/classes/rda
     rm -fr $CETA_HOME/classes/test
 fi
