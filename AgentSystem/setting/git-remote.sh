@@ -11,8 +11,8 @@ done
 
 if ["$FLG_F" = "TRUE"]; then
     echo "クラスの削除"
-    rm -fr $CETA_HOME/classes/rda
-    rm -fr $CETA_HOME/classes/test
+    rm -fR $CETA_HOME/classes/rda
+    rm -fR $CETA_HOME/classes/test
 fi
 
 ant -f ../build.xml
