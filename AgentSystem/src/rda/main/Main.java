@@ -29,16 +29,16 @@ public class Main implements SetProperty{
         //Start System Out
         init_debug();
 
-        // MQ Window Start new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow")
-        task = new MainSchedule(null);
+        // MQ Window Start 
+        task = new MainSchedule(new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow"));
     }
 
     private static void createUser(int numOfAgents){
         //TIme
         createStart = System.currentTimeMillis();
         
-        //CreateAgent agent = new CreateAgent();
-        //agent.create("U#00", numOfAgents);
+        CreateAgent agent = new CreateAgent();
+        agent.create("U#00", numOfAgents);
     }
 
     private static Long start, stop, initStart, createStart;
