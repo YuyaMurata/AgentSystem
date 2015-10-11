@@ -4,7 +4,7 @@ export CLASSPATH=$CLASSPATH:../property:../resource:../library/Log/logback-acces
 
 #{1..20}
 #30 40 50 60 70 80 90 100
-for i in {1..10}
+for i in 10
 do
 
     mkdir logs/user$i
