@@ -15,8 +15,9 @@ import rda.queue.MessageQueueTimer;
 import rda.window.WindowController;
 
 public class Main implements SetProperty{
-    private static final ScheduledExecutorService ex = Executors.newSingleThreadScheduledExecutor();
-    private static MainSchedule mainTask;
+    private static final ScheduledExecutorService mainTask = Executors.newSingleThreadScheduledExecutor();
+    private static final ScheduledExecutorService endTask = Executors.newSingleThreadScheduledExecutor();
+    private static MainSchedule task;
     
     private static final Marker mainMarker = MarkerFactory.getMarker("AgentSystem Main");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
@@ -29,7 +30,7 @@ public class Main implements SetProperty{
         init_debug();
 
         // MQ Window Start
-        mainTask = new MainSchedule(new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow"));
+        task = new MainSchedule(new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow"));
     }
 
     private static void createUser(int numOfAgents){
@@ -59,18 +60,18 @@ public class Main implements SetProperty{
         start = System.currentTimeMillis();
         
         //Start Main Schedule
-        final ScheduledFuture mainTaskFuture = ex.scheduleAtFixedRate
-                (mainTask, 0, TIME_PERIOD, TimeUnit.MILLISECONDS);
+        final ScheduledFuture mainTaskFuture = mainTask.scheduleAtFixedRate
+                (task, 0, TIME_PERIOD, TimeUnit.MILLISECONDS);
         
         //Stop Main Schedule
-        ScheduledFuture future = ex.schedule(
+        ScheduledFuture future = endTask.schedule(
             new Runnable(){
                 public void run(){
                     mainTaskFuture.cancel(true);
                     
                     logger.print(mainMarker, "Main Task is Cancelled !", null);
                     
-                    mainTask.isFinish();
+                    task.isFinish();
                 }
             }, TIME_RUN, TimeUnit.SECONDS);
         
@@ -78,7 +79,9 @@ public class Main implements SetProperty{
             future.get();
         } catch (InterruptedException | ExecutionException e) {
         } finally {
-            ex.shutdownNow();
+            mainTask.shutdownNow();
+            endTask.shutdownNow();
+            
             MessageQueueTimer.getInstance().close();
             
             // Stop Time
