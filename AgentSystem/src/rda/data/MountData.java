@@ -8,28 +8,44 @@ public class MountData implements SetProperty{
     private static long count;
     private final DataGenerator gen;
 
-	public MountData() {
-            count = -1;
-            
-            this.gen = DataGenerator.getInstance();
-            gen.init();
-	}
+    public MountData() {
+        this.gen = DataGenerator.getInstance();
+        gen.init();
+    }
  
-	public MessageObject getTimeToData(Long t){
-            count++;
+    public MessageObject getTimeToData(Long t){
+        count++;
 
-            if(count <= t*DATA_VOLUME) return gen.getData();
-            else if(count == t * DATA_VOLUME + 1) 
+        if(count <= t * DATA_VOLUME){
+            if(count == t * DATA_VOLUME) 
                 return new MessageObject(gen.getData().agentKey, -1);
-            else{
-                count = -1;
-                return null;
-            }
-	}
-        
-        public static Long getAmountData(){
-            Long n = TIME_RUN * 1000 / TIME_PERIOD;
-            Long result = n * (n-1) / 2 * DATA_VOLUME;
-            return result;
+            return gen.getData();
+        } else{
+            count = -1;
+            return null;
         }
+    }
+        
+    public static Long getAmountData(){
+        Long n = TIME_RUN * 1000 / TIME_PERIOD;
+        Long result = n * (n-1) / 2 * DATA_VOLUME;
+        return result;
+    }
+    
+    /**
+    public static void main(String[] args) {
+        Long total = 0L;
+        
+        MessageObject msg;
+        for(long t=0; t < TIME_RUN; t++){
+            while((msg = DATA_TYPE.getTimeToData(t)) != null){
+                //mq.sendMessage(msg);
+                if(msg.data != -1)
+                    total = total + msg.data;
+            }
+            System.out.println("Time_"+t+" Total:"+total);
+        }
+        
+        System.out.println("Estimate Total:"+getAmountData());
+    }*/
 }
