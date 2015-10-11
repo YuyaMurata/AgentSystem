@@ -3,10 +3,8 @@ package rda.data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.util.Date;
 
 public class OutputData {
 	private String filename;
@@ -22,8 +20,6 @@ public class OutputData {
 			File file = new File(filename);
 			pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file, true)));
 		} catch (FileNotFoundException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
 		}
 	}
 	

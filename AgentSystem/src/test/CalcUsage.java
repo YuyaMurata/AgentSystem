@@ -30,8 +30,6 @@ public class CalcUsage {
 
 		return format.format(usage);
 	} catch (Exception e) {
-		// TODO 自動生成された catch ブロック
-		e.printStackTrace();
 	}
 	return null;
   }

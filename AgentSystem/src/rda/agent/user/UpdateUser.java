@@ -72,9 +72,6 @@ public class UpdateUser implements AgentExecutor, Serializable{
                         
 			//System.out.println("A message from the agent[" + agentKey + "]: " + reply);
 		} catch (AgentException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-			//reply = e;
 		}
 	}
 

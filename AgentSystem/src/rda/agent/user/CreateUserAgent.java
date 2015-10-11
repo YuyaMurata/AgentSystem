@@ -11,7 +11,6 @@ import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 
-import rda.agent.CreateAgentClient;
 import rda.agent.user.message.InitUserMessage;
 
 public class CreateUserAgent implements AgentExecutor, Serializable{
@@ -70,8 +69,6 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
 		
 			return ret;
 		} catch (AgentException | IllegalAccessException | InstantiationException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
 		}
 		
 		return null;
@@ -90,8 +87,6 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
 		
 			System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
 		} catch (AgentException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
 		}
 	}
 

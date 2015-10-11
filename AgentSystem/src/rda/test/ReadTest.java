@@ -3,7 +3,6 @@ package rda.test;
 import java.util.ArrayList;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
-import rda.agent.user.ReadLogUser;
 import rda.agent.user.ReadUser;
 import rda.agent.user.UserInfo;
 import rda.log.AgentSystemLogger;

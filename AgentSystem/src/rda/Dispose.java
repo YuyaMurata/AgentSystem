@@ -49,8 +49,7 @@ public class Dispose implements AgentExecutor, Serializable {
 			// DISPOSEメッセージをSYNC-BROADCASTで全エージェントに送信
 			HashMap<AgentKey,Object> ret = agentManager.sendMessage(msg);
 			return ret;
-		} catch(Exception e) {
-			e.printStackTrace();
+		} catch(IllegalAccessException | InstantiationException e) {
 			return e;
 		}
 	}
@@ -82,7 +81,6 @@ public class Dispose implements AgentExecutor, Serializable {
 			}
     		
 		} catch(Exception e) {
-			e.printStackTrace();
 		}
 		
 		client.close();

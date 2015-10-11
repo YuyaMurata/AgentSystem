@@ -53,7 +53,9 @@ public class Log extends HPAEntity {
 
     /**
      * Get the version string
+     * @return 
     **/
+    @Override
     public String getVersion() {
         return "rda1.0";
     }
@@ -61,6 +63,7 @@ public class Log extends HPAEntity {
     /**
      * Get a value of UserID. 
      * The setter method of UserID is not generated because this attribute is a primarykey. 
+     * @param tx
      * @return UserID
      **/
     public final String getUserID(TxID tx) {
@@ -71,6 +74,7 @@ public class Log extends HPAEntity {
     /**
      * Get a value of AccessID. 
      * The setter method of AccessID is not generated because this attribute is a primarykey. 
+     * @param tx
      * @return AccessID
      **/
     public final String getAccessID(TxID tx) {
@@ -79,6 +83,7 @@ public class Log extends HPAEntity {
     }
 
     /**
+     * @param tx
      * @return LastAccessTime
      **/
     public final java.sql.Timestamp getLastAccessTime(TxID tx) {
@@ -90,6 +95,7 @@ public class Log extends HPAEntity {
      * Set a value to LastAccessTime. 
      * @param tx a transaction context
      * @param value a value to be set to LastAccessTime
+     * @throws com.ibm.agent.exa.AgentException
      **/
     public final void  setLastAccessTime(TxID tx, java.sql.Timestamp value) throws AgentException {
         // generated code

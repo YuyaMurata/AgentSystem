@@ -24,7 +24,6 @@ public class Property {
         try{
             prop.load(getClass().getResourceAsStream(filename));
         }catch(IOException e){
-                e.printStackTrace();
         }
     }
 
@@ -84,7 +83,6 @@ public class Property {
             path = getClass().getResource("/agent.properties").getPath();
             agent.store(new FileOutputStream(path), null);
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
     

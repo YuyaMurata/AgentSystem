@@ -16,7 +16,6 @@ public class DisposeHandler extends MessageHandler {
 			disposeAgent();
 			return getAgentKey() + " was disposed";
 		} catch(Exception e) {
-			e.printStackTrace();
 			throw e;
 		}
 	}

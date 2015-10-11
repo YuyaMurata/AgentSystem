@@ -12,7 +12,6 @@ public class CreateAgentClient {
 		} catch (CETADataGridException e) {
 			// TODO 自動生成された catch ブロック
 			System.out.println("Get AgentClient Exception");
-			e.printStackTrace();
 		}
 	}
         

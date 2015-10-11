@@ -22,12 +22,14 @@ public class ScheduleTest {
 
     public static void beepForAnHour() {
         final Runnable beeper = new Runnable() {
+                @Override
                 public void run() { System.out.println((timer++)+" : beep"); }
             };
         
         final ScheduledFuture<?> beeperHandle =
             scheduler.scheduleAtFixedRate(beeper, 0, 1, TimeUnit.SECONDS);
         scheduler.schedule(new Runnable() {
+                @Override
                 public void run() { beeperHandle.cancel(true); }
             }, 10, TimeUnit.SECONDS);
     }

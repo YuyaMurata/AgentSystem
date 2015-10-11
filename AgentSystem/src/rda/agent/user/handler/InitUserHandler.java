@@ -58,7 +58,6 @@ public class InitUserHandler extends MessageHandler {
 			// 処理結果としてエージェントキーを含む文字列を戻す
 			return "hello from agent:" + getAgentKey();
 		} catch(Exception e) {
-			e.printStackTrace();
 			throw e;
 		}
 	}

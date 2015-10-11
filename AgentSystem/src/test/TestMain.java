@@ -1,6 +1,5 @@
 package test;
 
-import com.ibm.ws.xs.jdk5.java.util.TreeSet;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;

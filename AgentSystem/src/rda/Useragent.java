@@ -64,7 +64,9 @@ public class Useragent extends HPAEntity {
 
     /**
      * Get the version string
+     * @return 
     **/
+    @Override
     public String getVersion() {
         return "rda1.0";
     }
@@ -72,6 +74,7 @@ public class Useragent extends HPAEntity {
     /**
      * Get a value of UserID. 
      * The setter method of UserID is not generated because this attribute is a primarykey. 
+     * @param tx
      * @return UserID
      **/
     public final String getUserID(TxID tx) {
@@ -84,6 +87,7 @@ public class Useragent extends HPAEntity {
      * Entity type of this entity set is profile.
      * A returned entity set has a single entity.
      * The setter method of Profile is not generated because this attribute is a EntitySet. 
+     * @param tx
      * @return an entity set containing Profile
      * @throws AgentException
      **/
@@ -109,6 +113,7 @@ public class Useragent extends HPAEntity {
      * Create a value of Profile. 
      * @param tx a transaction context
      * @return Profile
+     * @throws com.ibm.agent.exa.AgentException
      **/
     public final Profile createProfile(TxID tx) throws AgentException {
         // generated code
@@ -118,6 +123,7 @@ public class Useragent extends HPAEntity {
     }
 
     /**
+     * @param tx
      * @return Data
      **/
     public final long getData(TxID tx) {
@@ -129,6 +135,7 @@ public class Useragent extends HPAEntity {
      * Set a value to Data. 
      * @param tx a transaction context
      * @param value a value to be set to Data
+     * @throws com.ibm.agent.exa.AgentException
      **/
     public final void  setData(TxID tx, long value) throws AgentException {
         // generated code
@@ -136,6 +143,7 @@ public class Useragent extends HPAEntity {
     }
 
     /**
+     * @param tx
      * @return ConnectionCount
      **/
     public final long getConnectionCount(TxID tx) {
@@ -147,6 +155,7 @@ public class Useragent extends HPAEntity {
      * Set a value to ConnectionCount. 
      * @param tx a transaction context
      * @param value a value to be set to ConnectionCount
+     * @throws com.ibm.agent.exa.AgentException
      **/
     public final void  setConnectionCount(TxID tx, long value) throws AgentException {
         // generated code
@@ -157,6 +166,7 @@ public class Useragent extends HPAEntity {
      * Get a set of Log. 
      * Entity type of this entity set is log.
      * The setter method of Log is not generated because this attribute is a EntitySet. 
+     * @param tx
      * @return an entity set containing Log
      * @throws AgentException
      **/
@@ -187,6 +197,7 @@ public class Useragent extends HPAEntity {
      * @param tx a transaction context
      * @param AccessID
      * @return Log
+     * @throws com.ibm.agent.exa.AgentException
      **/
     public final Log createLog(TxID tx,String AccessID) throws AgentException {
         // generated code
@@ -202,6 +213,8 @@ public class Useragent extends HPAEntity {
     /**
      * Get an iterator of Log. 
      * @param tx a transaction context
+     * @return 
+     * @throws com.ibm.agent.exa.AgentException
      **/
     public final Iterator<Entity> getLogIterator(TxID tx) throws AgentException {
         // generated code

@@ -7,12 +7,12 @@ public class MessageQueue {
 	private static final long QUEUE_WAIT = 100;
 
 	public String name;
-	private ConcurrentLinkedQueue<Object> queue;
-	private MQThread thread;
+	private final ConcurrentLinkedQueue<Object> queue;
+	private final MQThread thread;
 	public MessageQueue(String name) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.name = name;
-		this.queue = new ConcurrentLinkedQueue<Object>();
+		this.queue = new ConcurrentLinkedQueue<>();
 
 		this.thread = new MQThread(name, this);
 		thread.start();
@@ -34,7 +34,7 @@ public class MessageQueue {
 	}
 
 	public synchronized Object get(){
-		while(queue.size() == 0) {
+		while(queue.isEmpty()) {
 			try {
 				System.out.println(name+": empty wait!");
 				wait();

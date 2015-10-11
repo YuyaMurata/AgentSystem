@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class ProfileGenerator {
 	private static final ProfileGenerator profgen; 
-	private static Random rand = new Random();
+	private static final Random rand = new Random();
 	
 	static {
 		profgen = new ProfileGenerator();

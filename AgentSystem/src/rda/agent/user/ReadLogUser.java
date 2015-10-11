@@ -51,8 +51,7 @@ public class ReadLogUser implements AgentExecutor, Serializable{
 			Object ret = agentManager.sendMessage(agentKey, msg);
 
 			return ret;
-		}catch(Exception e){
-			e.printStackTrace();
+		}catch(IllegalAccessException | InstantiationException e){
 			return e;
 		}
 	}
@@ -64,7 +63,7 @@ public class ReadLogUser implements AgentExecutor, Serializable{
 
 			for(int i=0; i < numOfAgents; i++){
 				String userID = "U#00"+i;
-				AgentKey agentKey = new AgentKey(AGENT_TYPE, new Object[]{userID});
+				agentKey = new AgentKey(AGENT_TYPE, new Object[]{userID});
 
 				ReadLogUser executor = new ReadLogUser(agentKey);
 

@@ -19,10 +19,10 @@ import java.util.List;
  */
 public class FieldInput {
     private String time;
-    private List<String> lengthField  = new ArrayList<>();
-    private List<String> eventField  = new ArrayList<>();
-    private List<String> cpuField = new ArrayList<>();
-    private LinkedHashMap<String, Integer> eventCount = new LinkedHashMap<>();
+    private final List<String> lengthField  = new ArrayList<>();
+    private final List<String> eventField  = new ArrayList<>();
+    private final List<String> cpuField = new ArrayList<>();
+    private final LinkedHashMap<String, Integer> eventCount = new LinkedHashMap<>();
     
     public void setTime(String field){
         this.time = field.substring(0,field.length()-2)+"00";
