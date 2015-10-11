@@ -37,8 +37,8 @@ public class Main implements SetProperty{
         //TIme
         createStart = System.currentTimeMillis();
         
-        CreateAgent agent = new CreateAgent();
-        agent.create("U#00", numOfAgents);
+        //CreateAgent agent = new CreateAgent();
+        //agent.create("U#00", numOfAgents);
     }
 
     private static Long start, stop, initStart, createStart;
