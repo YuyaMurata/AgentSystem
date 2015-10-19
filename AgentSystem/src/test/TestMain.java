@@ -16,45 +16,12 @@ public class TestMain extends Exception{
 		TestMain e = new TestMain();
                 System.out.println(e.toString());
                 
-                ConcurrentSkipListMap<String, Integer> map1 = new ConcurrentSkipListMap<>();
-                ConcurrentHashMap<String, Integer> map2 = new ConcurrentHashMap<>();
-                
-                Long start = System.currentTimeMillis();
-                
-                System.out.println("map1:");
-                for(int i=0; i < NUM; i++){
-                    Object[] arr = {"aa","bb","cc"};
-                }
-                
-                /*
-                for(int i=0; i < NUM; i++){
-                    String key = "KEY:"+i%NUM;
-                    map1.put(key, i);
-                }
-                System.out.println("Map1 Size_"+map1.size());
-                //for(String key : map1.keySet())
-                //    System.out.print("Key."+key+" Value."+map1.get(key)+", ");
-                */
-                Long stop = System.currentTimeMillis();
-                System.out.println("\nMap1 Time : "+(stop-start));
-                
-                start = System.currentTimeMillis();
-                System.out.println("\nmap2:");
-                for(int i=0; i < NUM; i++){
-                    String arr = new String("aa"+"bb"+"cc");
-                }
-                
-                /*
-                for(int i=0; i < NUM; i++){
-                    String key = "KEY:"+i%NUM;
-                    map2.put(key, i);
-                }
-                System.out.println("Map2 Size_"+map2.size());
-                //for(String key : map2.keySet())
-                //    System.out.print("Key."+key+" Value."+map2.get(key)+", ");
-                */
-                stop = System.currentTimeMillis();
-                System.out.println("\nMap2 Time : "+(stop-start));
+                Integer a = Integer.MAX_VALUE;
+                System.out.println("a="+a);
+                a = a+1;
+                System.out.println("a="+a);
+                a=a+10;
+                System.out.println("a="+a);
                 
 	}
 }
