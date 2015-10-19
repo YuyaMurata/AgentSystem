@@ -8,13 +8,13 @@ export CLASSPATH=$CLASSPATH:../property:../resource:../library/Log/logback-acces
 
 #{1..20}
 #30 40 50 60 70 80 90 100
-for i in 10
+for i in {1..10}
 do
 
     mkdir logs/$LOG_FD_$i
 
     # Change Property (System Parameter)
-    java -cp $CLASSPATH rda.property.RewriteProperty $i
+    java -cp $CLASSPATH rda.property.RewriteProperty 10
 
     vmstat -n -S m -a 1 | awk '{print strftime("%Y-%m-%d %H:%M:%S.000"), $0} { system(":") }' > vmstat.log &
 
