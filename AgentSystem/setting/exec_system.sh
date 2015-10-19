@@ -25,15 +25,15 @@ do
     killall vmstat
     cat vmstat.log | awk '{print $1 " " $2 "," $15 "," $16}' > vmstat.csv
 
-    cp logs/*.csv logs/user$i
-    cp -r logs/history logs/user$i
-    cp -r ../property logs/user$i
+    cp logs/*.csv logs/user10_$i
+    cp -r logs/history logs/user10_$i
+    cp -r ../property logs/user10_$i
 
     rm -f logs/*.csv
     rm -f logs/history/*
 
-    mv vmstat.* logs/user$i
+    mv vmstat.* logs/user10_$i
 
-    java -cp $CLASSPATH rda.result.ResultsDataForming $i
+    java -cp $CLASSPATH rda.result.ResultsDataForming 10_$i
 
 done
