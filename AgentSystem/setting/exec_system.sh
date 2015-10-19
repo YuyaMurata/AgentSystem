@@ -12,7 +12,8 @@ do
 
     mkdir logs/user10_$i
 
-    java -cp $CLASSPATH rda.property.RewriteProperty $i
+    # Change Property (System Parameter)
+    java -cp $CLASSPATH rda.property.RewriteProperty 10
 
     vmstat -n -S m -a 1 | awk '{print strftime("%Y-%m-%d %H:%M:%S.000"), $0} { system(":") }' > vmstat.log &
 
