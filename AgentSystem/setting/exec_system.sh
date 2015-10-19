@@ -11,7 +11,7 @@ export CLASSPATH=$CLASSPATH:../property:../resource:../library/Log/logback-acces
 for i in {1..10}
 do
 
-    mkdir logs/$LOG_FD_$i
+    mkdir logs/${LOG_FD}_${i}
 
     # Change Property (System Parameter)
     java -cp $CLASSPATH rda.property.RewriteProperty 10
@@ -26,15 +26,15 @@ do
     killall vmstat
     cat vmstat.log | awk '{print $1 " " $2 "," $15 "," $16}' > vmstat.csv
 
-    cp logs/*.csv logs/$LOG_FD_$i
-    cp -r logs/history logs/$LOG_FD_$i
-    cp -r ../property logs/$LOG_FD_$i
+    cp logs/*.csv logs/${LOG_FD}_${i}
+    cp -r logs/history logs/${LOG_FD}_${i}
+    cp -r ../property logs/${LOG_FD}_${i}
 
     rm -f logs/*.csv
     rm -f logs/history/*
 
-    mv vmstat.* logs/$LOG_FD_$i
+    mv vmstat.* logs/${LOG_FD}_${i}
 
-    java -cp $CLASSPATH rda.result.ResultsDataForming $LOG_FD_$i
+    java -cp $CLASSPATH rda.result.ResultsDataForming ${LOG_FD}_${i}
 
 done
