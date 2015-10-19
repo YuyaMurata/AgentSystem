@@ -22,9 +22,7 @@ public class MainSchedule implements Runnable, SetProperty{
     
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
-    
-    Long total = 0L;
-    
+
     public MainSchedule(WindowController win) {
         this.mq = win;
         this.timer = -1L;
@@ -32,10 +30,8 @@ public class MainSchedule implements Runnable, SetProperty{
     
     private void sendMessage(Long t){
         MessageObject msg;
-        while((msg = DATA_TYPE.getTimeToData(t)) != null){
+        while((msg = DATA_TYPE.getTimeToData(t)) != null)
             mq.sendMessage(msg);
-            total = total + 1;
-        }
     }
     
     @Override
@@ -44,9 +40,7 @@ public class MainSchedule implements Runnable, SetProperty{
         
         logger.print(scheduleMaker, 
                 "Experiment Step : {} [{}ms]", new Object[]{timer, TIME_PERIOD});
-        
-        System.out.println(" Transaction of MainSchedule Total:"+total);
-        
+   
         sendMessage(timer);
     }
     
