@@ -63,16 +63,14 @@ public class AggregateSummaryData implements SetProperty{
     
     //folder path -> field name
     public static void setCsvFields(HashMap map, CSVWriter csv){
-        List<String> fields = new ArrayList<>();
-        fields.add("LogName");
+        List<String> fields = new ArrayList<>(Arrays.asList("LogName"));
         for(Object key : map.keySet()) {
             String path = ((File)map.get(key)).toString();
             String[] field = path.split("\\\\");
             fields.add(field[field.length-1]);
         }
-        
-        String[] fieldsArr = (String[])fields.toArray(new String[fields.size()]); 
-        csv.writeNext(fieldsArr);
+        System.out.println("Field:"+fields.size());
+        csv.writeNext((String[])fields.toArray(new String[fields.size()]));
     }
     
     public static void setCSVDatas(HashMap map, CSVWriter csv) throws UnsupportedEncodingException, FileNotFoundException, IOException{
