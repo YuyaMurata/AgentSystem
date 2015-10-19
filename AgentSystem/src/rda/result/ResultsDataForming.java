@@ -31,7 +31,7 @@ public class ResultsDataForming implements SetProperty{
             throws FileNotFoundException, UnsupportedEncodingException, IOException, ParseException{
         String folderName = "user";
         if(args.length == 1)
-            folderName = folderName + args[0];
+            folderName = args[0];
         
         String path = LOG_DIR+folderName;
         HashMap<String, File> map = getFileList(path);

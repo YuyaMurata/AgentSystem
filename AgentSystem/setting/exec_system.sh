@@ -1,6 +1,7 @@
 #Initialise
 mkdir logs/history
 rm -f vmstat.log
+LOG_FD=user10
 
 #Setting CLASS PATH
 export CLASSPATH=$CLASSPATH:../property:../resource:../library/Log/logback-access-1.1.3.jar:../library/Log/logback-classic-1.1.3.jar:../library/Log/logback-core-1.1.3.jar:../library/Log/slf4j-api-1.7.12.jar:../library/csv/opencsv-3.5.jar
@@ -10,7 +11,7 @@ export CLASSPATH=$CLASSPATH:../property:../resource:../library/Log/logback-acces
 for i in {1..10}
 do
 
-    mkdir logs/user10_$i
+    mkdir logs/$LOG_FD_$i
 
     # Change Property (System Parameter)
     java -cp $CLASSPATH rda.property.RewriteProperty 10
@@ -25,15 +26,15 @@ do
     killall vmstat
     cat vmstat.log | awk '{print $1 " " $2 "," $15 "," $16}' > vmstat.csv
 
-    cp logs/*.csv logs/user10_$i
-    cp -r logs/history logs/user10_$i
-    cp -r ../property logs/user10_$i
+    cp logs/*.csv logs/$LOG_FD_$i
+    cp -r logs/history logs/$LOG_FD_$i
+    cp -r ../property logs/$LOG_FD_$i
 
     rm -f logs/*.csv
     rm -f logs/history/*
 
-    mv vmstat.* logs/user10_$i
+    mv vmstat.* logs/$LOG_FD_$i
 
-    java -cp $CLASSPATH rda.result.ResultsDataForming 10_$i
+    java -cp $CLASSPATH rda.result.ResultsDataForming $LOG_FD_$i
 
 done
