@@ -33,8 +33,7 @@ public class MessageQueueTimer implements Runnable, SetProperty{
     @Override
     public void run() {
         binaryTimer = !binaryTimer;
-        mqSS.mqLengthLogging();
-        
+        mqSS.mqLengthLogging();      
     }
     
     public Boolean getTimer(){

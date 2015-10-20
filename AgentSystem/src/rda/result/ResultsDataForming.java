@@ -38,13 +38,18 @@ public class ResultsDataForming implements SetProperty{
 
         System.out.println(path+createCSVFileName());
         
-        CSVWriter csvSummary = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+createCSVFileName()+"-Summary.csv")));
-        csvTitle(map, csvSummary);
+        try (CSVWriter csvSummary = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+createCSVFileName()+"-Summary.csv")))) {
+            csvTitle(map, csvSummary);
+            csvTransactionData(map, csvSummary);
+            
+            csvSummary.flush();
+        }
         
-        csvTransactionData(map, csvSummary);
-        
-        CSVWriter csvSystem = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+createCSVFileName()+"-SystemLog.csv")));
-        csvMQLength(map, csvSystem);
+        try (CSVWriter csvSystem = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+createCSVFileName()+"-SystemLog.csv")))) {
+            csvMQLength(map, csvSystem);
+            
+            csvSystem.flush();
+        }
     }
     
     public static HashMap<String, File> getFileList(String path){
@@ -88,125 +93,114 @@ public class ResultsDataForming implements SetProperty{
     // Marker init, end -> CSV Write
     public static void csvTitle(HashMap<String, File> map, CSVWriter csv) 
                     throws UnsupportedEncodingException, FileNotFoundException, IOException{
-        CSVReader csvReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8"));
-        Boolean titleSetFlg = true;
-                
-        List<String[]> list = csvReader.readAll();
-        for(String[] strArr : list)
-            if(strArr.length > 1)
-                if(strArr[1].contains("init")){
-                    if(titleSetFlg) {
-                        titleSetFlg = false;
-                        csv.writeNext(new String[]{"Settings Parameter"});
+        try (CSVReader csvMQLReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8"))) {
+            Boolean titleSetFlg = true;
+            
+            List<String[]> list = csvMQLReader.readAll();
+            for(String[] strArr : list)
+                if(strArr.length > 1)
+                    if(strArr[1].contains("init")){
+                        if(titleSetFlg) {
+                            titleSetFlg = false;
+                            csv.writeNext(new String[]{"Settings Parameter"});
+                        }
+                        System.out.println(strArr[0] +" " + strArr[2]);
+                        
+                        strArr[0] = "";
+                        csv.writeNext(new String[]{"", strArr[2]});
+                    } else if(strArr[1].contains("end")){
+                        if(!titleSetFlg) {
+                            titleSetFlg = true;
+                            csv.writeNext(new String[]{"Results Transaction Time"});
+                        }
+                        System.out.println(strArr[0] +" " + strArr[2]);
+                        
+                        strArr[0] = "";
+                        csv.writeNext(new String[]{"", strArr[2]});
                     }
-                    System.out.println(strArr[0] +" " + strArr[2]);
-                    
-                    strArr[0] = "";
-                    csv.writeNext(new String[]{"", strArr[2]});
-                } else if(strArr[1].contains("end")){
-                    if(!titleSetFlg) {
-                        titleSetFlg = true;
-                        csv.writeNext(new String[]{"Results Transaction Time"});
-                    }
-                    System.out.println(strArr[0] +" " + strArr[2]);
-                    
-                    strArr[0] = "";
-                    csv.writeNext(new String[]{"", strArr[2]});
-                }
-        
-        csv.writeNext(new String[]{""});
-        csv.flush();
-        
+            
+            csv.writeNext(new String[]{""});
+        }
     }
     
     //Result Marker data -> CSV Write
     public static void csvTransactionData(HashMap<String, File> map, CSVWriter csv) 
                     throws FileNotFoundException, UnsupportedEncodingException, IOException{
-        CSVReader csvReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_RESULTS)), "UTF-8"));
-        
-        List<String[]> list = csvReader.readAll();
-        for(String[] strArr : list)
-            if(strArr.length > 2)
-                if(strArr[1].contains("data") && strArr[2].contains("Time"))
-                    csv.writeNext(new String[]{"Transaction Time", strArr[3],"[ms]"});
-        
-        csv.writeNext(new String[]{""});
-        
-        ArrayList<String> total = new ArrayList<>();
-        
-        for(String[] strArr : list)
-            if(strArr.length > 2){
-                if(strArr[1].contains("field")){
-                    String[] strArrSub = new String[strArr.length - 3];
-                    System.arraycopy(strArr, 2, strArrSub, 0, strArrSub.length);
-                    
-                    total.add(strArr[strArr.length-1]);
-                    
-                    csv.writeNext(strArrSub);
-                } else if(strArr[1].contains("data") && !strArr[2].contains("Time")){
-                    String[] strArrSub = new String[strArr.length - 3];
-                    System.arraycopy(strArr, 2, strArrSub, 0, strArrSub.length);
-                    
-                    total.add(strArr[strArr.length-1]);
-                    
-                    csv.writeNext(strArrSub);
+        try (CSVReader csvResultsReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_RESULTS)), "UTF-8"))) {
+            List<String[]> list = csvResultsReader.readAll();
+            for(String[] strArr : list)
+                if(strArr.length > 2)
+                    if(strArr[1].contains("data") && strArr[2].contains("Time"))
+                        csv.writeNext(new String[]{"Transaction Time", strArr[3],"[ms]"});
+            
+            csv.writeNext(new String[]{""});
+            
+            ArrayList<String> total = new ArrayList<>();
+            
+            for(String[] strArr : list)
+                if(strArr.length > 2){
+                    if(strArr[1].contains("field")){
+                        String[] strArrSub = new String[strArr.length - 3];
+                        System.arraycopy(strArr, 2, strArrSub, 0, strArrSub.length);
+                        
+                        total.add(strArr[strArr.length-1]);
+                        
+                        csv.writeNext(strArrSub);
+                    } else if(strArr[1].contains("data") && !strArr[2].contains("Time")){
+                        String[] strArrSub = new String[strArr.length - 3];
+                        System.arraycopy(strArr, 2, strArrSub, 0, strArrSub.length);
+                        
+                        total.add(strArr[strArr.length-1]);
+                        
+                        csv.writeNext(strArrSub);
+                    }
                 }
-            }
-                
-        csv.writeNext(new String[]{""});
-        csv.writeNext(new String[]{total.get(0), total.get(1), total.get(2)});
-        
-        csv.flush();
+            
+            csv.writeNext(new String[]{""});
+            csv.writeNext(new String[]{total.get(0), total.get(1), total.get(2)});
+        }
     }
     
     //MQL & CPU Marker data -> CSV Write
     public static void csvMQLength(HashMap<String, File> map, CSVWriter csv) 
             throws FileNotFoundException, UnsupportedEncodingException, IOException, ParseException{
-        CSVReader csvMQLReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8"));
-        CSVReader csvMQEReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQE)), "UTF-8"));
-        CSVReader csvCPUReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_CPU)), "UTF-8"));
-        
-        FieldInput fieldIn = new FieldInput();
-        
-        //Set Field Name
-        fieldIn.setTime("Time");
-        
-        String[] field = new String[]{"",""};
-        while(!field[1].contains("field"))
-            field = csvMQLReader.readNext();
-        fieldIn.setLengthField(field);
-        
-        while(!csvMQEReader.readNext()[1].contains("field")) ;
-        fieldIn.setEventField(field);
-       
-        field = new String[]{"",""};
-        while(!field[1].contains("us"))
-            field = csvCPUReader.readNext();
-        fieldIn.setCPUField(field);
-        
-        csv.writeNext((String[]) fieldIn.formingData());
-        csv.flush();
-        
-        //initialise index and setData
-        List<String[]> eventList = csvMQEReader.readAll();
-        List<String[]> cpuList = csvCPUReader.readAll();
-        fieldIn.eventMapToList();
-        int i=0 , j=0;
-
-        for(String[] mql: csvMQLReader.readAll()){
-            if(mql.length > 1)
-                if(mql[1].contains("data")){
-                    fieldIn.setTime(mql[0]);
-                    
-                    fieldIn.setLengthData(mql);
-                    while(fieldIn.setEventData(eventList.get(i))) i++;
-                    while(fieldIn.setCPUData(cpuList.get(j))) j++;
-                    
-                    csv.writeNext((String[]) fieldIn.formingData());
-                }
+        try (   CSVReader csvMQLReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8"));
+                CSVReader csvMQEReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQE)), "UTF-8")); 
+                CSVReader csvCPUReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_CPU)), "UTF-8"))) {
+            
+            FieldInput fieldIn = new FieldInput();
+            
+            //Set Field Name
+            fieldIn.setTime("Time");
+            String[] field = new String[]{"",""};
+            while(!field[1].contains("field"))
+                field = csvMQLReader.readNext();
+            fieldIn.setLengthField(field);
+            while(!csvMQEReader.readNext()[1].contains("field")) ;
+            fieldIn.setEventField(field);
+            field = new String[]{"",""};
+            while(!field[1].contains("us"))
+                field = csvCPUReader.readNext();
+            fieldIn.setCPUField(field);
+            csv.writeNext((String[]) fieldIn.formingData());
+            
+            //initialise index and setData
+            List<String[]> eventList = csvMQEReader.readAll();
+            List<String[]> cpuList = csvCPUReader.readAll();
+            fieldIn.eventMapToList();
+            int i=0 , j=0;
+            for(String[] mql: csvMQLReader.readAll()){
+                if(mql.length > 1)
+                    if(mql[1].contains("data")){
+                        fieldIn.setTime(mql[0]);
+                        
+                        fieldIn.setLengthData(mql);
+                        while(fieldIn.setEventData(eventList.get(i))) i++;
+                        while(fieldIn.setCPUData(cpuList.get(j))) j++;
+                        
+                        csv.writeNext((String[]) fieldIn.formingData());
+                    }
+            }          
         }
-        
-        csv.flush();
-          
     }
 }

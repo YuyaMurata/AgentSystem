@@ -57,33 +57,30 @@ public class ReadLogUser implements AgentExecutor, Serializable{
 	}
 
 	public void get(int numOfAgents) {
-		try{
+            try{
+                CreateAgentClient client = new CreateAgentClient();
 
-			CreateAgentClient client = new CreateAgentClient();
+                for(int i=0; i < numOfAgents; i++){
+                    String userID = "U#00"+i;
+                    agentKey = new AgentKey(AGENT_TYPE, new Object[]{userID});
 
-			for(int i=0; i < numOfAgents; i++){
-				String userID = "U#00"+i;
-				agentKey = new AgentKey(AGENT_TYPE, new Object[]{userID});
+                    ReadLogUser executor = new ReadLogUser(agentKey);
 
-				ReadLogUser executor = new ReadLogUser(agentKey);
+                    Object reply = client.getClient().execute(agentKey, executor);
 
-				Object reply = client.getClient().execute(agentKey, executor);
-
-				if (reply != null) {
-    				LogInfo info = (LogInfo)reply;
+                    if (reply != null) {
+                        LogInfo info = (LogInfo)reply;
     				
-    				System.out.println(agentKey + "[");
-    				System.out.println("    " + info.toString());
-    				System.out.println("]");
-    			} else {
-    				System.out.println(userID + " was not found");
-    			}
-			}
+                        System.out.println(agentKey + "[");
+                        System.out.println("    " + info.toString());
+                        System.out.println("]");
+                    } else {
+                        System.out.println(userID + " was not found");
+                    }
+                }
 
-			client.close();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+                client.close();
+            }catch(Exception e){}
 	}
 
 }

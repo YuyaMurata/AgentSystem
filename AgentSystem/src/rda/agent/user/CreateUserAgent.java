@@ -63,7 +63,7 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
 			InitUserMessage msg = (InitUserMessage)factory.getMessage(MESSAGE_TYPE);
 		
 			msg.setParams(prof.get("Name"), prof.get("Sex"), 
-							prof.get("Age")   , prof.get("Address"));
+                                    prof.get("Age"), prof.get("Address"));
 		
 			Object ret = agentManager.sendMessage(agentKey, msg);
 		
@@ -76,10 +76,10 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
 	
 	public void create(String userID){
 		try {
-			AgentKey agentKey = new AgentKey(AGENT_TYPE,new Object[]{userID});
+			agentKey = new AgentKey(AGENT_TYPE,new Object[]{userID});
 		
 			ProfileGenerator profileGen = ProfileGenerator.getInstance();
-			HashMap<String, String> prof = profileGen.getProf(userID);
+			prof = profileGen.getProf(userID);
 		
 			CreateUserAgent executor = new CreateUserAgent(agentKey, prof);
 		
