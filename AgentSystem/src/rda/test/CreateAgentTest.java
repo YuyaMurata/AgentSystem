@@ -10,7 +10,10 @@ public class CreateAgentTest extends TestParameter{
     }
 
     public static void main(String[] args) {
+        Integer numOfAgents = NUMBER_OF_USER_AGENTS;
+        if(args.length == 1)
+            numOfAgents = Integer.valueOf(args[0]);
         //Agentの生成
-        createUser(NUMBER_OF_USER_AGENTS);
+        createUser(numOfAgents);
     }
 }
