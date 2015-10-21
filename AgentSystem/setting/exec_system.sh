@@ -11,7 +11,6 @@ export CLASSPATH=$CLASSPATH:../property:../resource:../library/Log/logback-acces
 for i in {1..20}
 do
     ./start.sh
-    sleep 10
     
     mkdir logs/${LOG_FD}${i}
 
