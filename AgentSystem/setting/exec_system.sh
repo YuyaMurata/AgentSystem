@@ -7,8 +7,8 @@ LOG_FD=user
 export CLASSPATH=$CLASSPATH:../property:../resource:../library/Log/logback-access-1.1.3.jar:../library/Log/logback-classic-1.1.3.jar:../library/Log/logback-core-1.1.3.jar:../library/Log/slf4j-api-1.7.12.jar:../library/csv/opencsv-3.5.jar
 
 #{1..20}
-#30 40 50 60 70 80 90 100
-for i in {1..20}
+#20 30 40 50 60 70 80 90 100
+for i in 20 30 40 50 60 70 80 90 100 200 300 400 500 600 700 800 900 1000
 do
 
     mkdir logs/${LOG_FD}${i}
