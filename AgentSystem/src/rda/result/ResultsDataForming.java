@@ -127,6 +127,12 @@ public class ResultsDataForming implements SetProperty{
     public static void csvTransactionData(HashMap<String, File> map, CSVWriter csv) 
                     throws FileNotFoundException, UnsupportedEncodingException, IOException{
         try (CSVReader csvResultsReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_RESULTS)), "UTF-8"))) {
+            //Error Check
+            if(csvResultsReader.readAll().isEmpty()){
+                System.out.println("System Results Log does not exist.");
+                return ;
+            }
+            
             List<String[]> list = csvResultsReader.readAll();
             for(String[] strArr : list)
                 if(strArr.length > 2)
@@ -167,6 +173,18 @@ public class ResultsDataForming implements SetProperty{
         try (   CSVReader csvMQLReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8"));
                 CSVReader csvMQEReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQE)), "UTF-8")); 
                 CSVReader csvCPUReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_CPU)), "UTF-8"))) {
+            
+            //Error Check
+            if(csvMQLReader.readAll().isEmpty()){
+                System.out.println("Message Queue Length Log does not exists.");
+                return ;
+            } else if(csvMQEReader.readAll().isEmpty()){
+                System.out.println("Message Queue Event Log does not exists.");
+                return ;
+            } else if(csvCPUReader.readAll().isEmpty()){
+                System.out.println("CPU Availability Log does not exists.");
+                return ;
+            }
             
             FieldInput fieldIn = new FieldInput();
             
