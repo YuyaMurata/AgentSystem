@@ -10,7 +10,9 @@ export CLASSPATH=$CLASSPATH:../property:../resource:../library/Log/logback-acces
 #30 40 50 60 70 80 90 100
 for i in {1..20}
 do
-
+    ./start.sh
+    sleep 10
+    
     mkdir logs/${LOG_FD}${i}
 
     # Change Property (System Parameter)
@@ -36,5 +38,6 @@ do
     mv vmstat.* logs/${LOG_FD}${i}
 
     java -cp $CLASSPATH rda.result.ResultsDataForming ${LOG_FD}${i}
-
+    
+    ./stop.sh
 done
