@@ -20,7 +20,7 @@ do
     mkdir logs/${LOG_FD}${i}
 
     # Change Property (System Parameter)
-    java -cp $CLASSPATH rda.property.RewriteProperty $i
+    java -cp $CLASSPATH rda.property.RewriteProperty ${LOG_FD}${i}
 
     vmstat -n -S m -a 1 | awk '{print strftime("%Y-%m-%d %H:%M:%S.000"), $0} { system(":") }' > vmstat.log &
 

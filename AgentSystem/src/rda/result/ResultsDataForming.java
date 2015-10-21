@@ -17,6 +17,7 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import rda.property.SetProperty;
@@ -29,7 +30,7 @@ public class ResultsDataForming implements SetProperty{
     
     public static void main(String[] args) 
             throws FileNotFoundException, UnsupportedEncodingException, IOException, ParseException{
-        String folderName = "user";
+        String folderName = "user10";
         if(args.length == 1)
             folderName = args[0];
         
@@ -127,32 +128,26 @@ public class ResultsDataForming implements SetProperty{
     public static void csvTransactionData(HashMap<String, File> map, CSVWriter csv) 
                     throws FileNotFoundException, UnsupportedEncodingException, IOException{
         try (CSVReader csvResultsReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_RESULTS)), "UTF-8"))) {
+            List<String[]> list = csvResultsReader.readAll();
+            
             //Error Check
-            if(csvResultsReader.readAll().isEmpty()){
+            if(list.isEmpty()){
                 System.out.println("System Results Log does not exist.");
                 return ;
             }
             
-            List<String[]> list = csvResultsReader.readAll();
             for(String[] strArr : list)
                 if(strArr.length > 2)
                     if(strArr[1].contains("data") && strArr[2].contains("Time"))
                         csv.writeNext(new String[]{"Transaction Time", strArr[3],"[ms]"});
-            
+                        
             csv.writeNext(new String[]{""});
             
-            ArrayList<String> total = new ArrayList<>();
+            List<String> total = new ArrayList<>(Arrays.asList("Total"));
             
-            for(String[] strArr : list)
-                if(strArr.length > 2){
-                    if(strArr[1].contains("field")){
-                        String[] strArrSub = new String[strArr.length - 3];
-                        System.arraycopy(strArr, 2, strArrSub, 0, strArrSub.length);
-                        
-                        total.add(strArr[strArr.length-1]);
-                        
-                        csv.writeNext(strArrSub);
-                    } else if(strArr[1].contains("data") && !strArr[2].contains("Time")){
+            for(String[] strArr : list){
+                if(strArr.length > 3){
+                    if(strArr[1].contains("data") && !strArr[2].contains("Time")){
                         String[] strArrSub = new String[strArr.length - 3];
                         System.arraycopy(strArr, 2, strArrSub, 0, strArrSub.length);
                         
@@ -161,9 +156,10 @@ public class ResultsDataForming implements SetProperty{
                         csv.writeNext(strArrSub);
                     }
                 }
-            
+            }
+                        
             csv.writeNext(new String[]{""});
-            csv.writeNext(new String[]{total.get(0), total.get(1), total.get(2)});
+            csv.writeNext(total.toArray(new String[total.size()]));
         }
     }
     
@@ -175,7 +171,7 @@ public class ResultsDataForming implements SetProperty{
                 CSVReader csvCPUReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_CPU)), "UTF-8"))) {
             
             //Error Check
-            if(csvMQLReader.readAll().isEmpty()){
+            /*if(csvMQLReader.readAll().isEmpty()){
                 System.out.println("Message Queue Length Log does not exists.");
                 return ;
             } else if(csvMQEReader.readAll().isEmpty()){
@@ -184,12 +180,12 @@ public class ResultsDataForming implements SetProperty{
             } else if(csvCPUReader.readAll().isEmpty()){
                 System.out.println("CPU Availability Log does not exists.");
                 return ;
-            }
+            }*/
             
             FieldInput fieldIn = new FieldInput();
             
             //Set Field Name
-            fieldIn.setTime("Time");
+            fieldIn.setTimeField("Time");
             String[] field = new String[]{"",""};
             while(!field[1].contains("field"))
                 field = csvMQLReader.readNext();
@@ -200,6 +196,8 @@ public class ResultsDataForming implements SetProperty{
             while(!field[1].contains("us"))
                 field = csvCPUReader.readNext();
             fieldIn.setCPUField(field);
+            
+            //System.out.println("Fields:"+Arrays.asList(fieldIn.formingData()));
             csv.writeNext((String[]) fieldIn.formingData());
             
             //initialise index and setData

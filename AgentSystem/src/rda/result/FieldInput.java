@@ -24,8 +24,8 @@ public class FieldInput {
     private final List<String> cpuField = new ArrayList<>();
     private final LinkedHashMap<String, Integer> eventCount = new LinkedHashMap<>();
     
-    public void setTime(String field){
-        this.time = field.substring(0,field.length()-2)+"00";
+    public void setTimeField(String field){
+        this.time = field;
     }
     
     public void setLengthField(String[] field){
@@ -56,6 +56,10 @@ public class FieldInput {
         Date time2 = sdf.parse(field);
         
         return time1.compareTo(time2) < 0;
+    }
+    
+    public void setTime(String field){
+        this.time = field.substring(0,field.length()-2)+"00";
     }
     
     public void setLengthData(String[] field){
@@ -104,7 +108,7 @@ public class FieldInput {
         data.addAll(lengthField);
         data.addAll(eventField);
         data.addAll(cpuField);
-        
+                
         //init EventCount
         for(String key : eventCount.keySet()) eventCount.put(key, 0);
         eventMapToList();
