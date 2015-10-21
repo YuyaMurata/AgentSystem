@@ -8,7 +8,8 @@ export CLASSPATH=$CLASSPATH:../property:../resource:../library/Log/logback-acces
 
 #{1..20}
 #20 30 40 50 60 70 80 90 100
-for i in 20 30 40 50 60 70 80 90 100 200 300 400 500 600 700 800 900 1000
+#200 300 400 500 600 700 800 900 1000
+for i in {1..20}
 do
 
     mkdir logs/${LOG_FD}${i}
