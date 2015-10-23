@@ -6,5 +6,4 @@ echo $1
 
 case "$1" in 
   "CreateAgentTest" ) echo "Execute Java Program";;
-    
 esac
