@@ -68,9 +68,10 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
 		return null;
 	}
 	
-        private AgentConnection ag = AgentConnection.getInstance();
-	private ProfileGenerator profileGen = ProfileGenerator.getInstance();
         public void create(String userID){
+            AgentConnection ag = AgentConnection.getInstance();
+            ProfileGenerator profileGen = ProfileGenerator.getInstance();
+            
             AgentClient client = ag.getConnection();
             
             try {
@@ -84,7 +85,13 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
                 System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
             } catch (AgentException e) {
             } finally {
+                System.out.println("Active Num:"+ag.getActiveObject());
+                System.out.println("Idle Num:"+ag.getIdleObject());
+                
                 ag.returnConnection(client);
+                
+                System.out.println("Active Num:"+ag.getActiveObject());
+                System.out.println("Idle Num:"+ag.getIdleObject());
             }
 	}
 

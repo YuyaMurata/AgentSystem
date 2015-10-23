@@ -51,4 +51,11 @@ public class AgentConnection {
     public void close(){
         _pool.close();
     }
+    
+    public Integer getActiveObject(){
+        return _pool.getNumActive();
+    }
+    public Integer getIdleObject(){
+        return _pool.getNumIdle();
+    }
 }

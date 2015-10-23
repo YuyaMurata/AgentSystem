@@ -11,7 +11,7 @@ package rda.test;
  */
 public abstract class TestParameter {
     //Experiment Condition
-    public static final int NUMBER_OF_USER_AGENTS = 10000;
+    public static final int NUMBER_OF_USER_AGENTS = 10;
     public static final int NUMBER_DATA = 100000;
     public static final int TIME_RUN = 1;
     public static final int NUMBER_OF_QUEUE = 1;
