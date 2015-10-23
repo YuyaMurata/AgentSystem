@@ -1,7 +1,10 @@
 #Setting CLASS PATH
  #Program setting file
 export CLASSPATH=$CLASSPATH:../library/pool/commons-pool2-2.4.2.jar
-case $1 in
+
+
+
+case $0 in
   1)
     echo "[INFO] enter numric value is 1";;
   [23])
