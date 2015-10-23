@@ -57,7 +57,5 @@ public class MainSchedule implements Runnable, SetDataType{
     
     public void isFinish(){
         mq.close();
-        
-        AgentConnection.getInstance().close();
     }
 }

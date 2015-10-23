@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.agent.CreateAgent;
+import rda.agent.client.AgentConnection;
 import rda.data.SetDataType;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
@@ -87,6 +88,7 @@ public class Main implements SetProperty, SetDataType{
             endTask.shutdownNow();
             
             MessageQueueTimer.getInstance().close();
+            AgentConnection.getInstance().close();
             
             // Stop Time
             stop = System.currentTimeMillis();
