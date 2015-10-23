@@ -2,9 +2,9 @@
  #Program setting file
 export CLASSPATH=$CLASSPATH:../library/pool/commons-pool2-2.4.2.jar
 
-echo $0
+echo $1
 
-case "$0" in
+case "$1" in
   1)
     echo "[INFO] enter numric value is 1";;
   [23])
