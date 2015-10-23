@@ -3,7 +3,6 @@ package rda.queue.reciver;
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 
-import rda.agent.CreateAgentClient;
 import rda.agent.user.UpdateUser;
 import rda.queue.MessageObject;
 import rda.queue.MessageQueueTimer;
@@ -18,33 +17,28 @@ public class ReciveMQProcess extends Thread{
 
     @Override
     public void run() {
-        CreateAgentClient ag = new CreateAgentClient();
-        UpdateUser user = new UpdateUser(ag.getClient());
+        UpdateUser user = new UpdateUser();
         
         ArrayList<Integer> dataList = new ArrayList<>();
         AgentKey key = null;
         
-        try{
-            while(true){
-                try{
-                    synchronized(this){
-                        if(!mq.isRunning()) break;
-                    }
+        while(true){
+            try{
+                synchronized(this){
+                    if(!mq.isRunning()) break;
+                }
                     
-                    for(MessageObject msg : (ArrayList<MessageObject>)mq.getMessage()){
-                        dataList.add(msg.data);
-                        key = msg.agentKey;
-                    }
+                for(MessageObject msg : (ArrayList<MessageObject>)mq.getMessage()){
+                    dataList.add(msg.data);
+                    key = msg.agentKey;
+                }
             
-                    if(mq.isEmpty() || mqt.getTimer()){
-                        user.sendUpdateMessage(key, dataList);
-                        dataList.clear();
-                        mq.log();
-                    }
-                } catch (InterruptedException e) {}
-            }
-        } finally {
-            ag.close();
+                if(mq.isEmpty() || mqt.getTimer()){
+                    user.sendUpdateMessage(key, dataList);
+                    dataList.clear();
+                    mq.log();
+                }
+            } catch (InterruptedException e) {}
         }
     } 
 }

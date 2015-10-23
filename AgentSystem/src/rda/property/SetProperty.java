@@ -6,8 +6,7 @@ import rda.data.MountData;
 
 public interface SetProperty {
 	public static final Property prop = new Property();
-	//public static OutputData outputEvent = new OutputData("MQEvent_Ex_Mt_"+System.currentTimeMillis()+".txt");
-
+	 
 	public static final String AGENT_TYPE = "useragent";
         
 	//Server Property
@@ -71,5 +70,4 @@ public interface SetProperty {
         public static final String LOG_RESULTS = prop.getValue("log", "file.results");
         public static final String LOG_ALL = prop.getValue("log", "file.all");
         
-        public static final MountData DATA_TYPE = new MountData();
 }

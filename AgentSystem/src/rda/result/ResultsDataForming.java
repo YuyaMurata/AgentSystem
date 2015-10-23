@@ -20,13 +20,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import rda.data.SetDataType;
 import rda.property.SetProperty;
 
 /**
  *
  * @author kaeru
  */
-public class ResultsDataForming implements SetProperty{
+public class ResultsDataForming implements SetProperty, SetDataType{
     
     public static void main(String[] args) 
             throws FileNotFoundException, UnsupportedEncodingException, IOException, ParseException{

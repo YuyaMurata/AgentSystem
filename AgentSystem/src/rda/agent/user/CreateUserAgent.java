@@ -10,6 +10,7 @@ import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
+import rda.agent.client.AgentConnection;
 
 import rda.agent.user.message.InitUserMessage;
 
@@ -21,15 +22,8 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
 	public static final String AGENT_TYPE = "useragent";
 	static final String MESSAGE_TYPE = "initUserAgent";
 	
-	private AgentClient client;
-	
 	public CreateUserAgent() {
 		// TODO 自動生成されたコンストラクター・スタブ
-	}
-	
-	public CreateUserAgent(AgentClient client) {
-		// TODO 自動生成されたコンストラクター・スタブ
-		this.client = client;
 	}
 	
 	AgentKey agentKey;
@@ -74,20 +68,24 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
 		return null;
 	}
 	
-	public void create(String userID){
-		try {
-			agentKey = new AgentKey(AGENT_TYPE,new Object[]{userID});
+        private AgentConnection ag = AgentConnection.getInstance();
+	private ProfileGenerator profileGen = ProfileGenerator.getInstance();
+        public void create(String userID){
+            AgentClient client = ag.getConnection();
+            
+            try {
+                agentKey = new AgentKey(AGENT_TYPE,new Object[]{userID});
+	    
+                prof = profileGen.getProf(userID);
 		
-			ProfileGenerator profileGen = ProfileGenerator.getInstance();
-			prof = profileGen.getProf(userID);
+                CreateUserAgent executor = new CreateUserAgent(agentKey, prof);
+                Object reply = client.execute(agentKey, executor);
 		
-			CreateUserAgent executor = new CreateUserAgent(agentKey, prof);
-		
-			Object reply = client.execute(agentKey, executor);
-		
-			System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
-		} catch (AgentException e) {
-		}
+                System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
+            } catch (AgentException e) {
+            } finally {
+                ag.returnConnection(client);
+            }
 	}
 
 }

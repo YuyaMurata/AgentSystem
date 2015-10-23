@@ -8,13 +8,14 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.agent.CreateAgent;
+import rda.data.SetDataType;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.MessageQueueTimer;
 import rda.window.WindowController;
 
-public class Main implements SetProperty{
+public class Main implements SetProperty, SetDataType{
     private static final ScheduledExecutorService mainTask = Executors.newSingleThreadScheduledExecutor();
     private static final ScheduledExecutorService endTask = Executors.newSingleThreadScheduledExecutor();
     private static MainSchedule task;
@@ -30,7 +31,9 @@ public class Main implements SetProperty{
         init_debug();
 
         // MQ Window Start 
-        task = new MainSchedule(new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow"));
+        task = new MainSchedule(
+                new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow"),
+                TIME_PERIOD );
     }
 
     private static void createUser(int numOfAgents){

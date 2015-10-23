@@ -12,6 +12,7 @@ import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.util.ArrayList;
+import rda.agent.client.AgentConnection;
 
 public class UpdateUser implements AgentExecutor, Serializable{
 	/**
@@ -20,12 +21,8 @@ public class UpdateUser implements AgentExecutor, Serializable{
 	private static final long serialVersionUID = -4245098133759745980L;
 	private static final String AGENT_TYPE = "useragent";
 	private static final String MESSAGE_TYPE = "updateUserAgent";
-
-        private AgentClient client;
-	public UpdateUser(AgentClient client) {
-            // TODO 自動生成されたコンストラクター・スタブ
-            this.client = client;
-	}
+        
+        public UpdateUser(){}
 
 	AgentKey agentKey;
 	ArrayList<Integer> data;
@@ -64,15 +61,21 @@ public class UpdateUser implements AgentExecutor, Serializable{
 		}
 	}
 
+        private AgentConnection ag = AgentConnection.getInstance();
 	public void sendUpdateMessage(AgentKey agentKey, ArrayList<Integer> data){
-            if(agentKey != null)
-		try {
-			UpdateUser executor = new UpdateUser(agentKey, data);
-			client.execute(agentKey, executor);
-                        
-			//System.out.println("A message from the agent[" + agentKey + "]: " + reply);
+            if(agentKey != null){ 
+                AgentClient client = ag.getConnection();
+                
+                try {                       
+                    UpdateUser executor = new UpdateUser(agentKey, data);
+                    client.execute(agentKey, executor);
+                    
+                    //System.out.println("A message from the agent[" + agentKey + "]: " + reply);
 		} catch (AgentException e) {
-		}
+                } finally{
+                    ag.returnConnection(client);
+                }
+            }
 	}
 
 }
