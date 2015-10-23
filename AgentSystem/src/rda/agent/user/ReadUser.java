@@ -57,39 +57,40 @@ public class ReadUser implements AgentExecutor, Serializable{
         }
     }
 
-        private AgentConnection ag = AgentConnection.getInstance();
-	public ArrayList<UserInfo> read(int numOfAgents) {
-            AgentClient client = ag.getConnection();
+    public ArrayList<UserInfo> read(int numOfAgents) {
+        AgentConnection ag = AgentConnection.getInstance();
+        
+        AgentClient client = ag.getConnection();
             
-            try{
-                ArrayList<UserInfo> list = new ArrayList<>();
+        try{
+            ArrayList<UserInfo> list = new ArrayList<>();
 
-                for(int i=0; i < numOfAgents; i++){
-                    String userID = "U#00"+i;
-                    agentKey = new AgentKey(AGENT_TYPE, new Object[]{userID});
+            for(int i=0; i < numOfAgents; i++){
+                String userID = "U#00"+i;
+                agentKey = new AgentKey(AGENT_TYPE, new Object[]{userID});
 
-                    ReadUser executor = new ReadUser(agentKey);
+                ReadUser executor = new ReadUser(agentKey);
 
-                    Object reply = client.execute(agentKey, executor);
+                Object reply = client.execute(agentKey, executor);
 
-                    if (reply != null) {
-                        UserInfo info = (UserInfo)reply;
-                        System.out.println(agentKey + "[");
-                        System.out.println("    " + info.toString());
-                        System.out.println("]");
+                if (reply != null) {
+                    UserInfo info = (UserInfo)reply;
+                    System.out.println(agentKey + "[");
+                    System.out.println("    " + info.toString());
+                    System.out.println("]");
                                 
-                        list.add(info);
-                    } else {
-                        System.out.println(userID + " was not found");
-                    }
+                    list.add(info);
+                } else {
+                    System.out.println(userID + " was not found");
                 }
-                        
-                return list;
-            }catch(Exception e){
-                return null;
-            } finally {
-                ag.returnConnection(client);
             }
-	}
+                        
+            return list;
+        }catch(Exception e){
+            return null;
+        } finally {
+                ag.returnConnection(client);
+        }
+    }
 
 }

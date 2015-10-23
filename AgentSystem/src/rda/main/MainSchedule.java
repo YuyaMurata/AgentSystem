@@ -7,9 +7,9 @@ package rda.main;
 
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
+import rda.agent.client.AgentConnection;
 import rda.data.SetDataType;
 import rda.log.AgentSystemLogger;
-import rda.property.SetProperty;
 import rda.queue.MessageObject;
 import rda.window.WindowController;
 
@@ -51,5 +51,7 @@ public class MainSchedule implements Runnable, SetDataType{
     
     public void isFinish(){
         mq.close();
+        
+        AgentConnection.getInstance().close();
     }
 }
