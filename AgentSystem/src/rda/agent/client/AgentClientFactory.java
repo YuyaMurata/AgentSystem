@@ -8,6 +8,7 @@ package rda.agent.client;
 import com.ibm.agent.exa.client.AgentClient;
 import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.commons.pool2.PooledObject;
+import org.apache.commons.pool2.impl.DefaultPooledObject;
 
 /**
  *
@@ -34,7 +35,7 @@ public class AgentClientFactory extends BasePooledObjectFactory<AgentClient>{
 
     @Override
     public PooledObject<AgentClient> wrap(AgentClient t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new DefaultPooledObject<>(t);
     }
     
 }

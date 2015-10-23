@@ -14,12 +14,11 @@ import org.apache.commons.pool2.impl.GenericObjectPool;
  * @author kaeru
  */
 public class AgentConnection {
-    private static final AgentClientFactory client = new AgentClientFactory("localhost:2809", "rda", "agent");
-    private static ObjectPool<AgentClient> _pool;
-    private static final AgentConnection connector = new AgentConnection(new GenericObjectPool<>(client));
+    private ObjectPool<AgentClient> _pool;
+    private static final AgentConnection connector = new AgentConnection();
     
-    private AgentConnection(ObjectPool<AgentClient> pool){
-        this._pool = pool;
+    private AgentConnection(){
+        this._pool = new GenericObjectPool<>(new AgentClientFactory("localhost:2809", "rda", "agent"));
     }
     
     public static AgentConnection getInstance(){
@@ -28,12 +27,14 @@ public class AgentConnection {
     
     public AgentClient getConnection(){
         AgentClient ag = null;
+        
         try {
             ag = _pool.borrowObject();
             return ag;
         } catch (Exception ex) {
             System.out.println("Not Connect AgentClient!");
         }
+        
         return ag;
     }
     
