@@ -31,7 +31,9 @@ public class AgentConnection {
         try {
             ag = _pool.borrowObject();
             return ag;
-        } catch (Exception ex) {}
+        } catch (Exception ex) {
+            System.out.println("Not Connect AgentClient!");
+        }
         return ag;
     }
     
