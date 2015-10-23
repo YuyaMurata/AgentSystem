@@ -85,13 +85,13 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
                 System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
             } catch (AgentException e) {
             } finally {
-                System.out.println("Active Num:"+ag.getActiveObject());
-                System.out.println("Idle Num:"+ag.getIdleObject());
+                //System.out.println("Active Num:"+ag.getActiveObject());
+                //System.out.println("Idle Num:"+ag.getIdleObject());
                 
                 ag.returnConnection(client);
                 
-                System.out.println("Active Num:"+ag.getActiveObject());
-                System.out.println("Idle Num:"+ag.getIdleObject());
+                //System.out.println("Active Num:"+ag.getActiveObject());
+                //System.out.println("Idle Num:"+ag.getIdleObject());
             }
 	}
 
