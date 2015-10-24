@@ -70,6 +70,10 @@ public class ReciveMessageQueue implements SetProperty{
         return runnable;
     }
     
+    public void log(){
+        mqSS.map.put(name, getSize());
+    }
+    
     public void start(){
         synchronized(this) { runnable = true; }
         mqThread.start();
@@ -86,9 +90,5 @@ public class ReciveMessageQueue implements SetProperty{
         logger.print(rMQMarker, 
                 "********** Recive Message Queue {} Stop!! ********** ",
                 new String[]{name});
-    }
-    
-    public void log(){
-        mqSS.map.put(name, getSize());
     }
 }

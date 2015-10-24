@@ -84,10 +84,11 @@ public class Main implements SetProperty, SetDataType{
             future.get();
         } catch (InterruptedException | ExecutionException e) {
         } finally {
+            MessageQueueTimer.getInstance().close();
+            
             mainTask.shutdownNow();
             endTask.shutdownNow();
             
-            MessageQueueTimer.getInstance().close();
             AgentConnection.getInstance().close();
             
             // Stop Time
