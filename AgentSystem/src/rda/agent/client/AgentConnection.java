@@ -19,6 +19,9 @@ public class AgentConnection {
     
     private AgentConnection(){
         this._pool = new GenericObjectPool<>(new AgentClientFactory("localhost:2809", "rda", "agent"));
+        System.out.println("total:"+((GenericObjectPool) _pool).getMaxTotal()
+                            +"minIdle:"+((GenericObjectPool) _pool).getMinIdle()
+                            + "maxIdle:"+((GenericObjectPool) _pool).getMaxIdle());
     }
     
     public static AgentConnection getInstance(){
