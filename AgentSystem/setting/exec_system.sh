@@ -11,12 +11,12 @@ export CLASSPATH=$CLASSPATH:../library/Log/logback-access-1.1.3.jar:../library/L
  #CSV setting file
 export CLASSPATH=$CLASSPATH:../library/csv/opencsv-3.5.jar
 
-#{1..20}
+#{1..10}
 #20 30 40 50 60 70 80 90 100
 #200 300 400 500 600 700 800 900 1000
 #2000 3000 4000 5000 6000 7000 8000 9000 10000
 #Experimental
-for i in 1000
+for i in {1..10}
 do
 
     mkdir logs/${LOG_FD}${i}

@@ -17,20 +17,11 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 public class AgentConnection {
     private ObjectPool<AgentClient> _pool;
     private static final AgentConnection connector = new AgentConnection();
+    private static final Integer NUMBER_OF_POOL = 16;
+    
     
     private AgentConnection(){
-        Integer max = 16;
-        GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
-        conf.setMaxIdle(max);
-        conf.setMaxTotal(max);
-        
-        this._pool = new GenericObjectPool<>(new AgentClientFactory("localhost:2809", "rda", "agent"), conf);
-                
-        System.out.println("***********************************************************");
-        System.out.println("total:"+((GenericObjectPool) _pool).getMaxTotal()
-                            +" , minIdle:"+((GenericObjectPool) _pool).getMinIdle()
-                            + " , maxIdle:"+((GenericObjectPool) _pool).getMaxIdle());
-        System.out.println("***********************************************************");
+        this._pool = setControlObjectPool();
     }
     
     public static AgentConnection getInstance(){
@@ -58,14 +49,29 @@ public class AgentConnection {
             } catch (Exception ex) {}
     }
     
-    public void close(){
-        _pool.close();
+    private GenericObjectPool<AgentClient> setControlObjectPool(){
+        GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
+        conf.setMaxIdle(NUMBER_OF_POOL);
+        conf.setMaxTotal(NUMBER_OF_POOL);
+                
+        System.out.println("***********************************************************");
+        System.out.println("total:"+((GenericObjectPool) _pool).getMaxTotal()
+                            +" , minIdle:"+((GenericObjectPool) _pool).getMinIdle()
+                            + " , maxIdle:"+((GenericObjectPool) _pool).getMaxIdle());
+        System.out.println("***********************************************************");
+        
+        return new GenericObjectPool<>(new AgentClientFactory("localhost:2809", "rda", "agent"), conf);
     }
     
     public Integer getActiveObject(){
         return _pool.getNumActive();
     }
+    
     public Integer getIdleObject(){
         return _pool.getNumIdle();
+    }
+    
+    public void close(){
+        _pool.close();
     }
 }

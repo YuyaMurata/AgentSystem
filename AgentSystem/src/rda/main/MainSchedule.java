@@ -46,12 +46,6 @@ public class MainSchedule implements Runnable, SetDataType{
         logger.print(scheduleMaker, 
                 "Experiment Step : {} [{}ms]", new Object[]{timer, interval});
         
-        logger.print(scheduleMaker,
-                "Number Of Active:{} Idle:{}", new Object[]{
-                        AgentConnection.getInstance().getActiveObject(),
-                        AgentConnection.getInstance().getIdleObject()
-                                });
-        
         sendMessage(timer);
     }
     
