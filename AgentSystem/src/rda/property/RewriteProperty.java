@@ -11,7 +11,7 @@ package rda.property;
  */
 public class RewriteProperty implements SetProperty{
     public static void main(String[] args){
-        String number = "1";
+        String number = "5";
         if(args.length == 1)
             number = args[0];
         

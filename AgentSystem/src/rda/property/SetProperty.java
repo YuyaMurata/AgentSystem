@@ -1,8 +1,6 @@
 package rda.property;
 
 import java.util.ArrayList;
-import rda.data.MountData;
-
 
 public interface SetProperty {
 	public static final Property prop = new Property();
