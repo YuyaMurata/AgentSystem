@@ -8,6 +8,7 @@ package rda.agent.client;
 import com.ibm.agent.exa.client.AgentClient;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
 /**
  *
@@ -18,7 +19,13 @@ public class AgentConnection {
     private static final AgentConnection connector = new AgentConnection();
     
     private AgentConnection(){
-        this._pool = new GenericObjectPool<>(new AgentClientFactory("localhost:2809", "rda", "agent"));
+        Integer max = 16;
+        GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
+        conf.setMaxIdle(max);
+        conf.setMaxTotal(max);
+        
+        this._pool = new GenericObjectPool<>(new AgentClientFactory("localhost:2809", "rda", "agent"), conf);
+                
         System.out.println("***********************************************************");
         System.out.println("total:"+((GenericObjectPool) _pool).getMaxTotal()
                             +" , minIdle:"+((GenericObjectPool) _pool).getMinIdle()
