@@ -19,7 +19,7 @@ public class AgentConnection {
     private static final AgentConnection connector = new AgentConnection();
     
     private AgentConnection(){
-        Integer max = 32;
+        Integer max = 24;
         GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
         conf.setMaxIdle(max);
         conf.setMaxTotal(max);
