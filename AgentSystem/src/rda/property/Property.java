@@ -68,14 +68,15 @@ public class Property {
             case "queue" : queue.setProperty(key, value);
             case "agent" : agent.setProperty(key, value);
             case "log"   : log.setProperty(key, value);
+            default      : ;
         }
     }
     
     public void storePropeties(){
         try {
             
-            String path = getClass().getResource("/server.properties").getPath();
-            server.store(new FileOutputStream(path), null);
+            String path; //= getClass().getResource("/server.properties").getPath();
+            //server.store(new FileOutputStream(path), null);
             
             path = getClass().getResource("/queue.properties").getPath();
             queue.store(new FileOutputStream(path), null);
