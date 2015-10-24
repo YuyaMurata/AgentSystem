@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class Property {
-    public Property() {
+    public Property(Boolean display) {
         // TODO 自動生成されたコンストラクター・スタブ
         loadPropertyALL();
-        getValueALL();
+        if(display) getValueALL();
     }
 
     private static final Properties server = new Properties();
@@ -123,6 +123,6 @@ public class Property {
     }
     
     public static void main(String args[]){
-        Property prop = new Property();
+        Property prop = new Property(true);
     }
 }
