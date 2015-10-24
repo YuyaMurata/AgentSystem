@@ -21,7 +21,17 @@ public class AgentConnection {
     
     
     private AgentConnection(){
-        this._pool = setControlObjectPool();
+        GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
+        conf.setMaxIdle(NUMBER_OF_POOL);
+        conf.setMaxTotal(NUMBER_OF_POOL);
+        
+        this._pool = new GenericObjectPool<>(new AgentClientFactory("localhost:2809", "rda", "agent"), conf);
+                
+        System.out.println("***********************************************************");
+        System.out.println("total:"+((GenericObjectPool) _pool).getMaxTotal()
+                            +" , minIdle:"+((GenericObjectPool) _pool).getMinIdle()
+                            + " , maxIdle:"+((GenericObjectPool) _pool).getMaxIdle());
+        System.out.println("***********************************************************");
     }
     
     public static AgentConnection getInstance(){
@@ -49,29 +59,15 @@ public class AgentConnection {
             } catch (Exception ex) {}
     }
     
-    private GenericObjectPool<AgentClient> setControlObjectPool(){
-        GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
-        conf.setMaxIdle(NUMBER_OF_POOL);
-        conf.setMaxTotal(NUMBER_OF_POOL);
-                
-        System.out.println("***********************************************************");
-        System.out.println("total:"+((GenericObjectPool) _pool).getMaxTotal()
-                            +" , minIdle:"+((GenericObjectPool) _pool).getMinIdle()
-                            + " , maxIdle:"+((GenericObjectPool) _pool).getMaxIdle());
-        System.out.println("***********************************************************");
-        
-        return new GenericObjectPool<>(new AgentClientFactory("localhost:2809", "rda", "agent"), conf);
+    public void close(){
+        _pool.close();
     }
-    
+
     public Integer getActiveObject(){
         return _pool.getNumActive();
     }
     
     public Integer getIdleObject(){
         return _pool.getNumIdle();
-    }
-    
-    public void close(){
-        _pool.close();
     }
 }
