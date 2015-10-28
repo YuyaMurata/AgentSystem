@@ -35,11 +35,13 @@ public class MountData implements SetProperty{
     /**
     public static void main(String[] args) {
         Long total = 0L;
+        MountData mt = new MountData();
         
         MessageObject msg;
         for(long t=0; t < TIME_RUN; t++){
-            while((msg = DATA_TYPE.getTimeToData(t)) != null){
+            while((msg = mt.getTimeToData(t)) != null){
                 //mq.sendMessage(msg);
+                System.out.println("ID#"+msg.agentKey);
                 if(msg.data != -1)
                     total = total + msg.data;
             }
@@ -47,5 +49,5 @@ public class MountData implements SetProperty{
         }
         
         System.out.println("Estimate Total:"+getAmountData());
-    }*/
+    }**/
 }
