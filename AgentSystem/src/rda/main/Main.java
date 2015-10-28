@@ -89,8 +89,6 @@ public class Main implements SetProperty, SetDataType{
             mainTask.shutdownNow();
             endTask.shutdownNow();
             
-            AgentConnection.getInstance().close();
-            
             // Stop Time
             stop = System.currentTimeMillis();
             
