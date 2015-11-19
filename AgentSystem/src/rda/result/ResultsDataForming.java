@@ -98,8 +98,8 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         try (CSVReader csvMQLReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8"))) {
             Boolean titleSetFlg = true;
             
-            List<String[]> list = csvMQLReader.readAll();
-            for(String[] strArr : list)
+            String[] strArr;
+            while((strArr =csvMQLReader.readNext()) != null)
                 if(strArr.length > 1)
                     if(strArr[1].contains("init")){
                         if(titleSetFlg) {
@@ -198,26 +198,27 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                 field = csvCPUReader.readNext();
             fieldIn.setCPUField(field);
             
-            //System.out.println("Fields:"+Arrays.asList(fieldIn.formingData()));
             csv.writeNext((String[]) fieldIn.formingData());
-            
-            //initialise index and setData
-            List<String[]> eventList = csvMQEReader.readAll();
-            List<String[]> cpuList = csvCPUReader.readAll();
+
+            //Set Data
             fieldIn.eventMapToList();
             int i=0 , j=0;
-            for(String[] mql: csvMQLReader.readAll()){
-                if(mql.length > 1)
+            String[] mql, eventList, cpuList;
+            eventList = csvMQEReader.readNext();
+            cpuList = csvCPUReader.readNext();
+            while((mql = csvMQLReader.readNext()) != null){
+                if(mql.length > 1){
                     if(mql[1].contains("data")){
                         fieldIn.setTime(mql[0]);
                         
                         fieldIn.setLengthData(mql);
-                        while(fieldIn.setEventData(eventList.get(i))) i++;
-                        while(fieldIn.setCPUData(cpuList.get(j))) j++;
+                        while(fieldIn.setEventData(eventList)) eventList = csvMQEReader.readNext();
+                        while(fieldIn.setCPUData(cpuList)) cpuList = csvCPUReader.readNext();
                         
                         csv.writeNext((String[]) fieldIn.formingData());
                     }
-            }          
+                }          
+            }
         }
     }
 }

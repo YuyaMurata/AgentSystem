@@ -78,8 +78,9 @@ public class FieldInput {
     }
     
     public Boolean setEventData(String[] field) throws ParseException{
-        if (checkTime(field[0]) || field.length < 1) return false;
-
+        if (field == null) return false;
+        else if(checkTime(field[0]) || (field.length < 1)) return false;
+        
         String mqName = field[3]+" ";
         Integer value = eventCount.get(mqName) + 1;
         eventCount.put(mqName, value);
@@ -90,7 +91,8 @@ public class FieldInput {
     }
     
     public Boolean setCPUData(String[] field) throws ParseException{
-        if (checkTime(field[0]) || field.length < 1) return false;
+        if (field == null) return false;
+        else if(checkTime(field[0]) || (field.length < 1)) return false;
         
         cpuField.clear();
         cpuField.addAll(Arrays.asList(field));
