@@ -3,7 +3,6 @@ package rda.test;
 import java.util.ArrayList;
 import rda.agent.CreateAgent;
 
-import rda.data.DataGenerator;
 import rda.data.OutputData;
 import rda.queue.MessageObject;
 import rda.window.WindowController;
@@ -19,12 +18,10 @@ public class MessageQueueTest extends TestParameter{
         //ReciveMessageQueue rmq = new ReciveMessageQueue("MQ0");
         WindowController mq = new WindowController(NUMBER_OF_QUEUE, WINDOW_SIZE, "DataWinow");
         
-        MessageObject msg;
+        MessageObject msg = null;
         ArrayList<MessageObject> oneMessage;
-        DataGenerator ag = DataGenerator.getInstance();
         
         for(int i=0; i < run; i++){
-            msg = ag.getData();
             
             //WindowContoroler to MQ
             mq.sendMessage(msg);
@@ -36,7 +33,7 @@ public class MessageQueueTest extends TestParameter{
         }
         
         //WindowContoroler  Data End
-        mq.sendMessage(new MessageObject(ag.getData().agentKey, -1));
+        mq.sendMessage(new MessageObject(msg.agentKey, -1));
         
         mq.close();
         

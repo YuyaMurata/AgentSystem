@@ -7,7 +7,6 @@ package rda.main;
 
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
-import rda.agent.client.AgentConnection;
 import rda.data.SetDataType;
 import rda.log.AgentSystemLogger;
 import rda.queue.MessageObject;
@@ -35,7 +34,7 @@ public class MainSchedule implements Runnable, SetDataType{
     
     private void sendMessage(Long t){
         MessageObject msg;
-        while((msg = DATA_TYPE.getTimeToData(t)) != null)
+        while((msg = DATA_TYPE.generate(t)) != null)
             mq.sendMessage(msg);
     }
     

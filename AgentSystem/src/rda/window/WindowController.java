@@ -1,22 +1,24 @@
 package rda.window;
 
-import java.util.ArrayList;
+import java.util.ArrayDeque;
+import java.util.HashMap;
+import java.util.Queue;
 import rda.queue.HashToMQN;
 import rda.queue.MessageObject;
+import rda.queue.MessageQueueException;
 import rda.queue.reciver.ReciveMessageQueue;
 
 public class WindowController{
 	private ReciveMessageQueue[] mqArray;
-	private ArrayList<MessageObject>[] window; 
+	private HashMap<Integer, Window> window = new HashMap<>();
+        private Queue queue = new ArrayDeque();
         private final Integer size;
         
         private void init(int numberOfMQ){
             this.mqArray = new ReciveMessageQueue[numberOfMQ];
-            this.window = new ArrayList[numberOfMQ];
                         
             for(int i=0; i < numberOfMQ; i++){
                 this.mqArray[i] = new ReciveMessageQueue("RMQ"+i);
-                this.window[i] = new ArrayList<>();
             }
             
             for(ReciveMessageQueue mq : mqArray)
@@ -33,19 +35,26 @@ public class WindowController{
 
 	public void sendMessage(MessageObject mes){
             int no = HashToMQN.toMQN(mes.agentKey);
-            if(mes.data != -1) this.window[no].add(mes);
+            if(window.get(no) == null) window.put(no, new Window(no, size));
             
-            if((mes.data == -1) || (this.window[no].size() == size)){
-                sendMessageQueue(no, this.window[no].clone());
-                this.window[no].clear();
+            if(window.get(no).add(mes)){
+                queue.add(window.get(no).clone());
+                window.remove(no);
             }
+                
+            sendMessageQueue();
 	}
 
-	private void sendMessageQueue(int i, Object mes){
-            try {
-                this.mqArray[i].putMessage(mes);
-            } catch (InterruptedException ex) {
-            }
+	private void sendMessageQueue(){
+            Window obj = (Window) queue.poll();
+            if(obj != null)
+                try {
+                    mqArray[obj.id].putMessage(obj.get());
+                } catch (InterruptedException ex) {
+                } catch (MessageQueueException mqex) {
+                    mqex.printEvent();
+                    queue.add(obj);
+                }
 	}
 
 	public void close(){

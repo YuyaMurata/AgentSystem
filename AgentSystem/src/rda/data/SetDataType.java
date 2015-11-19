@@ -10,5 +10,8 @@ package rda.data;
  * @author kaeru
  */
 public interface SetDataType {
-    public static final MountData DATA_TYPE = new MountData();
+    public final MountData type = new MountData();
+    //public final ImpulseData type = new ImpulseData();
+    
+    public static final DataGenerator DATA_TYPE = new DataGenerator(type);
 }

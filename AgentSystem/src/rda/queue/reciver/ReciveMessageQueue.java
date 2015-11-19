@@ -29,17 +29,12 @@ public class ReciveMessageQueue implements SetProperty{
         this.mqThread = new ReciveMQProcess(this);
     }
 
-    public void putMessage(Object msg) throws InterruptedException{
+    public void putMessage(Object msg) throws InterruptedException, MessageQueueException{
         synchronized(this){
             if(!isRunning()) throw new IllegalStateException();
         }
-        if(isFull()){
-            try {
-                event();
-            } catch (MessageQueueException mqEvent) {
-                mqEvent.printEvent();
-            }
-        }
+        if(isFull())
+            throw new MessageQueueException(name);
         
         queue.put(msg);
     }

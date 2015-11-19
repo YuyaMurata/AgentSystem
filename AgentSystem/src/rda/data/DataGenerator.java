@@ -1,40 +1,40 @@
 package rda.data;
 
-import java.util.ArrayList;
-
 import rda.property.SetProperty;
 import rda.queue.MessageObject;
 
-import com.ibm.agent.exa.AgentKey;
-
-public class DataGenerator implements SetProperty{
-    private static int count = -1;
-    private static final DataGenerator data = new DataGenerator();
-
-    // Singleton
-    private DataGenerator(){}
-
-    public static DataGenerator getInstance(){
-        return data;
+public class DataGenerator {
+    private DataType type;
+    
+    public DataGenerator(DataType type) {
+        this.type = type;
     }
-
-    //Set All UserID(AgentKey)
-    private static final ArrayList<AgentKey> agentKeyList = new ArrayList<>();
-    public void init(){
-        for(int i=0; i < NUMBER_OF_USER_AGENTS; i++){
-            String userID = "U#00"+ i;
-            agentKeyList.add(new AgentKey(AGENT_TYPE, new Object[]{userID}));
-        }
+    
+    public MessageObject generate(Long time){
+        return type.nextData(time);
     }
+    
+    public String getName(){
+        return type.getName();
+    }
+    
+    @Override
+    public String toString(){
+        return type.toString();
+    }
+    
+    //Test
+    public static void main(String[] args) {
+        DataGenerator data = new DataGenerator(new ImpulseData());
+        MessageObject msg;
         
-    private Integer keyNo(){
-        count++;
-        if(count == NUMBER_OF_USER_AGENTS) count = 0;
-        return count;
-    }
-
-    //Get Data userID = Call % NUMBER_USER_AGENTS
-    public MessageObject getData(){
-        return new MessageObject(agentKeyList.get(keyNo()), AGENT_DEFAULT_VALUE);
+        Long total = 0L;
+        
+        for(long t=0; t < SetProperty.TIME_RUN; t++)
+            while((msg = data.generate(t)) != null){
+                if(msg.data != -1) total = total + msg.data;
+            }
+        
+        System.out.println("Total:"+data.toString() + ", Summary:" + total);
     }
 }

@@ -1,35 +1,53 @@
 package rda.data;
 
-import java.util.ArrayList;
-
-import rda.property.SetProperty;
 import rda.queue.MessageObject;
 
-public class ImpulseData implements SetProperty{
-	private static final Integer LIMIT = 1000;
-	private static ArrayList<Integer> timeRecord = new ArrayList<Integer>();
-	private static Integer timer;
+public class ImpulseData implements DataType{
+    private static final Long impulse = 1000000L;
+    private static final Long period = 60L;
+    
+    private static Long count;
+    private final Data data;
+    private final String name;
+    private Long limit;
 
-	public ImpulseData() {
-		// TODO 自動生成されたコンストラクター・スタブ
-		timer = -1;
-		timeRecordGenerator();
-	}
+    public ImpulseData() {
+        this.name = "ImpulseType";
+        this.data = new Data();
+        
+        //initialise
+        data.init();
+        count = -1L;
+    }
+    
+    @Override
+    public String getName() {
+        return this.name;
+    }
+    
+    @Override
+    public String toString(){
+        Long n = TIME_RUN * 1000 / TIME_PERIOD;
+        Long result = (n - (n / period + 1)) * DATA_VOLUME + (n / period + 1) * impulse;
+        
+        return name + " DataN_" + result;
+    }
 
-	private static void timeRecordGenerator(){
-		for(int i=1; i < TIME_RUN+1; i++){
-			if(i % 60 == 0) timeRecord.add(LIMIT);
-			else timeRecord.add(1);
-		}
-	}
-
-	private static DataGenerator gen = DataGenerator.getInstance();
-	public ArrayList<MessageObject> getList(){
-		timer++;
-		ArrayList<MessageObject> data = new ArrayList<MessageObject>();
-		for(int i=0; i < timeRecord.get(timer); i++)
-			data.add(gen.getData());
-
-		return data;
-	}
+    @Override
+    public MessageObject nextData(Long time) {
+        count++;
+        
+        MessageObject msg = data.getData();
+        
+        if((time % period) == 0) limit = impulse - 1;
+        else limit = DATA_VOLUME.longValue() - 1;
+        
+        if(count == limit) msg = data.getPoison();
+        if(count > limit) {
+            msg = null;
+            count = -1L;
+        }
+        
+        return msg;
+    }
 }

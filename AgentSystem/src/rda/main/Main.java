@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.agent.CreateAgent;
-import rda.agent.client.AgentConnection;
 import rda.data.SetDataType;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
@@ -100,8 +99,8 @@ public class Main implements SetProperty, SetDataType{
     private static final Marker initMarker = MarkerFactory.getMarker("init");
     private static void init_debug(){
         logger.printAgentSystemSettings(initMarker,
-                "ExecTime_{} [sec] DataPeriod_{} [ms] DataType_{} DataN_{}  ",
-                new Object[]{TIME_RUN, TIME_PERIOD, DATA_TYPE.name, DATA_TYPE.getAmountData()});
+                "ExecTime_{} [sec] DataPeriod_{} [ms] DataType_{}",
+                new Object[]{TIME_RUN, TIME_PERIOD, DATA_TYPE.toString()});
         logger.printAgentSystemSettings(initMarker, 
                 "Server: N_{} Host_{}", 
                 new Object[]{NUMBER_OF_SERVER, HOST_ADDRESS.toString()});

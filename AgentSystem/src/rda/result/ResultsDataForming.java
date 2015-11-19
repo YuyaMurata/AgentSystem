@@ -83,7 +83,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                 + "u" + NUMBER_OF_USER_AGENTS + "," 
                 + "s" + NUMBER_OF_SERVER + ","
                 + "st" + SERVER_THREAD + ","
-                + "t" + DATA_TYPE.name + ","
+                + "t" + DATA_TYPE.getName() + ","
                 + "L" + QUEUE_LENGTH + ","
                 + "ws" + WINDOW_SIZE + ","
                 + "w(" + AGENT_WAIT + "," + QUEUE_WAIT +")"

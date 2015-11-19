@@ -1,53 +1,46 @@
 package rda.data;
 
-import rda.property.SetProperty;
 import rda.queue.MessageObject;
 
-public class MountData implements SetProperty{
-    public final String name = "Mount";
-    private static long count;
-    private final DataGenerator gen;
+public class MountData implements DataType{
+    private static Long count;
+    private final Data data;
+    private final String name;
 
     public MountData() {
-        this.gen = DataGenerator.getInstance();
-        gen.init();
-    }
- 
-    public MessageObject getTimeToData(Long t){
-        count++;
-
-        if(count <= t * DATA_VOLUME){
-            if(count == t * DATA_VOLUME) 
-                return new MessageObject(gen.getData().agentKey, -1);
-            return gen.getData();
-        } else{
-            count = -1;
-            return null;
-        }
-    }
+        this.name = "MountType";
+        this.data = new Data();
         
-    public static Long getAmountData(){
-        Long n = TIME_RUN * 1000 / TIME_PERIOD;
-        Long result = n * (n-1) / 2 * DATA_VOLUME;
-        return result;
+        //initialise
+        data.init();
+        count = -1L;
     }
     
-    /**
-    public static void main(String[] args) {
-        Long total = 0L;
-        MountData mt = new MountData();
+    @Override
+    public String getName() {
+        return this.name;
+    }
+    
+    @Override
+    public String toString(){
+        Long n = TIME_RUN * 1000 / TIME_PERIOD;
+        Long result = n * (n-1) / 2 * DATA_VOLUME;
         
-        MessageObject msg;
-        for(long t=0; t < TIME_RUN; t++){
-            while((msg = mt.getTimeToData(t)) != null){
-                //mq.sendMessage(msg);
-                System.out.println("ID#"+msg.agentKey);
-                if(msg.data != -1)
-                    total = total + msg.data;
-            }
-            System.out.println("Time_"+t+" Total:"+total);
+        return name + " DataN_" + result;
+    }
+
+    @Override
+    public MessageObject nextData(Long time) {
+        count++;
+        
+        MessageObject msg = data.getData();
+        
+        if(count == (time * DATA_VOLUME)) msg = data.getPoison();
+        if(count > (time * DATA_VOLUME)) {
+            msg = null;
+            count = -1L;
         }
         
-        System.out.println("Estimate Total:"+getAmountData());
-    }**/
+        return msg;
+    }
 }
