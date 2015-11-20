@@ -39,10 +39,14 @@ public class Data implements SetProperty{
     private Integer keyRandomNo(){
         return rand.nextInt(NUMBER_OF_USER_AGENTS);
     }
+    
+    private Integer keyGaussRandomNo(){
+        return (int)rand.nextGaussian()*NUMBER_OF_USER_AGENTS;
+    }
 
     //Get Data userID = Call % NUMBER_USER_AGENTS
     public MessageObject getData(){
-        return new MessageObject(agentKeyList.get(keyRandomNo()), AGENT_DEFAULT_VALUE);
+        return new MessageObject(agentKeyList.get(keyGaussRandomNo()), AGENT_DEFAULT_VALUE);
     }
     
     public MessageObject getPoison(){
