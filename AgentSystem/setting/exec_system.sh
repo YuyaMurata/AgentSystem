@@ -10,6 +10,8 @@ export CLASSPATH=$CLASSPATH:../property:../resource:../library/pool/commons-pool
 export CLASSPATH=$CLASSPATH:../library/Log/logback-access-1.1.3.jar:../library/Log/logback-classic-1.1.3.jar:../library/Log/logback-core-1.1.3.jar:../library/Log/slf4j-api-1.7.12.jar
  #CSV setting file
 export CLASSPATH=$CLASSPATH:../library/csv/opencsv-3.5.jar
+ #Random setting file
+export CLASSPATH=$CLASSPATH:../library/math/commons-math3-3.5.jar
 
 #{1..10}
 #20 30 40 50 60 70 80 90 100
