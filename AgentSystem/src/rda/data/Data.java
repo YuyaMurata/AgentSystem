@@ -7,7 +7,7 @@ package rda.data;
 
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
-import java.util.Random;
+import org.apache.commons.math3.random.RandomDataGenerator;
 import rda.property.SetProperty;
 import rda.queue.MessageObject;
 
@@ -17,7 +17,8 @@ import rda.queue.MessageObject;
  */
 public class Data implements SetProperty{
     private static int count = -1;
-    private static final Random rand = new Random();
+    private static final RandomDataGenerator rand = new RandomDataGenerator();
+    private int mu, sigma;
 
     public Data() {}
 
@@ -28,6 +29,9 @@ public class Data implements SetProperty{
             String userID = "U#00"+ i;
             agentKeyList.add(new AgentKey(AGENT_TYPE, new Object[]{userID}));
         }
+        
+        mu = NUMBER_OF_USER_AGENTS/2;
+        sigma = (int) (1.5 * NUMBER_OF_USER_AGENTS / 10);
     }
         
     private Integer keyNo(){
@@ -37,11 +41,15 @@ public class Data implements SetProperty{
     }
     
     private Integer keyRandomNo(){
-        return rand.nextInt(NUMBER_OF_USER_AGENTS);
+        return rand.nextInt(0, NUMBER_OF_USER_AGENTS);
     }
     
     private Integer keyGaussRandomNo(){
-        return (int)rand.nextGaussian()*NUMBER_OF_USER_AGENTS;
+        int key = (int)(rand.nextGaussian(mu, sigma));
+        if(key < 0) key = 0;
+        else if(key >= NUMBER_OF_USER_AGENTS) key = NUMBER_OF_USER_AGENTS-1;
+        
+        return key;
     }
 
     //Get Data userID = Call % NUMBER_USER_AGENTS
