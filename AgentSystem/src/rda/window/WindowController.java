@@ -11,7 +11,7 @@ import rda.queue.reciver.ReciveMessageQueue;
 public class WindowController{
 	private ReciveMessageQueue[] mqArray;
 	private HashMap<Integer, Window> window = new HashMap<>();
-        private Queue queue = new ArrayDeque();
+        public Queue queue = new ArrayDeque();
         private final Integer size;
         
         private void init(int numberOfMQ){
