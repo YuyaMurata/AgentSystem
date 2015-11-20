@@ -7,6 +7,7 @@ package rda.data;
 
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
+import java.util.Random;
 import rda.property.SetProperty;
 import rda.queue.MessageObject;
 
@@ -16,6 +17,7 @@ import rda.queue.MessageObject;
  */
 public class Data implements SetProperty{
     private static int count = -1;
+    private static final Random rand = new Random();
 
     public Data() {}
 
@@ -33,10 +35,14 @@ public class Data implements SetProperty{
         if(count == NUMBER_OF_USER_AGENTS) count = 0;
         return count;
     }
+    
+    private Integer keyRandomNo(){
+        return rand.nextInt(NUMBER_OF_USER_AGENTS);
+    }
 
     //Get Data userID = Call % NUMBER_USER_AGENTS
     public MessageObject getData(){
-        return new MessageObject(agentKeyList.get(keyNo()), AGENT_DEFAULT_VALUE);
+        return new MessageObject(agentKeyList.get(keyRandomNo()), AGENT_DEFAULT_VALUE);
     }
     
     public MessageObject getPoison(){

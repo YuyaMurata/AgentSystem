@@ -6,8 +6,6 @@
 package rda.window;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.queue.MessageObject;
 
 /**
