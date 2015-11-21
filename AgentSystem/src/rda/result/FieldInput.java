@@ -81,7 +81,7 @@ public class FieldInput {
         if (field == null) return false;
         else if(checkTime(field[0]) || (field.length < 1)) return false;
         
-        String mqName = field[3]+" ";
+        String mqName = field[3];
         Integer value = eventCount.get(mqName) + 1;
         eventCount.put(mqName, value);
         
