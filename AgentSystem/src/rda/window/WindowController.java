@@ -6,6 +6,7 @@ import java.util.Queue;
 import rda.queue.HashToMQN;
 import rda.queue.MessageObject;
 import rda.queue.MessageQueueException;
+import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
 
 public class WindowController{
@@ -14,12 +15,16 @@ public class WindowController{
         public Queue queue = new ArrayDeque();
         private final Integer size;
         
+        private static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
+        
         private void init(int numberOfMQ){
             this.mqArray = new ReciveMessageQueue[numberOfMQ];
                         
             for(int i=0; i < numberOfMQ; i++){
                 this.mqArray[i] = new ReciveMessageQueue("RMQ"+i);
             }
+            
+            mqSS.storeMessageQueue(mqArray);
             
             for(ReciveMessageQueue mq : mqArray)
                 mq.start();
