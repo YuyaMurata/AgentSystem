@@ -10,7 +10,6 @@ import org.slf4j.MarkerFactory;
 import rda.data.SetDataType;
 import rda.log.AgentSystemLogger;
 import rda.queue.MessageObject;
-import rda.queue.log.MQSpecificStorage;
 import rda.window.WindowController;
 
 /**
@@ -24,8 +23,6 @@ public class MainSchedule implements Runnable, SetDataType{
     
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
-    
-    private static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     
     public MainSchedule(WindowController win, Long interval) {
         this.mq = win;
@@ -44,8 +41,6 @@ public class MainSchedule implements Runnable, SetDataType{
     private void logging(){
         logger.print(scheduleMaker, 
                 "QS:{} Experiment Step : {} [{}ms]", new Object[]{mq.queue.size(), timer, interval});
-        
-        mqSS.mqLogging();
     }
     
     @Override

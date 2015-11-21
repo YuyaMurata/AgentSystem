@@ -9,6 +9,7 @@ import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.agent.CreateAgent;
 import rda.data.SetDataType;
+import rda.log.AgentLogSchedule;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
 import rda.queue.MessageQueueTimer;
@@ -17,6 +18,7 @@ import rda.window.WindowController;
 public class Main implements SetProperty, SetDataType{
     private static final ScheduledExecutorService mainTask = Executors.newSingleThreadScheduledExecutor();
     private static final ScheduledExecutorService endTask = Executors.newSingleThreadScheduledExecutor();
+    private static final ScheduledExecutorService loggingTask = Executors.newSingleThreadScheduledExecutor();
     private static MainSchedule task;
     
     private static final Marker mainMarker = MarkerFactory.getMarker("AgentSystem Main");
@@ -32,7 +34,7 @@ public class Main implements SetProperty, SetDataType{
         // MQ Window Start 
         task = new MainSchedule(
                 new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow"),
-                TIME_PERIOD );
+                TIME_PERIOD ); 
     }
 
     private static void createUser(int numOfAgents){
@@ -65,6 +67,10 @@ public class Main implements SetProperty, SetDataType{
         final ScheduledFuture mainTaskFuture = mainTask.scheduleAtFixedRate
                 (task, 0, TIME_PERIOD, TimeUnit.MILLISECONDS);
         
+        //Start Agen Logging Schedule
+        loggingTask.scheduleAtFixedRate
+                (new AgentLogSchedule(), 1000, TIME_PERIOD, TimeUnit.MILLISECONDS);
+        
         //Stop Main Schedule
         ScheduledFuture future = endTask.schedule(
             new Runnable(){
@@ -85,6 +91,7 @@ public class Main implements SetProperty, SetDataType{
             MessageQueueTimer.getInstance().close();
             
             mainTask.shutdownNow();
+            loggingTask.shutdownNow();
             endTask.shutdownNow();
             
             // Stop Time
