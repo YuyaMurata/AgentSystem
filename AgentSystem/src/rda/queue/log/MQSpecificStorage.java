@@ -5,10 +5,13 @@
  */
 package rda.queue.log;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentSkipListMap;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.log.AgentSystemLogger;
+import rda.queue.reciver.ReciveMessageQueue;
 
 /**
  *
@@ -28,6 +31,32 @@ public class MQSpecificStorage{
         return mqSS;
     }
     
+    private ReciveMessageQueue[] mqArray;
+    private StringBuilder mqSizeFormat = new StringBuilder("MQL");
+    public void storeMessageQueue(ReciveMessageQueue[] mqArray){
+        this.mqArray = mqArray;
+        
+        StringBuilder mqName = new StringBuilder("MQName");
+        for(ReciveMessageQueue mq : mqArray){
+            mqSizeFormat.append(",{}");
+            mqName.append(","+mq.name);
+        }
+        
+        logger.printMQLFile(dataMarker, mqName.toString(), null);
+    }
+    
+    public void mqLogging(){
+        if(mqArray == null) return;
+        
+        List<Integer> mqSize = new ArrayList<>();
+        for(ReciveMessageQueue mq : mqArray)
+            mqSize.add(mq.getSize());
+        
+        //Record MessageQueue Length
+        logger.printMQLFile(dataMarker, mqSizeFormat.toString(), 
+                mqSize.toArray(new Integer[mqSize.size()]));
+    }
+    
     public void mqLengthLogging(){
         StringBuilder sb = new StringBuilder("MQL");
         Object[] mapStr = new Object[map.size()];
@@ -41,15 +70,4 @@ public class MQSpecificStorage{
         //Record MessageQueue Length
         logger.printMQLFile(dataMarker, sb.toString(), mapStr);
     }
-    
-    /**
-    public static void main(String args[]){
-        MQSpecificStorage mq = MQSpecificStorage.getInstance();
-        
-        for(int i=0; i < 10; i++)
-            mq.map.put("key."+i, i);
-        
-        mq.mqLengthLogging();
-    }
-    * */
 }

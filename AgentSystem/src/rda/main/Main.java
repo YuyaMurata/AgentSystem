@@ -119,6 +119,7 @@ public class Main implements SetProperty, SetDataType{
         
         logger.printMQEvent(fieldMarker, "MQ LimitEvent, MQName, EventMessage", null);
         
+        /**
         MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
         
         Object[] obj = new Object[NUMBER_OF_QUEUE];
@@ -131,6 +132,7 @@ public class Main implements SetProperty, SetDataType{
             sb.append(",{} ");
         }
         logger.printMQLFile(fieldMarker, sb.toString(), obj);
+        **/
     }
     
     private static final Marker stopMarker = MarkerFactory.getMarker("stop");
