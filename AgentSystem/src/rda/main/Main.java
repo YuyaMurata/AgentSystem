@@ -117,21 +117,6 @@ public class Main implements SetProperty, SetDataType{
         logger.printAgentSystemSettings(startMarker, "Start Agent System", null);
         
         logger.printMQEvent(fieldMarker, "MQ LimitEvent, MQName, EventMessage", null);
-        
-        /**
-        MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
-        
-        Object[] obj = new Object[NUMBER_OF_QUEUE];
-        StringBuilder sb = new StringBuilder("MQName");
-        String mqName;
-        for(int i=0; i < NUMBER_OF_QUEUE; i++){
-            mqName = "RMQ"+i;
-            obj[i] = mqName;
-            mqSS.map.put(mqName, 0);
-            sb.append(",{} ");
-        }
-        logger.printMQLFile(fieldMarker, sb.toString(), obj);
-        **/
     }
     
     private static final Marker stopMarker = MarkerFactory.getMarker("stop");

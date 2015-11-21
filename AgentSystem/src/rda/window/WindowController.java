@@ -15,8 +15,6 @@ public class WindowController{
         public Queue queue = new ArrayDeque();
         private final Integer size;
         
-        private static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
-        
         private void init(int numberOfMQ){
             this.mqArray = new ReciveMessageQueue[numberOfMQ];
                         
@@ -24,6 +22,7 @@ public class WindowController{
                 this.mqArray[i] = new ReciveMessageQueue("RMQ"+i);
             }
             
+            MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
             mqSS.storeMessageQueue(mqArray);
             
             for(ReciveMessageQueue mq : mqArray)

@@ -22,6 +22,7 @@ public class MQSpecificStorage{
     private static final MQSpecificStorage mqSS = new MQSpecificStorage();
     
     private static final Marker dataMarker = MarkerFactory.getMarker("data");
+    private static final Marker fieldMarker = MarkerFactory.getMarker("field");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
     private MQSpecificStorage(){   
@@ -42,7 +43,7 @@ public class MQSpecificStorage{
             mqName.append(","+mq.name);
         }
         
-        logger.printMQLFile(dataMarker, mqName.toString(), null);
+        logger.printMQLFile(fieldMarker, mqName.toString(), null);
     }
     
     public void mqLogging(){
@@ -55,19 +56,5 @@ public class MQSpecificStorage{
         //Record MessageQueue Length
         logger.printMQLFile(dataMarker, mqSizeFormat.toString(), 
                 mqSize.toArray(new Integer[mqSize.size()]));
-    }
-    
-    public void mqLengthLogging(){
-        StringBuilder sb = new StringBuilder("MQL");
-        Object[] mapStr = new Object[map.size()];
-        int i= 0;
-        
-        for(String key : map.keySet()){
-            mapStr[i++] = map.get(key);
-            sb.append(",{} ");
-        }
-        
-        //Record MessageQueue Length
-        logger.printMQLFile(dataMarker, sb.toString(), mapStr);
     }
 }
