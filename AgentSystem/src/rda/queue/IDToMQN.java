@@ -28,8 +28,9 @@ public class IDToMQN implements SetProperty{
             return idList.indexOf(obj);
 	}
         
+        /* hash (- -> +) confilict
         public int toMQN(AgentKey key){
             return Math.abs(key.hashCode()) % NUMBER_OF_QUEUE;
 	}
-
+        */
 }
