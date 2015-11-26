@@ -1,5 +1,6 @@
 package rda.queue;
 
+import com.ibm.agent.exa.AgentKey;
 import rda.property.SetProperty;
 
 import java.util.ArrayList;
@@ -25,6 +26,10 @@ public class IDToMQN implements SetProperty{
         
 	public int toMQN(Object obj){
             return idList.indexOf(obj);
+	}
+        
+        public int toMQN(AgentKey key){
+            return Math.abs(key.hashCode()) % NUMBER_OF_QUEUE;
 	}
 
 }
