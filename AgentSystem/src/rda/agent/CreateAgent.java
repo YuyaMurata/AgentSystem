@@ -1,7 +1,6 @@
 package rda.agent;
 
 import rda.agent.user.CreateUserAgent;
-import rda.queue.IDToMQN;
 
 public class CreateAgent {
     
@@ -11,12 +10,10 @@ public class CreateAgent {
 	
     public void create(String agentType, int numUserAgents){
         CreateUserAgent user = new CreateUserAgent();
-        IDToMQN id = IDToMQN.getInstance();
         
         for(int i=0; i < numUserAgents; i++){
-            String _id = agentType+i;
-            id.setID(_id);
-            user.create(_id);
+            String id = agentType+i;
+            user.create(id);
         }	
     }	
 }
