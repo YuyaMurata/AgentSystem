@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import rda.data.SetDataType;
 import static rda.data.SetDataType.DATA_TYPE;
+import rda.queue.IDToMQN;
 import rda.queue.MessageObject;
 
 /**
@@ -18,19 +19,34 @@ import rda.queue.MessageObject;
  */
 public class DataTest extends TestParameter implements SetDataType{
     public static void main(String[] args) {
-        HashMap<AgentKey, Long> map = new LinkedHashMap<>();
+        Long start,stop;
+        
+        IDToMQN idToMQN = IDToMQN.getInstance();
+        
+        HashMap<Integer, Long> map = new LinkedHashMap<>();
+        
+        for(int i=0; i < NUMBER_OF_USER_AGENTS; i++){
+            idToMQN.setID(new AgentKey("useragent", new Object[]{"U#00"+i}));
+            map.put(i, 0L);
+            
+            System.out.println("TestPrint_No."+i+"_ID="+idToMQN.getID(i));
+            String str = idToMQN.getID(i).toString();
+            System.out.println("ID_STRING=="+str);
+        }
         
         MessageObject msg;
-        for(long t =0; t < TIME_RUN; t++)
+        for(long t =0; t < TIME_RUN; t++){
+            start = System.currentTimeMillis();
             while((msg = DATA_TYPE.generate(t)) != null){
-                if(map.get(msg.agentKey) == null) map.put(msg.agentKey, 1L);
-                else {
-                    Long cnt = map.get(msg.agentKey) + 1;
-                    map.put(msg.agentKey, cnt);
-                }
+                int key = idToMQN.toMQN(msg.agentKey);
+                Long cnt = map.get(key) + 1;
+                map.put(key, cnt);
             }
+            stop = System.currentTimeMillis();
+            System.out.println("Data = "+t+", Time = "+(stop-start)+" [ms]");
+        }
         
-        for(AgentKey key : map.keySet())
-            System.out.println(map.get(key));
+        for(Integer key : map.keySet())
+            System.out.println(key+" : "+map.get(key));
     }
 }

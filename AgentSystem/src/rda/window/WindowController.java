@@ -3,7 +3,7 @@ package rda.window;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Queue;
-import rda.queue.HashToMQN;
+import rda.queue.IDToMQN;
 import rda.queue.MessageObject;
 import rda.queue.MessageQueueException;
 import rda.queue.log.MQSpecificStorage;
@@ -14,6 +14,7 @@ public class WindowController{
 	private HashMap<Integer, Window> window = new HashMap<>();
         public Queue queue = new ArrayDeque();
         private final Integer size;
+        private IDToMQN id = IDToMQN.getInstance();
         
         private void init(int numberOfMQ){
             this.mqArray = new ReciveMessageQueue[numberOfMQ];
@@ -38,7 +39,7 @@ public class WindowController{
 	}
 
 	public void sendMessage(MessageObject mes){
-            int no = HashToMQN.toMQN(mes.agentKey);
+            int no = id.toMQN(mes.agentKey);
             if(window.get(no) == null) window.put(no, new Window(no, size));
             
             if(window.get(no).add(mes)){
