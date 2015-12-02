@@ -31,7 +31,7 @@ public class Data implements SetProperty{
         }
         
         mu = NUMBER_OF_USER_AGENTS/2;
-        sigma = (int) (1.5 * NUMBER_OF_USER_AGENTS / 10);
+        sigma = (int) (2*NUMBER_OF_USER_AGENTS / 10);
     }
         
     private Integer keyNo(){
@@ -54,7 +54,7 @@ public class Data implements SetProperty{
 
     //Get Data userID = Call % NUMBER_USER_AGENTS
     public MessageObject getData(){
-        return new MessageObject(agentKeyList.get(keyRandomNo()), AGENT_DEFAULT_VALUE);
+        return new MessageObject(agentKeyList.get(keyGaussRandomNo()), AGENT_DEFAULT_VALUE);
     }
     
     public MessageObject getPoison(){
