@@ -42,6 +42,7 @@ public class MessageQueueManager {
         //MessageQueue
         setMessageQueue(new ReciveMessageQueue("RMQ"+sid));
         
+        
         //Init Decomposition
         decompositionMap.put(id.getID(Integer.parseInt(sid)), 0);
     }
@@ -60,8 +61,10 @@ public class MessageQueueManager {
     
     public void startAll(){
         mqSS.storeMessageQueue(messageQueue);
-        for(ReciveMessageQueue mq: messageQueue)
+        for(ReciveMessageQueue mq : messageQueue){
+            System.out.println("Manager::Test__"+mq.name);
             mq.start();
+        }
     }
     
     public void start(int i){
