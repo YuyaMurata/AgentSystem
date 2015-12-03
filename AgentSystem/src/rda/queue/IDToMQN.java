@@ -1,6 +1,5 @@
 package rda.queue;
 
-import com.ibm.agent.exa.AgentKey;
 import rda.property.SetProperty;
 
 import java.util.ArrayList;

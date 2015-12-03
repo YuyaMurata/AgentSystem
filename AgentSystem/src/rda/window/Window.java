@@ -5,6 +5,7 @@
  */
 package rda.window;
 
+import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 import rda.queue.MessageObject;
 
@@ -13,11 +14,12 @@ import rda.queue.MessageObject;
  * @author kaeru
  */
 public class Window implements Cloneable{
-    public Integer id, limit;
+    public AgentKey key;
+    public Integer limit;
     private ArrayList win = new ArrayList();
 
-    public Window(Integer id, Integer limit) {
-        this.id = id;
+    public Window(AgentKey key, Integer limit) {
+        this.key = key;
         this.limit = limit;
     }
   

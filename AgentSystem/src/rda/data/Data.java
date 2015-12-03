@@ -54,7 +54,7 @@ public class Data implements SetProperty{
 
     //Get Data userID = Call % NUMBER_USER_AGENTS
     public MessageObject getData(){
-        return new MessageObject(agentKeyList.get(keyGaussRandomNo()), AGENT_DEFAULT_VALUE);
+        return new MessageObject(agentKeyList.get(keyNo()), AGENT_DEFAULT_VALUE);
     }
     
     public MessageObject getPoison(){

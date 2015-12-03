@@ -1,33 +1,22 @@
 package rda.window;
 
+import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Queue;
-import rda.queue.IDToMQN;
 import rda.queue.MessageObject;
 import rda.queue.MessageQueueException;
-import rda.queue.log.MQSpecificStorage;
-import rda.queue.reciver.ReciveMessageQueue;
+import rda.queue.MessageQueueManager;
 
 public class WindowController{
-	private ReciveMessageQueue[] mqArray;
-	private HashMap<Integer, Window> window = new HashMap<>();
+        private MessageQueueManager mq = MessageQueueManager.getInstance();
+	private HashMap<AgentKey, Window> window = new HashMap<>();
         public Queue queue = new ArrayDeque();
         private final Integer size;
-        private IDToMQN id = IDToMQN.getInstance();
         
         private void init(int numberOfMQ){
-            this.mqArray = new ReciveMessageQueue[numberOfMQ];
-                        
-            for(int i=0; i < numberOfMQ; i++){
-                this.mqArray[i] = new ReciveMessageQueue("RMQ"+i);
-            }
-            
-            MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
-            mqSS.storeMessageQueue(mqArray);
-            
-            for(ReciveMessageQueue mq : mqArray)
-                mq.start();
+            mq.initMessageQueue(numberOfMQ);
+            mq.startAll();
         }
         
 	public String name;
@@ -39,12 +28,11 @@ public class WindowController{
 	}
 
 	public void sendMessage(MessageObject mes){
-            int no = id.toMQN(mes.agentKey);
-            if(window.get(no) == null) window.put(no, new Window(no, size));
+            if(window.get(mes.agentKey) == null) window.put(mes.agentKey, new Window(mes.agentKey, size));
             
-            if(window.get(no).add(mes)){
-                queue.add(window.get(no).clone());
-                window.remove(no);
+            if(window.get(mes.agentKey).add(mes)){
+                queue.add(window.get(mes.agentKey).clone());
+                window.remove(mes.agentKey);
             }
                 
             sendMessageQueue();
@@ -54,7 +42,7 @@ public class WindowController{
             Window obj = (Window) queue.poll();
             if(obj != null)
                 try {
-                    mqArray[obj.id].putMessage(obj.get());
+                    mq.getMessageQueue(obj.key).putMessage(obj.get());
                 } catch (InterruptedException ex) {
                 } catch (MessageQueueException mqex) {
                     mqex.printEvent();
@@ -63,7 +51,6 @@ public class WindowController{
 	}
 
 	public void close(){
-            for(ReciveMessageQueue mq : mqArray)
-                mq.stop();
+            mq.closeAll();
 	}
 }
