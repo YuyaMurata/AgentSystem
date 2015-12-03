@@ -36,10 +36,6 @@ public class Main implements SetProperty, SetDataType{
         task = new MainSchedule(
                 new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow"),
                 TIME_PERIOD ); 
-        
-        // MQ Start
-        MessageQueueManager manager = MessageQueueManager.getInstance();
-        manager.startAll();
     }
 
     private static void createUser(int numOfAgents){
@@ -51,6 +47,7 @@ public class Main implements SetProperty, SetDataType{
         
         MessageQueueManager manager = MessageQueueManager.getInstance();
         manager.initMessageQueue(NUMBER_OF_USER_AGENTS);
+        manager.startAll();
     }
 
     private static Long start, stop, initStart, createStart;
