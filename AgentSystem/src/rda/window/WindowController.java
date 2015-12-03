@@ -9,22 +9,15 @@ import rda.queue.MessageQueueException;
 import rda.queue.MessageQueueManager;
 
 public class WindowController{
-        private MessageQueueManager mq = MessageQueueManager.getInstance();
+        private MessageQueueManager manager = MessageQueueManager.getInstance();
 	private HashMap<AgentKey, Window> window = new HashMap<>();
         public Queue queue = new ArrayDeque();
         private final Integer size;
-        
-        private void init(int numberOfMQ){
-            mq.initMessageQueue(numberOfMQ);
-            mq.startAll();
-        }
         
 	public String name;
 	public WindowController(int numberOfMQ, int limit, String name) {
             this.name = name;
             this.size = limit;
-            
-            init(numberOfMQ);
 	}
 
 	public void sendMessage(MessageObject mes){
@@ -42,7 +35,7 @@ public class WindowController{
             Window obj = (Window) queue.poll();
             if(obj != null)
                 try {
-                    mq.getMessageQueue(obj.key).putMessage(obj.get());
+                    manager.getMessageQueue(obj.key).putMessage(obj.get());
                 } catch (InterruptedException ex) {
                 } catch (MessageQueueException mqex) {
                     mqex.printEvent();
@@ -51,6 +44,6 @@ public class WindowController{
 	}
 
 	public void close(){
-            mq.closeAll();
+            manager.closeAll();
 	}
 }

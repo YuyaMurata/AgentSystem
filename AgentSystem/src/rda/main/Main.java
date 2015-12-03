@@ -12,6 +12,7 @@ import rda.data.SetDataType;
 import rda.log.AgentLogSchedule;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
+import rda.queue.MessageQueueManager;
 import rda.queue.MessageQueueTimer;
 import rda.window.WindowController;
 
@@ -31,18 +32,25 @@ public class Main implements SetProperty, SetDataType{
         //Start System Out
         init_debug();
 
-        // MQ Window Start 
+        // Set Window 
         task = new MainSchedule(
                 new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow"),
                 TIME_PERIOD ); 
+        
+        // MQ Start
+        MessageQueueManager manager = MessageQueueManager.getInstance();
+        manager.startAll();
     }
 
     private static void createUser(int numOfAgents){
         //TIme
         createStart = System.currentTimeMillis();
         
-        CreateAgent agent = new CreateAgent();
-        agent.create("U#00", numOfAgents);
+        //CreateAgent agent = new CreateAgent();
+        //agent.create("U#00", numOfAgents);
+        
+        MessageQueueManager manager = MessageQueueManager.getInstance();
+        manager.initMessageQueue(NUMBER_OF_USER_AGENTS);
     }
 
     private static Long start, stop, initStart, createStart;

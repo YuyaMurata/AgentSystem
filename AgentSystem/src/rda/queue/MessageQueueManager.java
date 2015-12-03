@@ -9,6 +9,7 @@ import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import rda.agent.user.CreateUserAgent;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
 
@@ -22,26 +23,39 @@ public class MessageQueueManager {
     private IDToMQN id = IDToMQN.getInstance();
     private MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     
-    private HashMap<AgentKey, Integer> decompositionMap = new HashMap<>();
+    private HashMap<Object, Integer> decompositionMap = new HashMap<>();
     
     public static MessageQueueManager getInstance(){
         return manager;
     }
     
     public void initMessageQueue(Integer n){
-        for(int i=0; i < n; i++){
-            setMessageQueue(i);
-            decompositionMap.put((AgentKey)id.getID(i), 0);
-        }
+        for(int i=0; i < n; i++)
+            create(String.valueOf(i));
     }
     
-    public void setMessageQueue(int i){
-        messageQueue.add(new ReciveMessageQueue("RMQ"+i));
+    private void create(String sid){
+        //Agent (and Register ID)
+        CreateUserAgent agent = new CreateUserAgent();
+        agent.create("U#00"+sid);
+        
+        //MessageQueue
+        setMessageQueue(new ReciveMessageQueue("RMQ"+sid));
+        
+        //Init Decomposition
+        decompositionMap.put(id.getID(Integer.parseInt(sid)), 0);
+    }
+    
+    private void setMessageQueue(ReciveMessageQueue mq){
+        messageQueue.add(mq);
     }
     
     public ReciveMessageQueue getMessageQueue(AgentKey key){
         int index = id.toMQN(key);
         return messageQueue.get(index);
+    }
+    
+    public void decompose(AgentKey key){
     }
     
     public void startAll(){
@@ -53,16 +67,6 @@ public class MessageQueueManager {
     public void start(int i){
         mqSS.storeMessageQueue(messageQueue);
         messageQueue.get(i).start();
-    }
-    
-    public void decompose(AgentKey key){
-        Integer numOfDecompose = decompositionMap.get(key) + 1;
-        decompositionMap.put(key,numOfDecompose);
-        
-        
-        int index = id.toMQN(key) + messageQueue.size();
-        setMessageQueue(index);
-        start(index);
     }
     
     public void closeAll(){
