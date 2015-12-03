@@ -48,6 +48,7 @@ public class MessageQueueManager {
     }
     
     private void setMessageQueue(ReciveMessageQueue mq){
+        System.out.println("Manager::Test__"+mq.name);
         messageQueue.add(mq);
     }
     
@@ -62,7 +63,6 @@ public class MessageQueueManager {
     public void startAll(){
         mqSS.storeMessageQueue(messageQueue);
         for(ReciveMessageQueue mq : messageQueue){
-            System.out.println("Manager::Test__"+mq.name);
             mq.start();
         }
     }
