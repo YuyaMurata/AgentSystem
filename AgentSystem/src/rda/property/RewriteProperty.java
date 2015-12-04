@@ -16,14 +16,14 @@ public class RewriteProperty {
             number = args[0];
         
         Property prop = new Property(false);
-        Integer beforeNumUserAgents = Integer.valueOf(prop.getValue("agent", "number.user.agent"));
+        Integer beforeNumUserAgents = Integer.valueOf(prop.getValue("agent", "number.rank.agent"));
         Integer beforeNumQueues  = Integer.valueOf(prop.getValue("queue", "number.queue"));
         
         
         System.out.println("Change Properties :");
                 
-        prop.setValue("agent", "number.user.agent", number);
-        System.out.println("agent : number.user.agent ("+beforeNumUserAgents+" -> "+prop.getValue("agent", "number.user.agent")+")");
+        prop.setValue("agent", "number.rank.agent", number);
+        System.out.println("agent : number.rank.agent ("+beforeNumUserAgents+" -> "+prop.getValue("agent", "number.rank.agent")+")");
              
         prop.setValue("queue", "number.queue", number);
         System.out.println("queue : number.queue ("+beforeNumQueues+" -> "+prop.getValue("queue", "number.queue")+")");

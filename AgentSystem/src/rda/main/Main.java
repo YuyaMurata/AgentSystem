@@ -45,7 +45,7 @@ public class Main implements SetProperty, SetDataType{
         //agent.create("U#00", numOfAgents);
         
         MessageQueueManager manager = MessageQueueManager.getInstance();
-        manager.initMessageQueue(NUMBER_OF_USER_AGENTS);
+        manager.initMessageQueue(numOfAgents);
         manager.startAll();
     }
 
@@ -55,7 +55,7 @@ public class Main implements SetProperty, SetDataType{
         init();
 
         //Agentの生成
-        createUser(NUMBER_OF_USER_AGENTS);
+        createUser(NUMBER_OF_RANK_AGENTS);
 
         //Execute Agent System
         execute();
@@ -115,8 +115,8 @@ public class Main implements SetProperty, SetDataType{
                 "Server: N_{} Host_{}", 
                 new Object[]{NUMBER_OF_SERVER, HOST_ADDRESS.toString()});
         logger.printAgentSystemSettings(initMarker, 
-                "UserAgentN_{} Wait[ms]: Agent_{}", 
-                new Object[]{NUMBER_OF_USER_AGENTS, AGENT_WAIT});      
+                "UserN_{} AgentN_{} Wait[ms]: Agent_{}", 
+                new Object[]{NUMBER_OF_USER_AGENTS, NUMBER_OF_RANK_AGENTS, AGENT_WAIT});      
         logger.printAgentSystemSettings(initMarker, 
                 "MsgQueueN_{} MaxMQLength_{} WindowSize_{} Wait[ms]: Queue_{} ", 
                 new Object[]{NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, QUEUE_WAIT});
