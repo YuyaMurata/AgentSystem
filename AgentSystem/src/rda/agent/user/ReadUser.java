@@ -59,7 +59,6 @@ public class ReadUser implements AgentExecutor, Serializable{
 
     public ArrayList<UserInfo> read(int numOfAgents) {
         AgentConnection ag = AgentConnection.getInstance();
-        
         AgentClient client = ag.getConnection();
             
         try{

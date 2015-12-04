@@ -40,18 +40,18 @@ public class Dispose implements AgentExecutor, Serializable {
 	 * 全エージェントにDISPOSEメッセージを送信する．
 	 */
 	public Object execute() {
-		try {
-			AgentManager agentManager = AgentManager.getAgentManager();
-			// DISPOSEメッセージの生成
-			MessageFactory factory = MessageFactory.getFactory();
-			Message msg = factory.getMessage("dispose");
+            try {
+                AgentManager agentManager = AgentManager.getAgentManager();
+                // DISPOSEメッセージの生成
+                MessageFactory factory = MessageFactory.getFactory();
+                Message msg = factory.getMessage("dispose");
 
-			// DISPOSEメッセージをSYNC-BROADCASTで全エージェントに送信
-			HashMap<AgentKey,Object> ret = agentManager.sendMessage(msg);
-			return ret;
-		} catch(IllegalAccessException | InstantiationException e) {
-			return e;
-		}
+                // DISPOSEメッセージをSYNC-BROADCASTで全エージェントに送信
+                HashMap<AgentKey,Object> ret = agentManager.sendMessage(msg);
+                return ret;
+            } catch(IllegalAccessException | InstantiationException e) {
+                return e;
+            }
 	}
 
     public static void main(String[] args) {
