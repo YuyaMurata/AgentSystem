@@ -1,9 +1,9 @@
 package rda.queue.id;
 
+import com.ibm.agent.exa.AgentKey;
 import rda.property.SetProperty;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class IDToMQN implements SetProperty{
@@ -15,10 +15,10 @@ public class IDToMQN implements SetProperty{
             return idToMQN;
         }
         
-        private HashMap<Object, String> keyToidMap = new HashMap<>();
-        private List<Object> keyList = new ArrayList<>();     
-        public void setKey(String id, Object key){
-            keyToidMap.put(key, id);
+        private List<String> idList = new ArrayList<>();
+        private List<AgentKey> keyList = new ArrayList<>();     
+        public void setKey(String id, AgentKey key){
+            idList.add(id);
             keyList.add(key);
         }
         
@@ -26,12 +26,20 @@ public class IDToMQN implements SetProperty{
             return keyList.get(sid);
         }
         
-	public int toMQN(Object key){
+	public int toMQN(AgentKey key){
             return keyList.indexOf(key);
 	}
         
-        public String toID(Object key){
-            return keyToidMap.get(key);
+        public int toMQN(String id){
+            return idList.indexOf(id);
+	}
+        
+        public String toID(AgentKey key){
+            return idList.get(toMQN(key));
+	}
+        
+        public Object toKey(String id){
+            return keyList.get(toMQN(id));
 	}
         
         /* hash (- -> +) confilict
