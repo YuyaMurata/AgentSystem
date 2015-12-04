@@ -1,6 +1,7 @@
 package rda.test;
 
 import java.util.ArrayList;
+import java.util.List;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.agent.user.UserInfo;
@@ -20,33 +21,30 @@ public class ReadTest implements SetProperty{
 		
             ArrayList<UserInfo> results = user.read();
             //log.get(NUMBER_USER);
-            
-            int i = 0;
+
             long total = 0;
             long countTotal = 0;
             StringBuilder sb = new StringBuilder();
-            String[] name = new String[NUMBER_OF_USER_AGENTS+1];
-            Long[] data = new Long[NUMBER_OF_USER_AGENTS+1];
-            Long[] count = new Long[NUMBER_OF_USER_AGENTS+1];
+            List<String> name = new ArrayList<>();
+            List<Long> data = new ArrayList<>();
+            List<Long> count = new ArrayList<>();
             for(UserInfo result : results){
                 sb.append(",{}");
-                name[i] = result.getID();
+                name.add(result.getID());
                 
-                data[i] = result.getData();
+                data.add(result.getData());
                 total = total + result.getData();
                 
-                count[i] = result.getCount();
+                count.add(result.getCount());
                 countTotal = countTotal + result.getCount();
-                
-                i++;
             }
-            name[name.length-1] = "Total";
-            data[data.length-1] = total;
-            count[count.length-1] = countTotal;
+            name.add("Total");
+            data.add(total);
+            count.add(countTotal);
             
             //Output
-            logger.printResults(fieldMarker, "UserID"+sb.toString()+",{}", name);
-            logger.printResults(dataMarker, "Transaction"+sb.toString()+",{}", data);
-            logger.printResults(dataMarker, "ConnectionCount"+sb.toString()+",{}", count);
+            logger.printResults(fieldMarker, "UserID"+sb.toString()+",{}", name.toArray(new String[name.size()]));
+            logger.printResults(dataMarker, "Transaction"+sb.toString()+",{}", data.toArray(new Long[data.size()]));
+            logger.printResults(dataMarker, "ConnectionCount"+sb.toString()+",{}", count.toArray(new Long[count.size()]));
 	}
 }
