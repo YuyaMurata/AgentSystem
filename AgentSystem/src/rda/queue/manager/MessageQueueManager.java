@@ -74,7 +74,8 @@ public class MessageQueueManager {
     }
     
     public void start(int sid){
-        //mqSS.storeMessageQueue(messageQueue);
+        mqSS.storeMessageQueue(messageQueue);
+        System.out.println("MessageQueue Size = SID:"+messageQueue.size()+"="+sid);
         messageQueue.get(sid).start();
     }
     
