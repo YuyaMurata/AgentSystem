@@ -3,7 +3,7 @@ package rda.agent.user;
 import java.io.Serializable;
 import java.util.Collection;
 
-import rda.agent.CreateAgentClient;
+import rda.agent.client.CreateAgentClient;
 
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.AgentManager;

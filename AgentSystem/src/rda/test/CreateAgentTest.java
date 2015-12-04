@@ -1,6 +1,6 @@
 package rda.test;
 
-import rda.agent.CreateAgent;
+import rda.agent.creator.CreateAgent;
 
 public class CreateAgentTest extends TestParameter{
 

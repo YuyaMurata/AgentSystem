@@ -1,4 +1,4 @@
-package rda.queue;
+package rda.queue.obj;
 
 import com.ibm.agent.exa.AgentKey;
 

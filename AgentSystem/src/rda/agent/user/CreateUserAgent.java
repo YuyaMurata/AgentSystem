@@ -13,7 +13,7 @@ import com.ibm.agent.exa.client.AgentExecutor;
 import rda.agent.client.AgentConnection;
 
 import rda.agent.user.message.InitUserMessage;
-import rda.queue.IDToMQN;
+import rda.queue.id.IDToMQN;
 
 public class CreateUserAgent implements AgentExecutor, Serializable{
 	/**

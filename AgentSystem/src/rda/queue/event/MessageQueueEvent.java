@@ -1,17 +1,17 @@
-package rda.queue;
+package rda.queue.event;
 
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.log.AgentSystemLogger;
 
-public class MessageQueueException extends Exception{
+public class MessageQueueEvent extends Exception{
     /**
     *
     */
     private static final Marker dataMarker = MarkerFactory.getMarker("data");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     private final String name;
-    public MessageQueueException(String name) {
+    public MessageQueueEvent(String name) {
         super(name);
         this.name = name;
     }

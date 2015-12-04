@@ -4,9 +4,9 @@ import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Queue;
-import rda.queue.MessageObject;
-import rda.queue.MessageQueueException;
-import rda.queue.MessageQueueManager;
+import rda.queue.obj.MessageObject;
+import rda.queue.event.MessageQueueEvent;
+import rda.queue.manager.MessageQueueManager;
 
 public class WindowController{
         private MessageQueueManager manager = MessageQueueManager.getInstance();
@@ -37,7 +37,7 @@ public class WindowController{
                 try {
                     manager.getMessageQueue(obj.key).putMessage(obj.get());
                 } catch (InterruptedException ex) {
-                } catch (MessageQueueException mqex) {
+                } catch (MessageQueueEvent mqex) {
                     mqex.printEvent();
                     
                     //Return Data (*effect latency)

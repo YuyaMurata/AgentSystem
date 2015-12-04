@@ -4,12 +4,11 @@ import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 
 import rda.agent.user.UpdateUser;
-import rda.queue.MessageObject;
-import rda.queue.MessageQueueTimer;
+import rda.queue.obj.MessageObject;
+import rda.queue.timer.MessageQueueTimer;
 
 public class ReciveMQProcess extends Thread{
     private final ReciveMessageQueue mq;
-    private static final MessageQueueTimer mqt = MessageQueueTimer.getInstance();
     
     public ReciveMQProcess(ReciveMessageQueue queue) {
         this.mq = queue;
@@ -17,6 +16,8 @@ public class ReciveMQProcess extends Thread{
 
     @Override
     public void run() {
+        MessageQueueTimer mqt = MessageQueueTimer.getInstance();
+        
         UpdateUser user = new UpdateUser();
         
         ArrayList<Integer> dataList = new ArrayList<>();

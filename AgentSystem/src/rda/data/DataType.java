@@ -6,7 +6,7 @@
 package rda.data;
 
 import rda.property.SetProperty;
-import rda.queue.MessageObject;
+import rda.queue.obj.MessageObject;
 
 /**
  *

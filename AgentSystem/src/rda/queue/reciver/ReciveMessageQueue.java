@@ -7,8 +7,7 @@ import org.slf4j.MarkerFactory;
 import rda.log.AgentSystemLogger;
 
 import rda.property.SetProperty;
-import rda.queue.log.MQSpecificStorage;
-import rda.queue.MessageQueueException;
+import rda.queue.event.MessageQueueEvent;
 
 public class ReciveMessageQueue implements SetProperty{
     public final String name;
@@ -18,9 +17,6 @@ public class ReciveMessageQueue implements SetProperty{
     
     private static final Marker rMQMarker = MarkerFactory.getMarker("ReciveMessageQueue");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
-    private static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
-    
-    //private final ExecutorService dataPushWaiting = Executors.newSingleThreadExecutor();
     
     public ReciveMessageQueue(String name) {
         this.name = name;
@@ -29,18 +25,18 @@ public class ReciveMessageQueue implements SetProperty{
         this.mqThread = new ReciveMQProcess(this);
     }
 
-    public void putMessage(Object msg) throws InterruptedException, MessageQueueException{
+    public void putMessage(Object msg) throws InterruptedException, MessageQueueEvent{
         synchronized(this){
             if(!isRunning()) throw new IllegalStateException();
         }
         if(isFull())
-            throw new MessageQueueException(name);
+            throw new MessageQueueEvent(name);
         
         queue.put(msg);
     }
     
-    public void event() throws MessageQueueException{
-        throw new MessageQueueException(name);
+    public void event() throws MessageQueueEvent{
+        throw new MessageQueueEvent(name);
     }
     
     public Boolean isFull(){
@@ -65,16 +61,12 @@ public class ReciveMessageQueue implements SetProperty{
         return runnable;
     }
     
-    public void log(){
-        mqSS.map.put(name, getSize());
-    }
-    
     public void start(){
         synchronized(this) { runnable = true; }
         mqThread.start();
         
         logger.print(rMQMarker, 
-                "********** Recive Message Queue {} Start!! ********** ", 
+                "Recive Message Queue {} Start!!", 
                 new String[]{name});
     }
     
@@ -83,7 +75,7 @@ public class ReciveMessageQueue implements SetProperty{
         mqThread.interrupt();
         
         logger.print(rMQMarker, 
-                "********** Recive Message Queue {} Stop!! ********** ",
+                "Recive Message Queue {} Stop!!",
                 new String[]{name});
     }
 }

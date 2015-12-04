@@ -7,7 +7,7 @@ package rda.window;
 
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
-import rda.queue.MessageObject;
+import rda.queue.obj.MessageObject;
 
 /**
  *

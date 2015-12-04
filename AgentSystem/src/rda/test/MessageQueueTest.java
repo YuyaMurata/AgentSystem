@@ -1,10 +1,10 @@
 package rda.test;
 
 import java.util.ArrayList;
-import rda.agent.CreateAgent;
+import rda.agent.creator.CreateAgent;
 
 import rda.data.OutputData;
-import rda.queue.MessageObject;
+import rda.queue.obj.MessageObject;
 import rda.window.WindowController;
 
 public class MessageQueueTest extends TestParameter{

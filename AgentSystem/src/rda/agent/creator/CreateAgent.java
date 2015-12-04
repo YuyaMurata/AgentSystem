@@ -1,4 +1,4 @@
-package rda.agent;
+package rda.agent.creator;
 
 import rda.agent.user.CreateUserAgent;
 

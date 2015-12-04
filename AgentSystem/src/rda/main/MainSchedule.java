@@ -9,7 +9,7 @@ import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.data.SetDataType;
 import rda.log.AgentSystemLogger;
-import rda.queue.MessageObject;
+import rda.queue.obj.MessageObject;
 import rda.window.WindowController;
 
 /**

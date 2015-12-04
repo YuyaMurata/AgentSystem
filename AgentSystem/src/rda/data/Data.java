@@ -9,7 +9,7 @@ import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 import org.apache.commons.math3.random.RandomDataGenerator;
 import rda.property.SetProperty;
-import rda.queue.MessageObject;
+import rda.queue.obj.MessageObject;
 
 /**
  *

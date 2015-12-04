@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import rda.data.SetDataType;
 import static rda.data.SetDataType.DATA_TYPE;
-import rda.queue.IDToMQN;
-import rda.queue.MessageObject;
+import rda.queue.id.IDToMQN;
+import rda.queue.obj.MessageObject;
 
 /**
  *

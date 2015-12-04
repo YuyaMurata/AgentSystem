@@ -8,7 +8,7 @@ package rda.test;
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 import java.util.List;
-import rda.queue.MessageObject;
+import rda.queue.obj.MessageObject;
 
 /**
  *

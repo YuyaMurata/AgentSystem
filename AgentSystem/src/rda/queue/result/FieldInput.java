@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rda.result;
+package rda.queue.result;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package rda.agent;
+package rda.agent.client;
 
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.soliddb.gridagent.CETADataGridException;

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rda.queue;
+package rda.queue.manager;
 
+import rda.queue.id.IDToMQN;
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 import java.util.HashMap;

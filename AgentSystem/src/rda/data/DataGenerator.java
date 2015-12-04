@@ -1,6 +1,6 @@
 package rda.data;
 
-import rda.queue.MessageObject;
+import rda.queue.obj.MessageObject;
 
 public class DataGenerator {
     private DataType type;
