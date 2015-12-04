@@ -12,10 +12,12 @@ import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 import rda.agent.client.AgentConnection;
+import rda.agent.user.UserInfo;
 
 /**
  *
@@ -44,7 +46,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
         return results;
     }
     
-    public static void main(String[] args) {
+    public ArrayList<UserInfo> read() {
         // エージェントクライアントの生成
         AgentConnection ag = AgentConnection.getInstance();
         AgentClient client = ag.getConnection();
@@ -56,26 +58,34 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             // エージェントエグゼキュータを全エージェント実行環境に転送し，
             // その集約結果を取得．集約結果は，completeメソッドの戻り値．
             Object ret = client.execute(executor);
+            
+            ArrayList<UserInfo> list = new ArrayList<>();
 
             // 全エージェント実行環境からの結果を取得
             Collection<Object> retFromAllServers = (Collection<Object>)ret;
             for(Object o : retFromAllServers) {
-                // 各エージェント実行環境でのDISPOSEメッセージの戻り値を取得．
+                // 各エージェント実行環境でのReadメッセージの戻り値を取得．
                 // 処理結果はHashMapとなる．
                 HashMap<AgentKey, Object> retFromAgents = (HashMap<AgentKey, Object>)o;
                 Set<AgentKey> keySet = retFromAgents.keySet();
                 for(AgentKey agentKey : keySet) {
-                    String message = (String)retFromAgents.get(agentKey);
-                    System.out.println(agentKey + ":" + message);
+                    UserInfo info = (UserInfo)retFromAgents.get(agentKey);
+                    
+                    System.out.println(agentKey + "[");
+                    System.out.println("    " + info.toString());
+                    System.out.println("]");
+                    
+                    list.add(info);
                 }
-            }	
+            }
+            
+            return list;
         } catch(Exception e) {
+            return null;
         } finally {
             ag.returnConnection(client);
+            ag.close();
         }
-        
-        ag.close();
-        
     }
     
 }

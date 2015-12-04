@@ -3,22 +3,22 @@ package rda.test;
 import java.util.ArrayList;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
-import rda.agent.user.ReadUser;
 import rda.agent.user.UserInfo;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
+import rda.result.ReadALLAgents;
 
 public class ReadTest implements SetProperty{
     
     private static final Marker dataMarker = MarkerFactory.getMarker("data");
-     private static final Marker fieldMarker = MarkerFactory.getMarker("field");
+    private static final Marker fieldMarker = MarkerFactory.getMarker("field");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
 	
 	public static void main(String[] args) {
-            ReadUser user = new ReadUser();
+            ReadALLAgents user = new ReadALLAgents();
             //ReadLogUser log = new ReadLogUser();
 		
-            ArrayList<UserInfo> results = user.read(NUMBER_OF_USER_AGENTS);
+            ArrayList<UserInfo> results = user.read();
             //log.get(NUMBER_USER);
             
             int i = 0;

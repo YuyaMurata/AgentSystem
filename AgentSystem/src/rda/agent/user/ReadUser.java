@@ -88,7 +88,7 @@ public class ReadUser implements AgentExecutor, Serializable{
         }catch(Exception e){
             return null;
         } finally {
-                ag.returnConnection(client);
+            ag.returnConnection(client);
         }
     }
 
