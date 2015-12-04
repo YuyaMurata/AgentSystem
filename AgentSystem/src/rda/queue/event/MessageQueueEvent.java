@@ -21,6 +21,8 @@ public class MessageQueueEvent extends Exception{
         //イベント出力
         logger.printMQEvent(dataMarker, 
                 "MQName_,{}, : ########## 負荷検知 ########## ", new String[]{name});
+        
+        decompose();
     }
     
     public void decompose(){
