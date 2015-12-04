@@ -29,11 +29,7 @@ public class IDToMQN implements SetProperty{
         public void setMQName(String name){
             mqNameList.add(name);
         }
-        
-        public Object getKey(int sid){
-            return keyList.get(sid);
-        }
-        
+               
 	public int toMQN(AgentKey key){
             return keyList.indexOf(key);
 	}
@@ -43,6 +39,10 @@ public class IDToMQN implements SetProperty{
             else return idList.indexOf(id);
 	}
         
+        public String toID(String name){
+            return idList.get(toMQN(name));
+	}
+        
         public String toID(AgentKey key){
             return idList.get(toMQN(key));
 	}
@@ -50,6 +50,10 @@ public class IDToMQN implements SetProperty{
         public Object toKey(String id){
             return keyList.get(toMQN(id));
 	}
+        
+        public Object toKey(int sid){
+            return keyList.get(sid);
+        }
         
         /* hash (- -> +) confilict
         public int toMQN(AgentKey key){

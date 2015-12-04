@@ -32,23 +32,22 @@ public class MessageQueueManager {
     
     public void initMessageQueue(Integer n){
         for(int i=0; i < n; i++)
-            create(String.valueOf(i));
+            create("U#00"+i);
     }
     
-    private Boolean create(String sid){
+    private Boolean create(String agID){
         //Agent (and Register ID)
-        String regID = "U#00"+sid;
-        if(id.toMQN(regID) > -1) return false;
+        if(id.toMQN(agID) > -1) return false;
         CreateUserAgent agent = new CreateUserAgent();
-        agent.create(regID);
+        agent.create(agID);
         
         //MessageQueue
-        String mqName = "RMQ"+id.toMQN(regID);
+        String mqName = "RMQ"+id.toMQN(agID);
         setMessageQueue(new ReciveMessageQueue(mqName));
         id.setMQName(mqName);
         
         //Init Decomposition
-        decompositionMap.put(id.toKey(regID), 0);
+        decompositionMap.put(id.toKey(agID), 0);
         
         return true;
     }
@@ -64,7 +63,7 @@ public class MessageQueueManager {
     
     public void decompose(String mqName){
         decompositionMap.put(id.toKey(mqName), 1);
-        if(create("-"+decompositionMap.get(id.toKey(mqName))))
+        if(create(id.toID(mqName)+"-"+decompositionMap.get(id.toKey(mqName))))
             start(id.toMQN(mqName));
     }
     

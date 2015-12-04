@@ -30,8 +30,8 @@ public class DataTest extends TestParameter implements SetDataType{
             idToMQN.setID("U#00"+i);
             map.put(i, 0L);
             
-            System.out.println("TestPrint_No."+i+"_ID="+idToMQN.getKey(i));
-            String str = idToMQN.getKey(i).toString();
+            System.out.println("TestPrint_No."+i+"_ID="+idToMQN.toKey(i));
+            String str = idToMQN.toKey(i).toString();
             System.out.println("ID_STRING=="+str);
         }
         
