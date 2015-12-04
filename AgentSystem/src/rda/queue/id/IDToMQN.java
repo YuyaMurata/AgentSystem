@@ -48,7 +48,7 @@ public class IDToMQN implements SetProperty{
 	}
         
         public AgentKey toKey(String id){
-            return keyList.get(toMQN(id));
+            return toKey(toMQN(id));
 	}
         
         public AgentKey toKey(int sid){
