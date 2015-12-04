@@ -33,11 +33,12 @@ public class MQSpecificStorage{
     }
     
     private List<ReciveMessageQueue> mqArray = new ArrayList<>();
-    private StringBuilder mqSizeFormat = new StringBuilder("MQL");
+    private StringBuilder mqSizeFormat;
     public void storeMessageQueue(List<ReciveMessageQueue> mqArray){
         this.mqArray = mqArray;
         
         StringBuilder mqName = new StringBuilder("MQName");
+        mqSizeFormat = new StringBuilder("MQL");
         for(ReciveMessageQueue mq : mqArray){
             mqSizeFormat.append(",{}");
             mqName.append(","+mq.name);
