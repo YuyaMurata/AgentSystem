@@ -79,7 +79,7 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
             
             try {
                 agentKey = new AgentKey(AGENT_TYPE,new Object[]{userID});
-                id.setID(agentKey);
+                id.setKey(userID, agentKey);
                 
                 prof = profileGen.getProf(userID);
                 
@@ -89,13 +89,7 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
                 System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
             } catch (AgentException e) {
             } finally {
-                //System.out.println("Active Num:"+ag.getActiveObject());
-                //System.out.println("Idle Num:"+ag.getIdleObject());
-                
                 ag.returnConnection(client);
-                
-                //System.out.println("Active Num:"+ag.getActiveObject());
-                //System.out.println("Idle Num:"+ag.getIdleObject());
             }
 	}
 

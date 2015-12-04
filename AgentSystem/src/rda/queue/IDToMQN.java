@@ -3,6 +3,7 @@ package rda.queue;
 import rda.property.SetProperty;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class IDToMQN implements SetProperty{
@@ -14,17 +15,23 @@ public class IDToMQN implements SetProperty{
             return idToMQN;
         }
         
-        private List<Object> idList = new ArrayList<>();     
-        public void setID(Object obj){
-            idList.add(obj);
+        private HashMap<Object, String> keyToidMap = new HashMap<>();
+        private List<Object> keyList = new ArrayList<>();     
+        public void setKey(String id, Object key){
+            keyToidMap.put(key, id);
+            keyList.add(key);
         }
         
-        public Object getID(int no){
-            return idList.get(no);
+        public Object getKey(int sid){
+            return keyList.get(sid);
         }
         
-	public int toMQN(Object obj){
-            return idList.indexOf(obj);
+	public int toMQN(Object key){
+            return keyList.indexOf(key);
+	}
+        
+        public String toID(Object key){
+            return keyToidMap.get(key);
 	}
         
         /* hash (- -> +) confilict

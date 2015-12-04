@@ -26,11 +26,11 @@ public class DataTest extends TestParameter implements SetDataType{
         HashMap<Integer, Long> map = new LinkedHashMap<>();
         
         for(int i=0; i < NUMBER_OF_USER_AGENTS; i++){
-            idToMQN.setID(new AgentKey("useragent", new Object[]{"U#00"+i}));
+            idToMQN.setKey("U#00"+i, new AgentKey("useragent", new Object[]{"U#00"+i}));
             map.put(i, 0L);
             
-            System.out.println("TestPrint_No."+i+"_ID="+idToMQN.getID(i));
-            String str = idToMQN.getID(i).toString();
+            System.out.println("TestPrint_No."+i+"_ID="+idToMQN.getKey(i));
+            String str = idToMQN.getKey(i).toString();
             System.out.println("ID_STRING=="+str);
         }
         

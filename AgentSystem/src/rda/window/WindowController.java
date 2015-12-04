@@ -39,6 +39,8 @@ public class WindowController{
                 } catch (InterruptedException ex) {
                 } catch (MessageQueueException mqex) {
                     mqex.printEvent();
+                    
+                    //Return Data (*effect latency)
                     queue.add(obj);
                 }
 	}
