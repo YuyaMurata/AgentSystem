@@ -46,6 +46,6 @@ public class WindowController{
 	}
 
 	public void close(){
-            manager.closeAll();
+            manager.stopAll();
 	}
 }

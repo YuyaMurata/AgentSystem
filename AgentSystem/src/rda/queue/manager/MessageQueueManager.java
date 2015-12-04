@@ -10,6 +10,7 @@ import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import rda.agent.user.CreateUserAgent;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
@@ -25,6 +26,8 @@ public class MessageQueueManager {
     private MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     
     private HashMap<Object, Integer> decompositionMap = new HashMap<>();
+    
+    private Random rand = new Random();
     
     public static MessageQueueManager getInstance(){
         return manager;
@@ -57,11 +60,16 @@ public class MessageQueueManager {
     }
     
     public ReciveMessageQueue getMessageQueue(AgentKey key){
+        if(rand.nextInt(2*decompositionMap.get(key)) == 1)
+            key = id.toKey(id.toID(key)+"-1");
+        
         int sid = id.toMQN(key);
         return messageQueue.get(sid);
     }
     
     public void decompose(String mqName){
+        if(limit()) return ;
+        
         decompositionMap.put(id.toKey(mqName), 1);
         String agID = id.toID(mqName)+"-"+decompositionMap.get(id.toKey(mqName));
         if(create(agID))
@@ -80,7 +88,12 @@ public class MessageQueueManager {
         messageQueue.get(sid).start();
     }
     
-    public void closeAll(){
+    private Boolean limit(){
+        if(messageQueue.size() > 1000) return true;
+        return false;
+    }
+    
+    public void stopAll(){
         for(ReciveMessageQueue mq: messageQueue)
             mq.stop();
     }
