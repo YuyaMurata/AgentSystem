@@ -60,8 +60,10 @@ public class MessageQueueManager {
     }
     
     public ReciveMessageQueue getMessageQueue(AgentKey key){
-        if(rand.nextInt(2*decompositionMap.get(key)) == 1)
-            key = id.toKey(id.toID(key)+"-1");
+        if(decompositionMap.get(key) == 1){
+            if(rand.nextBoolean())
+                key = id.toKey(id.toID(key)+"-1");
+        }
         
         int sid = id.toMQN(key);
         return messageQueue.get(sid);
