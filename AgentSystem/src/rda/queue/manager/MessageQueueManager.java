@@ -6,7 +6,6 @@
 package rda.queue.manager;
 
 import rda.queue.id.IDToMQN;
-import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,17 +34,17 @@ public class MessageQueueManager {
     
     public void initMessageQueue(Integer n){
         for(int i=0; i < n; i++)
-            create("U#00"+i);
+            create("R#00"+i);
     }
     
     private Boolean create(String agID){
         //Agent (and Register ID)
-        if(id.toMQN(agID) > -1) return false;
+        if(id.toSID(agID) > -1) return false;
         CreateUserAgent agent = new CreateUserAgent();
         agent.create(agID);
         
         //MessageQueue
-        String mqName = "RMQ"+id.toMQN(agID);
+        String mqName = "RMQ"+id.toSID(agID);
         setMessageQueue(new ReciveMessageQueue(mqName));
         id.setMQName(mqName);
         
@@ -59,13 +58,8 @@ public class MessageQueueManager {
         messageQueue.add(mq);
     }
     
-    public ReciveMessageQueue getMessageQueue(AgentKey key){
-        if(decompositionMap.get(key) == 1){
-            if(rand.nextBoolean())
-                key = id.toKey(id.toID(key)+"-1");
-        }
-        
-        int sid = id.toMQN(key);
+    public ReciveMessageQueue getMessageQueue(String uid){
+        int sid = id.toSID(uid);
         return messageQueue.get(sid);
     }
     
@@ -73,9 +67,9 @@ public class MessageQueueManager {
         if(limit()) return ;
         
         decompositionMap.put(id.toKey(mqName), 1);
-        String agID = id.toID(mqName)+"-"+decompositionMap.get(id.toKey(mqName));
+        String agID = id.toAGID(mqName)+"-"+decompositionMap.get(id.toKey(mqName));
         if(create(agID))
-            start(id.toMQN(agID));
+            start(id.toSID(agID));
     }
     
     public void startAll(){
@@ -86,7 +80,6 @@ public class MessageQueueManager {
     
     public void start(int sid){
         mqSS.storeMessageQueue(messageQueue);
-        System.out.println("MessageQueue Size = SID:"+messageQueue.size()+"="+sid);
         messageQueue.get(sid).start();
     }
     

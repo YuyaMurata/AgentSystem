@@ -1,6 +1,5 @@
 package rda.window;
 
-import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Queue;
@@ -10,7 +9,7 @@ import rda.queue.manager.MessageQueueManager;
 
 public class WindowController{
         private MessageQueueManager manager = MessageQueueManager.getInstance();
-	private HashMap<AgentKey, Window> window = new HashMap<>();
+	private HashMap<String, Window> window = new HashMap<>();
         public Queue queue = new ArrayDeque();
         private final Integer size;
         
@@ -21,11 +20,11 @@ public class WindowController{
 	}
 
 	public void sendMessage(MessageObject mes){
-            if(window.get(mes.agentKey) == null) window.put(mes.agentKey, new Window(mes.agentKey, size));
+            if(window.get(mes.id) == null) window.put(mes.id, new Window(mes.id, size));
             
-            if(window.get(mes.agentKey).add(mes)){
-                queue.add(window.get(mes.agentKey).clone());
-                window.remove(mes.agentKey);
+            if(window.get(mes.id).add(mes)){
+                queue.add(window.get(mes.id).clone());
+                window.remove(mes.id);
             }
                 
             sendMessageQueue();
@@ -35,7 +34,7 @@ public class WindowController{
             Window obj = (Window) queue.poll();
             if(obj != null)
                 try {
-                    manager.getMessageQueue(obj.key).putMessage(obj.get());
+                    manager.getMessageQueue(obj.id).putMessage(obj.get());
                 } catch (InterruptedException ex) {
                 } catch (MessageQueueEvent mqex) {
                     mqex.printEvent();

@@ -5,49 +5,43 @@
  */
 package rda.test;
 
-import com.ibm.agent.exa.AgentKey;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import rda.data.SetDataType;
 import static rda.data.SetDataType.DATA_TYPE;
-import rda.queue.id.IDToMQN;
 import rda.queue.obj.MessageObject;
 
 /**
  *
  * @author kaeru
  */
-public class DataTest extends TestParameter implements SetDataType{
+public class DataTest extends TestParameter{
+    private static TestSettings test = new TestSettings();
     public static void main(String[] args) {
+        test.setting();
+        
         Long start,stop;
         
-        IDToMQN idToMQN = IDToMQN.getInstance();
-        
         HashMap<Integer, Long> map = new LinkedHashMap<>();
-        
-        for(int i=0; i < NUMBER_OF_USER_AGENTS; i++){
-            idToMQN.setKey(new AgentKey("useragent", new Object[]{"U#00"+i}));
-            idToMQN.setID("U#00"+i);
-            map.put(i, 0L);
-            
-            System.out.println("TestPrint_No."+i+"_ID="+idToMQN.toKey(i));
-            String str = idToMQN.toKey(i).toString();
-            System.out.println("ID_STRING=="+str);
-        }
         
         MessageObject msg;
         for(long t =0; t < TIME_RUN; t++){
             start = System.currentTimeMillis();
-            while((msg = DATA_TYPE.generate(t)) != null){
-                int key = idToMQN.toMQN(msg.agentKey);
-                Long cnt = map.get(key) + 1;
+            while((msg = test.DATA_TYPE.generate(t)) != null){
+                int key = test.ID.toSID(msg.id);
+                Long cnt = 0L;
+                if(map.get(key) != null) cnt = map.get(key) + 1;
                 map.put(key, cnt);
             }
             stop = System.currentTimeMillis();
-            System.out.println("Data = "+t+", Time = "+(stop-start)+" [ms]");
+            System.out.println("Time = "+t+", ProcessTime = "+(stop-start)+" [ms]");
         }
         
-        for(Integer key : map.keySet())
+        long total = 0L;
+        for(Integer key : map.keySet()){
+            total = total+map.get(key);
             System.out.println(key+" : "+map.get(key));
+        }
+        
+        System.out.println("Total:"+total);
     }
 }

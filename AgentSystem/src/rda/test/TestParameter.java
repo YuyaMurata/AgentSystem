@@ -11,9 +11,15 @@ package rda.test;
  */
 public abstract class TestParameter {
     //Experiment Condition
-    public static final int NUMBER_OF_USER_AGENTS = 10;
+    public static final int NUMBER_OF_USER = 10;
+    public static final int NUMBER_OF_AGENTS = 10;
     public static final int NUMBER_DATA = 100000;
     public static final int TIME_RUN = 60;
+    public static final int TIME_PERIOD = 1000;
+    public static final int VOLUME = 1;
+    public static final int VALUE = 1;
     public static final int NUMBER_OF_QUEUE = 1;
     public static final int WINDOW_SIZE = 100;
+    
+    public static final String AGENT_TYPE = "useragent";
 }

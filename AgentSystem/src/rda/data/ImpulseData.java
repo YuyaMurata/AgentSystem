@@ -4,19 +4,21 @@ import rda.queue.obj.MessageObject;
 
 public class ImpulseData implements DataType{
     private static final Long impulse = 1000000L;
-    private static final Long period = 60L;
+    private static final Long timing = 60L;
     
     private static Long count;
     private final Data data;
     private final String name;
     private Long limit;
+    
+    private Long time, period, volume;
 
-    public ImpulseData() {
+    public ImpulseData(long time, long period, long volume, int numberOfUser, int valueOfUser) {
         this.name = "ImpulseType";
         this.data = new Data();
         
         //initialise
-        data.init();
+        data.init(numberOfUser, valueOfUser);
         count = -1L;
     }
     
@@ -27,8 +29,8 @@ public class ImpulseData implements DataType{
     
     @Override
     public String toString(){
-        Long n = TIME_RUN * 1000 / TIME_PERIOD;
-        Long result = (n - (n / period + 1)) * DATA_VOLUME + (n / period + 1) * impulse;
+        Long n = time * 1000 / period;
+        Long result = (n - (n / timing + 1)) * volume + (n / timing + 1) * impulse;
         
         return name + " DataN_" + result;
     }
@@ -39,8 +41,8 @@ public class ImpulseData implements DataType{
         
         MessageObject msg = data.getData();
         
-        if((time % period) == 0) limit = impulse - 1;
-        else limit = DATA_VOLUME.longValue() - 1;
+        if((time % timing) == 0) limit = impulse - 1;
+        else limit = volume - 1;
         
         if(count == limit) msg = data.getPoison();
         if(count > limit) {

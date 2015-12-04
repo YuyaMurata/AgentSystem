@@ -5,60 +5,61 @@
  */
 package rda.data;
 
-import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
 import org.apache.commons.math3.random.RandomDataGenerator;
-import rda.property.SetProperty;
 import rda.queue.obj.MessageObject;
 
 /**
  *
  * @author kaeru
  */
-public class Data implements SetProperty{
+public class Data{
     private static int count = -1;
     private static final RandomDataGenerator rand = new RandomDataGenerator();
-    private int mu, sigma;
+    private int mu, sigma, numOfUser, value;
 
     public Data() {}
 
-    //Set All UserID(AgentKey)
-    private ArrayList<AgentKey> agentKeyList = new ArrayList<>();
-    public void init(){
-        for(int i=0; i < NUMBER_OF_USER_AGENTS; i++){
+    //Set All UserID
+    private ArrayList<String> userList = new ArrayList<>();
+    public void init(int n, int value){
+        this.numOfUser = n;
+        this.value = value;
+        
+        for(int i=0; i < numOfUser; i++){
             String userID = "U#00"+ i;
-            agentKeyList.add(new AgentKey(AGENT_TYPE, new Object[]{userID}));
+            userList.add(userID);
         }
         
-        mu = NUMBER_OF_USER_AGENTS/2;
-        sigma = (int) (2*NUMBER_OF_USER_AGENTS / 10);
+        mu = numOfUser/2;
+        sigma = (int) (2*numOfUser / 10);
     }
         
-    private Integer keyNo(){
+    private Integer idNo(){
         count++;
-        if(count == NUMBER_OF_USER_AGENTS) count = 0;
+        if(count == numOfUser) count = 0;
         return count; 
     }
     
-    private Integer keyRandomNo(){
-        return rand.nextInt(0, NUMBER_OF_USER_AGENTS-1);
+    private Integer idRandomNo(){
+        return rand.nextInt(0, numOfUser-1);
     }
     
-    private Integer keyGaussRandomNo(){
+    private Integer idGaussRandomNo(){
         int key = (int)(rand.nextGaussian(mu, sigma));
         if(key < 0) key = 0;
-        else if(key >= NUMBER_OF_USER_AGENTS) key = NUMBER_OF_USER_AGENTS-1;
+        else if(key >= numOfUser) key = numOfUser-1;
         
         return key;
     }
 
     //Get Data userID = Call % NUMBER_USER_AGENTS
     public MessageObject getData(){
-        return new MessageObject(agentKeyList.get(keyNo()), AGENT_DEFAULT_VALUE);
+        return new MessageObject(userList.get(idNo()), value);
     }
     
     public MessageObject getPoison(){
-        return new MessageObject(agentKeyList.get(keyNo()), -1);
+        return new MessageObject(userList.get(idNo()), -1);
     }
     
 }

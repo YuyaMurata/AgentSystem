@@ -22,6 +22,6 @@ public class UpdateTest extends TestParameter{
         long stop = System.currentTimeMillis();
         System.out.println("Stop Agent System : "+stop);
         
-        System.out.println("N="+NUMBER_OF_USER_AGENTS+"R="+TIME_RUN+" time : "+(stop-start));
+        System.out.println("N="+NUMBER_OF_USER+"R="+TIME_RUN+" time : "+(stop-start));
     }
 }

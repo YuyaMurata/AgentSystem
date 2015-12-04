@@ -21,8 +21,8 @@ public class IDToMQN implements SetProperty{
         }
         
         private List<String> idList = new ArrayList<>();
-        public void setID(String id){
-            idList.add(id);
+        public void setID(String agID){
+            idList.add(agID);
         }
         
         private List<String> mqNameList = new ArrayList<>();
@@ -30,25 +30,30 @@ public class IDToMQN implements SetProperty{
             mqNameList.add(name);
         }
                
-	public int toMQN(AgentKey key){
+	public int toSID(AgentKey key){
             return keyList.indexOf(key);
 	}
         
-        public int toMQN(String id){
+        public String toMQN(AgentKey key){
+            return mqNameList.get(toSID(key));
+        }
+        
+        public int toSID(String id){
             if(id.contains("RMQ")) return mqNameList.indexOf(id);
+            else if(id.contains("U#")) return Math.abs(id.hashCode()) %  mqNameList.size();
             else return idList.indexOf(id);
 	}
         
-        public String toID(String name){
-            return idList.get(toMQN(name));
+        public String toAGID(String name){
+            return idList.get(toSID(name));
 	}
         
-        public String toID(AgentKey key){
-            return idList.get(toMQN(key));
+        public String toAGID(AgentKey key){
+            return idList.get(IDToMQN.this.toSID(key));
 	}
         
         public AgentKey toKey(String id){
-            return toKey(toMQN(id));
+            return toKey(toSID(id));
 	}
         
         public AgentKey toKey(int sid){

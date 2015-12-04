@@ -5,14 +5,13 @@
  */
 package rda.data;
 
-import rda.property.SetProperty;
 import rda.queue.obj.MessageObject;
 
 /**
  *
  * @author kaeru
  */
-public interface DataType extends SetProperty{
+public interface DataType{
     public abstract MessageObject nextData(Long time);
     public abstract String getName();
     

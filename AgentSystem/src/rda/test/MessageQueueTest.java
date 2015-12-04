@@ -33,7 +33,7 @@ public class MessageQueueTest extends TestParameter{
         }
         
         //WindowContoroler  Data End
-        mq.sendMessage(new MessageObject(msg.agentKey, -1));
+        mq.sendMessage(new MessageObject(msg.id, -1));
         
         mq.close();
         
@@ -47,7 +47,7 @@ public class MessageQueueTest extends TestParameter{
     static OutputData out;
     public static void main(String[] args) {
         //Create UserAgents
-        createUser(NUMBER_OF_USER_AGENTS);
+        createUser(NUMBER_OF_USER);
 
         //Update Agent
         long start = System.currentTimeMillis();
@@ -59,6 +59,6 @@ public class MessageQueueTest extends TestParameter{
         long stop = System.currentTimeMillis();
         System.out.println("Stop Agent System : "+stop);
         
-        System.out.println("N="+NUMBER_OF_USER_AGENTS+"D="+NUMBER_DATA+" time : "+(stop-start));
+        System.out.println("N="+NUMBER_OF_USER+"D="+NUMBER_DATA+" time : "+(stop-start));
     }
 }

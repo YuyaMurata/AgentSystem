@@ -3,16 +3,23 @@ package rda.data;
 import rda.queue.obj.MessageObject;
 
 public class MountData implements DataType{
-    private static Long count;
-    private final Data data;
     private final String name;
+    private final Data data;
 
-    public MountData() {
+    private static Long count;
+    
+    private Long time, period, volume;
+    
+    public MountData(long time, long period, long volume, int numberOfUser, int valueOfUser) {
         this.name = "MountType";
         this.data = new Data();
         
+        this.time = time;
+        this.period = period;
+        this.volume = volume;
+        
         //initialise
-        data.init();
+        data.init(numberOfUser, valueOfUser);
         count = -1L;
     }
     
@@ -23,8 +30,8 @@ public class MountData implements DataType{
     
     @Override
     public String toString(){
-        Long n = TIME_RUN * 1000 / TIME_PERIOD;
-        Long result = n * (n-1) / 2 * DATA_VOLUME;
+        Long n = time * 1000 / period;
+        Long result = n * (n-1) / 2 * volume;
         
         return name + " DataN_" + result;
     }
@@ -35,8 +42,8 @@ public class MountData implements DataType{
         
         MessageObject msg = data.getData();
         
-        if(count == (time * DATA_VOLUME)) msg = data.getPoison();
-        if(count > (time * DATA_VOLUME)) {
+        if(count == (time * volume)) msg = data.getPoison();
+        if(count > (time * volume)) {
             msg = null;
             count = -1L;
         }
