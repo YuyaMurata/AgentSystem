@@ -63,8 +63,9 @@ public class MessageQueueManager {
     
     public void decompose(String mqName){
         decompositionMap.put(id.toKey(mqName), 1);
-        if(create(id.toID(mqName)+"-"+decompositionMap.get(id.toKey(mqName))))
-            start(id.toMQN(mqName));
+        String agID = id.toID(mqName)+"-"+decompositionMap.get(id.toKey(mqName));
+        if(create(agID))
+            start(id.toMQN(agID));
     }
     
     public void startAll(){
