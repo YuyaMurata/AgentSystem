@@ -79,7 +79,8 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
             
             try {
                 agentKey = new AgentKey(AGENT_TYPE,new Object[]{userID});
-                id.setKey(userID, agentKey);
+                id.setKey(agentKey);
+                id.setID(userID);
                 
                 prof = profileGen.getProf(userID);
                 

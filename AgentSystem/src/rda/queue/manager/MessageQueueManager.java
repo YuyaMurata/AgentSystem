@@ -36,14 +36,15 @@ public class MessageQueueManager {
     }
     
     private void create(String sid){
-        String regID = "U#00"+sid;
-        
         //Agent (and Register ID)
+        String regID = "U#00"+sid;
         CreateUserAgent agent = new CreateUserAgent();
         agent.create(regID);
         
         //MessageQueue
-        setMessageQueue(new ReciveMessageQueue("RMQ"+id.toMQN(regID)));
+        String mqName = "RMQ"+id.toMQN(regID);
+        setMessageQueue(new ReciveMessageQueue(mqName));
+        id.setMQName(mqName);
         
         //Init Decomposition
         decompositionMap.put(id.toKey(regID), 0);
@@ -58,9 +59,11 @@ public class MessageQueueManager {
         return messageQueue.get(sid);
     }
     
-    public void decompose(AgentKey key){
-        decompositionMap.put(key, 1);
-        create("-"+decompositionMap.get(key));
+    public void decompose(String mqName){
+        decompositionMap.put(id.toKey(mqName), 1);
+        create("-"+decompositionMap.get(id.toKey(mqName)));
+        
+        start(id.toMQN(mqName));
     }
     
     public void startAll(){
