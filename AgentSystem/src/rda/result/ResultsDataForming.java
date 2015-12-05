@@ -5,6 +5,7 @@
  */
 package rda.result;
 
+import com.ibm.ws.xs.jdk5.java.util.Arrays;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import java.io.File;
@@ -16,8 +17,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import rda.data.SetDataType;
@@ -40,17 +42,14 @@ public class ResultsDataForming implements SetProperty, SetDataType{
 
         System.out.println(path+createCSVFileName());
         
-        try (CSVWriter csvSummary = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+createCSVFileName()+"-Summary.csv")))) {
-            //csvTitle(map, csvSummary);
-            //csvTransactionData(map, csvSummary);
-            csvWriteSummary(map, csvSummary);
-            
+        try (CSVWriter csvSummary = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+"Summary-"+createCSVFileName()+".csv")))) {
+            csvWriteSummary(map, csvSummary);           
             csvSummary.flush();
         }
         
-        try (CSVWriter csvSystem = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+createCSVFileName()+"-SystemLog.csv")))) {
-            csvMQLength(map, csvSystem);
-            
+        try (CSVWriter csvSystem = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+"System-"+createCSVFileName()+".csv")))) {
+            //csvMQLength(map, csvSystem);
+            csvWriteMQandCPU(map, csvSystem);
             csvSystem.flush();
         }
     }
@@ -94,6 +93,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         return fileName;
     }
     
+    //Results (title, field, data ,result) -> CSV Summary
     public static void csvWriteSummary(HashMap<String, File> map, CSVWriter csv) 
                 throws UnsupportedEncodingException, FileNotFoundException, IOException{
         try (CSVReader csvResultsReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_RESULTS)), "UTF-8"))) {
@@ -107,103 +107,132 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                 if(line.length < 1) continue;
                 switch(line[1].replace(" ", "")){
                     case "title":
-                        line[0] = ""; line[1]=" ";
+                        line[0] = "\0"; line[1]=" ";
                         titleList.add(String.join(",", line));
                         break;
                     case "result":
-                        line[0] = ""; line[1]=" ";
+                        line[0] = "\0"; line[1]=" ";
                         resultsList.add(String.join(",", line));
                         break;
                     case "field":
-                        line[0] = ""; line[1]=" ";
+                        line[0] = "\0"; line[1]=" ";
                         fieldsList.add(String.join(",", line));
                         break;
                     case "data":
-                        line[0] = ""; line[1]=" ";
+                        line[0] = "\0"; line[1]=" ";
                         dataList.add(String.join(",", line));
                         break; 
                 }
             }
             
-            for(String title  : titleList)   csv.writeNext(new String[]{title});
-            for(String result : resultsList) csv.writeNext(new String[]{result});
-            for(String field  : fieldsList)  csv.writeNext(new String[]{field});
-            for(String data   : dataList)    csv.writeNext(new String[]{data});
+            for(String title  : titleList)   csv.writeNext(title.split(","));
+            for(String result : resultsList) csv.writeNext(result.split(","));
+            for(String field  : fieldsList)  csv.writeNext(field.split(","));
+            for(String data   : dataList)    csv.writeNext(data.split(","));
+            
+            //Prepared csvWriteMQandCPU
+            fields = Arrays.asList(fieldsList.get(0).split(","));
+            fields.remove(0); fields.remove(0);
         }
     }
     
-    // Marker init, end -> CSV Write
-    public static void csvTitle(HashMap<String, File> map, CSVWriter csv) 
-                    throws UnsupportedEncodingException, FileNotFoundException, IOException{
-        try (CSVReader csvMQLReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8"))) {
-            Boolean titleSetFlg = true;
+    private static List<String> fields = new ArrayList<>();
+    public static void csvWriteMQandCPU(HashMap<String, File> map, CSVWriter csv)
+            throws FileNotFoundException, UnsupportedEncodingException, IOException, ParseException{
+        try (   CSVReader csvMQLReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8"));
+                CSVReader csvMQEReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQE)), "UTF-8")); 
+                CSVReader csvCPUReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_CPU)), "UTF-8"))) {
+            List<String> timeList = new ArrayList<>();
+            List<String> dataMQLList = new ArrayList<>();
+            List<String> dataMQEList = new ArrayList<>();
+            List<String> dataCPUList = new ArrayList<>();
+            List<String> agentList = new ArrayList<>();
             
-            
-            
-            String[] strArr;
-            while((strArr =csvMQLReader.readNext()) != null)
-                if(strArr.length > 1)
-                    if(strArr[1].contains("init")){
-                        if(titleSetFlg) {
-                            titleSetFlg = false;
-                            csv.writeNext(new String[]{"<Settings Parameter>"});
-                        }
-                        System.out.println(strArr[0] +" " + strArr[2]);
-                        
-                        strArr[0] = "";
-                        csv.writeNext(new String[]{"", strArr[2]});
-                    } else if(strArr[1].contains("end")){
-                        if(!titleSetFlg) {
-                            titleSetFlg = true;
-                            csv.writeNext(new String[]{"Results Transaction Time"});
-                        }
-                        System.out.println(strArr[0] +" " + strArr[2]);
-                        
-                        strArr[0] = "";
-                        csv.writeNext(new String[]{"", strArr[2]});
-                    }
-            
-            csv.writeNext(new String[]{""});
-        }
-    }
-    
-    //Result Marker data -> CSV Write
-    public static void csvTransactionData(HashMap<String, File> map, CSVWriter csv) 
-                    throws FileNotFoundException, UnsupportedEncodingException, IOException{
-        try (CSVReader csvResultsReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_RESULTS)), "UTF-8"))) {
-            List<String[]> list = csvResultsReader.readAll();
-            
-            //Error Check
-            if(list.isEmpty()){
-                System.out.println("System Results Log does not exist.");
-                return ;
+            Integer numOfAgents = 0;
+            String[] line;
+            while((line =csvMQLReader.readNext()) != null){
+                if(line.length < 1) continue;
+                switch(line[1].replace(" ", "")){
+                    case "field":
+                        numOfAgents = line.length - 3;
+                        break;
+                    case "data":
+                        timeList.add(line[0]);
+                        line[0] = "\0"; line[1] = "\0";
+                        dataMQLList.add(String.join(",", line));
+                        break;
+                }
+                agentList.add(numOfAgents.toString());
             }
             
-            for(String[] strArr : list)
-                if(strArr.length > 2)
-                    if(strArr[1].contains("data") && strArr[2].contains("Time"))
-                        csv.writeNext(new String[]{"Transaction Time", strArr[3],"[ms]"});
-                        
-            csv.writeNext(new String[]{""});
-            
-            List<String> total = new ArrayList<>(Arrays.asList("Total"));
-            
-            for(String[] strArr : list){
-                if(strArr.length > 3){
-                    if(strArr[1].contains("data") && !strArr[2].contains("Time")){
-                        String[] strArrSub = new String[strArr.length - 3];
-                        System.arraycopy(strArr, 2, strArrSub, 0, strArrSub.length);
-                        
-                        total.add(strArr[strArr.length-1]);
-                        
-                        csv.writeNext(strArrSub);
+            int nextime = 0;
+            HashMap<String, Integer> eventMap = new HashMap<>();
+            while((line =csvMQEReader.readNext()) != null){
+                if(line.length < 1) continue;
+                if(line[1].contains("data")){
+                    if(checkTime(timeList.get(nextime), line[0])) {
+                        String list = "";
+                        for(String f : fields)
+                            if(eventMap.get(f) != null) list = list + eventMap.get(f)+",";
+                            else list = list + "0,";
+                        dataMQEList.add(list);
+                        nextime++;
+                        eventMap = new HashMap<>();
                     }
+                    if(eventMap.get(line[3]) == null) eventMap.put(line[3], 0);
+                    eventMap.put(line[3], eventMap.get(line[3])+1);
                 }
             }
-                        
-            csv.writeNext(new String[]{""});
-            csv.writeNext(total.toArray(new String[total.size()]));
-        }
+            
+            nextime = 0;
+            while((line =csvCPUReader.readNext()) != null){
+                if(line.length < 1 || timeList.get(nextime) == null) continue;
+                if(checkTime(timeList.get(nextime), line[0])) {
+                    dataCPUList.add(line[1]+","+line[2]);
+                    nextime++;
+                }
+            }
+            
+            //List -> CSV
+            List<String> csvList = new ArrayList<>();
+            csvList.add("Time"); 
+            csvList.add("CPU:us"); csvList.add("CPU:sy");
+            csvList.add("Numeber Of Agents");
+            for(String f : fields) csvList.add(f+" Length");
+            for(String f : fields) csvList.add(f+" Event");
+            csv.writeNext(csvList.toArray(new String[csvList.size()]));
+            
+            for(int i = 0; i < timeList.size(); i++){
+                csvList = new ArrayList<>();
+                
+                //Time
+                csvList.add(timeList.get(i));
+                
+                //CPU
+                for(String cpu : dataCPUList.get(i).split(","))
+                    csvList.add(cpu);
+                csvList.add(agentList.get(i));
+                
+                //MQLength
+                for(String len : dataMQLList.get(i).split(","))
+                    if(len.length() > 0) csvList.add(len);
+                
+                //MQEvent
+                for(String event : dataMQEList.get(i).split(","))
+                    if(event.length() > 0) csvList.add(event);
+                
+                csv.writeNext(csvList.toArray(new String[csvList.size()]));
+            }                
+        }    
+    }
+    
+    // MQL time >= MQE,CPU time "False" MQL time < MQE,CPU time "True"
+    public static Boolean checkTime(String time, String anothertime) throws ParseException{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date time1 = sdf.parse(time);
+        Date time2 = sdf.parse(anothertime);
+        
+        return time1.compareTo(time2) < 0;
     }
     
     //MQL & CPU Marker data -> CSV Write
