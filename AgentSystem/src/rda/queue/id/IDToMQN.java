@@ -60,6 +60,20 @@ public class IDToMQN implements SetProperty{
             return keyList.get(sid);
         }
         
+        public String toString(){
+            StringBuilder sb = new StringBuilder();
+            sb.append(" --- Information ---\n");
+            sb.append("List Size : "+mqNameList.size()+", "+idList.size()+", "+keyList.size());
+            sb.append("\n --- MessageQueue List ---\n");
+            sb.append(mqNameList);
+            sb.append("\n --- AgentID List ---\n");
+            sb.append(idList);
+            sb.append("\n --- AgentKey List ---\n");
+            sb.append(keyList);
+            
+            return sb.toString();
+        }
+        
         /* hash (- -> +) confilict
         public int toMQN(AgentKey key){
             return Math.abs(key.hashCode()) % NUMBER_OF_QUEUE;
