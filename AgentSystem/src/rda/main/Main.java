@@ -131,10 +131,10 @@ public class Main implements SetProperty, SetDataType{
     private static void stop_debug(){
         logger.print(mainMarker, "Stop Agent System", null);       
         logger.printResults(logger.resultMarker, 
-                "<ALL> TransactionTime:_{} [ms]", 
+                "<ALL TransactionTime>_{} [ms]", 
                 new Object[]{stop - initStart});
         logger.printResults(logger.resultMarker, 
-                "(<Initialize> _{} [ms] <Create> _{} [ms] <Main> _{}[ms])", 
+                "(<Initialize>_{} [ms] <Create>_{} [ms] <Main>_{}[ms])", 
                 new Object[]{createStart - initStart, start - createStart, stop - start});
         
         IDToMQN id = IDToMQN.getInstance();

@@ -38,7 +38,7 @@ public class ReadTest implements SetProperty{
             //Output
             logger.printResults(logger.fieldMarker, "ID"+sb.toString(), name.toArray(new String[name.size()]));
             logger.printResults(logger.dataMarker, "Transaction"+sb.toString(), data.toArray(new Long[data.size()]));
-            logger.printResults(logger.dataMarker, "Connection"+sb.toString()+",{}", count.toArray(new Long[count.size()]));
+            logger.printResults(logger.dataMarker, "Connection"+sb.toString(), count.toArray(new Long[count.size()]));
             logger.printResults(logger.dataMarker, "Total,{},{}", new Object[]{total, countTotal});
 	}
 }

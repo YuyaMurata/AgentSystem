@@ -41,8 +41,9 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         System.out.println(path+createCSVFileName());
         
         try (CSVWriter csvSummary = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+createCSVFileName()+"-Summary.csv")))) {
-            csvTitle(map, csvSummary);
-            csvTransactionData(map, csvSummary);
+            //csvTitle(map, csvSummary);
+            //csvTransactionData(map, csvSummary);
+            csvWriteSummary(map, csvSummary);
             
             csvSummary.flush();
         }
@@ -93,11 +94,51 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         return fileName;
     }
     
+    public static void csvWriteSummary(HashMap<String, File> map, CSVWriter csv) 
+                throws UnsupportedEncodingException, FileNotFoundException, IOException{
+        try (CSVReader csvResultsReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_RESULTS)), "UTF-8"))) {
+            List<String> titleList = new ArrayList<String>(){{add("<Setting Parameter>");}};
+            List<String> resultsList = new ArrayList<String>(){{add("<Results>");}};
+            List<String> fieldsList = new ArrayList<String>(){{add("<Fields>");}};
+            List<String> dataList = new ArrayList<String>(){{add("<Data>");}};
+            
+            String[] line;
+            while((line =csvResultsReader.readNext()) != null){
+                if(line.length < 1) continue;
+                switch(line[1]){
+                    case "title":
+                        line[0] = ""; line[1]="";
+                        titleList.add(String.join("", line));
+                        break;
+                    case "result":
+                        line[0] = ""; line[1]="";
+                        titleList.add(String.join("", line));
+                        break;
+                    case "field":
+                        line[0] = ""; line[1]="";
+                        titleList.add(String.join("", line));
+                        break;
+                    case "data":
+                        line[0] = ""; line[1]="";
+                        titleList.add(String.join("", line));
+                        break; 
+                }
+            }
+            
+            for(String title  : titleList)   csv.writeNext(new String[]{title});
+            for(String result : resultsList) csv.writeNext(new String[]{result});
+            for(String field  : fieldsList)  csv.writeNext(new String[]{field});
+            for(String data   : dataList)    csv.writeNext(new String[]{data});
+        }
+    }
+    
     // Marker init, end -> CSV Write
     public static void csvTitle(HashMap<String, File> map, CSVWriter csv) 
                     throws UnsupportedEncodingException, FileNotFoundException, IOException{
         try (CSVReader csvMQLReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8"))) {
             Boolean titleSetFlg = true;
+            
+            
             
             String[] strArr;
             while((strArr =csvMQLReader.readNext()) != null)
@@ -105,7 +146,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                     if(strArr[1].contains("init")){
                         if(titleSetFlg) {
                             titleSetFlg = false;
-                            csv.writeNext(new String[]{"Settings Parameter"});
+                            csv.writeNext(new String[]{"<Settings Parameter>"});
                         }
                         System.out.println(strArr[0] +" " + strArr[2]);
                         
