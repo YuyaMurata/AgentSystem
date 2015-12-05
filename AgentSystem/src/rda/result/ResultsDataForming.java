@@ -105,7 +105,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             String[] line;
             while((line =csvResultsReader.readNext()) != null){
                 if(line.length < 1) continue;
-                switch(line[1]){
+                switch(line[1].replace(" ", "")){
                     case "title":
                         line[0] = ""; line[1]="";
                         titleList.add(String.join("", line));
