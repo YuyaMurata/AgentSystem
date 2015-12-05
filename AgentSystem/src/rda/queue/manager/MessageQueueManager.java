@@ -34,7 +34,7 @@ public class MessageQueueManager {
     
     public void initMessageQueue(Integer n){
         for(int i=0; i < n; i++)
-            create("R#00"+i);
+            create("R#"+i);
     }
     
     private Boolean create(String agID){
