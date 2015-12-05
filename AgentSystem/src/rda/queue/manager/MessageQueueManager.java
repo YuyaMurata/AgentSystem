@@ -63,7 +63,7 @@ public class MessageQueueManager {
         return messageQueue.get(sid);
     }
     
-    public void decompose(String mqName){
+    public synchronized void decompose(String mqName){
         if(limit()) return ;
         
         decompositionMap.put(id.toKey(mqName), 1);

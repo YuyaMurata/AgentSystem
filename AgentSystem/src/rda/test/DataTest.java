@@ -7,7 +7,6 @@ package rda.test;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import static rda.data.SetDataType.DATA_TYPE;
 import rda.queue.obj.MessageObject;
 
 /**
