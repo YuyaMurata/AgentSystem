@@ -63,13 +63,18 @@ public class MessageQueueManager {
         return messageQueue.get(sid);
     }
     
-    public synchronized void decompose(String mqName){
-        if(limit()) return ;
+    public void decompose(String mqName){
+        if(limit()) {
+            System.err.println("Decompose Limit Error !");
+            return ;
+        }
         
         decompositionMap.put(id.toKey(mqName), 1);
         String agID = id.toAGID(mqName)+"-"+decompositionMap.get(id.toKey(mqName));
-        if(create(agID))
+        if(create(agID)){
             start(id.toSID(agID));
+            System.out.println(id.toString());
+        }
     }
     
     public void startAll(){
