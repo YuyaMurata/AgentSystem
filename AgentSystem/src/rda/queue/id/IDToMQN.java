@@ -74,6 +74,22 @@ public class IDToMQN implements SetProperty{
             return sb.toString();
         }
         
+        public String getMQNameList(){
+            StringBuilder sb = new StringBuilder();
+            for(String name : mqNameList)
+                sb.append("," + name);
+            
+            return sb.toString();
+        }
+        
+        public String getAGIDList(){
+            StringBuilder sb = new StringBuilder();
+            for(String id : idList)
+                sb.append("," + id);
+            
+            return sb.toString();
+        }
+        
         /* hash (- -> +) confilict
         public int toMQN(AgentKey key){
             return Math.abs(key.hashCode()) % NUMBER_OF_QUEUE;

@@ -11,6 +11,7 @@ import rda.data.SetDataType;
 import rda.log.AgentLogSchedule;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
+import rda.queue.id.IDToMQN;
 import rda.queue.manager.MessageQueueManager;
 import rda.queue.timer.MessageQueueTimer;
 import rda.window.WindowController;
@@ -106,42 +107,40 @@ public class Main implements SetProperty, SetDataType{
     }
     
     // DEBUG SYSTEM OUT
-    private static final Marker initMarker = MarkerFactory.getMarker("init");
     private static void init_debug(){
-        logger.printAgentSystemSettings(initMarker,
+        logger.printResults(logger.titleMarker,
                 "ExecTime_{} [sec] DataPeriod_{} [ms] DataType_{}",
                 new Object[]{TIME_RUN, TIME_PERIOD, DATA_TYPE.toString()});
-        logger.printAgentSystemSettings(initMarker, 
+        logger.printResults(logger.titleMarker, 
                 "Server: N_{} Host_{}", 
                 new Object[]{NUMBER_OF_SERVER, HOST_ADDRESS.toString()});
-        logger.printAgentSystemSettings(initMarker, 
+        logger.printResults(logger.titleMarker, 
                 "UserN_{} AgentN_{} Wait[ms]: Agent_{}", 
                 new Object[]{NUMBER_OF_USER_AGENTS, NUMBER_OF_RANK_AGENTS, AGENT_WAIT});      
-        logger.printAgentSystemSettings(initMarker, 
+        logger.printResults(logger.titleMarker, 
                 "MsgQueueN_{} MaxMQLength_{} WindowSize_{} Wait[ms]: Queue_{} ", 
                 new Object[]{NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, QUEUE_WAIT});
     }
     
-    private static final Marker startMarker = MarkerFactory.getMarker("start");
-    private static final Marker fieldMarker = MarkerFactory.getMarker("field");
     private static void start_debug(){
-        logger.printAgentSystemSettings(startMarker, "Start Agent System", null);
+        logger.print(mainMarker, "Start Agent System", null);
         
-        logger.printMQEvent(fieldMarker, "MQ LimitEvent, MQName, EventMessage", null);
+        logger.printMQEvent(logger.fieldMarker, "MQ LimitEvent, MQName, EventMessage", null);
     }
-    
-    private static final Marker stopMarker = MarkerFactory.getMarker("stop");
-    private static final Marker dataMarker = MarkerFactory.getMarker("data");
-    private static final Marker endMarker = MarkerFactory.getMarker("end");
+
     private static void stop_debug(){
-        logger.printAgentSystemSettings(stopMarker, "Stop Agent System", null);       
-        logger.printAgentSystemSettings(initMarker, 
+        logger.print(mainMarker, "Stop Agent System", null);       
+        logger.printResults(logger.resultMarker, 
                 "<ALL> TransactionTime:_{} [ms]", 
                 new Object[]{stop - initStart});
-        logger.printAgentSystemSettings(endMarker, 
-                "(<Initialize> _{} [ms] <CreateAgent> _{} [ms] <MainExec> _{}[ms])", 
+        logger.printResults(logger.resultMarker, 
+                "(<Initialize> _{} [ms] <Create> _{} [ms] <Main> _{}[ms])", 
                 new Object[]{createStart - initStart, start - createStart, stop - start});
         
-        logger.printResults(dataMarker, "Time,{}", new Object[]{stop - start});
+        IDToMQN id = IDToMQN.getInstance();
+        logger.printResults(logger.fieldMarker, "Field{}",new Object[]{id.getMQNameList()});
+        logger.printResults(logger.fieldMarker, "Field{}",new Object[]{id.getAGIDList()});
+        
+        logger.printResults(logger.dataMarker, "Time,{}", new Object[]{stop - start});
     }
 }

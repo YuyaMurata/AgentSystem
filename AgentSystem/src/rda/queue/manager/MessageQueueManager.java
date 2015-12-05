@@ -95,8 +95,7 @@ public class MessageQueueManager {
     }
     
     private Boolean limit(){
-        if(messageQueue.size() > 1000) return true;
-        return false;
+        return messageQueue.size() > 1000;
     }
     
     public void stopAll(){

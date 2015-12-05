@@ -2,17 +2,13 @@ package rda.test;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.slf4j.Marker;
-import org.slf4j.MarkerFactory;
 import rda.agent.user.UserInfo;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
 import rda.result.ReadALLAgents;
 
 public class ReadTest implements SetProperty{
-    
-    private static final Marker dataMarker = MarkerFactory.getMarker("data");
-    private static final Marker fieldMarker = MarkerFactory.getMarker("field");
+
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
 	
 	public static void main(String[] args) {
@@ -38,13 +34,11 @@ public class ReadTest implements SetProperty{
                 count.add(result.getCount());
                 countTotal = countTotal + result.getCount();
             }
-            name.add("Total");
-            data.add(total);
-            count.add(countTotal);
             
             //Output
-            logger.printResults(fieldMarker, "UserID"+sb.toString()+",{}", name.toArray(new String[name.size()]));
-            logger.printResults(dataMarker, "Transaction"+sb.toString()+",{}", data.toArray(new Long[data.size()]));
-            logger.printResults(dataMarker, "ConnectionCount"+sb.toString()+",{}", count.toArray(new Long[count.size()]));
+            logger.printResults(logger.fieldMarker, "ID"+sb.toString(), name.toArray(new String[name.size()]));
+            logger.printResults(logger.dataMarker, "Transaction"+sb.toString(), data.toArray(new Long[data.size()]));
+            logger.printResults(logger.dataMarker, "Connection"+sb.toString()+",{}", count.toArray(new Long[count.size()]));
+            logger.printResults(logger.dataMarker, "Total,{},{}", new Object[]{total, countTotal});
 	}
 }

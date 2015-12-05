@@ -8,6 +8,7 @@ package rda.log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 
 /**
  *
@@ -23,6 +24,11 @@ public class AgentSystemLogger {
     private static final Logger logger = LoggerFactory.getLogger(AgentSystemLogger.class);
     private static final AgentSystemLogger agentSystemLogger = new AgentSystemLogger();
     
+    public Marker titleMarker = MarkerFactory.getMarker("title");
+    public Marker resultMarker = MarkerFactory.getMarker("result");
+    public Marker fieldMarker = MarkerFactory.getMarker("field");
+    public Marker dataMarker = MarkerFactory.getMarker("data");
+    
     private AgentSystemLogger() {
     }
     
@@ -35,12 +41,6 @@ public class AgentSystemLogger {
         logger.info(marker, str, arr);
     }
     
-    public void printAgentSystemSettings(Marker marker, String str, Object[] arr){
-        printMQEvent(marker, str, arr);
-        printMQLFile(marker, str, arr);
-        printResults(marker, str, arr);
-    }
-    
     public void printMQEvent(Marker marker, String str, Object[] arr){
         //File Out
         logger.trace(marker, str, arr);
@@ -49,7 +49,7 @@ public class AgentSystemLogger {
         //print(marker, str, arr); 
     }
     
-    public void printMQLFile(Marker marker, String str, Object[] arr){
+    public void printMQLength(Marker marker, String str, Object[] arr){
         //File Out
         logger.debug(marker, str, arr);
     }
