@@ -107,20 +107,20 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                 if(line.length < 1) continue;
                 switch(line[1].replace(" ", "")){
                     case "title":
-                        line[0] = ""; line[1]="";
-                        titleList.add(String.join("", line));
+                        line[0] = ""; line[1]=" ";
+                        titleList.add(String.join(",", line));
                         break;
                     case "result":
-                        line[0] = ""; line[1]="";
-                        titleList.add(String.join("", line));
+                        line[0] = ""; line[1]=" ";
+                        titleList.add(String.join(",", line));
                         break;
                     case "field":
-                        line[0] = ""; line[1]="";
-                        titleList.add(String.join("", line));
+                        line[0] = ""; line[1]=" ";
+                        titleList.add(String.join(",", line));
                         break;
                     case "data":
-                        line[0] = ""; line[1]="";
-                        titleList.add(String.join("", line));
+                        line[0] = ""; line[1]=" ";
+                        titleList.add(String.join(",", line));
                         break; 
                 }
             }
