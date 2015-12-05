@@ -5,6 +5,7 @@
  */
 package rda.queue.manager;
 
+import java.text.DecimalFormat;
 import rda.queue.id.IDToMQN;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,8 +34,13 @@ public class MessageQueueManager {
     }
     
     public void initMessageQueue(Integer n){
+        String digit = "";
+        for(int i=0; i < n.toString().length(); i++)
+            digit = digit + "0";
+        
+        DecimalFormat dformat = new DecimalFormat(digit);
         for(int i=0; i < n; i++)
-            create("R#"+i);
+            create("R#"+dformat.format(i));
     }
     
     private Boolean create(String agID){
