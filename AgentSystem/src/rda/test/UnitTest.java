@@ -18,7 +18,7 @@ public class UnitTest {
     }
     
     private void createTest(){
-        String userID = "U#000-1-2-3-4-5-6-7-8-9";
+        String userID = "U#000-1-2-3-4-5";
         new CreateAgentTest().createAgent(userID);
     }
     
