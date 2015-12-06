@@ -42,12 +42,12 @@ public class ResultsDataForming implements SetProperty, SetDataType{
 
         System.out.println(path+createCSVFileName());
         
-        try (CSVWriter csvSummary = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+"Summary-"+createCSVFileName()+".csv")))) {
+        try (CSVWriter csvSummary = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+"/Summary-"+createCSVFileName()+".csv")))) {
             csvWriteSummary(map, csvSummary);           
             csvSummary.flush();
         }
         
-        try (CSVWriter csvSystem = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+"System-"+createCSVFileName()+".csv")))) {
+        try (CSVWriter csvSystem = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+"/System-"+createCSVFileName()+".csv")))) {
             //csvMQLength(map, csvSystem);
             csvWriteMQandCPU(map, csvSystem);
             csvSystem.flush();
@@ -76,7 +76,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
     }
     
     public static final String createCSVFileName() {
-        String fileName = "/"+LOG_ALL;
+        String fileName = LOG_ALL;
         fileName = fileName +"_para["
                 + TIME_RUN + "s," 
                 + TIME_PERIOD + "ms,"
