@@ -5,7 +5,6 @@
  */
 package rda.result;
 
-import com.ibm.ws.xs.jdk5.java.util.Arrays;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import java.io.File;
@@ -107,20 +106,20 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                 if(line.length < 1) continue;
                 switch(line[1].replace(" ", "")){
                     case "title":
-                        line[0] = "\0"; line[1]=" ";
-                        titleList.add(String.join(",", line));
+                        line[0] = ""; line[1]="";
+                        titleList.add(String.join(",", line).substring(1));
                         break;
                     case "result":
-                        line[0] = "\0"; line[1]=" ";
-                        resultsList.add(String.join(",", line));
+                        line[0] = ""; line[1]="";
+                        resultsList.add(String.join(",", line).substring(1));
                         break;
                     case "field":
-                        line[0] = "\0"; line[1]=" ";
-                        fieldsList.add(String.join(",", line));
+                        line[0] = ""; line[1]="";
+                        fieldsList.add(String.join(",", line).substring(1));
                         break;
                     case "data":
-                        line[0] = "\0"; line[1]=" ";
-                        dataList.add(String.join(",", line));
+                        line[0] = ""; line[1]="";
+                        dataList.add(String.join(",", line).substring(1));
                         break; 
                 }
             }
@@ -131,8 +130,8 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             for(String data   : dataList)    csv.writeNext(data.split(","));
             
             //Prepared csvWriteMQandCPU
-            fields = Arrays.asList(fieldsList.get(0).split(","));
-            fields.remove(0); fields.remove(0);
+            for(String f : fieldsList.get(1).split(","))
+                if(f.contains("RMQ")) fields.add(f);
         }
     }
     
@@ -148,6 +147,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             List<String> dataCPUList = new ArrayList<>();
             List<String> agentList = new ArrayList<>();
             
+            //Info_MQLength.csv
             Integer numOfAgents = 0;
             String[] line;
             while((line =csvMQLReader.readNext()) != null){
@@ -158,40 +158,57 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                         break;
                     case "data":
                         timeList.add(line[0]);
-                        line[0] = "\0"; line[1] = "\0";
-                        dataMQLList.add(String.join(",", line));
+                        line[0] = ""; line[1] = ""; line[2] = "";
+                        dataMQLList.add(String.join(",", line).substring(3));
                         break;
                 }
                 agentList.add(numOfAgents.toString());
             }
             
-            int nextime = 0;
-            HashMap<String, Integer> eventMap = new HashMap<>();
+            //Info_MQEvent.csv
+            HashMap<String, HashMap<String, Integer>> eventMap = new HashMap<>();
+            Integer digit = TIME_PERIOD.toString().length();
             while((line =csvMQEReader.readNext()) != null){
                 if(line.length < 1) continue;
-                if(line[1].contains("data")){
-                    if(checkTime(timeList.get(nextime), line[0])) {
-                        String list = "";
-                        for(String f : fields)
-                            if(eventMap.get(f) != null) list = list + eventMap.get(f)+",";
-                            else list = list + "0,";
-                        dataMQEList.add(list);
-                        nextime++;
-                        eventMap = new HashMap<>();
-                    }
-                    if(eventMap.get(line[3]) == null) eventMap.put(line[3], 0);
-                    eventMap.put(line[3], eventMap.get(line[3])+1);
+                if(line[1].contains("field")) continue;
+                String subLine = line[0].substring(0, line[0].length()-digit);
+                if(eventMap.get(subLine) == null)
+                    eventMap.put(subLine, new HashMap<String, Integer>());
+                if(eventMap.get(subLine) != null){
+                    HashMap<String, Integer> mqMap = eventMap.get(subLine);
+                    if(mqMap.get(line[3]) != null)
+                        mqMap.put(line[3], mqMap.get(line[3])+1);
+                    else
+                        mqMap.put(line[3], 1);
                 }
             }
             
-            nextime = 0;
+            for(String time : timeList){
+                String event = "";
+                if(eventMap.get(time.substring(0, time.length()-digit)) != null){
+                    HashMap mqMap = eventMap.get(time.substring(0, time.length()-digit));
+                    for(String f : fields)
+                        if(mqMap.get(f) != null)
+                            event = event+","+mqMap.get(f);
+                        else event = event+",0";
+                } else 
+                    for(String f : fields) event = event+",0";
+                dataMQEList.add(event.substring(1));
+            }
+            
+            //CPU (vmstat.csv)
+            int nextime = 0;
             while((line =csvCPUReader.readNext()) != null){
-                if(line.length < 1 || timeList.get(nextime) == null) continue;
+                if(line.length < 1 || timeList.size() == nextime) continue;
                 if(checkTime(timeList.get(nextime), line[0])) {
                     dataCPUList.add(line[1]+","+line[2]);
                     nextime++;
                 }
             }
+            
+            System.out.println("MQL:"+dataMQLList.size());
+            System.out.println("MQE:"+dataMQEList.size());
+            System.out.println("CPU:"+dataCPUList.size());
             
             //List -> CSV
             List<String> csvList = new ArrayList<>();
@@ -216,6 +233,8 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                 //MQLength
                 for(String len : dataMQLList.get(i).split(","))
                     if(len.length() > 0) csvList.add(len);
+                for(int j = 0; j < fields.size() - dataMQLList.get(i).split(",").length; j++)
+                    csvList.add("0");
                 
                 //MQEvent
                 for(String event : dataMQEList.get(i).split(","))
