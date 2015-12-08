@@ -234,7 +234,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             int nextime = 0;
             while((line =csvCPUReader.readNext()) != null){
                 if(line.length < 1 || timeList.size() == nextime) continue;
-                if(line[0].substring(0, line[0].length()-digit).contains(timeList.get(nextime))) {
+                if(line[0].contains(timeList.get(nextime))) {
                     dataCPUList.add(line[1]+","+line[2]);
                     nextime++;
                 }
