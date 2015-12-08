@@ -18,7 +18,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -234,7 +236,8 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             int nextime = 0;
             while((line =csvCPUReader.readNext()) != null){
                 if(line.length < 1 || timeList.size() == nextime) continue;
-                if(line[0].contains(timeList.get(nextime))) {
+                String time = line[0].substring(0, line[0].length()-digit);
+                if(time.compareTo(timeList.get(nextime)) >= 0){
                     dataCPUList.add(line[1]+","+line[2]);
                     nextime++;
                 }
@@ -330,5 +333,13 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             for(String[] agent : agentTreeList)
                 csv.writeNext(agent);
         }
+    }
+
+    public Boolean checkTime(String cputime, String time) throws ParseException{
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+        Date time1 = sdf.parse(time);
+        Date time2 = sdf.parse(cputime);
+        
+        return time1.compareTo(time2) < 0;
     }
 }
