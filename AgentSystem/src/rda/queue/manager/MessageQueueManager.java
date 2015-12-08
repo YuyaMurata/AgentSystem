@@ -10,7 +10,6 @@ import rda.queue.id.IDToMQN;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import rda.agent.user.CreateUserAgent;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
@@ -26,9 +25,7 @@ public class MessageQueueManager {
     private MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     
     private HashMap<Object, Integer> decompositionMap = new HashMap<>();
-    
-    private Random rand = new Random();
-    
+
     public static MessageQueueManager getInstance(){
         return manager;
     }
@@ -46,6 +43,7 @@ public class MessageQueueManager {
     private Boolean create(String agID){
         //Agent (and Register ID)
         if(id.toSID(agID) > -1) return false;
+        
         CreateUserAgent agent = new CreateUserAgent();
         agent.create(agID);
         

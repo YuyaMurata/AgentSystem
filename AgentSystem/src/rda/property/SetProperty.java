@@ -66,6 +66,7 @@ public interface SetProperty {
         public static final String LOG_MQE = prop.getValue("log", "file.event");
         public static final String LOG_CPU = prop.getValue("log", "file.cpu");
         public static final String LOG_RESULTS = prop.getValue("log", "file.results");
+        public static final String LOG_AGTREE = prop.getValue("log", "file.agtree");
         public static final String LOG_ALL = prop.getValue("log", "file.all");
         
 }

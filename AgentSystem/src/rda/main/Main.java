@@ -38,13 +38,11 @@ public class Main implements SetProperty, SetDataType{
                 TIME_PERIOD ); 
     }
 
-    private static void createUser(int numOfAgents){
+    private static void create(int numOfAgents){
         //TIme
         createStart = System.currentTimeMillis();
         
-        //CreateAgent agent = new CreateAgent();
-        //agent.create("U#00", numOfAgents);
-        
+        //Start Manager
         MessageQueueManager manager = MessageQueueManager.getInstance();
         manager.initMessageQueue(numOfAgents);
         manager.startAll();
@@ -56,7 +54,7 @@ public class Main implements SetProperty, SetDataType{
         init();
 
         //Agentの生成
-        createUser(NUMBER_OF_RANK_AGENTS);
+        create(NUMBER_OF_RANK_AGENTS);
 
         //Execute Agent System
         execute();
@@ -138,8 +136,8 @@ public class Main implements SetProperty, SetDataType{
                 new Object[]{createStart - initStart, start - createStart, stop - start});
         
         IDToMQN id = IDToMQN.getInstance();
-        logger.printResults(logger.fieldMarker, "Field{}",new Object[]{id.getMQNameList()});
-        logger.printResults(logger.fieldMarker, "Field{}",new Object[]{id.getAGIDList()});
+        logger.printResults(logger.fieldMarker, "ID{}",new Object[]{id.getMQNameList()});
+        logger.printResults(logger.fieldMarker, "ID{}",new Object[]{id.getAGIDList()});
         
         logger.printResults(logger.dataMarker, "Time,{}", new Object[]{stop - start});
     }
