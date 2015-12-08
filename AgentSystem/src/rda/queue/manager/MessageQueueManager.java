@@ -77,7 +77,7 @@ public class MessageQueueManager {
         String agID = id.toAGID(mqName)+"-"+decompositionMap.get(id.toKey(mqName));
         if(create(agID)){
             start(id.toSID(agID));
-            System.out.println(id.toString());
+            //System.out.println(id.toString());
         }
     }
     
