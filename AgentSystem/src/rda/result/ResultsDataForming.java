@@ -242,7 +242,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                     nextime++;
                 }
             }
-            for(int i=0; i < (timeList.size() - dataCPUList.size()); i++)
+            while(timeList.size() - dataCPUList.size() != 0)
                 dataCPUList.add(dataCPUList.get(dataCPUList.size()-1));
             
             System.out.println("MQL:"+dataMQLList.size());
