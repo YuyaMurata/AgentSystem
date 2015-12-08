@@ -48,6 +48,8 @@ public interface SetProperty {
 	public static final Long AGENT_WAIT = Long.valueOf(prop.getValue("agent", "wait.agent"));
         public static final Integer DATA_VOLUME = Integer.valueOf(prop.getValue("agent", "data.volume"));
         public static final Integer AGENT_DEFAULT_VALUE = Integer.valueOf(prop.getValue("agent", "agent.default.value"));
+        public static final Integer AGENT_MODE = Integer.valueOf(prop.getValue("agent", "agent.mode"));
+        public static final Integer DATA_MODE = Integer.valueOf(prop.getValue("agent", "data.generate.mode"));
         
         //Log Property
         /**

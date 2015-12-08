@@ -17,7 +17,8 @@ public interface SetDataType extends SetProperty{
                 TIME_PERIOD, 
                 DATA_VOLUME, 
                 NUMBER_OF_USER_AGENTS, 
-                AGENT_DEFAULT_VALUE
+                AGENT_DEFAULT_VALUE,
+                DATA_MODE
             );
     //public final ImpulseData type = new ImpulseData(TIME_RUN, TIME_PERIOD, DATA_VOLUME, NUMBER_OF_USER_AGENTS, AGENT_DEFAULT_VALUE);
     

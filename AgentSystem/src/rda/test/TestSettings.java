@@ -22,7 +22,8 @@ public class TestSettings extends TestParameter {
                 TIME_PERIOD, 
                 VOLUME, 
                 NUMBER_OF_USER, 
-                VALUE
+                VALUE,
+                DATA_MODE
         );
         
         DATA_TYPE = new DataGenerator(type);

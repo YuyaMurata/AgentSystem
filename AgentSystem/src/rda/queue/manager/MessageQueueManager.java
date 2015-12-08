@@ -24,16 +24,20 @@ public class MessageQueueManager {
     private IDToMQN id = IDToMQN.getInstance();
     private MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     
+    private Integer mode;
+    
     private HashMap<Object, Integer> decompositionMap = new HashMap<>();
 
     public static MessageQueueManager getInstance(){
         return manager;
     }
     
-    public void initMessageQueue(Integer n){
+    public void initMessageQueue(Integer n, Integer mode){
         String digit = "";
         for(int i=0; i < n.toString().length(); i++)
             digit = digit + "0";
+        
+        this.mode = mode;
         
         DecimalFormat dformat = new DecimalFormat(digit);
         for(int i=0; i < n; i++)
@@ -68,6 +72,7 @@ public class MessageQueueManager {
     }
     
     public void decompose(String mqName){
+        if(mode == 0) return;
         if(limit()) {
             System.err.println("Decompose Limit Error !");
             return ;

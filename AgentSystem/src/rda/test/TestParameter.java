@@ -20,6 +20,7 @@ public abstract class TestParameter {
     public static final int VALUE = 1;
     public static final int NUMBER_OF_QUEUE = 1;
     public static final int WINDOW_SIZE = 100;
+    public static final int DATA_MODE = 0;
     
     public static final String AGENT_TYPE = "useragent";
 }

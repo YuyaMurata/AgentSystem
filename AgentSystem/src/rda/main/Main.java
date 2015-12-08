@@ -38,13 +38,13 @@ public class Main implements SetProperty, SetDataType{
                 TIME_PERIOD ); 
     }
 
-    private static void create(int numOfAgents){
+    private static void create(int numOfAgents, int mode){
         //TIme
         createStart = System.currentTimeMillis();
         
         //Start Manager
         MessageQueueManager manager = MessageQueueManager.getInstance();
-        manager.initMessageQueue(numOfAgents);
+        manager.initMessageQueue(numOfAgents, mode);
         manager.startAll();
     }
 
@@ -54,7 +54,7 @@ public class Main implements SetProperty, SetDataType{
         init();
 
         //Agentの生成
-        create(NUMBER_OF_RANK_AGENTS);
+        create(NUMBER_OF_RANK_AGENTS, AGENT_MODE);
 
         //Execute Agent System
         execute();

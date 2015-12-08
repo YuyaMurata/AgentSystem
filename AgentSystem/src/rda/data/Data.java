@@ -16,15 +16,16 @@ import rda.queue.obj.MessageObject;
 public class Data{
     private static int count = -1;
     private static final RandomDataGenerator rand = new RandomDataGenerator();
-    private int mu, sigma, numOfUser, value;
+    private int mu, sigma, numOfUser, value, mode;
 
     public Data() {}
 
     //Set All UserID
     private ArrayList<String> userList = new ArrayList<>();
-    public void init(int n, int value){
+    public void init(int n, int value, int mode){
         this.numOfUser = n;
         this.value = value;
+        this.mode = mode;
         
         for(int i=0; i < numOfUser; i++){
             String userID = "U#00"+ i;
@@ -36,9 +37,18 @@ public class Data{
     }
         
     private Integer idNo(){
+        switch(mode){
+            case 0 : return idSequentialNo();
+            case 1 : return idRandomNo();
+            case 2 : return idGaussRandomNo();
+        }
+        return null;
+    }
+    
+    private Integer idSequentialNo(){
         count++;
         if(count == numOfUser) count = 0;
-        return count; 
+        return count;
     }
     
     private Integer idRandomNo(){

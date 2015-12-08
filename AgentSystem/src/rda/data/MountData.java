@@ -10,7 +10,7 @@ public class MountData implements DataType{
     
     private Long time, period, volume;
     
-    public MountData(long time, long period, long volume, int numberOfUser, int valueOfUser) {
+    public MountData(long time, long period, long volume, int numberOfUser, int valueOfUser, int datamode) {
         this.name = "MountType";
         this.data = new Data();
         
@@ -19,7 +19,7 @@ public class MountData implements DataType{
         this.volume = volume;
         
         //initialise
-        data.init(numberOfUser, valueOfUser);
+        data.init(numberOfUser, valueOfUser, datamode);
         count = -1L;
     }
     

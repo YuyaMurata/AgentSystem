@@ -13,12 +13,12 @@ public class ImpulseData implements DataType{
     
     private Long time, period, volume;
 
-    public ImpulseData(long time, long period, long volume, int numberOfUser, int valueOfUser) {
+    public ImpulseData(long time, long period, long volume, int numberOfUser, int valueOfUser, int datamode) {
         this.name = "ImpulseType";
         this.data = new Data();
         
         //initialise
-        data.init(numberOfUser, valueOfUser);
+        data.init(numberOfUser, valueOfUser, datamode);
         count = -1L;
     }
     
