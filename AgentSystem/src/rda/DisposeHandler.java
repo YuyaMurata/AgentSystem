@@ -12,7 +12,7 @@ public class DisposeHandler extends MessageHandler {
 	@Override
 	public Object onMessage(Message msg) throws Exception {
 		try {
-			// 自エージェントの削除．
+			//エージェントの削除．
 			disposeAgent();
 			return getAgentKey() + " was disposed";
 		} catch(Exception e) {
