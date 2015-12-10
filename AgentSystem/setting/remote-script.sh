@@ -1,6 +1,6 @@
 zip -r `hostname`_`date +%Y%m%d%H%M%S`.zip logs
 
-#h1‚Ìdropbox‚Éƒtƒ@ƒCƒ‹‚ğˆÚ“®‚·‚é
+#h1ã®dropboxã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç§»å‹•ã™ã‚‹
 sshpass -p 11m35584 scp `hostname`_*.zip root@h1:$CETA_HOME/App/dropbox_log
 
 rm -f `hostname`_*.zip
