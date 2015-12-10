@@ -12,7 +12,7 @@ chmod 777 *.sh;\
 chmod 777 *.sh;\
 ./start.sh"
 
-sleep 10
+sleep 15
 
 #プログラムの実行
 sshpass -p 11m35584 ssh root@$1 \
@@ -28,8 +28,13 @@ cd $CETA_HOME/App/AgentSystem/AgentSystem/setting;\
 chmod 777 *.sh;\
 ./remote-script.sh"
 
+#サーバーの終了
 sshpass -p 11m35584 ssh root@h2 \
 "source /etc/profile;\
 cd $CETA_HOME/App/AgentSystem/AgentSystem/setting;\
 chmod 777 *.sh;\
 ./stop.sh"
+
+#ログをDropboxに送る
+dropbox upload $CETA_HOME/App/dropbox_log/*.zip logs
+mv $CETA_HOME/App/dropbox_log/*.zip old
