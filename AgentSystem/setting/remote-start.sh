@@ -1,11 +1,7 @@
 #確認
 sshpass -p 11m35584 ssh root@$1 'echo `hostname`'
-
+echo "確認後 Enter"
 read
-
-#プログラムの実行
-sshpass -p 11m35584 ssh root@$1 "cd $CETA_HOME/App/AgentSystem/AgentSystem/setting;./git-remote.sh"
-;./start.sh"
 
 #サーバーの起動
 sshpass -p 11m35584 ssh root@$1 \
