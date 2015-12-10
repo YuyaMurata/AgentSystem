@@ -19,7 +19,7 @@ sshpass -p 11m35584 ssh root@$1 \
 "source /etc/profile;\
 cd $CETA_HOME/App/AgentSystem/AgentSystem/setting;\
 chmod 777 *.sh;\
-./exec_system.sh 1"
+./exec_system.sh 10"
 
 #生成されたファイルを送る
 sshpass -p 11m35584 ssh root@$1 \
