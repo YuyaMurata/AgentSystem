@@ -18,3 +18,5 @@ fi
 
 ant -f ../build.xml
 \cp -fr ../build/classes/* $CETA_HOME/classes
+
+chmod 777 *.sh
