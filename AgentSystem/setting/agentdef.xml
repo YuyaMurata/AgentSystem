@@ -3,14 +3,14 @@
 	<entities>
 		<!--UserAgent Entity define-->
 		<entity type="useragent">
-			<attribute name="UserID" type="string" primarykey="true" maxlength="16"/>
+			<attribute name="UserID" type="string" primarykey="true" maxlength="64"/>
 			<attribute name="Profile" type="profile" singleentity="true"/>
 			<attribute name="Data" type="long" />
 			<attribute name="ConnectionCount" type="long" />
 			<attribute name="Log" type="log" />
 		</entity>
 		<entity type="profile">
-			<attribute name="UserID" type="string" primarykey="true" relationto="UserID" maxlength="16"/>
+			<attribute name="UserID" type="string" primarykey="true" relationto="UserID" maxlength="64"/>
 			<attribute name="Name" type="string" maxlength="32"/>
 			<attribute name="Sex" type="string" maxlength="2"/>
 			<attribute name="Age" type="string" maxlength="4"/>
@@ -18,7 +18,7 @@
 			<attribute name="LastAccessTime" type="timestamp" />
 		</entity>
 		<entity type="log">
-			<attribute name="UserID" type="string" primarykey="true" relationto="UserID" maxlength="16"/>
+			<attribute name="UserID" type="string" primarykey="true" relationto="UserID" maxlength="64"/>
 			<attribute name="AccessID" type="string" primarykey="true" maxlength="16"/>
 			<attribute name="LastAccessTime" type="timestamp" />
 		</entity>
