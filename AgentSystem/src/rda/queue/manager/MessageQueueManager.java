@@ -77,7 +77,7 @@ public class MessageQueueManager {
             System.err.println("Decompose Limit Error !");
             flg = true;
         }
-        if((mode == 0) || (flg = true)) return;
+        if((mode == 0) || (flg == true)) return;
         
         decompositionMap.put(id.toKey(mqName), decompositionMap.get(id.toKey(mqName))+1);
         String agID = id.toAGID(mqName)+"-"+decompositionMap.get(id.toKey(mqName));
