@@ -33,7 +33,7 @@ public class Data{
         }
         
         mu = numOfUser/2;
-        sigma = (int) (2*numOfUser / 10);
+        sigma = (int) (2*numOfUser / 5);
     }
         
     private Integer idNo(){
