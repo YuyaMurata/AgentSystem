@@ -33,7 +33,7 @@ public class Data{
         }
         
         mu = numOfUser/2;
-        sigma = (int) (2*numOfUser / 5);
+        sigma = numOfUser/3;
     }
         
     private Integer idNo(){
@@ -57,8 +57,7 @@ public class Data{
     
     private Integer idGaussRandomNo(){
         int key = (int)(rand.nextGaussian(mu, sigma));
-        if(key < 0) key = 0;
-        else if(key >= numOfUser) key = numOfUser-1;
+        if((key < 0) || (key >= numOfUser)) key = idRandomNo();
         
         return key;
     }
