@@ -73,7 +73,7 @@ public class MessageQueueManager {
     
     private Boolean flg = false;
     public void decompose(String mqName){
-        if(limit()) {
+        if(limit() && (flg = false)) {
             System.err.println("Decompose Limit Error !");
             flg = true;
         }
