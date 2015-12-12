@@ -82,10 +82,10 @@ public class ReadUser implements AgentExecutor, Serializable{
                 } else {
                     System.out.println(userID + " was not found");
                 }
-            }
-                        
+            }                  
             return list;
         }catch(Exception e){
+            System.out.println("ReadUserError:"+e.getMessage());
             return null;
         } finally {
             ag.returnConnection(client);
