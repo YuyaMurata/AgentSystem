@@ -5,6 +5,7 @@ import rda.property.SetProperty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 public class IDToMQN implements SetProperty{
 	//AgentKey Define
@@ -38,7 +39,7 @@ public class IDToMQN implements SetProperty{
             return mqNameList.get(toSID(key));
         }
         
-        public int toSID(String id){
+        public Integer toSID(String id){
             if(id.contains("RMQ")) return mqNameList.indexOf(id);
             else if(id.contains("U#")) return Math.abs(id.hashCode()) %  mqNameList.size();
             else return idList.indexOf(id);
@@ -59,6 +60,18 @@ public class IDToMQN implements SetProperty{
         public AgentKey toKey(int sid){
             return keyList.get(sid);
         }
+        
+        private TreeMap ageMap = new TreeMap();
+        public void setAgeToTreeMap(){
+            for(int i=0; i < mqNameList.size(); i++){
+                Integer range = (int)i * 100 / mqNameList.size();
+                ageMap.put(range.toString(), i);
+            }
+        }
+        
+        public Integer ageToSID(String age){
+            return (Integer) ageMap.floorEntry(age).getValue();
+        }  
         
         public String toString(){
             StringBuilder sb = new StringBuilder();

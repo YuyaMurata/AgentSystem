@@ -33,14 +33,13 @@ public class Data{
         }
         
         mu = numOfUser/2;
-        sigma = numOfUser/3;
+        sigma = numOfUser/5;
     }
         
     private Integer idNo(){
         switch(mode){
             case 0 : return idSequentialNo();
             case 1 : return idRandomNo();
-            case 2 : return idGaussRandomNo();
         }
         return null;
     }
@@ -53,13 +52,6 @@ public class Data{
     
     private Integer idRandomNo(){
         return rand.nextInt(0, numOfUser-1);
-    }
-    
-    private Integer idGaussRandomNo(){
-        int key = (int)(rand.nextGaussian(mu, sigma));
-        if((key < 0) || (key >= numOfUser)) key = idRandomNo();
-        
-        return key;
     }
 
     //Get Data userID = Call % NUMBER_USER_AGENTS

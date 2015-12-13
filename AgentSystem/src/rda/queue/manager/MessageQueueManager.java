@@ -59,6 +59,9 @@ public class MessageQueueManager {
         //Init Decomposition
         decompositionMap.put(id.toKey(agID), 0);
         
+        //Expand Age Tree
+        id.setAgeToTreeMap();
+        
         return true;
     }
     

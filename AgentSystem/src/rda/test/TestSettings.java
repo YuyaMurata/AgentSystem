@@ -29,13 +29,27 @@ public class TestSettings extends TestParameter {
         DATA_TYPE = new DataGenerator(type);
     }
     
-    public IDToMQN ID = IDToMQN.getInstance();
+    public static IDToMQN ID = IDToMQN.getInstance();
     private void idset(){
         for(int i=0; i < NUMBER_OF_AGENTS; i++){
             ID.setID("R#00"+i);
             ID.setKey(new AgentKey(AGENT_TYPE, new Object[]{"R#00"+i}));
             ID.setMQName("RMQ#"+i);
         }
+        
+        ID.setAgeToTreeMap();
+    }
+    
+    private static int decompose = NUMBER_OF_AGENTS-1;
+    public static void decomposeTest(){
+        System.out.println("Decompose Agents!!");
+        decompose++;
+        
+        ID.setID("R#00"+decompose);
+        ID.setKey(new AgentKey(AGENT_TYPE, new Object[]{"R#00"+decompose}));
+        ID.setMQName("RMQ#"+decompose);
+        
+        ID.setAgeToTreeMap();
     }
     
     public void setting(){
