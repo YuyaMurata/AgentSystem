@@ -5,7 +5,7 @@ import org.slf4j.MarkerFactory;
 import rda.log.AgentSystemLogger;
 import rda.queue.manager.MessageQueueManager;
 
-public class MessageQueueEvent extends Exception implements Runnable{
+public class MessageQueueEvent extends Exception{
     /**
     *
     */
@@ -19,17 +19,12 @@ public class MessageQueueEvent extends Exception implements Runnable{
         super(name);
         this.name = name;
         
-        new Thread(this).start();
+        manager.decompose(name);
     }
 
     public void printEvent(){
         //イベント出力
         logger.printMQEvent(dataMarker, 
                 "MQName_,{}, : ########## 負荷検知 ########## ", new String[]{name});
-    }
-
-    @Override
-    public void run() {
-        manager.decompose(name);
     }
 }
