@@ -8,7 +8,6 @@ package rda.queue.manager;
 import java.text.DecimalFormat;
 import rda.queue.id.IDToMQN;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import rda.agent.user.CreateUserAgent;
 import rda.queue.log.MQSpecificStorage;

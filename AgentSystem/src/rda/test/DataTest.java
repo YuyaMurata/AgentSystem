@@ -34,7 +34,7 @@ public class DataTest extends TestParameter{
                 if(map.get(key) != null) cnt = (Long)map.get(key) + 1;
                 map.put(key, cnt);
             }
-            if(t % 60 == 0) TestSettings.decomposeTest();
+            //if(t % 60 == 0) TestSettings.decomposeTest();
             
             stop = System.currentTimeMillis();
             System.out.println("Time = "+t+", ProcessTime = "+(stop-start)+" [ms]");

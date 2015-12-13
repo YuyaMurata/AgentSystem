@@ -16,7 +16,7 @@ import rda.queue.obj.MessageObject;
 public class Data{
     private static int count = -1;
     private static final RandomDataGenerator rand = new RandomDataGenerator();
-    private int mu, sigma, numOfUser, value, mode;
+    private int numOfUser, value, mode;
 
     public Data() {}
 
@@ -31,9 +31,6 @@ public class Data{
             String userID = "U#00"+ i;
             userList.add(userID);
         }
-        
-        mu = numOfUser/2;
-        sigma = numOfUser/5;
     }
         
     private Integer idNo(){
