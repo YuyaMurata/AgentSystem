@@ -23,7 +23,7 @@ public class ReciveMQProcess extends Thread{
         UpdateUser user = new UpdateUser();
         
         ArrayList<Integer> dataList = new ArrayList<>();
-        AgentKey key = id.toKey(mq.name);
+        AgentKey key = id.agIDToKey(mq.name);
         
         while(true){
             try{

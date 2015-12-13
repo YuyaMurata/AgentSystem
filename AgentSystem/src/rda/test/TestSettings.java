@@ -71,9 +71,9 @@ public class TestSettings extends TestParameter {
         
         sb.append(" --- ID Setting Information --- \n");
         for(int i=0; i < NUMBER_OF_AGENTS; i++){
-            sb.append(ID.toKey(i)+", ");
-            sb.append(ID.toAGID(ID.toKey(i))+", ");
-            sb.append(ID.toMQN(ID.toKey(i))+"\n");
+            sb.append(ID.sidToKey(i)+", ");
+            sb.append(ID.keyToAGID(ID.sidToKey(i))+", ");
+            sb.append(ID.keyToMQN(ID.sidToKey(i))+"\n");
         }
         
         return sb.toString();

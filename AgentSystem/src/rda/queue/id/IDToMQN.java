@@ -4,13 +4,17 @@ import com.ibm.agent.exa.AgentKey;
 import rda.property.SetProperty;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
+import org.apache.commons.math3.random.RandomDataGenerator;
 import rda.agent.user.ProfileGenerator;
 
 public class IDToMQN implements SetProperty{
 	//AgentKey Define
 	//private static final int HASH_MOD = 9973;
+        private static RandomDataGenerator rand = new RandomDataGenerator();
+    
         private static IDToMQN idToMQN = new IDToMQN();
         
         public static IDToMQN getInstance(){
@@ -32,34 +36,47 @@ public class IDToMQN implements SetProperty{
             mqNameList.add(name);
         }
                
-	public int toSID(AgentKey key){
+	public int keyToSID(AgentKey key){
             return keyList.indexOf(key);
 	}
         
-        public String toMQN(AgentKey key){
-            return mqNameList.get(toSID(key));
+        public String keyToMQN(AgentKey key){
+            return mqNameList.get(keyToSID(key));
+        }
+        
+        public String agIDToMQN(String agID){
+            return mqNameList.get(toSID(agID));
         }
         
         public Integer toSID(String id){
             if(id.contains("RMQ")) return mqNameList.indexOf(id);
-            else if(id.contains("U#")) return Math.abs(id.hashCode()) %  mqNameList.size();
+            else if(id.contains("U#")){
+                int sid = Math.abs(id.hashCode()) % NUMBER_OF_QUEUE;
+                List<String> mqnList = decompositionMap.get(sidToMQN(sid));
+                
+                return toSID(mqnList.get(rand.nextInt(0, mqnList.size()-1)));
+            }
             else return idList.indexOf(id);
 	}
         
-        public String toAGID(String name){
+        public String mqnToAGID(String name){
             return idList.get(toSID(name));
 	}
         
-        public String toAGID(AgentKey key){
-            return idList.get(IDToMQN.this.toSID(key));
+        public String keyToAGID(AgentKey key){
+            return idList.get(IDToMQN.this.keyToSID(key));
 	}
         
-        public AgentKey toKey(String id){
-            return toKey(toSID(id));
+        public AgentKey agIDToKey(String id){
+            return sidToKey(toSID(id));
 	}
         
-        public AgentKey toKey(int sid){
+        public AgentKey sidToKey(int sid){
             return keyList.get(sid);
+        }
+        
+        public String sidToMQN(int sid){
+            return mqNameList.get(sid);
         }
         
         private TreeMap ageMap = new TreeMap();
@@ -73,9 +90,31 @@ public class IDToMQN implements SetProperty{
         private ProfileGenerator prof = ProfileGenerator.getInstance();
         public Integer ageToSID(String uid){
             String age = (String) prof.getProf(uid).get("Age");
-            return (Integer) ageMap.floorEntry(age).getValue();
+            int sid = (Integer) ageMap.floorEntry(age).getValue();
+            List<String> mqnList = decompositionMap.get(sidToMQN(sid));
+            
+            return toSID(mqnList.get(rand.nextInt(0, mqnList.size()-1)));
         }  
         
+        private HashMap<Object, List<String>> decompositionMap = new HashMap<>();
+        public String setDecomposeMap(String name){
+            if(decompositionMap.get(name) == null){
+                List<String> decomposeList = new ArrayList<>();
+                decomposeList.add(name);
+                decompositionMap.put(name, decomposeList);
+                
+                return null;
+            } else{
+                String agID = mqnToAGID(name)+"-"+(decompositionMap.get(name).size()-1);
+                return agID;
+            }
+        }
+        
+        public void addDecomposeList(String name, String agID){
+            decompositionMap.get(name).add(agIDToMQN(agID));
+        }
+        
+        // System Out
         public String toString(){
             StringBuilder sb = new StringBuilder();
             sb.append(" --- Information ---\n");

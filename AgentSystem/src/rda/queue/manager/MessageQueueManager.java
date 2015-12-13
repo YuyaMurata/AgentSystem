@@ -25,8 +25,6 @@ public class MessageQueueManager {
     private MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     
     private Integer mode;
-    
-    private HashMap<Object, Integer> decompositionMap = new HashMap<>();
 
     public static MessageQueueManager getInstance(){
         return manager;
@@ -57,7 +55,7 @@ public class MessageQueueManager {
         id.setMQName(mqName);
         
         //Init Decomposition
-        decompositionMap.put(id.toKey(agID), 0);
+        id.setDecomposeMap(mqName);
         
         //Expand Age Tree
         id.setAgeToTreeMap();
@@ -75,18 +73,18 @@ public class MessageQueueManager {
     }
     
     private Boolean flg = false;
-    public synchronized void decompose(String mqName){
+    public void decompose(String mqName){
         if(limit() && (flg == false)) {
             System.err.println("Decompose Limit Error !");
             flg = true;
         }
         if((mode == 0) || (flg == true)) return;
         
-        decompositionMap.put(id.toKey(mqName), decompositionMap.get(id.toKey(mqName))+1);
-        String agID = id.toAGID(mqName)+"-"+decompositionMap.get(id.toKey(mqName));
+        String agID = id.setDecomposeMap(mqName);
+        
         if(create(agID)){
+            id.addDecomposeList(mqName, agID);
             start(id.toSID(agID));
-            //System.out.println(id.toString());
         }
     }
     
