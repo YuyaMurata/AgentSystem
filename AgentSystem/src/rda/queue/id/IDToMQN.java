@@ -6,6 +6,7 @@ import rda.property.SetProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import rda.agent.user.ProfileGenerator;
 
 public class IDToMQN implements SetProperty{
 	//AgentKey Define
@@ -69,7 +70,9 @@ public class IDToMQN implements SetProperty{
             }
         }
         
-        public Integer ageToSID(String age){
+        private ProfileGenerator prof = ProfileGenerator.getInstance();
+        public Integer ageToSID(String uid){
+            String age = (String) prof.getProf(uid).get("Age");
             return (Integer) ageMap.floorEntry(age).getValue();
         }  
         
