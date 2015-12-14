@@ -1,8 +1,5 @@
-sudo pwd
-
-#環境設定
-./git-remote.sh
-chmod 777 *.sh
+#ディレクトリ確認
+pwd
 
 #サーバーの起動
 ./start.sh

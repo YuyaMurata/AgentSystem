@@ -7,6 +7,7 @@ read
 sshpass -p 11m35584 ssh root@$1 \
 "source /etc/profile;\
 cd $CETA_HOME/App/AgentSystem/AgentSystem/setting;\
+./git-remote.sh;\
 chmod 777 *.sh;\
 ./remote-script.sh"
 
