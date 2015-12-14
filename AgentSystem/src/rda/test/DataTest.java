@@ -28,8 +28,8 @@ public class DataTest extends TestParameter{
         for(long t =0; t < TIME_RUN; t++){
             start = System.currentTimeMillis();
             while((msg = test.DATA_TYPE.generate(t)) != null){
-                int key = Integer.valueOf((String)gen.getProf(msg.id).get("Age"));
-                //int key = test.ID.ageToSID(msg.id);
+                //int key = Integer.valueOf((String)gen.getProf(msg.id).get("Age"));
+                int key = test.ID.ageToSID(msg.id);
                 Long cnt = 0L;
                 if(map.get(key) != null) cnt = (Long)map.get(key) + 1;
                 map.put(key, cnt);

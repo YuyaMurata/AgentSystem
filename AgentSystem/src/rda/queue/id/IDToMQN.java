@@ -90,9 +90,9 @@ public class IDToMQN implements SetProperty{
         private ProfileGenerator prof = ProfileGenerator.getInstance();
         public Integer ageToSID(String uid){
             String age = (String) prof.getProf(uid).get("Age");
-            int sid = (Integer) ageMap.floorEntry(age).getValue();
+            int sid = (Integer) ageMap.lowerEntry(age).getValue();
             List<String> mqnList = decompositionMap.get(sidToMQN(sid));
-            
+
             return toSID(mqnList.get(rand.nextInt(0, mqnList.size()-1)));
         }  
         

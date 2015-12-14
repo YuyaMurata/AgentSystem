@@ -35,6 +35,7 @@ public class TestSettings extends TestParameter {
             ID.setID("R#00"+i);
             ID.setKey(new AgentKey(AGENT_TYPE, new Object[]{"R#00"+i}));
             ID.setMQName("RMQ#"+i);
+            ID.setDecomposeMap("RMQ#"+i);
         }
         
         ID.setAgeToTreeMap();
@@ -48,6 +49,8 @@ public class TestSettings extends TestParameter {
         ID.setID("R#00"+decompose);
         ID.setKey(new AgentKey(AGENT_TYPE, new Object[]{"R#00"+decompose}));
         ID.setMQName("RMQ#"+decompose);
+        
+        ID.setDecomposeMap("RMQ#"+decompose);
         
         ID.setAgeToTreeMap();
     }
