@@ -51,9 +51,9 @@ public class IDToMQN implements SetProperty{
             else if(id.contains("U#")){
                 int sid = Math.abs(id.hashCode()) % NUMBER_OF_QUEUE;
                 int m = decompositionMap.get(sidToMQN(sid)).size();
-                if(round++ >= m) round = 0;
+                if(round >= m) round = 0;
                     
-                return toSID(decompositionMap.get(sidToMQN(sid)).get(round));
+                return toSID(decompositionMap.get(sidToMQN(sid)).get(round++));
             }
             else return idList.indexOf(id);
 	}
@@ -92,7 +92,9 @@ public class IDToMQN implements SetProperty{
             String age = (String) prof.getProf(uid).get("Age");
             int sid = (Integer) ageMap.lowerEntry(age).getValue();
             int m = decompositionMap.get(sidToMQN(sid)).size();
-            if(round2++ >= m) round2 = 0;
+            if(round2 >= m) round2 = 0;
+            round2++;
+            System.out.println("test::"+decompositionMap.get(sidToMQN(sid)).get(round2));
             
             return toSID(decompositionMap.get(sidToMQN(sid)).get(round2));
         }  
