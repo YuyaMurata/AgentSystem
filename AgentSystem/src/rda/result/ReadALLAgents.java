@@ -47,11 +47,13 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
     }
     
     public ArrayList<UserInfo> read() {
-        // エージェントクライアントの生成
+        // エージェントクライアント
         AgentConnection ag = AgentConnection.getInstance();
-        AgentClient client = ag.getConnection();
         
         try {
+            //クライアントの接続
+            AgentClient client = ag.getConnection();
+            
             // エージェントエグゼキュータを生成
             ReadALLAgents executor = new ReadALLAgents();
 
@@ -78,13 +80,12 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
                     list.add(info);
                 }
             }
+            //クライアントの切断
+            ag.returnConnection(client);
             
             return list;
         } catch(Exception e) {
             return null;
-        } finally {
-            ag.returnConnection(client);
-            ag.close();
         }
     }
     

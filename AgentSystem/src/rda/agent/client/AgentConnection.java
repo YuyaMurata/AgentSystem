@@ -59,12 +59,6 @@ public class AgentConnection {
     }
     
     public void close(){
-        while(_pool.getNumIdle() != NUMBER_OF_POOL)
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ex) {
-            }
-        
         _pool.close();
     }
 

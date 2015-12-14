@@ -65,16 +65,17 @@ public class UpdateUser implements AgentExecutor, Serializable{
             AgentConnection ag = AgentConnection.getInstance();
             
             if(agentKey != null){ 
-                AgentClient client = ag.getConnection();
-                
-                try {                       
+                try {
+                    AgentClient client = ag.getConnection();
+                    
                     UpdateUser executor = new UpdateUser(agentKey, data);
                     Object reply = client.execute(agentKey, executor);
                     //if(reply == null) System.err.println("Cannot Find Agent : "+agentKey);
                     //System.out.println("A message from the agent[" + agentKey + "]: " + reply);
-		} catch (AgentException e) {
-                } finally{
+                    
                     ag.returnConnection(client);
+                } catch (AgentException e) {
+                } finally{
                 }
             }
 	}
