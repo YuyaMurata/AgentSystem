@@ -3,6 +3,10 @@ package rda.window;
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rda.queue.obj.MessageObject;
 import rda.queue.event.MessageQueueEvent;
 import rda.queue.manager.MessageQueueManager;
@@ -10,7 +14,7 @@ import rda.queue.manager.MessageQueueManager;
 public class WindowController{
         private MessageQueueManager manager = MessageQueueManager.getInstance();
 	private HashMap<String, Window> window = new HashMap<>();
-        public Queue queue = new ArrayDeque();
+        public BlockingQueue queue = new ArrayBlockingQueue(100000);
         private final Integer size;
         
 	public String name;
@@ -41,6 +45,11 @@ public class WindowController{
                     
                     //Return Data (*effect latency)
                     queue.add(obj);
+                    
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException ex) {
+                    }
                 }
 	}
 
