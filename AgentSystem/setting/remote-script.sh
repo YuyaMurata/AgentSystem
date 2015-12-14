@@ -1,4 +1,4 @@
-pwd
+sudo pwd
 
 #環境設定
 ./git-remote.sh
