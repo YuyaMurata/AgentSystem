@@ -52,6 +52,10 @@ public class IDToMQN implements SetProperty{
                 int sid = Math.abs(id.hashCode()) % NUMBER_OF_QUEUE;
                 int m = decompositionMap.get(sidToMQN(sid)).size();
                 if(round >= m) round = 0;
+                
+                
+                System.out.println("TOSID___test::"+decompositionMap);
+                System.out.println("TOSID___test::"+decompositionMap.get(sidToMQN(sid)));
                     
                 return toSID(decompositionMap.get(sidToMQN(sid)).get(round++));
             }
@@ -94,7 +98,8 @@ public class IDToMQN implements SetProperty{
             int m = decompositionMap.get(sidToMQN(sid)).size();
             if(round2 >= m) round2 = 0;
             round2++;
-            System.out.println("test::"+decompositionMap.get(sidToMQN(sid)).get(round2));
+            System.out.println("test::"+decompositionMap);
+            System.out.println("test::"+decompositionMap.get(sidToMQN(sid)));
             
             return toSID(decompositionMap.get(sidToMQN(sid)).get(round2));
         }  
