@@ -13,7 +13,6 @@ import rda.queue.timer.MessageQueueTimer;
 public class IDToMQN implements SetProperty{
 	//AgentKey Define
 	//private static final int HASH_MOD = 9973;
-        private MessageQueueTimer timer = MessageQueueTimer.getInstance(); 
         private static IDToMQN idToMQN = new IDToMQN();
         
         public static IDToMQN getInstance(){
