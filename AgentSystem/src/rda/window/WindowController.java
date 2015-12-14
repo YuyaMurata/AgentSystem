@@ -1,12 +1,8 @@
 package rda.window;
 
-import java.util.ArrayDeque;
 import java.util.HashMap;
-import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.queue.obj.MessageObject;
 import rda.queue.event.MessageQueueEvent;
 import rda.queue.manager.MessageQueueManager;
