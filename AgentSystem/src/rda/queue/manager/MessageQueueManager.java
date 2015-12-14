@@ -39,6 +39,9 @@ public class MessageQueueManager {
         DecimalFormat dformat = new DecimalFormat(digit);
         for(int i=0; i < n; i++)
             create("R#"+dformat.format(i));
+        
+        //Init Age Tree
+        id.setAgeToTreeMap();
     }
     
     private Boolean create(String agID){
@@ -55,9 +58,6 @@ public class MessageQueueManager {
         
         //Init Decomposition
         id.setDecomposeMap(mqName);
-        
-        //Expand Age Tree
-        id.setAgeToTreeMap();
         
         return true;
     }
