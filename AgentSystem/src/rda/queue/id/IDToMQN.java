@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 import rda.agent.user.ProfileGenerator;
-import rda.queue.timer.MessageQueueTimer;
 
 public class IDToMQN implements SetProperty{
 	//AgentKey Define
