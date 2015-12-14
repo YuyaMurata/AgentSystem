@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
+import org.apache.commons.math3.random.RandomDataGenerator;
 import rda.agent.user.ProfileGenerator;
 
 public class IDToMQN implements SetProperty{
 	//AgentKey Define
 	//private static final int HASH_MOD = 9973;
+        private RandomDataGenerator rand = new RandomDataGenerator();
         private static IDToMQN idToMQN = new IDToMQN();
         
         public static IDToMQN getInstance(){
@@ -45,17 +47,13 @@ public class IDToMQN implements SetProperty{
             return mqNameList.get(toSID(agID));
         }
         
-        private int round = -1;
         public Integer toSID(String id){
             if(id.contains("RMQ")) return mqNameList.indexOf(id);
             else if(id.contains("U#")){
                 int sid = Math.abs(id.hashCode()) % NUMBER_OF_QUEUE;
-                int m = decompositionMap.get(sidToMQN(sid)).size();
                 
-                round++;
-                if(round >= m) round = 0;
-                    
-                return toSID(decompositionMap.get(sidToMQN(sid)).get(round));
+                int m = decompositionMap.get(sidToMQN(sid)).size();    
+                return toSID(decompositionMap.get(sidToMQN(sid)).get(rand.nextInt(0, m-1)));
             }
             else return idList.indexOf(id);
 	}
@@ -88,17 +86,13 @@ public class IDToMQN implements SetProperty{
             }
         }
         
-        private int round2 = -1;
         private ProfileGenerator prof = ProfileGenerator.getInstance();
         public Integer ageToSID(String uid){
             String age = (String) prof.getProf(uid).get("Age");
             int sid = (Integer) ageMap.lowerEntry(age).getValue();
+            
             int m = decompositionMap.get(sidToMQN(sid)).size();
-            
-            round2++;
-            if(round2 >= m) round2 = 0;
-            
-            return toSID(decompositionMap.get(sidToMQN(sid)).get(round2));
+            return toSID(decompositionMap.get(sidToMQN(sid)).get(rand.nextInt(0, m-1)));
         }  
         
         private HashMap<Object, List<String>> decompositionMap = new HashMap<>();
@@ -151,9 +145,8 @@ public class IDToMQN implements SetProperty{
         }
         
         public void outputDecomposse(){
-            for(int i=0; i < NUMBER_OF_QUEUE; i++)
-                if(sidToMQN(i).contains("RMQ"))
-                System.out.println("DECOMPOSE::"+decompositionMap.get(sidToMQN(i)));
+            for(Object key : decompositionMap.keySet())
+                System.out.println("DECOMPOSE::"+decompositionMap.get((String)key));
         }
         
         /* hash (- -> +) confilict

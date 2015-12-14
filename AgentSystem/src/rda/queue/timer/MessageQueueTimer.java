@@ -10,7 +10,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import rda.property.SetProperty;
 import rda.queue.id.IDToMQN;
-import rda.queue.manager.MessageQueueManager;
 
 /**
  *
@@ -34,7 +33,7 @@ public class MessageQueueTimer implements Runnable, SetProperty{
     @Override
     public void run() {
         binaryTimer = !binaryTimer;
-        id.outputDecomposse();
+        //id.outputDecomposse();
     }
     
     public Boolean getTimer(){
