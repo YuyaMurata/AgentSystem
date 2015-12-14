@@ -82,7 +82,7 @@ public class IDToMQN implements SetProperty{
         private TreeMap ageMap = new TreeMap();
         public void setAgeToTreeMap(){
             for(int i=0; i < mqNameList.size(); i++){
-                Integer range = (int)i * 100 / mqNameList.size();
+                Integer range = (int)i * 100 / NUMBER_OF_QUEUE;
                 ageMap.put(range.toString(), i);
             }
         }

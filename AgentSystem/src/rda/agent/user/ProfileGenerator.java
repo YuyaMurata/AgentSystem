@@ -20,7 +20,7 @@ public class ProfileGenerator {
 	public ProfileGenerator() {
             // TODO 自動生成されたコンストラクター・スタブ
             mu = 100/2;
-            sigma = 100/8;
+            sigma = 100/10;
 	}
         
         private Integer getAge(){
