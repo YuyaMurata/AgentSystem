@@ -37,4 +37,4 @@ chmod 777 *.sh;\
 
 #ログをDropboxに送る
 dropbox upload $CETA_HOME/App/dropbox_log/*.zip logs
-mv $CETA_HOME/App/dropbox_log/*.zip old
+mv $CETA_HOME/App/dropbox_log/*.zip $CETA_HOME/App/dropbox_log/old/
