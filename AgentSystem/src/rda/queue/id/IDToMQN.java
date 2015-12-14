@@ -98,6 +98,8 @@ public class IDToMQN implements SetProperty{
             round2++;
             if(round2 >= m) round2 = 0;
             
+            System.out.println("DECOMPOSE::"+decompositionMap.get(sidToMQN(sid)));
+            
             return toSID(decompositionMap.get(sidToMQN(sid)).get(round2));
         }  
         
