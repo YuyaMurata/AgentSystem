@@ -12,11 +12,13 @@ public class WindowController{
 	private HashMap<String, Window> window = new HashMap<>();
         public Queue queue = new ArrayDeque();
         private final Integer size;
+        private long wait;
         
 	public String name;
-	public WindowController(int numberOfMQ, int limit, String name) {
+	public WindowController(int numberOfMQ, int limit, String name, long wait) {
             this.name = name;
             this.size = limit;
+            this.wait = wait;
 	}
 
 	public void sendMessage(MessageObject mes){
@@ -42,11 +44,10 @@ public class WindowController{
                     //Return Data (*effect latency)
                     queue.add(obj);
                     
-                    if(queue.size() > 100000)
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException ex) {
-                        }
+                    try {
+                        Thread.sleep(wait);
+                    } catch (InterruptedException ex) {
+                    }
                 }
 	}
 

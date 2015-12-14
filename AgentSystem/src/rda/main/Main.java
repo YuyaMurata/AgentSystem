@@ -34,8 +34,8 @@ public class Main implements SetProperty, SetDataType{
 
         // Set Window 
         task = new MainSchedule(
-                new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow"),
-                TIME_PERIOD ); 
+                new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow", AGENT_WAIT),
+                TIME_PERIOD); 
     }
 
     private static void create(int numOfAgents, int mode){
