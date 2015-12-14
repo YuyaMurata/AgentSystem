@@ -96,10 +96,11 @@ public class IDToMQN implements SetProperty{
             String age = (String) prof.getProf(uid).get("Age");
             int sid = (Integer) ageMap.lowerEntry(age).getValue();
             int m = decompositionMap.get(sidToMQN(sid)).size();
-            if(round2 >= m) round2 = 0;
             round2++;
+            
+            if(round2 >= m) round2 = 0;
             System.out.println("test::"+decompositionMap);
-            System.out.println("test::"+decompositionMap.get(sidToMQN(sid)));
+            System.out.println("test::"+decompositionMap.get(sidToMQN(sid)).get(round2));
             
             return toSID(decompositionMap.get(sidToMQN(sid)).get(round2));
         }  
