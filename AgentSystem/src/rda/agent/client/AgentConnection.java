@@ -17,9 +17,9 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 public class AgentConnection {
     private ObjectPool<AgentClient> _pool;
     private static final AgentConnection connector = new AgentConnection();
+    private Integer NUMBER_OF_POOL = 16;
     
     private AgentConnection(){
-        Integer NUMBER_OF_POOL = 16;
         GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
         conf.setMaxIdle(NUMBER_OF_POOL);
         conf.setMaxTotal(NUMBER_OF_POOL);
@@ -59,6 +59,12 @@ public class AgentConnection {
     }
     
     public void close(){
+        while(_pool.getNumIdle() != NUMBER_OF_POOL)
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+            }
+        
         _pool.close();
     }
 
