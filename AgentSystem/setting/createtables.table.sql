@@ -4,7 +4,7 @@
 
 --		<!--UserAgent Entity define-->
 --		<entity type="useragent">
---			<attribute name="UserID" type="string" primarykey="true" maxlength="64"/>
+--			<attribute name="UserID" type="string" primarykey="true" maxlength="16"/>
 --			<attribute name="Profile" type="profile" singleentity="true"/>
 --			<attribute name="Data" type="long" />
 --			<attribute name="ConnectionCount" type="long" />
@@ -25,7 +25,7 @@
 --		</entity>
 
 CREATE TRANSIENT TABLE useragent (
-	UserID VARCHAR(128) NOT NULL,
+	UserID VARCHAR(32) NOT NULL,
 	Data BIGINT,
 	ConnectionCount BIGINT,
 	PRIMARY KEY(UserID)
@@ -33,7 +33,7 @@ CREATE TRANSIENT TABLE useragent (
 COMMIT WORK;
 
 CREATE TRANSIENT TABLE profile(
-	UserID VARCHAR(128) NOT NULL,
+	UserID VARCHAR(32) NOT NULL,
 	Name WVARCHAR(64),
 	Sex WVARCHAR(4),
 	Age WVARCHAR(8),
@@ -44,7 +44,7 @@ CREATE TRANSIENT TABLE profile(
 COMMIT WORK;
 
 CREATE TRANSIENT TABLE log(
-	UserID VARCHAR(128) NOT NULL,
+	UserID VARCHAR(32) NOT NULL,
 	AccessID VARCHAR(16) NOT NULL,
 	LastAccessTime TIMESTAMP,
 	PRIMARY KEY(UserID, AccessID)
