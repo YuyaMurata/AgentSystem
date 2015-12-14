@@ -12,5 +12,5 @@ chmod 777 *.sh;\
 ./remote-script.sh"
 
 #ログをDropboxに送る
-#dropbox upload $CETA_HOME/App/dropbox_log/*.zip logs
-#mv $CETA_HOME/App/dropbox_log/*.zip $CETA_HOME/App/dropbox_log/old/
+dropbox upload $CETA_HOME/App/dropbox_log/*.zip logs
+mv $CETA_HOME/App/dropbox_log/*.zip $CETA_HOME/App/dropbox_log/old/
