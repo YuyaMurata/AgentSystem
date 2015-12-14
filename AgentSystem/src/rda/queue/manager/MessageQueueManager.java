@@ -9,7 +9,6 @@ import java.text.DecimalFormat;
 import rda.queue.id.IDToMQN;
 import java.util.ArrayList;
 import java.util.List;
-import rda.agent.user.CreateUserAgent;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
 
@@ -40,24 +39,20 @@ public class MessageQueueManager {
         for(int i=0; i < n; i++)
             create("R#"+dformat.format(i));
         
-        //Init Age Tree
-        id.setAgeToTreeMap();
+        //Init ID
+        id.init();
     }
     
     private Boolean create(String agID){
-        //Agent (and Register ID)
+        //Checking Exists Agent
         if(id.toSID(agID) > -1) return false;
         
-        CreateUserAgent agent = new CreateUserAgent();
-        agent.create(agID);
+        //CreateUserAgent agent = new CreateUserAgent();
+        //agent.create(agID);
+        id.setID(agID);
         
         //MessageQueue
-        String mqName = "RMQ"+id.toSID(agID);
-        setMessageQueue(new ReciveMessageQueue(mqName));
-        id.setMQName(mqName);
-        
-        //Init Decomposition
-        id.setDecomposeMap(mqName);
+        setMessageQueue(new ReciveMessageQueue(id.agIDToMQN(agID)));
         
         return true;
     }
@@ -79,11 +74,11 @@ public class MessageQueueManager {
         }
         if((mode == 0) || (flg == true)) return;
         
-        String agID = id.setDecomposeMap(mqName);
+        String agID = id.getDecomposeID(mqName);
         
         if(create(agID)){
-            id.addDecomposeList(mqName, agID);
             start(id.toSID(agID));
+            id.addDistributedAgent(mqName, agID);
         }
     }
     

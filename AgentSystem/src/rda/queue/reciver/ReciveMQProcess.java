@@ -2,6 +2,7 @@ package rda.queue.reciver;
 
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
+import rda.agent.user.CreateUserAgent;
 
 import rda.agent.user.UpdateUser;
 import rda.queue.id.IDToMQN;
@@ -20,10 +21,14 @@ public class ReciveMQProcess extends Thread{
         MessageQueueTimer mqt = MessageQueueTimer.getInstance();
         IDToMQN id = IDToMQN.getInstance();
         
+        //Create Agent
+        CreateUserAgent agent = new CreateUserAgent();
+        AgentKey key = agent.create(id.mqnToAGID(mq.name));
+        
+        //Setting Update
         UpdateUser user = new UpdateUser();
         
         ArrayList<Integer> dataList = new ArrayList<>();
-        AgentKey key = id.agIDToKey(mq.name);
         
         while(true){
             try{

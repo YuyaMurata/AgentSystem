@@ -5,7 +5,6 @@
  */
 package rda.test;
 
-import com.ibm.agent.exa.AgentKey;
 import rda.data.DataGenerator;
 import rda.data.MountData;
 import rda.queue.id.IDToMQN;
@@ -15,7 +14,7 @@ import rda.queue.id.IDToMQN;
  * @author kaeru
  */
 public class TestSettings extends TestParameter {
-    public DataGenerator DATA_TYPE;
+    public static DataGenerator DATA_TYPE;
     private void dataset(){
         MountData type = new MountData(
                 TIME_RUN, 
@@ -32,27 +31,19 @@ public class TestSettings extends TestParameter {
     public static IDToMQN ID = IDToMQN.getInstance();
     private void idset(){
         for(int i=0; i < NUMBER_OF_AGENTS; i++){
-            ID.setID("R#00"+i);
-            ID.setKey(new AgentKey(AGENT_TYPE, new Object[]{"R#00"+i}));
-            ID.setMQName("RMQ#"+i);
-            ID.setDecomposeMap("RMQ#"+i);
+            String agID = "R#00"+i;
+            ID.setID(agID);
         }
         
-        ID.setAgeToTreeMap();
+        ID.init();
     }
     
     private static int decompose = NUMBER_OF_AGENTS-1;
-    public static void decomposeTest(){
+    public static void decomposeTest(String name){
         System.out.println("Decompose Agents!!");
-        decompose++;
-        
-        ID.setID("R#00"+decompose);
-        ID.setKey(new AgentKey(AGENT_TYPE, new Object[]{"R#00"+decompose}));
-        ID.setMQName("RMQ#"+decompose);
-        
-        ID.setDecomposeMap("RMQ#"+decompose);
-        
-        ID.setAgeToTreeMap();
+        String agID = ID.getDecomposeID(name);
+        ID.setID(agID);
+        ID.addDistributedAgent(name, agID);
     }
     
     public void setting(){
@@ -65,8 +56,7 @@ public class TestSettings extends TestParameter {
         System.out.println(toString());    
     }
     
-    @Override
-    public String toString(){
+    public static String toTestSettingsString(){
         StringBuilder sb = new StringBuilder();
         sb.append(" --- Data Setting Information --- \n");
         sb.append(DATA_TYPE.toString()+"\n");
@@ -74,9 +64,8 @@ public class TestSettings extends TestParameter {
         
         sb.append(" --- ID Setting Information --- \n");
         for(int i=0; i < NUMBER_OF_AGENTS; i++){
-            sb.append(ID.sidToKey(i)+", ");
-            sb.append(ID.keyToAGID(ID.sidToKey(i))+", ");
-            sb.append(ID.keyToMQN(ID.sidToKey(i))+"\n");
+            sb.append(ID.sidToMQN(i)+", ");
+            sb.append(ID.sidToAGID(i)+"\n");
         }
         
         return sb.toString();

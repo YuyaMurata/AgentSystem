@@ -7,6 +7,7 @@ package rda.test;
 
 import java.util.Set;
 import java.util.TreeMap;
+import org.apache.commons.math3.random.RandomDataGenerator;
 import rda.agent.user.ProfileGenerator;
 import rda.queue.obj.MessageObject;
 
@@ -16,6 +17,8 @@ import rda.queue.obj.MessageObject;
  */
 public class DataTest extends TestParameter{
     private static TestSettings test = new TestSettings();
+    private static RandomDataGenerator rand = new RandomDataGenerator();
+    
     public static void main(String[] args) {
         test.setting();
         
@@ -29,14 +32,14 @@ public class DataTest extends TestParameter{
             start = System.currentTimeMillis();
             while((msg = test.DATA_TYPE.generate(t)) != null){
                 //int key = Integer.valueOf((String)gen.getProf(msg.id).get("Age"));
-                if(Math.abs(msg.id.hashCode()) % 10 == 2){
-                    int key = Math.abs(msg.id.hashCode()) % 15;
-                    Long cnt = 0L;
-                    if(map.get(key) != null) cnt = (Long)map.get(key) + 1;
-                    map.put(key, cnt);
-                }
+                int key = TestSettings.ID.toSID(msg.id);
+                Long cnt = 0L;
+                if(map.get(key) != null) cnt = (Long)map.get(key) + 1;
+                map.put(key, cnt);
+                
+                if(rand.nextInt(0, 10000000) == 7777777)
+                    TestSettings.decomposeTest(TestSettings.ID.sidToMQN(key));
             }
-            //if(t % 60 == 0) TestSettings.decomposeTest();
             
             stop = System.currentTimeMillis();
             System.out.println("Time = "+t+", ProcessTime = "+(stop-start)+" [ms]");
@@ -49,5 +52,7 @@ public class DataTest extends TestParameter{
         }
         
         System.out.println("Total:"+total);
+        System.out.println(TestSettings.toTestSettingsString());
+        TestSettings.ID.outputDistID();
     }
 }
