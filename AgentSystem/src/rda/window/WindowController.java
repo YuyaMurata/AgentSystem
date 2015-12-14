@@ -42,10 +42,11 @@ public class WindowController{
                     //Return Data (*effect latency)
                     queue.add(obj);
                     
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException ex) {
-                    }
+                    if(queue.size() > 100000)
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException ex) {
+                        }
                 }
 	}
 
