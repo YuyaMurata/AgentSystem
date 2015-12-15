@@ -20,6 +20,13 @@ public class IDToMQN implements SetProperty{
         }
         
         public void init(){
+            //Init Wait (Launch Agents)
+            while(mqNameList.size() != NUMBER_OF_QUEUE)
+                try {
+                    Thread.sleep(QUEUE_WAIT);
+                } catch (InterruptedException ex) {
+                }
+            
             //After Running Set Function
             for(int i=0; i < mqNameList.size(); i++){
                 //Init Distirubuted Map <MQName, dist-list>
