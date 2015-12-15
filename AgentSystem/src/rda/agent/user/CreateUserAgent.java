@@ -69,7 +69,7 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
 		return null;
 	}
 	
-        public AgentKey create(String agID){
+        public void create(String agID){
             AgentConnection ag = AgentConnection.getInstance();
             ProfileGenerator profileGen = ProfileGenerator.getInstance();
            
@@ -89,9 +89,7 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
                 
                 ag.returnConnection(client);
                 
-                return agentKey;
             } catch (AgentException e) {
-                return null;
             }
 	}
 

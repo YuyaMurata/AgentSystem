@@ -23,7 +23,7 @@ public class ReciveMQProcess extends Thread{
         
         //Create Agent
         CreateUserAgent agent = new CreateUserAgent();
-        AgentKey key = agent.create(id.mqnToAGID(mq.name));
+        agent.create(id.mqnToAGID(mq.name));
         
         String agID = id.mqnToAGID(mq.name);
         
