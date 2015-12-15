@@ -21,7 +21,7 @@ public class ReciveMessageQueue implements SetProperty{
     public ReciveMessageQueue(String name) {
         this.name = name;
         
-        this.queue = new ArrayBlockingQueue<>(QUEUE_LENGTH);
+        this.queue = new ArrayBlockingQueue<>(QUEUE_LENGTH+1);
         this.mqThread = new ReciveMQProcess(this);
     }
 
