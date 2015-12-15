@@ -41,7 +41,7 @@ public class ReciveMQProcess extends Thread{
                 }
             
                 if(mq.isEmpty() || mqt.getTimer()){
-                    user.sendUpdateMessage(key, dataList);
+                    //user.sendUpdateMessage(key, dataList);
                     dataList.clear();
                 }
             } catch (InterruptedException e) {}
