@@ -1,5 +1,7 @@
 package rda.queue.reciver;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import org.slf4j.Marker;
@@ -11,7 +13,7 @@ import rda.queue.event.MessageQueueEvent;
 
 public class ReciveMessageQueue implements SetProperty{
     public final String name;
-    private final BlockingQueue<Object> queue;
+    private final Queue<Object> queue;
     private final ReciveMQProcess mqThread;
     private Boolean runnable;
     
@@ -21,7 +23,7 @@ public class ReciveMessageQueue implements SetProperty{
     public ReciveMessageQueue(String name) {
         this.name = name;
         
-        this.queue = new ArrayBlockingQueue<>(QUEUE_LENGTH+1);
+        this.queue = new ArrayDeque<>(QUEUE_LENGTH+1);
         this.mqThread = new ReciveMQProcess(this);
     }
 
@@ -34,7 +36,7 @@ public class ReciveMessageQueue implements SetProperty{
         if(isFull())
             throw new MessageQueueEvent(name);
         
-        queue.put(msg);
+        queue.add(msg);
     }
     
     public void event() throws MessageQueueEvent{
