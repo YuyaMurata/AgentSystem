@@ -50,7 +50,7 @@ public class ProfileGenerator {
     }
         
     private Integer getFratAge(){
-        Integer age = (int) fratRand.nextInt(100)+1;
+        Integer age = (int) rand.nextInt(1, 100);
         return age;
     }
 	
