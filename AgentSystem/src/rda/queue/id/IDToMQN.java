@@ -27,6 +27,8 @@ public class IDToMQN implements SetProperty{
                 } catch (InterruptedException ex) {
                 }
             
+            System.out.println("IDTOMQN:"+toString());
+            
             //After Running Set Function
             for(int i=0; i < mqNameList.size(); i++){
                 //Init Distirubuted Map <MQName, dist-list>
