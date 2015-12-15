@@ -28,6 +28,11 @@ public class ProfileGenerator {
             if((age > 100) || (age < 0)) age = rand.nextInt(0, 100);
             return age;
         }
+        
+        private Integer getAgeFrat(){
+            Integer age = rand.nextInt(0, 100);
+            return age;
+        }
 	
 	public final HashMap getProf(String id) {
             if(user.get(id) == null){
@@ -37,7 +42,8 @@ public class ProfileGenerator {
                 prof.put("Name", "Name-" + id);
                 if(rand.nextInt(0, 1) == 0) prof.put("Sex", "M");  
                 else prof.put("Sex", "F");
-                prof.put("Age", getAge().toString());
+                //prof.put("Age", getAge().toString());
+                prof.put("Age", getAgeFrat().toString());
                 prof.put("Address", "Address-" + id);
                 
                 user.put(id, prof);
