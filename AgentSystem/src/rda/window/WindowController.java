@@ -22,19 +22,19 @@ public class WindowController{
 	}
 
 	public void sendMessage(MessageObject mes){
-            if(window.get(mes.id) == null) window.put(mes.id, new Window(mes.id, size));
+            /*if(window.get(mes.id) == null) window.put(mes.id, new Window(mes.id, size));
             
             if(window.get(mes.id).add(mes)){
                 queue.add(window.get(mes.id).clone());
                 window.remove(mes.id);
             }
                 
-            sendMessageQueue();
+            sendMessageQueue();*/
 	}
 
 	private void sendMessageQueue(){
             Window obj = (Window) queue.poll();
-            /*if(obj != null)
+            if(obj != null)
                 try {
                     manager.getMessageQueue(obj.id).putMessage(obj.get());
                 } catch (InterruptedException ex) {
@@ -47,8 +47,8 @@ public class WindowController{
                     /**try {
                         Thread.sleep(wait);
                     } catch (InterruptedException ex) {
-                    }
-                }*/
+                    }*/
+                }
 	}
 
 	public void close(){

@@ -34,7 +34,7 @@ public class MainSchedule implements Runnable, SetDataType{
     
     private void sendMessage(Long t){
         MessageObject msg;
-        while((msg = DATA_TYPE.generate(t)) != null) ;
+        while((msg = DATA_TYPE.generate(t)) != null)
             mq.sendMessage(msg);
     }
     
