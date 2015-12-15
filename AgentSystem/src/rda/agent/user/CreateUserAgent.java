@@ -72,12 +72,12 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
         public AgentKey create(String userID){
             AgentConnection ag = AgentConnection.getInstance();
             ProfileGenerator profileGen = ProfileGenerator.getInstance();
-            
-            AgentClient client = ag.getConnection();
-            
+           
             IDToMQN id = IDToMQN.getInstance();
             
             try {
+                AgentClient client = ag.getConnection();
+                
                 agentKey = new AgentKey(AGENT_TYPE,new Object[]{userID});
                 
                 prof = profileGen.getProf(userID);
@@ -86,12 +86,12 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
                 Object reply = client.execute(agentKey, executor);
 		
                 System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
-
+                
+                ag.returnConnection(client);
+                
                 return agentKey;
             } catch (AgentException e) {
                 return null;
-            } finally {
-                ag.returnConnection(client);
             }
 	}
 

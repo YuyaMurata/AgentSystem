@@ -7,6 +7,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
+import rda.agent.user.ProfileGenerator;
 import rda.data.SetDataType;
 import rda.log.AgentLogSchedule;
 import rda.log.AgentSystemLogger;
@@ -31,6 +32,10 @@ public class Main implements SetProperty, SetDataType{
         
         //Start System Out
         init_debug();
+        
+        //Generate User
+        ProfileGenerator prof = ProfileGenerator.getInstance();
+        prof.generate(NUMBER_OF_USER_AGENTS);
 
         // Set Window 
         task = new MainSchedule(

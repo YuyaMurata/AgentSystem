@@ -24,7 +24,19 @@ public class ProfileGenerator {
         mu = 100/2;
         sigma = 100/10;
     }
-        
+    
+    private HashMap<String, HashMap> profMap = new HashMap<>();
+    public void generate(Integer n){
+        for(int i=0; i < n; i++){
+            String uid = "U#00"+i;
+            profMap.put(uid, generateProfile(uid));
+        }
+    }
+    
+    public HashMap getProf(String uid){
+        return profMap.get(uid);
+    }
+    
     private Integer getAge(){
         Integer age = (int) rand.nextGaussian(mu, sigma);
         if((age > 100) || (age < 0)) age = rand.nextInt(0, 100);
@@ -36,21 +48,27 @@ public class ProfileGenerator {
         return age;
     }
 	
-    public final HashMap getProf(String id) {
-        if(user.get(id) == null){
-            HashMap<String, String> prof = new HashMap<>();
+    private HashMap generateProfile(String id) {
+        //Store Profile
+        HashMap<String, String> prof = new HashMap<>();
 		
-            prof.put("UserID", id);
-            prof.put("Name", "Name-" + id);
-            if(rand.nextInt(0, 1) == 0) prof.put("Sex", "M");  
-            else prof.put("Sex", "F");
-            //prof.put("Age", getAge().toString());
-            prof.put("Age", getAgeFrat().toString());
-            prof.put("Address", "Address-" + id);
-                
-            user.put(id, prof);
-        }
-            
-        return user.get(id);
+        //ID
+        prof.put("UserID", id);
+        
+        //Name
+        prof.put("Name", "Name-" + id);
+        
+        //Sex
+        if(rand.nextInt(0, 1) == 0) prof.put("Sex", "M");  
+        else prof.put("Sex", "F");
+        
+        //Age
+        //prof.put("Age", getAge().toString());
+        prof.put("Age", getAgeFrat().toString());
+        
+        //Address
+        prof.put("Address", "Address-" + id);
+        
+        return prof;
     }
 }

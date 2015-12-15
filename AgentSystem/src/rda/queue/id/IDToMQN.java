@@ -20,15 +20,6 @@ public class IDToMQN implements SetProperty{
         }
         
         public void init(){
-            //Init Wait (Launch Agents)
-            while(mqNameList.size() < NUMBER_OF_QUEUE)
-                try {
-                    Thread.sleep(QUEUE_WAIT);
-                } catch (InterruptedException ex) {
-                }
-            
-            System.out.println("IDTOMQN:"+toString());
-            
             //After Running Set Function
             for(int i=0; i < mqNameList.size(); i++){
                 //Init Distirubuted Map <MQName, dist-list>
@@ -42,8 +33,6 @@ public class IDToMQN implements SetProperty{
                 Integer range = (int)i * 100 / NUMBER_OF_QUEUE;
                 ageMap.put(range.toString(), i);
             }
-            
-            System.out.println("IDTOMQN:"+ageMap);
         }
         
         //Setting ID, MQName List
@@ -90,8 +79,6 @@ public class IDToMQN implements SetProperty{
         public Integer ageToSID(String uid){
             String age = (String) prof.getProf(uid).get("Age");
             int sid = (Integer) ageMap.lowerEntry(age).getValue();
-            
-            System.out.println("IDTOMQN:"+age+"-"+sid+"_"+sidToAGID(sid));
             
             return getDestinationMQ(sidToMQN(sid));
         }
