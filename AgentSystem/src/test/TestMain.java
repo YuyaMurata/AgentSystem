@@ -17,6 +17,14 @@ public class TestMain extends Exception{
             System.out.println("RandomDataGenerator(0,100):"+(stop-start)+"[ms]");
             
             start = System.currentTimeMillis();
+            for(int i=0; i < 10000; i++){
+                Integer age = (int) rand1.nextGaussian(50, 10);
+                if((age > 100) || (age < 0)) age = rand1.nextInt(0, 100);
+            }
+            stop =  System.currentTimeMillis();
+            System.out.println("RandomDataGenerator(0,100):"+(stop-start)+"[ms]");
+            
+            start = System.currentTimeMillis();
             for(int i=0; i < 10000; i++)
                 rand1.nextInt(0, 0);
             stop =  System.currentTimeMillis();
