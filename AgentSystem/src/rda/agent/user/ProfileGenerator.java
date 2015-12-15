@@ -42,8 +42,8 @@ public class ProfileGenerator {
                 prof.put("Name", "Name-" + id);
                 if(rand.nextInt(0, 1) == 0) prof.put("Sex", "M");  
                 else prof.put("Sex", "F");
-                //prof.put("Age", getAge().toString());
-                prof.put("Age", getAgeFrat().toString());
+                prof.put("Age", getAge().toString());
+                //prof.put("Age", getAgeFrat().toString());
                 prof.put("Address", "Address-" + id);
                 
                 user.put(id, prof);
