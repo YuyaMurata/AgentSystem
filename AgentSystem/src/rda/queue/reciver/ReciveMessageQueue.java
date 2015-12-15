@@ -32,7 +32,7 @@ public class ReciveMessageQueue implements SetProperty{
         if(isFull())
             throw new MessageQueueEvent(name);
         
-        queue.put(msg);
+        //queue.put(msg);
     }
     
     public void event() throws MessageQueueEvent{
