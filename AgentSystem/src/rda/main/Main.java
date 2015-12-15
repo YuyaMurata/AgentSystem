@@ -7,7 +7,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
-import rda.data.profile.ProfileGenerator;
 import rda.data.SetDataType;
 import rda.log.AgentLogSchedule;
 import rda.log.AgentSystemLogger;
@@ -71,11 +70,11 @@ public class Main implements SetProperty, SetDataType{
         
         //Start Main Schedule
         final ScheduledFuture mainTaskFuture = mainTask.scheduleAtFixedRate
-                (task, 0, TIME_PERIOD, TimeUnit.MILLISECONDS);
+                (task, TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
         
         //Start Agen Logging Schedule
         loggingTask.scheduleAtFixedRate
-                (new AgentLogSchedule(), 1000, TIME_PERIOD, TimeUnit.MILLISECONDS);
+                (new AgentLogSchedule(), TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
         
         //Stop Main Schedule
         ScheduledFuture future = endTask.schedule(
@@ -88,7 +87,7 @@ public class Main implements SetProperty, SetDataType{
                     
                     task.isFinish();
                 }
-            }, TIME_RUN, TimeUnit.SECONDS);
+            }, TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
         
         try {
             future.get();
@@ -121,6 +120,9 @@ public class Main implements SetProperty, SetDataType{
         logger.printResults(logger.titleMarker, 
                 "MsgQueueN_{} MaxMQLength_{} WindowSize_{} Wait[ms]: Queue_{} ", 
                 new Object[]{NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, QUEUE_WAIT});
+        logger.printResults(logger.titleMarker, 
+                "Mode: AgentAutonomy_{} DataGenerator_KeyBalance_{} ProfileGenerator_AgeBalance_{}", 
+                new Object[]{AGENT_MODE, DATA_MODE, DATA_PROFILE_MODE});
     }
     
     private static void start_debug(){
@@ -133,10 +135,10 @@ public class Main implements SetProperty, SetDataType{
         logger.print(mainMarker, "Stop Agent System", null);       
         logger.printResults(logger.resultMarker, 
                 "<ALL TransactionTime>_{} [ms]", 
-                new Object[]{stop - initStart});
+                new Object[]{stop - initStart - TIME_DELAY});
         logger.printResults(logger.resultMarker, 
                 "(<Initialize>_{} [ms] <Create>_{} [ms] <Main>_{}[ms])", 
-                new Object[]{createStart - initStart, start - createStart, stop - start});
+                new Object[]{createStart - initStart, start - createStart, stop - start - TIME_DELAY});
         
         IDToMQN id = IDToMQN.getInstance();
         logger.printResults(logger.fieldMarker, "ID{}",new Object[]{id.getMQNameList()});

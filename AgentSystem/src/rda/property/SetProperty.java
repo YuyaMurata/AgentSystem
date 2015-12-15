@@ -36,13 +36,15 @@ public interface SetProperty {
 	/**
 	 * file:agent.property
 	 * number.user.agent
-         * time.period=
+         * time.period
 	 * wait.agent
 	 * time.run
+         * time.delay
 	 * number.rank.agent
 	 */
 	public static final Integer TIME_RUN = Integer.valueOf(prop.getValue("agent", "time.run"));
 	public static final Long TIME_PERIOD = Long.valueOf(prop.getValue("agent", "time.period")); // ms
+        public static final Long TIME_DELAY = Long.valueOf(prop.getValue("agent", "time.delay")) * 1000; // sec
 	public static final Integer NUMBER_OF_USER_AGENTS = Integer.valueOf(prop.getValue("agent", "number.user.agent"));
 	public static final Integer NUMBER_OF_RANK_AGENTS = Integer.valueOf(prop.getValue("agent", "number.rank.agent"));
 	public static final Long AGENT_WAIT = Long.valueOf(prop.getValue("agent", "wait.agent"));
