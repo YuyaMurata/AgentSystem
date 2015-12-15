@@ -1,12 +1,14 @@
 package rda.agent.user;
 
 import java.util.HashMap;
+import java.util.Random;
 import org.apache.commons.math3.random.RandomDataGenerator;
 
 public class ProfileGenerator {
 	private static final ProfileGenerator profgen; 
         private HashMap<String, HashMap> user = new HashMap();
 	private static final RandomDataGenerator rand = new RandomDataGenerator();
+        private static final Random fratRand = new Random();
         private Integer mu, sigma;
         
 	static {
@@ -30,7 +32,7 @@ public class ProfileGenerator {
         }
         
         private Integer getAgeFrat(){
-            Integer age = rand.nextInt(0, 100);
+            Integer age = fratRand.nextInt(101);
             return age;
         }
 	
@@ -42,8 +44,8 @@ public class ProfileGenerator {
                 prof.put("Name", "Name-" + id);
                 if(rand.nextInt(0, 1) == 0) prof.put("Sex", "M");  
                 else prof.put("Sex", "F");
-                prof.put("Age", getAge().toString());
-                //prof.put("Age", getAgeFrat().toString());
+                //prof.put("Age", getAge().toString());
+                prof.put("Age", getAgeFrat().toString());
                 prof.put("Address", "Address-" + id);
                 
                 user.put(id, prof);
