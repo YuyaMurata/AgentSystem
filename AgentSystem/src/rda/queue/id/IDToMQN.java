@@ -79,8 +79,11 @@ public class IDToMQN implements SetProperty{
         public Integer ageToSID(String uid){
             String age = (String) prof.getProf(uid).get("Age");
             int sid = (Integer) ageMap.lowerEntry(age).getValue();
+            Integer dest = getDestinationMQ(sidToMQN(sid));
             
-            return getDestinationMQ(sidToMQN(sid));
+            System.out.println("IDTOMQN::"+uid+", AGE="+age+"__Dest="+dest+" AGID="+sidToAGID(dest));
+            
+            return dest;
         }
         
         //Ditributed Map
