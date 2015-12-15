@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 import rda.queue.id.IDToMQN;
 import java.util.ArrayList;
 import java.util.List;
+import rda.agent.user.CreateUserAgent;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
 
@@ -47,8 +48,8 @@ public class MessageQueueManager {
         //Checking Exists Agent
         if(id.toSID(agID) > -1) return false;
         
-        //CreateUserAgent agent = new CreateUserAgent();
-        //agent.create(agID);
+        CreateUserAgent agent = new CreateUserAgent();
+        agent.create(agID);
         id.setID(agID);
         
         //MessageQueue
