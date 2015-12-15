@@ -78,7 +78,9 @@ public class IDToMQN implements SetProperty{
         private ProfileGenerator prof = ProfileGenerator.getInstance();
         public Integer ageToSID(String uid){
             String age = (String) prof.getProf(uid).get("Age");
+            System.out.println("AGE+UID::"+uid+"--"+age);
             int sid = (Integer) ageMap.lowerEntry(age).getValue();
+            System.out.println("SID::"+sid);
             return getDestinationMQ(sidToMQN(sid));
         }
         
