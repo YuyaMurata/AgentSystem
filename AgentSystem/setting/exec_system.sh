@@ -31,7 +31,7 @@ do
     java -cp $CLASSPATH -Xms4096m -Xmx4096m rda.main.Main
     java -cp $CLASSPATH rda.test.ReadTest
 
-    java -cp $CLASSPATH rda.Dispose
+    java -cp $CLASSPATH rda.agent.disposer.Dispose
 
     killall vmstat
     cat vmstat.log | awk '{print $1 " " $2 "," $15 "," $16}' > vmstat.csv
