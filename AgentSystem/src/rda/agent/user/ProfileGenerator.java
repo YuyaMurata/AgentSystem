@@ -67,8 +67,8 @@ public class ProfileGenerator {
         else prof.put("Sex", "F");
         
         //Age
-        //prof.put("Age", getAge().toString());
-        prof.put("Age", getAgeFrat().toString());
+        prof.put("Age", getAge().toString());
+        //prof.put("Age", getAgeFrat().toString());
         
         //Address
         prof.put("Address", "Address-" + id);
