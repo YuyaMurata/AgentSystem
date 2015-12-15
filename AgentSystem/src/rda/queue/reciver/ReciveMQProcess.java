@@ -32,6 +32,8 @@ public class ReciveMQProcess extends Thread{
         
         while(true){
             try{
+                if(mq.getMessage() == null) continue;
+                
                 synchronized(this){
                     if(!mq.isRunning()) break;
                 }
