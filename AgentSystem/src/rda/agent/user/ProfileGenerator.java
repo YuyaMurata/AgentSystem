@@ -33,7 +33,7 @@ public class ProfileGenerator {
         }
     }
     
-    public synchronized HashMap getAGIDProf(String agID){
+    public HashMap getAGIDProf(String agID){
         return generateProfile(agID);
     }
     
@@ -52,7 +52,7 @@ public class ProfileGenerator {
         return age;
     }
 	
-    private HashMap generateProfile(String id) {
+    private synchronized HashMap generateProfile(String id) {
         //Store Profile
         HashMap<String, String> prof = new HashMap<>();
 		
