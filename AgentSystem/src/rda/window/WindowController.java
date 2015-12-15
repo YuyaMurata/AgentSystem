@@ -25,15 +25,13 @@ public class WindowController{
             if(window.get(mes.id) == null) window.put(mes.id, new Window(mes.id, size));
             
             if(window.get(mes.id).add(mes)){
-                //queue.add(window.get(mes.id).clone());
+                sendMessageQueue(window.get(mes.id).clone());
                 window.remove(mes.id);
             }
-                
-            sendMessageQueue();
 	}
 
-	private void sendMessageQueue(){
-            Window obj = (Window) queue.poll();
+	private void sendMessageQueue(Object win){
+            Window obj = (Window)win;//(Window) queue.poll();
             if(obj != null)
                 try {
                     manager.getMessageQueue(obj.id).putMessage(obj.get());
@@ -42,7 +40,7 @@ public class WindowController{
                     mqex.printEvent();
                     
                     //Return Data (*effect latency)
-                    queue.add(obj);
+                    //queue.add(obj);
                     
                     /**try {
                         Thread.sleep(wait);
