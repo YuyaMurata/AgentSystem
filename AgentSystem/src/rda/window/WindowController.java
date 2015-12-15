@@ -32,8 +32,8 @@ public class WindowController{
 
 	private void sendMessageQueue(Object win){
             Window obj = (Window)win; //(Window) queue.poll();
-            if(obj != null)
-                try {
+            if(obj != null) ;
+                /*try {
                     manager.getMessageQueue(obj.id).putMessage(obj.get());
                 } catch (InterruptedException ex) {
                 } catch (MessageQueueEvent mqex) {
@@ -45,8 +45,8 @@ public class WindowController{
                     /**try {
                         Thread.sleep(wait);
                     } catch (InterruptedException ex) {
-                    }*/
-                }
+                    }
+                }*/
 	}
 
 	public void close(){
