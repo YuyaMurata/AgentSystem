@@ -32,12 +32,12 @@ public class ReciveMQProcess extends Thread{
         
         while(true){
             try{
-                if(mq.getMessage() == null) continue;
-                
                 synchronized(this){
                     if(!mq.isRunning()) break;
                 }
-                    
+                
+                if(mq.getMessage() == null) continue;
+                
                 for(MessageObject msg : (ArrayList<MessageObject>)mq.getMessage()){
                     dataList.add(msg.data);
                 }
@@ -46,7 +46,7 @@ public class ReciveMQProcess extends Thread{
                     user.sendUpdateMessage(key, dataList);
                     dataList.clear();
                 }
-            } catch (InterruptedException e) {System.out.println("MQPROCESS::"+e);}
+            } catch (InterruptedException e) {}
         }
     } 
 }
