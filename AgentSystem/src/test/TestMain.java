@@ -1,27 +1,31 @@
 package test;
 
 import java.util.Random;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentSkipListMap;
+import org.apache.commons.math3.random.RandomDataGenerator;
 
 public class TestMain extends Exception{
-	private static final Random rand = new Random();
+	private static final RandomDataGenerator rand1 = new RandomDataGenerator();
+        private static final Random rand2 = new Random();
         private static final Integer NUM = 1000000;
-        
-        public TestMain(){
-            super("TestMain");
-        }
-        
 	public static void main(String[] args) {
-		TestMain e = new TestMain();
-                System.out.println(e.toString());
-                
-                Integer a = Integer.MAX_VALUE;
-                System.out.println("a="+a);
-                a = a+1;
-                System.out.println("a="+a);
-                a=a+10;
-                System.out.println("a="+a);
-                
+            long start,stop;
+            
+            start = System.currentTimeMillis();
+            for(int i=0; i < 10000; i++)
+                rand1.nextInt(0, 100);
+            stop =  System.currentTimeMillis();
+            System.out.println("RandomDataGenerator(0,100):"+(stop-start)+"[ms]");
+            
+            start = System.currentTimeMillis();
+            for(int i=0; i < 10000; i++)
+                rand1.nextInt(0, 0);
+            stop =  System.currentTimeMillis();
+            System.out.println("RandomDataGenerator(0,0):"+(stop-start)+"[ms]");
+            
+            start = System.currentTimeMillis();
+            for(int i=0; i < 10000; i++)
+                rand2.nextInt(100);
+            stop =  System.currentTimeMillis();
+            System.out.println("Random(100):"+(stop-start)+"[ms]");
 	}
 }
