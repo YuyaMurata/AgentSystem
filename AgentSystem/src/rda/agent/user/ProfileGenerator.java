@@ -42,8 +42,9 @@ public class ProfileGenerator {
     }
     
     private Integer getAge(){
-        Integer age = (int) rand.nextGaussian(mu, sigma);
-        if((age > 100) || (age < 0)) age = rand.nextInt(0, 100);
+        //Integer age = (int) rand.nextGaussian(mu, sigma);
+        //if((age > 100) || (age < 0)) 
+            Integer age = rand.nextInt(0, 100);
         return age;
     }
         
@@ -52,7 +53,7 @@ public class ProfileGenerator {
         return age;
     }
 	
-    private synchronized HashMap generateProfile(String id) {
+    private HashMap generateProfile(String id) {
         //Store Profile
         HashMap<String, String> prof = new HashMap<>();
 		
@@ -68,7 +69,6 @@ public class ProfileGenerator {
         
         //Age
         prof.put("Age", getAge().toString());
-        //prof.put("Age", getAgeFrat().toString());
         
         //Address
         prof.put("Address", "Address-" + id);
