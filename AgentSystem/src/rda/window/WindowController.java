@@ -44,10 +44,10 @@ public class WindowController{
                     //Return Data (*effect latency)
                     queue.add(obj);
                     
-                    try {
+                    /**try {
                         Thread.sleep(wait);
                     } catch (InterruptedException ex) {
-                    }
+                    }**/
                 }
 	}
 

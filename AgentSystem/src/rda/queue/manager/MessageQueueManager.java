@@ -63,7 +63,6 @@ public class MessageQueueManager {
     
     public ReciveMessageQueue getMessageQueue(String uid){
         int sid = id.ageToSID(uid);
-        System.out.println("MQM::"+messageQueue.get(sid).name);
         return messageQueue.get(sid);
     }
     
