@@ -33,8 +33,6 @@ public class IDToMQN implements SetProperty{
                 Integer range = (int)i * 100 / NUMBER_OF_QUEUE;
                 ageMap.put(range.toString(), i);
             }
-            
-            System.out.println("AGEMAP:::"+ageMap);
         }
         
         //Setting ID, MQName List
@@ -80,7 +78,7 @@ public class IDToMQN implements SetProperty{
         private ProfileGenerator prof = ProfileGenerator.getInstance();
         public Integer ageToSID(String uid){
             String age = (String) prof.getProf(uid).get("Age");
-            int sid = (Integer) ageMap.lowerEntry(age).getValue();
+            int sid = (Integer) ageMap.floorEntry(age).getValue();
             return getDestinationMQ(sidToMQN(sid));
         }
         

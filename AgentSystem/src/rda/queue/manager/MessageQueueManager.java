@@ -48,11 +48,10 @@ public class MessageQueueManager {
         //Checking Exists Agent
         if(id.toSID(agID) > -1) return false;
         
-        CreateUserAgent agent = new CreateUserAgent();
-        agent.create(agID);
+        //Setting ID
         id.setID(agID);
         
-        //MessageQueue
+        //Setting MessageQueue
         setMessageQueue(new ReciveMessageQueue(id.agIDToMQN(agID)));
         
         return true;
