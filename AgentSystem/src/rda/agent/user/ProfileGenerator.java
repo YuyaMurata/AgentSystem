@@ -33,7 +33,7 @@ public class ProfileGenerator {
         }
     }
     
-    public HashMap getAGIDProf(String agID){
+    public synchronized HashMap getAGIDProf(String agID){
         return generateProfile(agID);
     }
     
