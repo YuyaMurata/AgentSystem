@@ -5,6 +5,7 @@
  */
 package rda.test;
 
+import rda.agent.user.ProfileGenerator;
 import rda.data.DataGenerator;
 import rda.data.MountData;
 import rda.queue.id.IDToMQN;
@@ -26,6 +27,9 @@ public class TestSettings extends TestParameter {
         );
         
         DATA_TYPE = new DataGenerator(type);
+        
+        ProfileGenerator prof = ProfileGenerator.getInstance();
+        prof.generate(NUMBER_OF_USER);
     }
     
     public static IDToMQN ID = IDToMQN.getInstance();
