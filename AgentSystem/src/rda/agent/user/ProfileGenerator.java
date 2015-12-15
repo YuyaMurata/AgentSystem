@@ -49,7 +49,7 @@ public class ProfileGenerator {
         return age;
     }
         
-    private Integer getAgeFrat(){
+    private Integer getFratAge(){
         Integer age = (int) fratRand.nextInt(101);
         return age;
     }
@@ -69,7 +69,8 @@ public class ProfileGenerator {
         else prof.put("Sex", "F");
         
         //Age
-        prof.put("Age", getAge().toString());
+        //prof.put("Age", getAge().toString());
+        prof.put("Age", getFratAge().toString());
         
         //Address
         prof.put("Address", "Address-" + id);
