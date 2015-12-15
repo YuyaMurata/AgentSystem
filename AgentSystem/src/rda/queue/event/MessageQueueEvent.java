@@ -25,6 +25,6 @@ public class MessageQueueEvent extends Exception{
     public void printEvent(){
         //イベント出力
         logger.printMQEvent(dataMarker, 
-                "MQName_,{}, : ########## 負荷検知 ########## ", new String[]{name});
+                "MQName_,{}, : ########## Load Detecting ########## ", new String[]{name});
     }
 }
