@@ -26,6 +26,8 @@ public class ReciveMessageQueue implements SetProperty{
     }
 
     public void putMessage(Object msg) throws InterruptedException, MessageQueueEvent{
+        System.out.println("RECIVE:: PUT MESSAGE!!");
+        
         synchronized(this){
             if(!isRunning()) throw new IllegalStateException();
         }
@@ -48,6 +50,8 @@ public class ReciveMessageQueue implements SetProperty{
     }
 
     public Object getMessage() throws InterruptedException{
+        System.out.println("RECIVE:: GET MESSAGE!!");
+        
         if(!isRunning()) throw new IllegalStateException();
         
         return queue.take();
