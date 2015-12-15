@@ -26,7 +26,7 @@ public class ReciveMessageQueue implements SetProperty{
     }
 
     public void putMessage(Object msg) throws InterruptedException, MessageQueueEvent{
-        System.out.println("RECIVE::"+name+" PUT MESSAGE!! ["+queue.size()+"]");
+        //System.out.println("RECIVE::"+name+" PUT MESSAGE!! ["+queue.size()+"]");
         
         synchronized(this){
             if(!isRunning()) throw new IllegalStateException();
@@ -50,11 +50,12 @@ public class ReciveMessageQueue implements SetProperty{
     }
 
     public Object getMessage() throws InterruptedException{
-        System.out.println("RECIVE::"+name+" GET MESSAGE!! ["+queue.size()+"]");
+        //System.out.println("RECIVE::"+name+" GET MESSAGE!! ["+queue.size()+"]");
         
         if(!isRunning()) throw new IllegalStateException();
         
-        return queue.take();
+        //return queue.take();
+        return null;
     }
 
     public Integer getSize(){
