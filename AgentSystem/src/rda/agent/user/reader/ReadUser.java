@@ -1,4 +1,4 @@
-package rda.agent.user;
+package rda.agent.user.reader;
 
 import java.io.Serializable;
 import java.util.Collection;

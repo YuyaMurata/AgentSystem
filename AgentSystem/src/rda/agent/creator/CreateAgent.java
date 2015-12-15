@@ -1,6 +1,6 @@
 package rda.agent.creator;
 
-import rda.agent.user.CreateUserAgent;
+import rda.agent.user.creator.CreateUserAgent;
 
 public class CreateAgent {
     

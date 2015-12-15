@@ -1,5 +1,10 @@
-package rda.data;
+package rda.data.type;
 
+import rda.data.profile.ProfileGenerator;
+import rda.data.Data;
+import rda.data.DataType;
+import static rda.property.SetProperty.DATA_MODE;
+import static rda.property.SetProperty.NUMBER_OF_USER_AGENTS;
 import rda.queue.obj.MessageObject;
 
 public class MountData implements DataType{
@@ -10,7 +15,7 @@ public class MountData implements DataType{
     
     private Long time, period, volume;
     
-    public MountData(long time, long period, long volume, int numberOfUser, int valueOfUser, int datamode) {
+    public MountData(long time, long period, long volume, int numberOfUser, int valueOfUser, int datamode, int profmode) {
         this.name = "MountType";
         this.data = new Data();
         
@@ -20,6 +25,11 @@ public class MountData implements DataType{
         
         //initialise
         data.init(numberOfUser, valueOfUser, datamode);
+        
+        //Generate User
+        ProfileGenerator prof = ProfileGenerator.getInstance();
+        prof.generate(numberOfUser, profmode);
+        
         count = -1L;
     }
     

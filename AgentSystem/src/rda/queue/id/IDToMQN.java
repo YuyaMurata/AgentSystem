@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 import org.apache.commons.math3.random.RandomDataGenerator;
-import rda.agent.user.ProfileGenerator;
+import rda.data.profile.ProfileGenerator;
 
 public class IDToMQN implements SetProperty{
 	//AgentKey Define

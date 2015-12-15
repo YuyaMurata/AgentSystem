@@ -1,5 +1,6 @@
-package rda.agent.user;
+package rda.agent.user.creator;
 
+import rda.data.profile.ProfileGenerator;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;

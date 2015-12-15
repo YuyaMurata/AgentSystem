@@ -7,7 +7,7 @@ package rda.test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import rda.agent.user.ProfileGenerator;
+import rda.data.profile.ProfileGenerator;
 
 /**
  *

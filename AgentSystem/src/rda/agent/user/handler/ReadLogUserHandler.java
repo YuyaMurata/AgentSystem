@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import rda.Log;
 import rda.Useragent;
-import rda.agent.user.LogInfo;
+import rda.agent.user.logger.LogInfo;
 
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;

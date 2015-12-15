@@ -1,5 +1,7 @@
-package rda.data;
+package rda.data.type;
 
+import rda.data.Data;
+import rda.data.DataType;
 import rda.queue.obj.MessageObject;
 
 public class ImpulseData implements DataType{

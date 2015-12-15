@@ -1,4 +1,4 @@
-package rda.data;
+package rda.data.fileout;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,13 +6,18 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
+/**
+ * Output Log File
+ * Not Use 
+ * @author kaeru
+ */
 public class OutputData {
 	private String filename;
-	/*public OutputData(String filename) {
+	public OutputData(String filename) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.filename = filename;
 		init();
-	}*/
+	}
 		
 	private PrintWriter pw;
 	private void init(){

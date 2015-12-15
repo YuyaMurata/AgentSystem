@@ -1,15 +1,12 @@
-package rda.agent.user;
+package rda.data.profile;
 
 import java.util.HashMap;
-import java.util.Random;
 import org.apache.commons.math3.random.RandomDataGenerator;
 
 public class ProfileGenerator {
     private static final ProfileGenerator profgen; 
-    private HashMap<String, HashMap> user = new HashMap();
     private static final RandomDataGenerator rand = new RandomDataGenerator();
-    private static final Random fratRand = new Random();
-    private Integer mu, sigma;
+    private Integer mu, sigma, mode;
         
     static {
         profgen = new ProfileGenerator();
@@ -26,7 +23,10 @@ public class ProfileGenerator {
     }
     
     private HashMap<String, HashMap> profMap = new HashMap<>();
-    public void generate(Integer n){
+    public void generate(Integer n, Integer mode){
+        //Data Profile Mode (Topic Balance)
+        this.mode = mode;
+        
         for(int i=0; i < n; i++){
             String uid = "U#00"+i;
             profMap.put(uid, generateProfile(uid));
@@ -34,14 +34,16 @@ public class ProfileGenerator {
     }
     
     public HashMap getAGIDProf(String agID){
+        //R#系のAgentのProfileを生成
         return generateProfile(agID);
     }
     
     public HashMap getProf(String uid){
+        //U#系のProfileを生成
         return profMap.get(uid);
     }
     
-    private Integer getAge(){
+    private Integer getGaussAge(){
         Integer age = (int) rand.nextGaussian(mu, sigma);
         
         if((age > 100) || (age < 0)) 
@@ -69,8 +71,8 @@ public class ProfileGenerator {
         else prof.put("Sex", "F");
         
         //Age
-        //prof.put("Age", getAge().toString());
-        prof.put("Age", getFratAge().toString());
+        if(mode == 0)prof.put("Age", getFratAge().toString());
+        else prof.put("Age", getGaussAge().toString());
         
         //Address
         prof.put("Address", "Address-" + id);

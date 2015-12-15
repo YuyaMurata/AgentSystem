@@ -42,7 +42,7 @@
 			<handler message="updateUserAgent" class="rda.agent.user.handler.UpdateUserHandler"/>
 			<handler message="readLogUserAgent" class="rda.agent.user.handler.ReadLogUserHandler"/>
 
-			<handler message="dispose" class="rda.DisposeHandler"/>
+			<handler message="dispose" class="rda.agent.disposer.handler.DisposeHandler"/>
 		</agent>
 	</agents>
 </agentdef>

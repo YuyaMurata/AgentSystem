@@ -2,9 +2,9 @@ package rda.queue.reciver;
 
 import com.ibm.agent.exa.AgentKey;
 import java.util.ArrayList;
-import rda.agent.user.CreateUserAgent;
+import rda.agent.user.creator.CreateUserAgent;
 
-import rda.agent.user.UpdateUser;
+import rda.agent.user.updater.UpdateUser;
 import rda.queue.id.IDToMQN;
 import rda.queue.obj.MessageObject;
 import rda.queue.timer.MessageQueueTimer;

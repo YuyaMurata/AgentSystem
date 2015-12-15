@@ -2,7 +2,7 @@ package rda.agent.user.handler;
 
 import rda.Profile;
 import rda.Useragent;
-import rda.agent.user.UserInfo;
+import rda.agent.user.reader.UserInfo;
 
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;

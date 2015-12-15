@@ -1,6 +1,7 @@
 package rda.test;
 
-import rda.agent.user.UpdateUser;
+import rda.test.setter.TestParameter;
+import rda.agent.user.updater.UpdateUser;
 
 public class UpdateTest extends TestParameter{
 	

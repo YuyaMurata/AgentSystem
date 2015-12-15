@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rda.test;
+package rda.test.setter;
 
-import rda.agent.user.ProfileGenerator;
+import rda.data.profile.ProfileGenerator;
 import rda.data.DataGenerator;
-import rda.data.MountData;
+import rda.data.type.MountData;
 import rda.queue.id.IDToMQN;
 
 /**
@@ -23,13 +23,11 @@ public class TestSettings extends TestParameter {
                 VOLUME, 
                 NUMBER_OF_USER, 
                 VALUE,
-                DATA_MODE
+                DATA_MODE,
+                DATA_PROFILE_MODE
         );
         
         DATA_TYPE = new DataGenerator(type);
-        
-        ProfileGenerator prof = ProfileGenerator.getInstance();
-        prof.generate(NUMBER_OF_USER);
     }
     
     public static IDToMQN ID = IDToMQN.getInstance();

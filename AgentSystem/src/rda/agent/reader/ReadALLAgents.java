@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rda.result;
+package rda.agent.reader;
 
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.AgentManager;
@@ -17,7 +17,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 import rda.agent.client.AgentConnection;
-import rda.agent.user.UserInfo;
+import rda.agent.user.reader.UserInfo;
 
 /**
  *

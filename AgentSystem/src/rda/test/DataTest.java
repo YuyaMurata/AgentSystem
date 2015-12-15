@@ -5,10 +5,12 @@
  */
 package rda.test;
 
+import rda.test.setter.TestSettings;
+import rda.test.setter.TestParameter;
 import java.util.Set;
 import java.util.TreeMap;
 import org.apache.commons.math3.random.RandomDataGenerator;
-import rda.agent.user.ProfileGenerator;
+import rda.data.profile.ProfileGenerator;
 import rda.queue.obj.MessageObject;
 
 /**

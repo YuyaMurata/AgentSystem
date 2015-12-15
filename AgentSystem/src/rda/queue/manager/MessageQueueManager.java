@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
 import rda.queue.id.IDToMQN;
 import java.util.ArrayList;
 import java.util.List;
-import rda.agent.user.CreateUserAgent;
+import rda.agent.user.creator.CreateUserAgent;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
 

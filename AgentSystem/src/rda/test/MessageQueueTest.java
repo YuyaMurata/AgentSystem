@@ -1,9 +1,10 @@
 package rda.test;
 
+import rda.test.setter.TestParameter;
 import java.util.ArrayList;
 import rda.agent.creator.CreateAgent;
 
-import rda.data.OutputData;
+import rda.data.fileout.OutputData;
 import rda.queue.obj.MessageObject;
 import rda.window.WindowController;
 

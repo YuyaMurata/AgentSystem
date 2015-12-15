@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import rda.data.OutputData;
+import rda.data.fileout.OutputData;
 import rda.property.SetProperty;
 
 public class Mpstat implements Runnable, SetProperty{

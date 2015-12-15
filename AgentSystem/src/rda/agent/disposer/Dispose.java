@@ -1,4 +1,4 @@
-package rda;
+package rda.agent.disposer;
 
 import java.io.Serializable;
 import java.util.Collection;

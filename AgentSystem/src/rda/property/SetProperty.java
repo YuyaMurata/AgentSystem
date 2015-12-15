@@ -50,6 +50,7 @@ public interface SetProperty {
         public static final Integer AGENT_DEFAULT_VALUE = Integer.valueOf(prop.getValue("agent", "agent.default.value"));
         public static final Integer AGENT_MODE = Integer.valueOf(prop.getValue("agent", "agent.mode"));
         public static final Integer DATA_MODE = Integer.valueOf(prop.getValue("agent", "data.generate.mode"));
+        public static final Integer DATA_PROFILE_MODE = Integer.valueOf(prop.getValue("agent", "data.profile.mode"));
         
         //Log Property
         /**

@@ -1,4 +1,4 @@
-package rda;
+package rda.agent.disposer.handler;
 
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;
