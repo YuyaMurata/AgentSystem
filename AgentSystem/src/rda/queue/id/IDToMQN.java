@@ -45,7 +45,7 @@ public class IDToMQN implements SetProperty{
         
         //Setting ID, MQName List
         private List<String> agIDList = new ArrayList<>();
-        public void setID(String agID){
+        public synchronized void setID(String agID){
             agIDList.add(agID);
             setMQName(agID);
         }
