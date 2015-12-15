@@ -42,9 +42,9 @@ public class ProfileGenerator {
     }
     
     private Integer getAge(){
-        //Integer age = (int) rand.nextGaussian(mu, sigma);
-        //if((age > 100) || (age < 0)) 
-            Integer age = rand.nextInt(0, 100);
+        Integer age = (int) rand.nextGaussian(mu, sigma);
+        if((age > 100) || (age < 0)) 
+            age = rand.nextInt(0, 100);
         return age;
     }
         
