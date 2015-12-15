@@ -43,7 +43,7 @@ public class ProfileGenerator {
     
     private Integer getAge(){
         Integer age = (int) rand.nextGaussian(mu, sigma);
-        System.out.println("AGE=="+age);
+        
         if((age > 100) || (age < 0)) 
             age = rand.nextInt(0, 100);
         return age;
@@ -51,7 +51,6 @@ public class ProfileGenerator {
         
     private Integer getAgeFrat(){
         Integer age = (int) fratRand.nextInt(101);
-        System.out.println("AGE=="+age);
         return age;
     }
 	

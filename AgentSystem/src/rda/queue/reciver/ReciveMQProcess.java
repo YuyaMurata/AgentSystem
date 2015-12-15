@@ -25,6 +25,8 @@ public class ReciveMQProcess extends Thread{
         CreateUserAgent agent = new CreateUserAgent();
         AgentKey key = agent.create(id.mqnToAGID(mq.name));
         
+        String agID = id.mqnToAGID(mq.name);
+        
         //Setting Update
         UpdateUser user = new UpdateUser();
         
@@ -41,7 +43,7 @@ public class ReciveMQProcess extends Thread{
                 }
             
                 if(mq.isEmpty() || mqt.getTimer()){
-                    user.sendUpdateMessage(key, dataList);
+                    user.sendUpdateMessage(agID, dataList);
                     dataList.clear();
                 }
                 
