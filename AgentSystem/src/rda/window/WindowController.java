@@ -35,7 +35,8 @@ public class WindowController{
             if(obj != null)
                 try {
                     manager.getMessageQueue(obj.id).putMessage(obj.get());
-                } catch (InterruptedException ex) {
+                } catch (InterruptedException e) {
+                    System.out.println("WINDOWCONTROLER::"+e);
                 } catch (MessageQueueEvent mqex) {
                     mqex.printEvent();
                     

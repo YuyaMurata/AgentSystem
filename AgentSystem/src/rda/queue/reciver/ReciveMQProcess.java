@@ -44,7 +44,7 @@ public class ReciveMQProcess extends Thread{
                     user.sendUpdateMessage(key, dataList);
                     dataList.clear();
                 }
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {System.out.println("MQPROCESS::"+e);}
         }
     } 
 }
