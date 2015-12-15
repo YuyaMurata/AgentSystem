@@ -33,6 +33,10 @@ public class ProfileGenerator {
         }
     }
     
+    public HashMap getAGIDProf(String agID){
+        return generateProfile(agID);
+    }
+    
     public HashMap getProf(String uid){
         return profMap.get(uid);
     }
