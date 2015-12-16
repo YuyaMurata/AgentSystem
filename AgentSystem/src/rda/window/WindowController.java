@@ -32,7 +32,7 @@ public class WindowController{
 
         public Queue queue = new ArrayDeque();
 	private void sendMessageQueue(Object win){
-            Window obj = (Window) queue.poll();
+            Window obj = (Window)win;// queue.poll();
             if(obj != null)
                 try {
                     manager.getMessageQueue(obj.id).putMessage(obj.get());
