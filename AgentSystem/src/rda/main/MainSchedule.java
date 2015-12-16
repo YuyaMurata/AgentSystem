@@ -7,6 +7,7 @@ package rda.main;
 
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
+import rda.agent.client.AgentConnection;
 import rda.data.SetDataType;
 import rda.log.AgentSystemLogger;
 import rda.queue.obj.MessageObject;
@@ -38,9 +39,13 @@ public class MainSchedule implements Runnable, SetDataType{
             mq.sendMessage(msg);
     }
     
+    private AgentConnection conn = AgentConnection.getInstance();
     private void logging(){
         logger.print(scheduleMaker, 
                 "QS:{} Experiment Step : {} [{}ms]", new Object[]{mq.queue.size(), timer, interval});
+        
+        logger.print(scheduleMaker,
+                "AgentConnection Idle_{} Active_{}", new Object[]{conn.getActiveObject(), conn.getIdleObject()});
     }
     
     @Override
