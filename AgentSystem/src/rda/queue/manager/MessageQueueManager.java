@@ -6,10 +6,12 @@
 package rda.queue.manager;
 
 import java.text.DecimalFormat;
+import java.util.ArrayDeque;
 import rda.queue.id.IDToMQN;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import rda.agent.user.creator.CreateUserAgent;
+import java.util.Queue;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
 
@@ -23,13 +25,13 @@ public class MessageQueueManager {
     private IDToMQN id = IDToMQN.getInstance();
     private MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     
-    private Integer mode;
+    private Integer mode, reserve;
 
     public static MessageQueueManager getInstance(){
         return manager;
     }
     
-    public void initMessageQueue(Integer n, Integer mode){
+    public void initMessageQueue(Integer n, Integer mode, Integer reserve){
         String digit = "";
         for(int i=0; i < n.toString().length(); i++)
             digit = digit + "0";
@@ -37,8 +39,11 @@ public class MessageQueueManager {
         this.mode = mode;
         
         DecimalFormat dformat = new DecimalFormat(digit);
-        for(int i=0; i < n; i++)
-            create("R#"+dformat.format(i));
+        for(int i=0; i < n; i++){
+            String agID = "R#"+dformat.format(i);
+            create(agID);
+            start(agID);
+        }
         
         //Init ID
         id.init();
@@ -57,6 +62,24 @@ public class MessageQueueManager {
         return true;
     }
     
+    private HashMap reservMap = new HashMap();
+    private Queue reserveQueue = new ArrayDeque();
+    private void reserve(Integer n){
+        if(reserve == 0) return;
+        
+        String digit = "";
+        for(int i=0; i < n.toString().length(); i++)
+            digit = digit + "0";
+        
+        DecimalFormat dformat = new DecimalFormat(digit);
+        for(int i=0; i < n; i++){
+            String agID = "RV#"+dformat.format(i);
+            create(agID);
+            start(agID);
+            reserveQueue.add(agID);
+        }  
+    }
+    
     private void setMessageQueue(ReciveMessageQueue mq){
         messageQueue.add(mq);
     }
@@ -68,29 +91,33 @@ public class MessageQueueManager {
     
     private Boolean flg = false;
     public void decompose(String mqName){
-        if(limit() && (flg == false)) {
-            System.err.println("Decompose Limit Error !");
-            flg = true;
-        }
-        if((mode == 0) || (flg == true)) return;
+        //Reserve Mode
+        if((reserve == 1) && (reserveQueue.size() == 0)) flg = true;
+        //Autonomy Mode
+        if(mode == 0 || limit()) flg = true;
+        
+        if(flg == true) return;
         
         String agID = id.getDecomposeID(mqName);
         
-        if(create(agID)){
-            start(id.toSID(agID));
-            id.addDistributedAgent(mqName, agID);
+        switch(reserve){
+            case 0 :
+                if(create(agID)){
+                    start(id.agIDToMQN(agID));
+                    id.addDistributedAgent(agID.split("-")[0], agID);
+                };
+            case 1 :
+                if(agID.contains("RV#")) agID = (String)reservMap.get(agID.split("-")[0]);
+                id.addDistributedAgent(agID.split("-")[0], (String) reserveQueue.poll());
         }
     }
     
-    public void startAll(){
-        mqSS.storeMessageQueue(messageQueue);
-        for(ReciveMessageQueue mq : messageQueue)
-            mq.start();
+    public void start(String agID){
+        messageQueue.get(id.toSID(agID)).start();
     }
     
-    public void start(int sid){
+    private void registerMQSS(){
         mqSS.storeMessageQueue(messageQueue);
-        messageQueue.get(sid).start();
     }
     
     private Boolean limit(){

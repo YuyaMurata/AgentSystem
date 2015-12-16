@@ -100,9 +100,8 @@ public class IDToMQN implements SetProperty{
         }
         
         //Add List Distributed Agent
-        public void addDistributedAgent(String name, String agID){
-            String origin = mqnToAGID(name).split("-")[0];
-            distMQNMap.get(agIDToMQN(origin)).add(agIDToMQN(agID));
+        public void addDistributedAgent(String pid, String cid){
+            distMQNMap.get(agIDToMQN(pid)).add(agIDToMQN(cid));
         }
         
         //Decompose Map
