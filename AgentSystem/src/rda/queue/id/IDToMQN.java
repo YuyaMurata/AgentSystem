@@ -6,13 +6,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
-import org.apache.commons.math3.random.RandomDataGenerator;
 import rda.data.profile.ProfileGenerator;
 
 public class IDToMQN implements SetProperty{
 	//AgentKey Define
 	//private static final int HASH_MOD = 9973;
-        private RandomDataGenerator rand = new RandomDataGenerator();
         private static IDToMQN idToMQN = new IDToMQN();
         
         public static IDToMQN getInstance(){
@@ -86,8 +84,19 @@ public class IDToMQN implements SetProperty{
         private HashMap<String, List<String>> distMQNMap = new HashMap<>();
         private Integer getDestinationMQ(String mqn){
             List<String> mqList = distMQNMap.get(mqn);
-            Integer mq = toSID(mqList.get(rand.nextInt(0, mqList.size()-1)));
-            return mq;
+            return toSID(mqList.get(roundRobin(mqn, mqList.size())));
+        }
+        
+        //MQ Roulette
+        private HashMap<String, Integer> robin = new HashMap();
+        public Integer roundRobin(String mqn, int size){
+            int cnt = 0;
+            
+            if(robin.get(mqn) != null) cnt = robin.get(mqn) + 1;
+            if(cnt > size-1) cnt = 0;
+            robin.put(mqn, cnt);
+            
+            return cnt;
         }
         
         //Add List Distributed Agent

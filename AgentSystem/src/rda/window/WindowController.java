@@ -10,7 +10,7 @@ import rda.queue.manager.MessageQueueManager;
 public class WindowController{
         private MessageQueueManager manager = MessageQueueManager.getInstance();
 	private HashMap<String, Window> window = new HashMap<>();
-        public Queue queue = new ArrayDeque();
+        
         private final Integer size;
         private long wait;
         
@@ -30,6 +30,7 @@ public class WindowController{
             }
 	}
 
+        public Queue queue = new ArrayDeque();
 	private void sendMessageQueue(Object win){
             Window obj = (Window) queue.poll();
             if(obj != null)
