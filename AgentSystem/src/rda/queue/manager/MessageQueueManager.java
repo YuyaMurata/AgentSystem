@@ -37,6 +37,7 @@ public class MessageQueueManager {
             digit = digit + "0";
         
         this.mode = mode;
+        this.reserve = reserve;
         
         DecimalFormat dformat = new DecimalFormat(digit);
         for(int i=0; i < n; i++){
@@ -111,8 +112,11 @@ public class MessageQueueManager {
                     id.addDistributedAgent(agID.split("-")[0], agID);
                 };
             case 1 :
+                String rvAGID = (String) reserveQueue.poll();
+                
                 if(agID.contains("RV#")) agID = (String)reservMap.get(agID.split("-")[0]);
-                id.addDistributedAgent(agID.split("-")[0], (String) reserveQueue.poll());
+                else reservMap.put(rvAGID, agID.split("-")[0]);
+                id.addDistributedAgent(agID.split("-")[0], rvAGID);
         }
     }
     
