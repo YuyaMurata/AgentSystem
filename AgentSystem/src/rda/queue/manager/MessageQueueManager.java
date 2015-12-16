@@ -104,6 +104,7 @@ public class MessageQueueManager {
         if(flg == true) return;
         
         String agID = id.getDecomposeID(mqName);
+        System.out.println("Decompose::"+agID);
         
         switch(reserve){
             case 0 :
