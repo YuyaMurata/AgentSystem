@@ -143,6 +143,6 @@ public class Main implements SetProperty, SetDataType{
         logger.printResults(logger.fieldMarker, "ID{}",new Object[]{id.getMQNameList()});
         logger.printResults(logger.fieldMarker, "ID{}",new Object[]{id.getAGIDList()});
         
-        logger.printResults(logger.dataMarker, "Time,{}", new Object[]{stop - start});
+        logger.printResults(logger.dataMarker, "Time,{}", new Object[]{stop - start - TIME_DELAY});
     }
 }
