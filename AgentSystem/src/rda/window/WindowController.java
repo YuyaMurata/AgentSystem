@@ -31,7 +31,7 @@ public class WindowController{
 	}
 
 	private void sendMessageQueue(Object win){
-            Window obj = (Window)win; //(Window) queue.poll();
+            Window obj = (Window) queue.poll();
             if(obj != null)
                 try {
                     manager.getMessageQueue(obj.id).putMessage(obj.get());
@@ -40,12 +40,12 @@ public class WindowController{
                     mqex.printEvent();
                     
                     //Return Data (*effect latency)
-                    //queue.add(obj);
+                    queue.add(obj);
                     
-                    /**try {
+                    try {
                         Thread.sleep(wait);
                     } catch (InterruptedException ex) {
-                    }*/
+                    }
                 }
 	}
 
