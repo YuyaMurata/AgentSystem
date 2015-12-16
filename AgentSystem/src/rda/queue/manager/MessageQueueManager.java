@@ -47,6 +47,10 @@ public class MessageQueueManager {
         
         //Init ID
         id.init();
+        
+        reserve(10);
+        
+        registerMQSS();
     }
     
     private Boolean create(String agID){
