@@ -114,6 +114,7 @@ public class MessageQueueManager {
                 };
             case 1 :
                 String rvAGID = (String) reserveQueue.poll();
+                System.out.println("Wake Reserve Agents : "+rvAGID);
                 
                 if(agID.contains("RV#")) agID = (String)reservMap.get(agID.split("-")[0]);
                 else reservMap.put(rvAGID, agID.split("-")[0]);
