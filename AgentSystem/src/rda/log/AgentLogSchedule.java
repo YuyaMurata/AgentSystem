@@ -5,6 +5,9 @@
  */
 package rda.log;
 
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+import rda.agent.client.AgentConnection;
 import rda.queue.log.MQSpecificStorage;
 
 /**
@@ -13,13 +16,19 @@ import rda.queue.log.MQSpecificStorage;
  */
 public class AgentLogSchedule implements Runnable{
     private static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
+    private AgentSystemLogger logger = AgentSystemLogger.getInstance();
+    private static final Marker scheduleMaker = MarkerFactory.getMarker("Logger Schedule");
 
     public AgentLogSchedule() {
     }
     
+    private AgentConnection conn = AgentConnection.getInstance();
     @Override
     public void run() {
         mqSS.mqLogging();
+        
+        logger.print(scheduleMaker,
+                "AgentConnection Idle_{} Active_{}", new Object[]{conn.getActiveObject(), conn.getIdleObject()});
     }
     
 }
