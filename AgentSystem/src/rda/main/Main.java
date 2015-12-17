@@ -31,8 +31,6 @@ public class Main implements SetProperty, SetDataType{
         
         //Start System Out
         init_debug();
-        
-        
 
         // Set Window 
         task = new MainSchedule(
