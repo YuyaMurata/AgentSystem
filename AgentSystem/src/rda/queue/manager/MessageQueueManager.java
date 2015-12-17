@@ -112,6 +112,7 @@ public class MessageQueueManager {
                     start(agID);
                     id.addDistributedAgent(agID.split("-")[0], agID);
                 };
+                break;
             case 1 :
                 String rvAGID = (String) reserveQueue.poll();
                 System.out.println("Wake Reserve Agents : "+rvAGID);
@@ -119,6 +120,7 @@ public class MessageQueueManager {
                 if(agID.contains("RV#")) agID = (String)reservMap.get(agID.split("-")[0]);
                 else reservMap.put(rvAGID, agID.split("-")[0]);
                 id.addDistributedAgent(agID.split("-")[0], rvAGID);
+                break;
         }
     }
     
