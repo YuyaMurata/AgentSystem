@@ -109,7 +109,7 @@ public class MessageQueueManager {
         switch(reserve){
             case 0 :
                 if(create(agID)){
-                    start(id.agIDToMQN(agID));
+                    start(agID);
                     id.addDistributedAgent(agID.split("-")[0], agID);
                 };
             case 1 :
