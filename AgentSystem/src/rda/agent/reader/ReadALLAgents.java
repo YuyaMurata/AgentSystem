@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
-import java.util.TreeMap;
 import rda.agent.client.AgentConnection;
 import rda.agent.user.reader.UserInfo;
 
@@ -35,7 +34,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             MessageFactory factory = MessageFactory.getFactory();
             Message msg = factory.getMessage(MESSAGE_TYPE);
 
-            HashMap<AgentKey,Object> ret = agentManager.sendMessage(msg);
+            HashMap< AgentKey,Object> ret = agentManager.sendMessage(msg);
             return ret;
         } catch(IllegalAccessException | InstantiationException e) {
             return e;
@@ -47,7 +46,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
         return results;
     }
     
-    public Collection<UserInfo> read() {
+    public ArrayList<UserInfo> read() {
         // エージェントクライアント
         AgentConnection ag = AgentConnection.getInstance();
         
@@ -62,43 +61,31 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             // その集約結果を取得．集約結果は，completeメソッドの戻り値．
             Object ret = client.execute(executor);
             
-            TreeMap resultsMap = new TreeMap();
+            ArrayList<UserInfo> list = new ArrayList<>();
 
             // 全エージェント実行環境からの結果を取得
             Collection<Object> retFromAllServers = (Collection<Object>)ret;
-            for(Object obj : retFromAllServers) {
+            for(Object o : retFromAllServers) {
                 // 各エージェント実行環境でのReadメッセージの戻り値を取得．
                 // 処理結果はHashMapとなる．
-                HashMap<AgentKey, Object> retFromAgents = (HashMap<AgentKey, Object>)obj;
-                for(AgentKey agentKey : retFromAgents.keySet()) {
+                HashMap<AgentKey, Object> retFromAgents = (HashMap<AgentKey, Object>)o;
+                Set<AgentKey> keySet = retFromAgents.keySet();
+                for(AgentKey agentKey : keySet) {
                     UserInfo info = (UserInfo)retFromAgents.get(agentKey);
-
+                    
                     System.out.println(agentKey + "[");
                     System.out.println("    " + info.toString());
                     System.out.println("]");
                     
-                    //Map
-                    //resultsMap.put(agentKey.toString(), info);
+                    list.add(info);
                 }
             }
-            
-            /*/Test Print
-            System.out.println("TreeMap:"+resultsMap.size());
-            for(Object key : resultsMap.keySet()){
-                System.out.println(key + "[");
-                System.out.println("    " + ((UserInfo)resultsMap.get(key)).toString());
-                System.out.println("]");
-            }
-            **/
             //クライアントの切断
             ag.returnConnection(client);
             
-            return resultsMap.values();
+            return list;
         } catch(Exception e) {
-            e.printStackTrace();
             return null;
-        } finally {
-            //ag.close();
         }
     }
     
