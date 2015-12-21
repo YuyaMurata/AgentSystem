@@ -94,6 +94,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             
             return resultsMap.values();
         } catch(Exception e) {
+            e.printStackTrace();
             return null;
         } finally {
             //ag.close();
