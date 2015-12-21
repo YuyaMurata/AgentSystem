@@ -82,11 +82,13 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             }
             
             //Test Print
-            for(Object key : resultsMap.keySet()){
-                System.out.println(key + "[");
-                System.out.println("    " + ((UserInfo)resultsMap.get(key)).toString());
-                System.out.println("]");
-            }
+            System.out.println("TreeMap:"+resultsMap);
+            
+            //for(Object key : resultsMap.keySet()){
+            //    System.out.println(key + "[");
+            //    System.out.println("    " + ((UserInfo)resultsMap.get(key)).toString());
+            //    System.out.println("]");
+            //}
             
             //クライアントの切断
             ag.returnConnection(client);
