@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
+import java.util.TreeMap;
 import rda.agent.client.AgentConnection;
 import rda.agent.user.reader.UserInfo;
 
@@ -62,6 +63,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             Object ret = client.execute(executor);
             
             ArrayList<UserInfo> list = new ArrayList<>();
+            TreeMap resultsMap = new TreeMap();
 
             // 全エージェント実行環境からの結果を取得
             Collection<Object> retFromAllServers = (Collection<Object>)ret;
@@ -69,23 +71,32 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
                 // 各エージェント実行環境でのReadメッセージの戻り値を取得．
                 // 処理結果はHashMapとなる．
                 HashMap<AgentKey, Object> retFromAgents = (HashMap<AgentKey, Object>)o;
+                
+                //Map
+                resultsMap.putAll(retFromAgents);
+               
                 Set<AgentKey> keySet = retFromAgents.keySet();
                 for(AgentKey agentKey : keySet) {
                     UserInfo info = (UserInfo)retFromAgents.get(agentKey);
-                    
-                    System.out.println(agentKey + "[");
-                    System.out.println("    " + info.toString());
-                    System.out.println("]");
-                    
                     list.add(info);
                 }
             }
+            
+            //Test Print
+            for(Object key : resultsMap.keySet()){
+                System.out.println(key + "[");
+                System.out.println("    " + ((UserInfo)resultsMap.get(key)).toString());
+                System.out.println("]");
+            }
+            
             //クライアントの切断
             ag.returnConnection(client);
             
             return list;
         } catch(Exception e) {
             return null;
+        } finally {
+            ag.close();
         }
     }
     
