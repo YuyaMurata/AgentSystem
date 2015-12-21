@@ -18,13 +18,14 @@ public class MessageQueueEvent extends Exception{
     public MessageQueueEvent(String name) {
         super(name);
         this.name = name;
-        
-        manager.decompose(name);
     }
 
     public void printEvent(){
+        String distAgent = manager.decompose(name);
+        
         //イベント出力
         logger.printMQEvent(dataMarker, 
-                "MQName_,{}, : ########## Load Detecting ########## ", new String[]{name});
+                "MQName_,{},{},: ########## Load Detecting ########## ",
+                new String[]{name, distAgent});
     }
 }
