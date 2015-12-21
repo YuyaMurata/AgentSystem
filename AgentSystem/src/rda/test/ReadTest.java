@@ -1,6 +1,7 @@
 package rda.test;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import rda.agent.client.AgentConnection;
 import rda.agent.user.reader.UserInfo;
@@ -18,7 +19,7 @@ public class ReadTest implements SetProperty{
             ReadALLAgents user = new ReadALLAgents();
             //ReadLogUser log = new ReadLogUser();
 		
-            ArrayList<UserInfo> results = user.read();
+            Collection<UserInfo> results = user.read();
             //log.get(NUMBER_USER);
 
             long total = 0;

@@ -47,7 +47,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
         return results;
     }
     
-    public ArrayList<UserInfo> read() {
+    public Collection<UserInfo> read() {
         // エージェントクライアント
         AgentConnection ag = AgentConnection.getInstance();
         
@@ -75,8 +75,6 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
                 Set<AgentKey> keySet = retFromAgents.keySet();
                 for(AgentKey agentKey : keySet) {
                     UserInfo info = (UserInfo)retFromAgents.get(agentKey);
-                    //System.out.println("Info:"+info.toString());
-                    list.add(info);
                     
                     //Map
                     resultsMap.put(agentKey.toString(), info);
@@ -85,7 +83,6 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             
             //Test Print
             System.out.println("TreeMap:"+resultsMap.size());
-            
             for(Object key : resultsMap.keySet()){
                 System.out.println(key + "[");
                 System.out.println("    " + ((UserInfo)resultsMap.get(key)).toString());
@@ -95,11 +92,11 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             //クライアントの切断
             ag.returnConnection(client);
             
-            return list;
+            return resultsMap.values();
         } catch(Exception e) {
             return null;
         } finally {
-            //ag.close();
+            ag.close();
         }
     }
     
