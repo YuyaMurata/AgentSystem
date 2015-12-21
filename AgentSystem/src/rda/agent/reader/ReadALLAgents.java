@@ -71,14 +71,13 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
                 // 各エージェント実行環境でのReadメッセージの戻り値を取得．
                 // 処理結果はHashMapとなる．
                 HashMap<AgentKey, Object> retFromAgents = (HashMap<AgentKey, Object>)o;
-                
-                //Map
-                resultsMap.putAll(retFromAgents);
                
                 Set<AgentKey> keySet = retFromAgents.keySet();
                 for(AgentKey agentKey : keySet) {
                     UserInfo info = (UserInfo)retFromAgents.get(agentKey);
                     list.add(info);
+                    //Map
+                    resultsMap.put(agentKey, info);
                 }
             }
             
