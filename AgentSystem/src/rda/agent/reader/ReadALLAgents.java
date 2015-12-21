@@ -77,8 +77,9 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
                     UserInfo info = (UserInfo)retFromAgents.get(agentKey);
                     System.out.println("Info:"+info.toString());
                     list.add(info);
+                    
                     //Map
-                    resultsMap.put(agentKey, info);
+                    resultsMap.put(agentKey.toString(), info);
                 }
             }
             
