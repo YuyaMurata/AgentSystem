@@ -3,7 +3,6 @@ package rda.test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import rda.agent.client.AgentConnection;
 import rda.agent.user.reader.UserInfo;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
@@ -14,8 +13,6 @@ public class ReadTest implements SetProperty{
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
 	
 	public static void main(String[] args) {
-            AgentConnection ag = AgentConnection.getInstance();
-            
             ReadALLAgents user = new ReadALLAgents();
             //ReadLogUser log = new ReadLogUser();
 		
