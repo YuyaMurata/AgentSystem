@@ -138,7 +138,6 @@ public class Main implements SetProperty, SetDataType{
                 new Object[]{createStart - initStart, start - createStart, stop - start - TIME_DELAY});
         
         IDToMQN id = IDToMQN.getInstance();
-        logger.printResults(logger.fieldMarker, "ID{}",new Object[]{id.getMQNameList()});
         logger.printResults(logger.fieldMarker, "ID{}",new Object[]{id.getAGIDList()});
         
         logger.printResults(logger.dataMarker, "Time,{}", new Object[]{stop - start - TIME_DELAY});

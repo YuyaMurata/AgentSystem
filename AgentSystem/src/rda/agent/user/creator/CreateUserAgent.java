@@ -14,7 +14,6 @@ import com.ibm.agent.exa.client.AgentExecutor;
 import rda.agent.client.AgentConnection;
 
 import rda.agent.user.message.InitUserMessage;
-import rda.queue.id.IDToMQN;
 
 public class CreateUserAgent implements AgentExecutor, Serializable{
 	/**
@@ -73,8 +72,6 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
         public void create(String agID){
             AgentConnection ag = AgentConnection.getInstance();
             ProfileGenerator profileGen = ProfileGenerator.getInstance();
-           
-            IDToMQN id = IDToMQN.getInstance();
             
             try {
                 AgentClient client = ag.getConnection();

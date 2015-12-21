@@ -6,6 +6,7 @@
 package rda.queue.log;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentSkipListMap;
 import rda.log.AgentSystemLogger;
@@ -28,26 +29,29 @@ public class MQSpecificStorage{
         return mqSS;
     }
     
-    private List<ReciveMessageQueue> mqArray = new ArrayList<>();
+    private Collection<ReciveMessageQueue> mqALL;
     private StringBuilder mqSizeFormat;
-    public void storeMessageQueue(List<ReciveMessageQueue> mqArray){
-        this.mqArray = mqArray;
+    public void storeMessageQueue(Collection<ReciveMessageQueue> mqALL){
+        this.mqALL = mqALL;
         
-        StringBuilder mqName = new StringBuilder("MQName");
+        StringBuilder mqName = new StringBuilder("AgentID");
         mqSizeFormat = new StringBuilder("MQL");
-        for(ReciveMessageQueue mq : mqArray){
+        for(ReciveMessageQueue mq : mqALL){
+            //Data 列の作成
             mqSizeFormat.append(",{}");
-            mqName.append(","+mq.name);
+            
+            //Field 列の作成
+            mqName.append(",").append(mq.name);
         }
         
         logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
     }
     
     public void mqLogging(){
-        if(mqArray == null) return;
+        if(mqALL == null) return;
         
         List<Integer> mqSize = new ArrayList<>();
-        for(ReciveMessageQueue mq : mqArray)
+        for(ReciveMessageQueue mq : mqALL)
             mqSize.add(mq.getSize());
         
         //Record MessageQueue Length

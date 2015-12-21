@@ -5,13 +5,9 @@
  */
 package rda.queue.manager;
 
-import java.text.DecimalFormat;
-import java.util.ArrayDeque;
 import rda.queue.id.IDToMQN;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Queue;
+import java.util.LinkedHashMap;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
 
@@ -21,9 +17,8 @@ import rda.queue.reciver.ReciveMessageQueue;
  */
 public class MessageQueueManager {
     private static MessageQueueManager manager = new MessageQueueManager();
-    private List<ReciveMessageQueue> messageQueue = new ArrayList<>();
+    private HashMap<String, ReciveMessageQueue> mqMap = new LinkedHashMap<>();
     private IDToMQN id = IDToMQN.getInstance();
-    private MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     
     private Integer mode, reserve;
 
@@ -32,113 +27,69 @@ public class MessageQueueManager {
     }
     
     public void initMessageQueue(Integer n, Integer mode, Integer reserve){
-        String digit = "";
-        for(int i=0; i < n.toString().length(); i++)
-            digit = digit + "0";
-        
         this.mode = mode;
         this.reserve = reserve;
         
-        DecimalFormat dformat = new DecimalFormat(digit);
         for(int i=0; i < n; i++){
-            String agID = "R#"+dformat.format(i);
+            String agID = id.createID();
             create(agID);
-            start(agID);
         }
         
         //Init ID
-        id.init();
-        
-        reserve(10);
-        
-        registerMQSS();
+        id.init();    
     }
     
     private Boolean create(String agID){
         //Checking Exists Agent
-        if(id.toSID(agID) > -1) return false;
-        
-        //Setting ID
-        id.setID(agID);
+        if(mqMap.get(agID) != null) return false;
         
         //Setting MessageQueue
-        setMessageQueue(new ReciveMessageQueue(id.agIDToMQN(agID)));
+        ReciveMessageQueue mq = new ReciveMessageQueue(agID);
+        
+        //Start Agent
+        mq.start();
+        
+        //MQ registe MQManager
+        mqMap.put(agID, mq);
+        
+        //MQ Length Logging
+        registerMQSS();
         
         return true;
     }
     
-    private HashMap reservMap = new HashMap();
-    private Queue reserveQueue = new ArrayDeque();
-    private void reserve(Integer n){
-        if(reserve == 0) return;
-        
-        String digit = "";
-        for(int i=0; i < n.toString().length(); i++)
-            digit = digit + "0";
-        
-        DecimalFormat dformat = new DecimalFormat(digit);
-        for(int i=0; i < n; i++){
-            String agID = "RV#"+dformat.format(i);
-            create(agID);
-            start(agID);
-            reserveQueue.add(agID);
-        }  
-    }
-    
-    private void setMessageQueue(ReciveMessageQueue mq){
-        messageQueue.add(mq);
-    }
-    
     public ReciveMessageQueue getMessageQueue(String uid){
-        int sid = id.ageToSID(uid);
-        return messageQueue.get(sid);
+        //Select MQ
+        String agID = id.ageToAGID(uid);
+        
+        return mqMap.get(agID);
     }
     
     private Boolean flg = false;
-    public void decompose(String mqName){
-        //Reserve Mode
-        if((reserve == 1) && (reserveQueue.size() == 0)) flg = true;
+    public String decompose(String pid){
         //Autonomy Mode
         if(mode == 0 || limit()) flg = true;
         
-        if(flg == true) return;
+        if(flg == true) return "";
         
-        String agID = id.getDecomposeID(mqName);
-        System.out.println("Decompose::"+agID);
+        String cid = id.createID();
         
-        switch(reserve){
-            case 0 :
-                if(create(agID)){
-                    start(agID);
-                    id.addDistributedAgent(agID.split("-")[0], agID);
-                };
-                break;
-            case 1 :
-                String rvAGID = (String) reserveQueue.poll();
-                System.out.println("Wake Reserve Agents : "+rvAGID);
-                
-                if(agID.contains("RV#")) agID = (String)reservMap.get(agID.split("-")[0]);
-                else reservMap.put(rvAGID, agID.split("-")[0]);
-                
-                id.addDistributedAgent((String)reservMap.get(rvAGID), rvAGID);
-                break;
-        }
+        if(create(cid)) id.addDistAgent(pid, cid);
+        
+        return cid;
     }
-    
-    public void start(String agID){
-        messageQueue.get(id.toSID(agID)).start();
-    }
-    
+     
     private void registerMQSS(){
-        mqSS.storeMessageQueue(messageQueue);
+        MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
+        mqSS.storeMessageQueue(mqMap.values());
     }
     
     private Boolean limit(){
-        return messageQueue.size() > 1000;
+        return mqMap.size() > 1000;
     }
     
     public void stopAll(){
-        for(ReciveMessageQueue mq: messageQueue)
-            mq.stop();
+        for(String key : mqMap.keySet())
+            mqMap.get(key).stop();
     }
 }

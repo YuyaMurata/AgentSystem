@@ -34,7 +34,7 @@ public class DataTest extends TestParameter{
             start = System.currentTimeMillis();
             while((msg = test.DATA_TYPE.generate(t)) != null){
                 int key = Integer.valueOf((String)gen.getProf(msg.id).get("Age"));
-                //int key = TestSettings.ID.toSID(msg.id);
+                
                 Long cnt = 0L;
                 if(map.get(key) != null) cnt = (Long)map.get(key) + 1;
                 map.put(key, cnt);
@@ -55,6 +55,5 @@ public class DataTest extends TestParameter{
         
         System.out.println("Total:"+total);
         System.out.println(TestSettings.toTestSettingsString());
-        TestSettings.ID.outputDistID();
     }
 }

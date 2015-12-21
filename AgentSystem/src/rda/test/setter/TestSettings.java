@@ -33,19 +33,17 @@ public class TestSettings extends TestParameter {
     public static IDToMQN ID = IDToMQN.getInstance();
     private void idset(){
         for(int i=0; i < NUMBER_OF_AGENTS; i++){
-            String agID = "R#00"+i;
-            ID.setID(agID);
+            ID.createID();
         }
         
         ID.init();
     }
     
     private static int decompose = NUMBER_OF_AGENTS-1;
-    public static void decomposeTest(String name){
-        System.out.println("Decompose Agents!!");
-        String agID = ID.getDecomposeID(name);
-        ID.setID(agID);
-        ID.addDistributedAgent(name, agID);
+    public static void decomposeTest(String pid){
+        String agID = ID.createID();
+        
+        ID.addDistAgent(pid, agID);
     }
     
     public void setting(){
@@ -65,10 +63,7 @@ public class TestSettings extends TestParameter {
         sb.append("\n");
         
         sb.append(" --- ID Setting Information --- \n");
-        for(int i=0; i < NUMBER_OF_AGENTS; i++){
-            sb.append(ID.sidToMQN(i)+", ");
-            sb.append(ID.sidToAGID(i)+"\n");
-        }
+        sb.append(ID.getAGIDList());
         
         return sb.toString();
     }
