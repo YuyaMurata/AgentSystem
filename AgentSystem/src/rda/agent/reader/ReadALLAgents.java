@@ -26,6 +26,9 @@ import rda.agent.user.reader.UserInfo;
  */
 public class ReadALLAgents implements AgentExecutor, Serializable{
     private static final String MESSAGE_TYPE = "readUserAgent";
+
+    public ReadALLAgents() {
+    }
     
     @Override
     public Object execute() {
@@ -47,7 +50,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
         return results;
     }
     
-    public Collection<UserInfo> read() {
+    public ArrayList<UserInfo> read() {
         // エージェントクライアント
         AgentConnection ag = AgentConnection.getInstance();
         
@@ -87,7 +90,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             //クライアントの切断
             ag.returnConnection(client);
             
-            return map.values();
+            return (ArrayList<UserInfo>) map.values();
         } catch(Exception e) {
             e.printStackTrace();
             return null;
