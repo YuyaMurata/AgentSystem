@@ -40,7 +40,7 @@ public class MessageQueueManager {
         id.init();
         
         //Reserve Agents
-        reserve(10);
+        if(reserve == 1) reserve(10);
     }
     
     private Boolean create(String agID){
