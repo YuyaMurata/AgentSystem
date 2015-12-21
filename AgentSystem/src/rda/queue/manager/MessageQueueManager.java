@@ -26,7 +26,7 @@ public class MessageQueueManager {
         return manager;
     }
     
-    public void initMessageQueue(Integer n, Integer mode, Integer reserve){
+    public void initMessageQueue(Integer n, Integer mode, Integer reserve, Integer m){
         this.mode = mode;
         this.reserve = reserve;
         
@@ -40,7 +40,7 @@ public class MessageQueueManager {
         id.init();
         
         //Reserve Agents
-        if(reserve == 1) reserve(10);
+        if(reserve == 1) reserve(m);
     }
     
     private Boolean create(String agID){

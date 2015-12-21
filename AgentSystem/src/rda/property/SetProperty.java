@@ -54,6 +54,7 @@ public interface SetProperty {
         public static final Integer AGENT_MODE_RESERVE = Integer.valueOf(prop.getValue("agent", "agent.mode.reserve"));
         public static final Integer DATA_MODE = Integer.valueOf(prop.getValue("agent", "data.generate.mode"));
         public static final Integer DATA_PROFILE_MODE = Integer.valueOf(prop.getValue("agent", "data.profile.mode"));
+        public static final Integer NUMBER_OF_RESERVE = Integer.valueOf(prop.getValue("agent", "number.mode.reserve"));
         
         //Log Property
         /**
