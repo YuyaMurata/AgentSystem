@@ -47,7 +47,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
         return results;
     }
     
-    public ArrayList<UserInfo> read() {
+    public Collection<UserInfo> read() {
         // エージェントクライアント
         AgentConnection ag = AgentConnection.getInstance();
         
@@ -87,7 +87,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             //クライアントの切断
             ag.returnConnection(client);
             
-            return list;
+            return map.values();
         } catch(Exception e) {
             return null;
         }
