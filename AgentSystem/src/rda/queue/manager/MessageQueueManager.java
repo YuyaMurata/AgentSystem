@@ -30,13 +30,17 @@ public class MessageQueueManager {
         this.mode = mode;
         this.reserve = reserve;
         
+        //Agent Create
         for(int i=0; i < n; i++){
             String agID = id.createID();
             create(agID);
         }
         
         //Init ID
-        id.init();    
+        id.init();
+        
+        //Reserve Agents
+        reserve(10);
     }
     
     private Boolean create(String agID){
@@ -58,6 +62,14 @@ public class MessageQueueManager {
         return true;
     }
     
+    public void reserve(int n){
+        //Reserve Agent Create
+        for(int i=0; i < n; i++){
+            String agID = id.reserveID(i);
+            create(agID);
+        }
+    }
+    
     public ReciveMessageQueue getMessageQueue(String uid){
         //Select MQ
         String agID = id.ageToAGID(uid);
@@ -72,9 +84,10 @@ public class MessageQueueManager {
         
         if(flg == true) return "";
         
-        String cid = id.createID();
-        
-        if(create(cid)) id.addDistAgent(pid, cid);
+        String cid = id.createID();     
+        if(create(cid)) System.out.println("Create Agents");
+        else System.out.println("Take Reserve Agents");
+        id.addDistAgent(pid, cid);
         
         return cid;
     }

@@ -31,6 +31,15 @@ public class IDToMQN implements SetProperty{
             return agID;
         }
         
+        public String reserveID(int rid){
+            String agID = "R#"+dformat.format(serialID+rid);
+            
+            //AgentID sets IDList
+            setID(agID);
+            
+            return agID;
+        }
+        
         private HashMap<String, String> familyMap = new HashMap<>();
         public void init(){
             //After Running Set Function
@@ -52,39 +61,7 @@ public class IDToMQN implements SetProperty{
         private List<String> agIDList = new ArrayList<>();
         private void setID(String agID){
             agIDList.add(agID);
-            //setMQName(agID);
         }
-        
-        //private List<String> mqNameList = new ArrayList<>();
-        //private void setMQName(String agID){
-        //    mqNameList.add("RMQ"+toSID(agID));
-        //}
-        
-        //Translation SID, UID(*), AGE(*), MQN, AGID <-> SID, MQN, AGID
-        //public Integer toSID(String id){
-        //    if(id.contains("RMQ")) return mqNameList.indexOf(id);
-        //    else if(id.contains("U#")){
-        //        int sid = Math.abs(id.hashCode()) % NUMBER_OF_QUEUE;  
-        //        return getDestinationMQ(sidToMQN(sid));
-        //    }
-        //    else return agIDList.indexOf(id);
-	//}
-        
-        //public String agIDToMQN(String agID){
-        //    return mqNameList.get(toSID(agID));
-        //}
-        
-        //public String mqnToAGID(String name){
-        //    return agIDList.get(toSID(name));
-	//}
-        
-        //public String sidToAGID(int sid){
-        //    return agIDList.get(sid);
-        //}
-        
-        //public String sidToMQN(int sid){
-        //    return mqNameList.get(sid);
-        //}
         
         //Only Age Aggregation
         private TreeMap ageMap = new TreeMap();
@@ -150,23 +127,13 @@ public class IDToMQN implements SetProperty{
         public String toString(){
             StringBuilder sb = new StringBuilder();
             sb.append(" --- Information ---\n");
-        //    sb.append("List Size : "+mqNameList.size()+", "+agIDList.size());
-        //    sb.append("\n --- MessageQueue List ---\n");
-        //    sb.append(mqNameList);
+            sb.append("List Size : "+agIDList.size());
             sb.append("\n --- AgentID List ---\n");
             sb.append(agIDList);
             
             return sb.toString();
         }
-        
-        //public String getMQNameList(){
-        //    StringBuilder sb = new StringBuilder();
-        //    for(String name : mqNameList)
-        //        sb.append("," + name);
-        //    
-        //    return sb.toString();
-        //}
-        
+
         public String getAGIDList(){
             StringBuilder sb = new StringBuilder("AgentID");
             for(String id : agIDList)
@@ -174,18 +141,4 @@ public class IDToMQN implements SetProperty{
             
             return sb.toString();
         }
-        
-        //public void outputDistID(){
-        //    for(Object key : decompMap.keySet())
-        //        System.out.println("DECOMPOSE::"+key+"_"+decompMap.get((String)key));
-        //    
-        //    for(Object key : distMQNMap.keySet())
-        //        System.out.println("DISTRIBUTE::"+distMQNMap.get(key));
-        //}
-        
-        /* hash (- -> +) confilict
-        public int toMQN(AgentKey key){
-            return Math.abs(key.hashCode()) % NUMBER_OF_QUEUE;
-	}
-        */
 }

@@ -11,7 +11,6 @@ import rda.data.SetDataType;
 import rda.log.AgentLogSchedule;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
-import rda.queue.id.IDToMQN;
 import rda.queue.manager.MessageQueueManager;
 import rda.queue.timer.MessageQueueTimer;
 import rda.window.WindowController;
@@ -136,10 +135,6 @@ public class Main implements SetProperty, SetDataType{
         logger.printResults(logger.resultMarker, 
                 "(<Initialize>_{} [ms] <Create>_{} [ms] <Main>_{}[ms])", 
                 new Object[]{createStart - initStart, start - createStart, stop - start - TIME_DELAY});
-        
-        IDToMQN id = IDToMQN.getInstance();
-        logger.printResults(logger.fieldMarker, "ID{}",new Object[]{id.getAGIDList()});
-        
         logger.printResults(logger.dataMarker, "Time,{}", new Object[]{stop - start - TIME_DELAY});
     }
 }
