@@ -62,18 +62,15 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             // その集約結果を取得．集約結果は，completeメソッドの戻り値．
             Object ret = client.execute(executor);
             
-            ArrayList<UserInfo> list = new ArrayList<>();
             TreeMap resultsMap = new TreeMap();
 
             // 全エージェント実行環境からの結果を取得
             Collection<Object> retFromAllServers = (Collection<Object>)ret;
-            for(Object o : retFromAllServers) {
+            for(Object obj : retFromAllServers) {
                 // 各エージェント実行環境でのReadメッセージの戻り値を取得．
                 // 処理結果はHashMapとなる．
-                HashMap<AgentKey, Object> retFromAgents = (HashMap<AgentKey, Object>)o;
-               
-                Set<AgentKey> keySet = retFromAgents.keySet();
-                for(AgentKey agentKey : keySet) {
+                HashMap<AgentKey, Object> retFromAgents = (HashMap<AgentKey, Object>)obj;
+                for(AgentKey agentKey : retFromAgents.keySet()) {
                     UserInfo info = (UserInfo)retFromAgents.get(agentKey);
                     
                     //Map
