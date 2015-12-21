@@ -35,7 +35,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             MessageFactory factory = MessageFactory.getFactory();
             Message msg = factory.getMessage(MESSAGE_TYPE);
 
-            HashMap< AgentKey,Object> ret = agentManager.sendMessage(msg);
+            HashMap<AgentKey,Object> ret = agentManager.sendMessage(msg);
             return ret;
         } catch(IllegalAccessException | InstantiationException e) {
             return e;
@@ -69,23 +69,25 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             for(Object obj : retFromAllServers) {
                 // 各エージェント実行環境でのReadメッセージの戻り値を取得．
                 // 処理結果はHashMapとなる．
-                HashMap<AgentKey, Object> retFromAgents = (HashMap<AgentKey, Object>)obj;
+                System.out.println("obj::"+obj);
+                
+                /**HashMap<AgentKey, Object> retFromAgents = (HashMap<AgentKey, Object>)obj;
                 for(AgentKey agentKey : retFromAgents.keySet()) {
                     UserInfo info = (UserInfo)retFromAgents.get(agentKey);
                     
                     //Map
                     //resultsMap.put(agentKey.toString(), info);
-                }
+                }**/
             }
             
-            //Test Print
+            /*/Test Print
             System.out.println("TreeMap:"+resultsMap.size());
             for(Object key : resultsMap.keySet()){
                 System.out.println(key + "[");
                 System.out.println("    " + ((UserInfo)resultsMap.get(key)).toString());
                 System.out.println("]");
             }
-            
+            **/
             //クライアントの切断
             ag.returnConnection(client);
             
