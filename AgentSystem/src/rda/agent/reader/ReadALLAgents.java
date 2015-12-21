@@ -96,7 +96,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
         } catch(Exception e) {
             return null;
         } finally {
-            ag.close();
+            //ag.close();
         }
     }
     

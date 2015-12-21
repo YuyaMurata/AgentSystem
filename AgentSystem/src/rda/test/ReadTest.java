@@ -39,8 +39,6 @@ public class ReadTest implements SetProperty{
                 countTotal = countTotal + result.getCount();
             }
             
-            ag.close();
-            
             //Output
             logger.printResults(logger.fieldMarker, "ID"+sb.toString(), name.toArray(new String[name.size()]));
             logger.printResults(logger.dataMarker, "Transaction"+sb.toString(), data.toArray(new Long[data.size()]));
