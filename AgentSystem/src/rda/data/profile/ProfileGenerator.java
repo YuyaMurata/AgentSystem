@@ -37,8 +37,6 @@ public class ProfileGenerator {
         for(int i=0; i < n; i++){
             String uid = "U#"+dformat.format(i);
             profMap.put(uid, generateProfile(uid));
-            
-            System.out.println("UID::"+uid);
         }
     }
     

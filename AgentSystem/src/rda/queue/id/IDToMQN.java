@@ -82,6 +82,7 @@ public class IDToMQN implements SetProperty{
             
             //Roulette get Dist-Agent
             Integer sid = agentRoulette(uid, distAGList.size());
+            System.out.println("IDTOMQN:: agID="+agID+" uID="+uid+" Dist-AGID"+distAGList.get(sid));
             
             return distAGList.get(sid);
         }
