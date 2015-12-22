@@ -7,6 +7,7 @@ package rda.data;
 
 import java.util.ArrayList;
 import org.apache.commons.math3.random.RandomDataGenerator;
+import rda.data.profile.ProfileGenerator;
 import rda.queue.obj.MessageObject;
 
 /**
@@ -17,20 +18,16 @@ public class Data{
     private static int count = -1;
     private static final RandomDataGenerator rand = new RandomDataGenerator();
     private int numOfUser, value, mode;
+    
+    private ProfileGenerator prof = ProfileGenerator.getInstance();
 
     public Data() {}
 
     //Set All UserID
-    private ArrayList<String> userList = new ArrayList<>();
     public void init(int n, int value, int mode){
         this.numOfUser = n;
         this.value = value;
         this.mode = mode;
-        
-        for(int i=0; i < numOfUser; i++){
-            String userID = "U#00"+ i;
-            userList.add(userID);
-        }
     }
         
     private Integer idNo(){
@@ -53,11 +50,11 @@ public class Data{
 
     //Get Data userID = Call % NUMBER_USER_AGENTS
     public MessageObject getData(){
-        return new MessageObject(userList.get(idNo()), value);
+        return new MessageObject(prof.getUser(idNo()), value);
     }
     
     public MessageObject getPoison(){
-        return new MessageObject(userList.get(idNo()), -1);
+        return new MessageObject(prof.getUser(idNo()), -1);
     }
     
 }

@@ -1,7 +1,9 @@
 package rda.data.profile;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import org.apache.commons.math3.random.RandomDataGenerator;
 
 public class ProfileGenerator {
@@ -24,6 +26,7 @@ public class ProfileGenerator {
     }
     
     private HashMap<String, HashMap> profMap = new HashMap<>();
+    private List<String> userList = new ArrayList<>();
     public void generate(Integer n, Integer mode){
         StringBuilder digit = new StringBuilder();
         for(int i=0; i < n.toString().length(); i++)
@@ -37,6 +40,7 @@ public class ProfileGenerator {
         for(int i=0; i < n; i++){
             String uid = "U#"+dformat.format(i);
             profMap.put(uid, generateProfile(uid));
+            userList.add(uid);
         }
     }
     
@@ -48,6 +52,10 @@ public class ProfileGenerator {
     public HashMap getProf(String uid){
         //U#系のProfileを生成
         return profMap.get(uid);
+    }
+    
+    public String getUser(int index){
+        return userList.get(index);
     }
     
     private Integer getGaussAge(){
