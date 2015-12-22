@@ -73,7 +73,6 @@ public class MessageQueueManager {
     public ReciveMessageQueue getMessageQueue(String uid){
         //Select MQ
         String agID = id.ageToAGID(uid);
-        System.out.println("agID="+agID +" uID="+uid);
         
         return mqMap.get(agID);
     }
