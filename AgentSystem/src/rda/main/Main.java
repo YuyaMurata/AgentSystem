@@ -25,6 +25,7 @@ public class Main implements SetProperty, SetDataType{
     private static final Marker mainMarker = MarkerFactory.getMarker("AgentSystem Main");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
+    private static Long initStart, initStop;
     private static void init(){
         //Time
         initStart = System.currentTimeMillis();
@@ -35,20 +36,28 @@ public class Main implements SetProperty, SetDataType{
         // Set Window 
         task = new MainSchedule(
                 new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow", AGENT_WAIT),
-                TIME_PERIOD); 
+                TIME_PERIOD);
+        
+        initStop = System.currentTimeMillis();
     }
 
+    private static Long createStart, createStop;
     private static void create(int numOfAgents, int mode, int reserve, int numOfReserve){
-        //TIme
+        //Time
         createStart = System.currentTimeMillis();
         
         //Start Manager
         MessageQueueManager manager = MessageQueueManager.getInstance();
         manager.initMessageQueue(numOfAgents, mode, reserve, numOfReserve);
+        
+        createStop = System.currentTimeMillis();
     }
 
-    private static Long start, stop, initStart, createStart;
+    private static Long start, stop;
     public static void main(String[] args) {
+        // Start Time
+        start = System.currentTimeMillis();
+        
         //initialize
         init();
 
@@ -58,13 +67,17 @@ public class Main implements SetProperty, SetDataType{
 
         //Execute Agent System
         execute();
+        
+        // Stop Time
+        stop = System.currentTimeMillis();
     }
 
+    private static Long execStart, execStop;
     private static void execute(){
-        start_debug();
+        //Time
+        execStart = System.currentTimeMillis();
         
-        // Start Time
-        start = System.currentTimeMillis();
+        start_debug();
         
         //Start Main Schedule
         final ScheduledFuture mainTaskFuture = mainTask.scheduleAtFixedRate
@@ -97,11 +110,10 @@ public class Main implements SetProperty, SetDataType{
             loggingTask.shutdownNow();
             endTask.shutdownNow();
             
-            // Stop Time
-            stop = System.currentTimeMillis();
-            
             stop_debug();
         }
+        
+        execStop = System.currentTimeMillis();
     }
     
     // DEBUG SYSTEM OUT
@@ -119,8 +131,8 @@ public class Main implements SetProperty, SetDataType{
                 "MsgQueueN_{} MaxMQLength_{} WindowSize_{} Wait[ms]: Queue_{} ", 
                 new Object[]{NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, QUEUE_WAIT});
         logger.printResults(logger.titleMarker, 
-                "Mode: AgentAutonomy_{} DataGenerator_KeyBalance_{} ProfileGenerator_AgeBalance_{}", 
-                new Object[]{AGENT_MODE_AUTONOMY, DATA_MODE, DATA_PROFILE_MODE});
+                "Mode: AgentAutonomy_{} AgentReserve_{} DataGenerator_KeyBalance_{} ProfileGenerator_AgeBalance_{}", 
+                new Object[]{AGENT_MODE_AUTONOMY, AGENT_MODE_RESERVE, DATA_MODE, DATA_PROFILE_MODE});
     }
     
     private static void start_debug(){
@@ -136,10 +148,10 @@ public class Main implements SetProperty, SetDataType{
         logger.print(mainMarker, "Stop Agent System", null);       
         logger.printResults(logger.resultMarker, 
                 "<ALL TransactionTime>_{} [ms]", 
-                new Object[]{stop - initStart - TIME_DELAY});
+                new Object[]{stop - start - TIME_DELAY});
         logger.printResults(logger.resultMarker, 
                 "(<Initialize>_{} [ms] <Create>_{} [ms] <Main>_{}[ms])", 
-                new Object[]{createStart - initStart, start - createStart, stop - start - TIME_DELAY});
+                new Object[]{initStop - initStart, createStop - createStart, execStop - execStart - TIME_DELAY});
         logger.printResults(logger.dataMarker, "Time,{}", new Object[]{stop - start - TIME_DELAY});
     }
 }
