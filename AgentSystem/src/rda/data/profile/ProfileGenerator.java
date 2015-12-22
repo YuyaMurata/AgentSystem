@@ -25,18 +25,17 @@ public class ProfileGenerator {
     
     private HashMap<String, HashMap> profMap = new HashMap<>();
     public void generate(Integer n, Integer mode){
-        String digit = null;
+        StringBuilder digit = new StringBuilder();
         for(int i=0; i < n.toString().length(); i++)
-            digit = digit + "0";
+            digit.append("0");
         
-        DecimalFormat dformat= new DecimalFormat(digit);
+        DecimalFormat dformat= new DecimalFormat(digit.toString());
         
         //Data Profile Mode (Topic Balance)
         this.mode = mode;
         
         for(int i=0; i < n; i++){
             String uid = "U#"+dformat.format(i);
-            System.out.println("UID::"+uid);
             profMap.put(uid, generateProfile(uid));
         }
     }
