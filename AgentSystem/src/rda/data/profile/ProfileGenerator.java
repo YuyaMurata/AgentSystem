@@ -1,5 +1,6 @@
 package rda.data.profile;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import org.apache.commons.math3.random.RandomDataGenerator;
 
@@ -24,11 +25,17 @@ public class ProfileGenerator {
     
     private HashMap<String, HashMap> profMap = new HashMap<>();
     public void generate(Integer n, Integer mode){
+        String digit = null;
+        for(int i=0; i < n.toString().length(); i++)
+            digit = digit + "0";
+        
+        DecimalFormat dformat= new DecimalFormat(digit);
+        
         //Data Profile Mode (Topic Balance)
         this.mode = mode;
         
         for(int i=0; i < n; i++){
-            String uid = "U#00"+i;
+            String uid = "U#"+dformat.format(i);
             profMap.put(uid, generateProfile(uid));
         }
     }
