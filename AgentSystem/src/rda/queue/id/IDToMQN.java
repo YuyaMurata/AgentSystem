@@ -71,32 +71,25 @@ public class IDToMQN implements SetProperty{
             String agID = (String) ageMap.floorEntry(age).getValue();
             
             //Get MessageQueue ID (Dist-Agent)
-            return getDestAgent(agID);
+            return getDestAgent(agID, uid);
         }
         
         //Ditributed Map
         private HashMap<String, List<String>> distAgentMap = new HashMap<>();
-        private String getDestAgent(String agID){
+        private String getDestAgent(String agID, String uid){
             //Get Dist AgentList
             List<String> distAGList = distAgentMap.get(agID);
             
             //Roulette get Dist-Agent
-            Integer sid = agentRoulette(agID, distAGList.size());
+            Integer sid = agentRoulette(uid, distAGList.size());
             
             return distAGList.get(sid);
         }
         
         //Roulette Dist-Agent
-        private HashMap<String, Integer> robin = new HashMap();
-        public Integer agentRoulette(String agID, int size){
-            int cnt = 0;
-            
-            if(robin.get(agID) != null) cnt = robin.get(agID) + 1;
-            if(cnt > size-1) cnt = 0;
-            
-            robin.put(agID, cnt);
-            
-            return cnt;
+        public Integer agentRoulette(String uid, int size){
+            int hash = Math.abs(uid.hashCode());
+            return  hash % size;
         }
         
         //Add Distributed Agent
