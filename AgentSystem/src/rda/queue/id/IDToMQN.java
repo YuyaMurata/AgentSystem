@@ -81,15 +81,22 @@ public class IDToMQN implements SetProperty{
             List<String> distAGList = distAgentMap.get(agID);
             
             //Roulette get Dist-Agent
-            Integer sid = agentRoulette(uid, distAGList.size());
+            Integer sid = agentRoulette(agID, distAGList.size());
             
             return distAGList.get(sid);
         }
         
         //Roulette Dist-Agent
-        public Integer agentRoulette(String uid, int size){
-            int hash = Math.abs(uid.hashCode());
-            return  hash % size;
+        private HashMap<String, Long> robin = new HashMap();
+        public Integer agentRoulette(String agID, int size){
+            //int hash = Math.abs(uid.hashCode());
+            //return  hash % size;
+            return (int) (robin.get(agID) % size);
+        }
+        
+        public void cntRobin(String agID){
+            if(robin.get(agID) == null) robin.put(agID, 1L);
+            else robin.put(agID, robin.get(agID) + 1);
         }
         
         //Add Distributed Agent
@@ -102,6 +109,9 @@ public class IDToMQN implements SetProperty{
             
             //Relation Dist-AGID AGID
             familyMap.put(cid, pid);
+            
+            //Round Robin
+            cntRobin(agID);
         }
         
         //Search Root AgentID
