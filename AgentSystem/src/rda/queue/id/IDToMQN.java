@@ -34,9 +34,6 @@ public class IDToMQN implements SetProperty{
         public String reserveID(int rid){
             String agID = "R#"+dformat.format(serialID+rid);
             
-            //AgentID sets IDList
-            setID(agID);
-            
             return agID;
         }
         
@@ -59,7 +56,7 @@ public class IDToMQN implements SetProperty{
         
         //Setting ID, MQName List
         private List<String> agIDList = new ArrayList<>();
-        private void setID(String agID){
+        public void setID(String agID){
             agIDList.add(agID);
         }
         
@@ -135,7 +132,7 @@ public class IDToMQN implements SetProperty{
         }
 
         public String getAGIDList(){
-            StringBuilder sb = new StringBuilder("AgentID");
+            StringBuilder sb = new StringBuilder();
             for(String id : agIDList)
                 sb.append("," + id);
             

@@ -11,6 +11,7 @@ import rda.data.SetDataType;
 import rda.log.AgentLogSchedule;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
+import rda.queue.id.IDToMQN;
 import rda.queue.manager.MessageQueueManager;
 import rda.queue.timer.MessageQueueTimer;
 import rda.window.WindowController;
@@ -126,6 +127,9 @@ public class Main implements SetProperty, SetDataType{
         logger.print(mainMarker, "Start Agent System", null);
         
         logger.printMQEvent(logger.fieldMarker, "MQ LimitEvent, MQName, EventMessage", null);
+        
+        IDToMQN id = IDToMQN.getInstance();
+        logger.printResults(logger.fieldMarker, "RootID:{}",new Object[]{id.getAGIDList()});
     }
 
     private static void stop_debug(){

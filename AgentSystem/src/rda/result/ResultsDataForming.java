@@ -7,6 +7,7 @@ package rda.result;
 
 import com.ibm.commons.collections.BidiMap;
 import com.ibm.commons.collections.bidimap.DualHashBidiMap;
+import com.ibm.ws.xs.jdk5.java.util.Arrays;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import java.io.File;
@@ -22,7 +23,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import rda.data.SetDataType;
 import rda.property.SetProperty;
@@ -107,6 +107,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
     
         
     //Results (title, field, data ,result) -> CSV Summary
+    private static List<String> agIDList = new ArrayList<>();
     public static void csvWriteSummary(HashMap<String, File> map, CSVWriter csv) 
                 throws UnsupportedEncodingException, FileNotFoundException, IOException{
         try (CSVReader csvResultsReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_RESULTS)), "UTF-8"))) {
@@ -138,39 +139,17 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                 }
             }
             
-            //Sort Data
-            HashMap<String, Integer> idToDataMap = new LinkedHashMap<>();
-            for(int i=0; i < fieldsList.get(1).length; i++){
-                bmapMQToAgent.put(fieldsList.get(1)[i], fieldsList.get(2)[i]);
-                idToDataMap.put(fieldsList.get(3)[i], i);
-            }
-            fieldsList.remove(3);
-            
-            String[] tranData = new String[fieldsList.get(2).length];
-            String[] connData = new String[fieldsList.get(2).length];
-            int i=0;
-            for(String field : fieldsList.get(2)){
-                int index = idToDataMap.get(field);
-                tranData[i] = dataList.get(2)[index];
-                connData[i] = dataList.get(3)[index];
-                i++;
-            }
-            dataList.remove(2); dataList.remove(2);
-            dataList.add(tranData); dataList.add(connData);
-            
             for(String[] title  : titleList)   csv.writeNext(title);
             for(String[] result : resultsList) csv.writeNext(result);
             for(String[] field  : fieldsList)  csv.writeNext(field);
             for(String[] data   : dataList)    csv.writeNext(data);
             
-            //Prepared csvWriteMQandCPU
-            for(String f : fieldsList.get(1))
-                if(f.contains("RMQ")) fields.add(f);
+            String[] field = fieldsList.get(1);
+            agIDList = Arrays.asList(field).subList(3, field.length);
         }
     }
     
     //Aggregate Log(MQLength, Events, CPU)
-    private static List<String> fields = new ArrayList<>();
     public static void csvWriteMQandCPU(HashMap<String, File> map, CSVWriter csv)
             throws FileNotFoundException, UnsupportedEncodingException, IOException, ParseException{
         try (   CSVReader csvMQLReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8"));
@@ -218,17 +197,17 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                         mqMap.put(line[3], 1);
                 }
             }
-            
+
             for(String time : timeList){
                 String event = "";
                 if(eventMap.get(time) != null){
                     HashMap mqMap = eventMap.get(time);
-                    for(String f : fields)
-                        if(mqMap.get(f) != null)
-                            event = event+","+mqMap.get(f);
+                    for(String agID : agIDList)
+                        if(mqMap.get(agID) != null)
+                            event = event+","+mqMap.get(agID);
                         else event = event+",0";
                 } else 
-                    for(String f : fields) event = event+",0";
+                    for(String agID : agIDList) event = event+",0";
                 dataMQEList.add(event.substring(1));
             }
             
@@ -254,8 +233,9 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             csvList.add("Time"); 
             csvList.add("CPU:us"); csvList.add("CPU:sy");
             csvList.add("Numeber Of Agents");
-            for(String f : fields) csvList.add(f+" Length");
-            for(String f : fields) csvList.add(f+" Event");
+            for(String agID : agIDList) csvList.add(agID+" Length");
+            csvList.add("");
+            for(String agID : agIDList) csvList.add(agID+" Event");
             csv.writeNext(csvList.toArray(new String[csvList.size()]));
             
             for(int i = 0; i < timeList.size(); i++){
@@ -274,8 +254,11 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                 //MQLength
                 for(String len : dataMQLList.get(i).split(","))
                     if(len.length() > 0) csvList.add(len);
-                for(int j = 0; j < fields.size() - dataMQLList.get(i).split(",").length; j++)
+                for(int j = 0; j < agIDList.size() - dataMQLList.get(i).split(",").length; j++)
                     csvList.add("0");
+                
+                //Colomn Space
+                csvList.add("");
                 
                 //MQEvent
                 for(String event : dataMQEList.get(i).split(","))
@@ -289,51 +272,31 @@ public class ResultsDataForming implements SetProperty, SetDataType{
     //Create AgentMap (MQEvents)
     public static void csvWriteAgentTree(HashMap<String, File> map, CSVWriter csv) 
                 throws UnsupportedEncodingException, FileNotFoundException, IOException{
-        try (CSVReader csvMQLReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8"))) {
+        try (CSVReader csvMQEReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQE)), "UTF-8"))) {
             List<String[]> agentTreeList = new ArrayList<>();
             
-            Integer digit = TIME_PERIOD.toString().length();
-            String line[];
-            Boolean flg = false;
-            List<String> initList = new ArrayList<>();
-            while((line = csvMQLReader.readNext()) != null){
+            String[] line;
+            HashMap<String, String> agentTreeMap = new HashMap<>();
+            while((line =csvMQEReader.readNext()) != null){
                 if(line.length < 1) continue;
-                if(!line[1].contains("field")) continue;
+                if(line[1].contains("field")) continue;
                 
-                String time = line[0].substring(0, line[0].length() - digit);
-                List<String> nameList = new ArrayList<>();
-                List<String> numList = new ArrayList<>();
-                if(flg == false){
-                    for(String mq : line)
-                        if(mq.contains("RMQ")){
-                            initList.add((String) bmapMQToAgent.get(mq));
-                            nameList.add((String) bmapMQToAgent.get(mq));
-                        }
-                    flg = true;
-                } else {
-                    String mq = (String)bmapMQToAgent.get(line[line.length-1]);
-                    for(String ag : initList){
-                        if(mq.split("-")[0].contains(ag.split("-")[0])) nameList.add(mq);
-                        else nameList.add("");
-                    }
-                }
-                for(String name : nameList){
-                    if(name.contains("R#")) numList.add(String.valueOf(fields.indexOf((String)bmapMQToAgent.getKey(name.split("-")[0]))+1));
-                    else numList.add("#N/A");
-                }
-                
-                List<String> list = new ArrayList<>();
-                list.add(time);
-                list.addAll(nameList);
-                list.add("");
-                list.add(time);
-                list.addAll(numList);
-                agentTreeList.add(list.toArray(new String[list.size()]));
+                agentTreeMap.put(line[4], line[3]);
+                agentTreeList.add(new String[]{line[0], line[4]});
             }
             
             csv.writeNext(new String[]{"Time", "AgentList"});
             for(String[] agent : agentTreeList)
                 csv.writeNext(agent);
+        }
+    }
+    
+    //Search Root AgentID
+    private String searchParent(HashMap map, String pid){
+        if(map.get(pid) == null){
+            return pid;
+        }else{
+            return searchParent(map, (String)map.get(pid));
         }
     }
 
