@@ -34,22 +34,19 @@ public class WindowController{
 
         public Queue queue = new ArrayDeque();
 	private void sendMessageQueue(){
-            Window obj = (Window)queue.poll();
-            if(obj != null)
-                try {
+            try {
+                Window obj = (Window)queue.poll();
+                if(obj != null)
                     manager.getMessageQueue(obj.id).putMessage(obj.get());
-                } catch (InterruptedException e) {
-                } catch (MessageQueueEvent mqex) {
-                    mqex.printEvent();
-                    
-                    //Return Data (*effect latency)
-                    queue.add(obj);
-                    
-                    try {
-                        Thread.sleep(wait);
-                    } catch (InterruptedException ex) {
-                    }
+            } catch (InterruptedException e) {
+            } catch (MessageQueueEvent mqex) {
+                mqex.printEvent();
+                        
+                try {
+                    Thread.sleep(wait);
+                } catch (InterruptedException ex) {
                 }
+            }
 	}
 
 	public void close(){
