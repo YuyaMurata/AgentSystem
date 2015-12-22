@@ -70,14 +70,18 @@ public class Main implements SetProperty, SetDataType{
         
         // Stop Time
         stop = System.currentTimeMillis();
+        
+        //Stop
+        main_debug();
     }
 
     private static Long execStart, execStop;
     private static void execute(){
+        //Start
+        exec_debug();
+        
         //Time
         execStart = System.currentTimeMillis();
-        
-        start_debug();
         
         //Start Main Schedule
         final ScheduledFuture mainTaskFuture = mainTask.scheduleAtFixedRate
@@ -109,10 +113,7 @@ public class Main implements SetProperty, SetDataType{
             mainTask.shutdownNow();
             loggingTask.shutdownNow();
             endTask.shutdownNow();
-            
-            stop_debug();
         }
-        
         execStop = System.currentTimeMillis();
     }
     
@@ -135,7 +136,7 @@ public class Main implements SetProperty, SetDataType{
                 new Object[]{AGENT_MODE_AUTONOMY, AGENT_MODE_RESERVE, DATA_MODE, DATA_PROFILE_MODE});
     }
     
-    private static void start_debug(){
+    private static void exec_debug(){
         logger.print(mainMarker, "Start Agent System", null);
         
         logger.printMQEvent(logger.fieldMarker, "MQ LimitEvent, MQName, EventMessage", null);
@@ -144,7 +145,7 @@ public class Main implements SetProperty, SetDataType{
         logger.printResults(logger.fieldMarker, "RootID:{}",new Object[]{id.getAGIDList()});
     }
 
-    private static void stop_debug(){
+    private static void main_debug(){
         logger.print(mainMarker, "Stop Agent System", null);       
         logger.printResults(logger.resultMarker, 
                 "<ALL TransactionTime>_{} [ms]", 
