@@ -25,6 +25,7 @@ public class WindowController{
             if(window.get(mes.id) == null) window.put(mes.id, new Window(mes.id, size));
             
             if(window.get(mes.id).add(mes)){
+                System.out.println("WINDOW::"+window);
                 queue.add(window.get(mes.id).clone());
                 window.remove(mes.id);
             }
