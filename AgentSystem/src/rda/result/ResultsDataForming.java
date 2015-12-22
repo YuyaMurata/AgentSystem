@@ -107,6 +107,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
     
         
     //Results (title, field, data ,result) -> CSV Summary
+    private static List<String> rootAGIDList = new ArrayList<>();
     private static List<String> agIDList = new ArrayList<>();
     public static void csvWriteSummary(HashMap<String, File> map, CSVWriter csv) 
                 throws UnsupportedEncodingException, FileNotFoundException, IOException{
@@ -145,6 +146,8 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             for(String[] data   : dataList)    csv.writeNext(data);
             
             String[] field = fieldsList.get(1);
+            rootAGIDList = Arrays.asList(field).subList(3, field.length);
+            field = fieldsList.get(2);
             agIDList = Arrays.asList(field).subList(3, field.length);
         }
     }
@@ -233,9 +236,9 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             csvList.add("Time"); 
             csvList.add("CPU:us"); csvList.add("CPU:sy");
             csvList.add("Numeber Of Agents");
-            for(String agID : agIDList) csvList.add(agID+" Length");
+            for(String agID : agIDList) csvList.add(agID+"Length");
             csvList.add("");
-            for(String agID : agIDList) csvList.add(agID+" Event");
+            for(String agID : agIDList) csvList.add(agID+"Event");
             csv.writeNext(csvList.toArray(new String[csvList.size()]));
             
             for(int i = 0; i < timeList.size(); i++){
@@ -270,19 +273,36 @@ public class ResultsDataForming implements SetProperty, SetDataType{
     }
     
     //Create AgentMap (MQEvents)
+    private static HashMap<String, String> agentTreeMap = new HashMap<>();
     public static void csvWriteAgentTree(HashMap<String, File> map, CSVWriter csv) 
                 throws UnsupportedEncodingException, FileNotFoundException, IOException{
         try (CSVReader csvMQEReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQE)), "UTF-8"))) {
             List<String[]> agentTreeList = new ArrayList<>();
             
+            //Field
+            List<String> fields = new ArrayList<>();
+            fields.add("Time");
+            for(String id : rootAGIDList) fields.add(id);
+            agentTreeList.add(fields.toArray(new String[fields.size()]));
+            
+            //Data
             String[] line;
-            HashMap<String, String> agentTreeMap = new HashMap<>();
             while((line =csvMQEReader.readNext()) != null){
                 if(line.length < 1) continue;
                 if(line[1].contains("field")) continue;
                 
+                List<String> data = new ArrayList<>();
                 agentTreeMap.put(line[4], line[3]);
-                agentTreeList.add(new String[]{line[0], line[4]});
+                
+                String regID = searchParent(line[4]);
+                data.add(line[0]);
+                for(String id : rootAGIDList){
+                    System.out.println("id:"+id+"="+regID);
+                    if(id.equals(regID)) data.add("1");
+                    else data.add("0");
+                }
+                
+                agentTreeList.add(data.toArray(new String[data.size()]));
             }
             
             csv.writeNext(new String[]{"Time", "AgentList"});
@@ -292,11 +312,11 @@ public class ResultsDataForming implements SetProperty, SetDataType{
     }
     
     //Search Root AgentID
-    private String searchParent(HashMap map, String pid){
-        if(map.get(pid) == null){
+    private static String searchParent(String pid){
+        if(agentTreeMap.get(pid) == null){
             return pid;
         }else{
-            return searchParent(map, (String)map.get(pid));
+            return searchParent(agentTreeMap.get(pid));
         }
     }
 
