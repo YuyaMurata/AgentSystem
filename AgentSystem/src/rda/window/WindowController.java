@@ -25,14 +25,16 @@ public class WindowController{
             if(window.get(mes.id) == null) window.put(mes.id, new Window(mes.id, size));
             
             if(window.get(mes.id).add(mes)){
-                sendMessageQueue(window.get(mes.id).clone());
+                queue.add(window.get(mes.id).clone());
                 window.remove(mes.id);
             }
+            
+            sendMessageQueue();
 	}
 
         public Queue queue = new ArrayDeque();
-	private void sendMessageQueue(Object win){
-            Window obj = (Window)win;// queue.poll();
+	private void sendMessageQueue(){
+            Window obj = (Window)queue.poll();
             if(obj != null)
                 try {
                     manager.getMessageQueue(obj.id).putMessage(obj.get());
