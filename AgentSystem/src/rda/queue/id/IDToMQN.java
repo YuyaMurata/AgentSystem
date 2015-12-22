@@ -51,6 +51,9 @@ public class IDToMQN implements SetProperty{
                 //Init AgeToMQN Map <Age, SID(MQ No.)>
                 Integer range = agIDList.indexOf(agID) * 100 / NUMBER_OF_QUEUE;
                 ageMap.put(range.toString(), agID);
+                
+                //Robin init
+                robin.put(agID, 0L);
             }
         }
         
@@ -95,8 +98,7 @@ public class IDToMQN implements SetProperty{
         }
         
         public void cntRobin(String agID){
-            if(robin.get(agID) == null) robin.put(agID, 1L);
-            else robin.put(agID, robin.get(agID) + 1);
+            robin.put(agID, robin.get(agID) + 1);
         }
         
         //Add Distributed Agent
