@@ -1,9 +1,11 @@
 package rda.queue.reciver;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import rda.agent.user.creator.CreateUserAgent;
 
 import rda.agent.user.updater.UpdateUser;
+import rda.queue.id.IDToMQN;
 import rda.queue.obj.MessageObject;
 import rda.queue.timer.MessageQueueTimer;
 
@@ -19,6 +21,9 @@ public class ReciveMQProcess extends Thread{
         MessageQueueTimer mqt = MessageQueueTimer.getInstance();
         String agID = mq.name;
         
+        //ID
+        IDToMQN id = IDToMQN.getInstance();
+        
         //Create Agent
         CreateUserAgent agent = new CreateUserAgent();
         agent.create(agID);
@@ -26,7 +31,7 @@ public class ReciveMQProcess extends Thread{
         //Setting Update
         UpdateUser user = new UpdateUser();
         
-        ArrayList<Integer> dataList = new ArrayList<>();
+        HashMap<String, ArrayList> dataMap = new HashMap();
         
         while(true){
             try{
@@ -35,12 +40,15 @@ public class ReciveMQProcess extends Thread{
                 }
                 
                 for(MessageObject msg : (ArrayList<MessageObject>)mq.getMessage()){
-                    dataList.add(msg.data);
+                    if(dataMap.get(msg.id) == null) dataMap.put(msg.id, new ArrayList());
+                    dataMap.get(msg.id).add(msg.data);
                 }
             
                 if(mq.isEmpty() || mqt.getTimer()){
-                    user.sendUpdateMessage(agID, dataList);
-                    dataList.clear();
+                    for(String uid : dataMap.keySet()){
+                        user.sendUpdateMessage(id.getDestAgent(agID, uid), dataMap.get(uid));
+                        dataMap.get(uid).clear();
+                    }
                 }
                 
             } catch (InterruptedException e) {}

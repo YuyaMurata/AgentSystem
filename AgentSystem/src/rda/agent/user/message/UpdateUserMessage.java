@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public class UpdateUserMessage extends Message{
 
-	public ArrayList<Integer> data;
+	public ArrayList data;
 
-	public void setParams(ArrayList<Integer> data){
+	public void setParams(ArrayList data){
 		this.data = data;
 	}
 }

@@ -25,8 +25,8 @@ public class UpdateUser implements AgentExecutor, Serializable{
         public UpdateUser(){}
 
 	AgentKey agentKey;
-	ArrayList<Integer> data;
-	public UpdateUser(AgentKey agentKey, ArrayList<Integer> data) {
+	ArrayList data;
+	public UpdateUser(AgentKey agentKey, ArrayList data) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.agentKey = agentKey;
 		this.data = data;
@@ -61,7 +61,7 @@ public class UpdateUser implements AgentExecutor, Serializable{
 		}
 	}
 
-	public void sendUpdateMessage(String agID, ArrayList<Integer> data){
+	public void sendUpdateMessage(String agID, ArrayList data){
             AgentConnection ag = AgentConnection.getInstance();
             
             try {
