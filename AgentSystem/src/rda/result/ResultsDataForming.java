@@ -297,7 +297,6 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                 String regID = searchParent(line[4]);
                 data.add(line[0]);
                 for(String id : rootAGIDList){
-                    System.out.println("id:"+id+"="+regID);
                     if(id.equals(regID)) data.add("1");
                     else data.add("0");
                 }
