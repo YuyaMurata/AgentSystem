@@ -6,6 +6,7 @@ import rda.property.SetProperty;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.TreeMap;
 import rda.data.profile.ProfileGenerator;
 import rda.queue.manager.MessageQueueManager;
@@ -84,8 +85,9 @@ public class IDToMQN implements SetProperty{
             //Roulette get Dist-Agent
             Integer sid = agentHash(uid, distAGList.size());
             //Integer sid = agentRoulette(distAGList);
+            String destAGID = distAGList.get(sid);
             
-            return distAGList.get(sid);
+            return destAGID;
         }
         
         //Hash Dist-Agent
@@ -96,15 +98,17 @@ public class IDToMQN implements SetProperty{
         
         //Roulette Dist-Agent
         private MessageQueueManager manager = MessageQueueManager.getInstance();
+        private Random rand = new Random();
         public Integer agentRoulette(List<String> agList){
-            if(agList.size() == 1) return 0;
+            int cnt = 0, sid = 0;
+            if(agList.size() > 1)
+                while(cnt == agList.size()){
+                    sid = rand.nextInt(agList.size());
+                    if(!manager.getState(agList.get(sid))) break;
+                    cnt++;
+                }
             
-            TreeMap sortSize = new TreeMap();
-            for(String ag : agList) sortSize.put(manager.getSize(ag), ag);
-            
-            System.out.println("Dist-ID="+sortSize+" first="+sortSize.firstEntry());
-            
-            return agList.indexOf(sortSize.firstEntry());
+            return sid;
         }
         
         //Add Distributed Agent
