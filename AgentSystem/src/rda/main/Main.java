@@ -133,7 +133,7 @@ public class Main implements SetProperty, SetDataType{
                 new Object[]{NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, QUEUE_WAIT});
         logger.printResults(logger.titleMarker, 
                 "Mode: AgentAutonomy_{} AgentReserve_{} DataGenerator_KeyBalance_{} ProfileGenerator_AgeBalance_{}", 
-                new Object[]{AGENT_MODE_AUTONOMY, AGENT_MODE_RESERVE, DATA_MODE, DATA_PROFILE_MODE});
+                new Object[]{AGENT_MODE_AUTONOMY, AGENT_MODE_RESERVE, DATA_MODE_GENERATE, DATA_MODE_PROFILE});
     }
     
     private static void exec_debug(){

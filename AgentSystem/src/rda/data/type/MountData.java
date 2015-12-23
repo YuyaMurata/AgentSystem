@@ -3,7 +3,7 @@ package rda.data.type;
 import rda.data.profile.ProfileGenerator;
 import rda.data.Data;
 import rda.data.DataType;
-import static rda.property.SetProperty.DATA_MODE;
+import static rda.property.SetProperty.DATA_MODE_GENERATE;
 import static rda.property.SetProperty.NUMBER_OF_USER_AGENTS;
 import rda.queue.obj.MessageObject;
 
