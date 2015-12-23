@@ -46,7 +46,10 @@ public class MessageQueueManager {
     
     private Boolean create(String agID){
         //Checking Exists Agent
-        if(mqMap.get(agID) != null) return false;
+        if(mqMap.get(agID) != null){
+            if(reserve == 1) id.setID(agID);
+            return false;
+        }
         
         //Create Agent
         CreateUserAgent agent = new CreateUserAgent();
@@ -92,12 +95,8 @@ public class MessageQueueManager {
         String cid = id.createID(); 
         
         if(create(cid)) System.out.println("Create Agents");
-        else{
-            System.out.println("Take Reserve Agents");
+        else System.out.println("Take Reserve Agents");
             
-            //AgentID sets IDList
-            id.setID(cid);
-        }
         id.addDistAgent(pid, cid);
         
         return cid;
