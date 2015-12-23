@@ -11,6 +11,7 @@ import rda.queue.timer.MessageQueueTimer;
 
 public class ReciveMQProcess extends Thread{
     private final ReciveMessageQueue mq;
+    private Boolean running = false;
     
     public ReciveMQProcess(ReciveMessageQueue queue) {
         this.mq = queue;
@@ -18,6 +19,8 @@ public class ReciveMQProcess extends Thread{
 
     @Override
     public void run() {
+        this.running = true;
+        
         MessageQueueTimer mqt = MessageQueueTimer.getInstance();
         String agID = mq.name;
         
@@ -53,5 +56,11 @@ public class ReciveMQProcess extends Thread{
                 
             } catch (InterruptedException e) {}
         }
-    } 
+        
+        this.running = false;
+    }
+    
+    public Boolean state(){
+        return running;
+    }
 }
