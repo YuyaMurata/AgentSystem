@@ -20,7 +20,6 @@ public class MessageQueueManager {
     private static MessageQueueManager manager = new MessageQueueManager();
     private HashMap<String, ReciveMessageQueue> mqMap = new LinkedHashMap<>();
     private IDToMQN id = IDToMQN.getInstance();
-    private static Boolean state;
     
     private Integer mode, reserve;
 
@@ -29,8 +28,6 @@ public class MessageQueueManager {
     }
     
     public void initMessageQueue(Integer n, Integer mode, Integer reserve, Integer m){
-        this.state = true;
-        
         this.mode = mode;
         this.reserve = reserve;
         
@@ -86,7 +83,7 @@ public class MessageQueueManager {
     private Boolean flg = false;
     public String decompose(String pid){
         //Autonomy Mode
-        if(mode == 0 || limit() || !state) flg = true;
+        if(mode == 0 || limit()) flg = true;
         
         if(flg == true) return "";
         
@@ -114,7 +111,6 @@ public class MessageQueueManager {
     }
     
     public void stopAll(){
-        this.state = false;
         for(String key : mqMap.keySet())
             mqMap.get(key).stop();
     }
