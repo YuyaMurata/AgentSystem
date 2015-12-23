@@ -90,11 +90,14 @@ public class MessageQueueManager {
         if(flg == true) return "";
         
         String cid = id.createID(); 
-        //AgentID sets IDList
-        id.setID(cid);
         
         if(create(cid)) System.out.println("Create Agents");
-        else System.out.println("Take Reserve Agents");
+        else{
+            System.out.println("Take Reserve Agents");
+            
+            //AgentID sets IDList
+            id.setID(cid);
+        }
         id.addDistAgent(pid, cid);
         
         return cid;
