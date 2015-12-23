@@ -76,7 +76,7 @@ public class IDToMQN implements SetProperty{
         
         //Ditributed Map
         private HashMap<String, List<String>> distAgentMap = new HashMap<>();
-        public String getDestAgent(String agID, String uid){
+        private String getDestAgent(String agID, String uid){
             //Get Dist AgentList
             List<String> distAGList = distAgentMap.get(agID);
             
