@@ -81,7 +81,5 @@ public class ReciveMessageQueue implements SetProperty{
         logger.print(rMQMarker, 
                 "Recive Message Queue {} Stop!!",
                 new String[]{name});
-        
-        while(!mqThread.state()) ;
     }
 }

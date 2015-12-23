@@ -56,11 +56,5 @@ public class ReciveMQProcess extends Thread{
                 
             } catch (InterruptedException e) {}
         }
-        
-        this.running = false;
-    }
-    
-    public Boolean state(){
-        return running;
     }
 }
