@@ -86,8 +86,6 @@ public class IDToMQN implements SetProperty{
             //Integer sid = agentHash(uid, distAGList.size());
             Integer sid = agentRoulette(distAGList);
             
-            System.out.println("Dist-ID="+distAGList.get(sid));
-            
             return distAGList.get(sid);
         }
         
@@ -104,6 +102,9 @@ public class IDToMQN implements SetProperty{
             
             TreeMap sortSize = new TreeMap();
             for(String ag : agList) sortSize.put(manager.getSize(ag), ag);
+            
+            System.out.println("Dist-ID="+sortSize+" first="+sortSize.firstEntry());
+            
             return agList.indexOf(sortSize.firstEntry());
         }
         
