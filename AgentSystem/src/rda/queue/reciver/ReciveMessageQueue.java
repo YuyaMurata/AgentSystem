@@ -52,7 +52,7 @@ public class ReciveMessageQueue implements SetProperty{
     public Object getMessage() throws InterruptedException{
         //System.out.println("RECIVE::"+name+" GET MESSAGE!! ["+queue.size()+"]");
         
-        if(!isRunning()) throw new IllegalStateException();
+        if(!isRunning()) throw new InterruptedException();
         
         return queue.take();
     }
@@ -76,6 +76,7 @@ public class ReciveMessageQueue implements SetProperty{
     
     public void stop(){
         synchronized(this){ runnable = false; }
+        this.notifyAll();
         mqThread.interrupt();
         
         logger.print(rMQMarker, 
