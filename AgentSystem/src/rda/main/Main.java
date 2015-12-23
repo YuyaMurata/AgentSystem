@@ -96,7 +96,7 @@ public class Main implements SetProperty, SetDataType{
             new Runnable(){
                 @Override
                 public void run(){
-                    mainTask.shutdown();
+                    mainTaskFuture.cancel(true);
                     logger.print(mainMarker, "Main Task is Cancelled !", null);
                 
                     task.isFinish();
