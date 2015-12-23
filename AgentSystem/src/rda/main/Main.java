@@ -96,11 +96,10 @@ public class Main implements SetProperty, SetDataType{
             new Runnable(){
                 @Override
                 public void run(){
+                    task.isFinish();
                     mainTaskFuture.cancel(true);
                     
                     logger.print(mainMarker, "Main Task is Cancelled !", null);
-                    
-                    task.isFinish();
                 }
             }, TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
         
