@@ -45,16 +45,11 @@ public class MainSchedule implements Runnable, SetDataType{
     
     @Override
     public void run() {
-        try{
-            if(Thread.interrupted())
-                throw  new InterruptedException();
-            
-            timer++;
+        timer++;
         
-            logging();
+        logging();
         
-            sendMessage(timer);
-        }catch (InterruptedException e){}
+        sendMessage(timer);
     }
     
     public void isFinish(){
