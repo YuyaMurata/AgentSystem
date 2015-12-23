@@ -111,7 +111,9 @@ public class MessageQueueManager {
     }
     
     public void stopAll(){
-        for(String key : mqMap.keySet())
+        for(String key : mqMap.keySet()){
             mqMap.get(key).stop();
+            mqMap.remove(key);
+        }
     }
 }
