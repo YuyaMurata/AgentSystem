@@ -98,6 +98,8 @@ public class IDToMQN implements SetProperty{
         //Roulette Dist-Agent
         private MessageQueueManager manager = MessageQueueManager.getInstance();
         public Integer agentRoulette(List<String> agList){
+            if(agList.size() == 1) return 0;
+            
             TreeMap sortSize = new TreeMap();
             for(String ag : agList) sortSize.put(manager.getSize(ag), ag);
             return agList.indexOf(sortSize.firstEntry());
