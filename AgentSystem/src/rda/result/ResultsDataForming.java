@@ -298,7 +298,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                 data.add(line[0]);
                 for(String id : rootAGIDList){
                     if(id.equals(regID)) data.add("1");
-                    else data.add("0");
+                    else data.add("");
                 }
                 
                 agentTreeList.add(data.toArray(new String[data.size()]));
