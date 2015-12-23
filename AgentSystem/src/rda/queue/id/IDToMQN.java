@@ -102,7 +102,7 @@ public class IDToMQN implements SetProperty{
         public Integer agentRoulette(List<String> agList){
             int cnt = 0, sid = 0;
             if(agList.size() > 1)
-                while(cnt == agList.size()){
+                while(cnt == agList.size()+1){
                     sid = rand.nextInt(agList.size());
                     if(!manager.getState(agList.get(sid))) break;
                     cnt++;
