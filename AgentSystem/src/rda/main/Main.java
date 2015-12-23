@@ -109,6 +109,7 @@ public class Main implements SetProperty, SetDataType{
         } catch (InterruptedException | ExecutionException e) {
         } finally {
             MessageQueueTimer.getInstance().close();
+            MessageQueueManager.getInstance().stopAll();
             
             mainTask.shutdownNow();
             loggingTask.shutdownNow();
