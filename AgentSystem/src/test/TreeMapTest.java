@@ -5,6 +5,7 @@
  */
 package test;
 
+import java.util.Random;
 import java.util.TreeMap;
 
 /**
@@ -16,10 +17,15 @@ public class TreeMapTest {
         TreeMap map = new TreeMap();
         String[] sa = new String[]{"R#001","R#004","R#003","R#002","R#000"};
         
-        for(String s : sa)
-            map.put(s, s);
+        Random rand = new Random();
         
-        for(Object key : map.keySet())
-            System.out.println("id="+map.get(key));
+        for(String s : sa){
+            int id = rand.nextInt();
+            System.out.println("ID="+id);
+            map.put(id, s);
+        }
+        
+        //for(Object key : map.keySet())
+            System.out.println("id="+map.firstEntry());
     }
 }

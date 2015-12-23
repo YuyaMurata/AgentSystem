@@ -106,6 +106,10 @@ public class MessageQueueManager {
         return mqMap.size() > 1000;
     }
     
+    public Integer getSize(String agID){
+        return mqMap.get(agID).getSize();
+    }
+    
     public void stopAll(){
         for(String key : mqMap.keySet())
             mqMap.get(key).stop();

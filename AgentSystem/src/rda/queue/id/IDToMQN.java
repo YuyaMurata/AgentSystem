@@ -4,10 +4,12 @@ import java.text.DecimalFormat;
 import rda.property.SetProperty;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 import rda.data.profile.ProfileGenerator;
+import rda.queue.manager.MessageQueueManager;
 
 public class IDToMQN implements SetProperty{
 	//AgentKey Define
@@ -81,15 +83,24 @@ public class IDToMQN implements SetProperty{
             List<String> distAGList = distAgentMap.get(agID);
             
             //Roulette get Dist-Agent
-            Integer sid = agentRoulette(uid, distAGList.size());
+            //Integer sid = agentHash(uid, distAGList.size());
+            Integer sid = agentRoulette(distAGList);
             
             return distAGList.get(sid);
         }
         
-        //Roulette Dist-Agent
-        public Integer agentRoulette(String uid, int size){
+        //Hash Dist-Agent
+        public Integer agentHash(String uid, int size){
             int hash = Math.abs(uid.hashCode());
             return  hash % size;
+        }
+        
+        //Roulette Dist-Agent
+        private MessageQueueManager manager = MessageQueueManager.getInstance();
+        public Integer agentRoulette(List<String> agList){
+            TreeMap sortSize = new TreeMap();
+            for(String ag : agList) sortSize.put(manager.getSize(ag), ag);
+            return agList.indexOf(sortSize.firstEntry());
         }
         
         //Add Distributed Agent
