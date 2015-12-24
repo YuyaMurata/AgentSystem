@@ -63,7 +63,7 @@ public class TestSettings extends TestParameter {
         sb.append("\n");
         
         sb.append(" --- ID Setting Information --- \n");
-        sb.append(ID.getAGIDList());
+        sb.append(ID.getAGIDListToString());
         
         return sb.toString();
     }

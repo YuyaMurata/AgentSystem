@@ -99,11 +99,15 @@ public class MessageQueueManager {
      
     private void registerMQSS(){
         MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
-        mqSS.storeMessageQueue(mqMap.values());
+        mqSS.storeMessageQueue(id.getAGIDList());
     }
     
     private Boolean limit(){
         return mqMap.size() > 1000;
+    }
+    
+    public Integer getLength(Object agID){
+        return mqMap.get((String) agID).getSize();
     }
     
     public Boolean getState(String agID){

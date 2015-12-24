@@ -143,7 +143,7 @@ public class Main implements SetProperty, SetDataType{
         logger.printMQEvent(logger.fieldMarker, "MQ LimitEvent, MQName, EventMessage", null);
         
         IDToMQN id = IDToMQN.getInstance();
-        logger.printResults(logger.fieldMarker, "RootID:{}",new Object[]{id.getAGIDList()});
+        logger.printResults(logger.fieldMarker, "RootID:{}",new Object[]{id.getAGIDListToString()});
     }
 
     private static void main_debug(){

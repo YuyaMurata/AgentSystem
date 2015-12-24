@@ -134,6 +134,10 @@ public class IDToMQN implements SetProperty{
             }
         }
         
+        public List getAGIDList(){
+            return agIDList;
+        }
+        
         // System Out
         public String toString(){
             StringBuilder sb = new StringBuilder();
@@ -145,7 +149,7 @@ public class IDToMQN implements SetProperty{
             return sb.toString();
         }
 
-        public String getAGIDList(){
+        public String getAGIDListToString(){
             StringBuilder sb = new StringBuilder();
             for(String id : agIDList)
                 sb.append("," + id);

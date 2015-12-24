@@ -6,11 +6,10 @@
 package rda.queue.log;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentSkipListMap;
 import rda.log.AgentSystemLogger;
-import rda.queue.reciver.ReciveMessageQueue;
+import rda.queue.manager.MessageQueueManager;
 
 /**
  *
@@ -19,8 +18,8 @@ import rda.queue.reciver.ReciveMessageQueue;
 public class MQSpecificStorage{
     public final ConcurrentSkipListMap<String, Integer> map = new ConcurrentSkipListMap<>();
     private static final MQSpecificStorage mqSS = new MQSpecificStorage();
-
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
+    private MessageQueueManager manager = MessageQueueManager.getInstance();
     
     private MQSpecificStorage(){   
     }
@@ -29,30 +28,30 @@ public class MQSpecificStorage{
         return mqSS;
     }
     
-    private Collection<ReciveMessageQueue> mqALL;
+    private List agIDList;
     private StringBuilder mqSizeFormat;
-    public void storeMessageQueue(Collection<ReciveMessageQueue> mqALL){
-        this.mqALL = mqALL;
+    public void storeMessageQueue(List agIDList){
+        this.agIDList = agIDList;
         
         StringBuilder mqName = new StringBuilder("AgentID");
         mqSizeFormat = new StringBuilder("MQL");
-        for(ReciveMessageQueue mq : mqALL){
+        for(Object agID : agIDList){
             //Data 列の作成
             mqSizeFormat.append(",{}");
             
             //Field 列の作成
-            mqName.append(",").append(mq.name);
+            mqName.append(",").append(manager.getLength(agID));
         }
         
         logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
     }
     
     public void mqLogging(){
-        if(mqALL == null) return;
+        if(agIDList == null) return;
         
         List<Integer> mqSize = new ArrayList<>();
-        for(ReciveMessageQueue mq : mqALL)
-            mqSize.add(mq.getSize());
+        for(Object agID : agIDList)
+            mqSize.add(manager.getLength(agID));
         
         //Record MessageQueue Length
         logger.printMQLength(logger.dataMarker, mqSizeFormat.toString(), 
