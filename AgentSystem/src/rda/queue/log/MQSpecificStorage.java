@@ -50,8 +50,10 @@ public class MQSpecificStorage{
         if(agIDList == null) return;
         
         List<Integer> mqSize = new ArrayList<>();
-        for(Object agID : agIDList)
-            mqSize.add(manager.getLength(agID));
+        for(Object agID : agIDList){
+            if(manager.getLength(agID) == null) mqSize.add(0);
+            else mqSize.add(manager.getLength(agID));
+        }
         
         //Record MessageQueue Length
         logger.printMQLength(logger.dataMarker, mqSizeFormat.toString(), 
