@@ -8,11 +8,9 @@ package rda.queue.log;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 import rda.log.AgentSystemLogger;
 import rda.queue.id.IDToMQN;
-import rda.queue.manager.MessageQueueManager;
 import rda.queue.reciver.ReciveMessageQueue;
 
 /**
@@ -32,19 +30,19 @@ public class MQSpecificStorage{
         return mqSS;
     }
     
-    private Map agMap;
+    private Collection agValues;
     private StringBuilder mqSizeFormat;
-    public void storeMessageQueue(Map agMap){
-        this.agMap = agMap;
+    public void storeMessageQueue(Collection agValues){
+        this.agValues = agValues;
         
         StringBuilder mqName = new StringBuilder("AgentID");
         mqSizeFormat = new StringBuilder("MQL");
-        for(Object agID : id.getAGIDList()){
+        for(Object ag : agValues){
             //Data 列の作成
             mqSizeFormat.append(",{}");
             
             //Field 列の作成
-            mqName.append(",").append(((ReciveMessageQueue)agMap.get(agID)).name);
+            mqName.append(",").append(((ReciveMessageQueue)ag).name);
         }
         
         logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
@@ -52,8 +50,8 @@ public class MQSpecificStorage{
     
     public void mqLogging(){
         List<Integer> mqSize = new ArrayList<>();
-        for(Object agID : id.getAGIDList()){
-            mqSize.add(((ReciveMessageQueue)agMap.get(agID)).getSize());
+        for(Object ag : agValues){
+            mqSize.add(((ReciveMessageQueue)ag).getSize());
         }
         
         //Record MessageQueue Length

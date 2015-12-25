@@ -86,7 +86,7 @@ public class MessageQueueManager {
         //Autonomy Mode
         if(mode == 0 || limit()) flg = true;
         
-        if(flg == true || !running) return "";
+        if(flg == true) return "";
         
         String cid = id.createID(); 
         
@@ -100,15 +100,11 @@ public class MessageQueueManager {
      
     private void registerMQSS(){
         MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
-        mqSS.storeMessageQueue(mqMap);
+        mqSS.storeMessageQueue(mqMap.values());
     }
     
     private Boolean limit(){
         return mqMap.size() > 1000;
-    }
-    
-    public Integer getLength(Object agID){
-        return mqMap.get((String) agID).getSize();
     }
     
     public Boolean getState(String agID){
@@ -116,7 +112,6 @@ public class MessageQueueManager {
     }
     
     public void stopAll(){
-        running = false;
         for(String key : mqMap.keySet()){
             mqMap.get(key).stop();
             mqMap.remove(key);
