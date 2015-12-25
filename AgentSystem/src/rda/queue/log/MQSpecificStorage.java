@@ -8,8 +8,10 @@ package rda.queue.log;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 import rda.log.AgentSystemLogger;
+import rda.queue.id.IDToMQN;
 import rda.queue.manager.MessageQueueManager;
 import rda.queue.reciver.ReciveMessageQueue;
 
@@ -21,7 +23,7 @@ public class MQSpecificStorage{
     public final ConcurrentSkipListMap<String, Integer> map = new ConcurrentSkipListMap<>();
     private static final MQSpecificStorage mqSS = new MQSpecificStorage();
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
-    private MessageQueueManager manager = MessageQueueManager.getInstance();
+    private static IDToMQN id = IDToMQN.getInstance();
     
     private MQSpecificStorage(){   
     }
@@ -30,30 +32,28 @@ public class MQSpecificStorage{
         return mqSS;
     }
     
-    private Collection agIDList;
+    private Map agMap;
     private StringBuilder mqSizeFormat;
-    public void storeMessageQueue(Collection agIDList){
-        this.agIDList = agIDList;
+    public void storeMessageQueue(Map agMap){
+        this.agMap = agMap;
         
         StringBuilder mqName = new StringBuilder("AgentID");
         mqSizeFormat = new StringBuilder("MQL");
-        for(Object agID : agIDList){
+        for(Object agID : id.getAGIDList()){
             //Data 列の作成
             mqSizeFormat.append(",{}");
             
             //Field 列の作成
-            mqName.append(",").append(((ReciveMessageQueue)agID).name);
+            mqName.append(",").append(((ReciveMessageQueue)agMap.get(agID)).name);
         }
         
         logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
     }
     
     public void mqLogging(){
-        if(agIDList == null) return;
-        
         List<Integer> mqSize = new ArrayList<>();
-        for(Object agID : agIDList){
-            mqSize.add(((ReciveMessageQueue)agID).getSize());
+        for(Object agID : id.getAGIDList()){
+            mqSize.add(((ReciveMessageQueue)agMap.get(agID)).getSize());
         }
         
         //Record MessageQueue Length
