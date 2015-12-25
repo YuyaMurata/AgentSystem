@@ -6,10 +6,12 @@
 package rda.queue.log;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ConcurrentSkipListMap;
 import rda.log.AgentSystemLogger;
 import rda.queue.manager.MessageQueueManager;
+import rda.queue.reciver.ReciveMessageQueue;
 
 /**
  *
@@ -28,9 +30,9 @@ public class MQSpecificStorage{
         return mqSS;
     }
     
-    private List agIDList;
+    private Collection agIDList;
     private StringBuilder mqSizeFormat;
-    public void storeMessageQueue(List agIDList){
+    public void storeMessageQueue(Collection agIDList){
         this.agIDList = agIDList;
         
         StringBuilder mqName = new StringBuilder("AgentID");
@@ -40,7 +42,7 @@ public class MQSpecificStorage{
             mqSizeFormat.append(",{}");
             
             //Field 列の作成
-            mqName.append(",").append(agID);
+            mqName.append(",").append(((ReciveMessageQueue)agID).name);
         }
         
         logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
@@ -51,8 +53,7 @@ public class MQSpecificStorage{
         
         List<Integer> mqSize = new ArrayList<>();
         for(Object agID : agIDList){
-            if(manager.getLength(agID) == null) mqSize.add(0);
-            else mqSize.add(manager.getLength(agID));
+            mqSize.add(((ReciveMessageQueue)agID).getSize());
         }
         
         System.out.println("MQLogging:"+mqSize);

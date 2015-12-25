@@ -99,7 +99,7 @@ public class MessageQueueManager {
      
     private void registerMQSS(){
         MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
-        mqSS.storeMessageQueue(id.getAGIDList());
+        mqSS.storeMessageQueue(mqMap.values());
     }
     
     private Boolean limit(){
