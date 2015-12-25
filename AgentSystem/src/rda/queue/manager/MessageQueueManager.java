@@ -89,8 +89,8 @@ public class MessageQueueManager {
         
         String cid = id.createID(); 
         
-        if(create(cid)) System.out.println("Create Agents");
-        else System.out.println("Take Reserve Agents");
+        if(create(cid)) System.out.println("Create Agents ("+pid+"->"+cid+")");
+        else System.out.println("Take Reserve Agents ("+pid+"->"+cid+")");
             
         id.addDistAgent(pid, cid);
         
