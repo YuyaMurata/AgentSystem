@@ -113,7 +113,7 @@ public class MessageQueueManager {
         return mqMap.get(agID).isFull();
     }
     
-    public void stopAll(){
+    public synchronized void stopAll(){
         for(String key : mqMap.keySet()){
             mqMap.get(key).stop();
             mqMap.remove(key);
