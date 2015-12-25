@@ -56,8 +56,6 @@ public class MQSpecificStorage{
             mqSize.add(((ReciveMessageQueue)agID).getSize());
         }
         
-        System.out.println("MQLogging:"+mqSize);
-        
         //Record MessageQueue Length
         logger.printMQLength(logger.dataMarker, mqSizeFormat.toString(), 
                 mqSize.toArray(new Integer[mqSize.size()]));
