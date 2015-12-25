@@ -21,6 +21,7 @@ public class MessageQueueManager {
     private Map<String, ReciveMessageQueue> mqMap = new ConcurrentHashMap();
     private IDToMQN id = IDToMQN.getInstance();
     
+    private static Boolean running = true;
     private Integer mode, reserve;
 
     public static MessageQueueManager getInstance(){
@@ -85,7 +86,7 @@ public class MessageQueueManager {
         //Autonomy Mode
         if(mode == 0 || limit()) flg = true;
         
-        if(flg == true) return "";
+        if(flg == true || !running) return "";
         
         String cid = id.createID(); 
         
@@ -115,6 +116,7 @@ public class MessageQueueManager {
     }
     
     public void stopAll(){
+        running = false;
         for(String key : mqMap.keySet()){
             mqMap.get(key).stop();
             mqMap.remove(key);
