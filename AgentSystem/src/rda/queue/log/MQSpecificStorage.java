@@ -40,7 +40,7 @@ public class MQSpecificStorage{
             mqSizeFormat.append(",{}");
             
             //Field 列の作成
-            mqName.append(",").append(manager.getLength(agID));
+            mqName.append(",").append(agID);
         }
         
         logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
