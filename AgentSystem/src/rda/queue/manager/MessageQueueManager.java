@@ -21,7 +21,6 @@ public class MessageQueueManager {
     private Map<String, ReciveMessageQueue> mqMap = new LinkedHashMap<>();
     private IDToMQN id = IDToMQN.getInstance();
     
-    private static Boolean running = true;
     private Integer mode, reserve;
 
     public static MessageQueueManager getInstance(){
@@ -113,10 +112,8 @@ public class MessageQueueManager {
         return mqMap.get(agID).isFull();
     }
     
-    public synchronized void stopAll(){
-        for(String key : mqMap.keySet()){
-            mqMap.get(key).stop();
-            mqMap.remove(key);
-        }
+    public void stopAll(){
+        for(ReciveMessageQueue mq : mqMap.values())
+            mq.stop();
     }
 }
