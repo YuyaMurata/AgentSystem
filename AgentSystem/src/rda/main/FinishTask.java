@@ -31,17 +31,19 @@ public class FinishTask implements Runnable{
     
     @Override
     public void run() {
-        MessageQueueTimer.getInstance().close();
-        MessageQueueManager.getInstance().stopAll();
-        
-        future.cancel(true);
+        //future.cancel(true);
         
         AgentSystemLogger logger = AgentSystemLogger.getInstance();
         logger.print(finishMarker, "Main Task is Cancelled !", null);
         
         try{
-            main.shutdown();
+            main.shutdownNow();
+            //main.shutdown();
             log.shutdown();
+            
+            MessageQueueTimer.getInstance().close();
+            MessageQueueManager.getInstance().stopAll();
+        
         }catch(Exception e){
         }finally{
             main.shutdownNow();

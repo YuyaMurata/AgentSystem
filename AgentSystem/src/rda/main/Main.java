@@ -83,7 +83,8 @@ public class Main implements SetProperty, SetDataType{
         execStart = System.currentTimeMillis();
         
         //Start Main Schedule
-        ScheduledFuture mainTaskFuture = mainTask.scheduleAtFixedRate
+        //ScheduledFuture mainTaskFuture = 
+        mainTask.scheduleAtFixedRate
                 (task, TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
         
         //Start Agen Logging Schedule
@@ -93,7 +94,7 @@ public class Main implements SetProperty, SetDataType{
         
         //Stop Main Schedule
         ScheduledFuture future = endTask.schedule
-                (new FinishTask(mainTaskFuture, mainTask, endTask), 
+                (new FinishTask(null, mainTask, endTask), 
                 TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
         
         try {
