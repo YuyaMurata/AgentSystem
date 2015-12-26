@@ -86,7 +86,7 @@ public class MessageQueueManager {
     }
     
     private Boolean flg = false;
-    public String decompose(String pid){
+    public synchronized String decompose(String pid){
         //Autonomy Mode
         if(mode == 0 || limit()) flg = true;
         
