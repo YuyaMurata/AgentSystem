@@ -74,8 +74,8 @@ public class ReciveMessageQueue implements SetProperty{
                 new String[]{name});
     }
     
-    public synchronized void stop(){
-        runnable = false;
+    public void stop(){
+        synchronized(this){ runnable = false; }
         mqThread.interrupt();
         
         logger.print(rMQMarker, 

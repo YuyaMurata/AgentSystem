@@ -114,6 +114,6 @@ public class MessageQueueManager {
     
     public void stopAll(){
         for(ReciveMessageQueue mq : mqMap.values())
-            mq.stop();
+            synchronized(this) { mq.stop();}
     }
 }
