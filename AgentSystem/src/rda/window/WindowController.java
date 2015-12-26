@@ -50,7 +50,6 @@ public class WindowController{
 	}
 
 	public void close(){
-            Thread.interrupted();
             manager.stopAll();
 	}
 }
