@@ -31,14 +31,14 @@ public class FinishTask implements Runnable{
     
     @Override
     public void run() {
-        task.finish();
-        
-        AgentSystemLogger logger = AgentSystemLogger.getInstance();
-        logger.print(finishMarker, "Main Task is Cancelled !", null);
-        
         try{
             main.shutdown();
             log.shutdown();
+            
+            task.finish();
+        
+            AgentSystemLogger logger = AgentSystemLogger.getInstance();
+            logger.print(finishMarker, "Main Task is Cancelled !", null);
             
             MessageQueueTimer.getInstance().close();
             MessageQueueManager.getInstance().stopAll();
