@@ -13,7 +13,6 @@ import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
 import rda.queue.id.IDToMQN;
 import rda.queue.manager.MessageQueueManager;
-import rda.queue.timer.MessageQueueTimer;
 import rda.window.WindowController;
 
 public class Main implements SetProperty, SetDataType{
@@ -84,36 +83,24 @@ public class Main implements SetProperty, SetDataType{
         execStart = System.currentTimeMillis();
         
         //Start Main Schedule
-        final ScheduledFuture mainTaskFuture = mainTask.scheduleAtFixedRate
+        ScheduledFuture mainTaskFuture = mainTask.scheduleAtFixedRate
                 (task, TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
         
         //Start Agen Logging Schedule
         loggingTask.scheduleAtFixedRate
-                (new AgentLogSchedule(), TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
+                (new AgentLogSchedule(), 
+                TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
         
         //Stop Main Schedule
-        ScheduledFuture future = endTask.schedule(
-            new Runnable(){
-                @Override
-                public void run(){
-                    mainTaskFuture.cancel(true);
-                    logger.print(mainMarker, "Main Task is Cancelled !", null);
-                    
-                    mainTask.shutdown();
-                    loggingTask.shutdown();
-                    
-                    MessageQueueTimer.getInstance().close();
-                    MessageQueueManager.getInstance().stopAll();
-                }
-            }, TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
+        ScheduledFuture future = endTask.schedule
+                (new FinishTask(mainTaskFuture, mainTask, endTask), 
+                TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
         
         try {
             future.get();
             endTask.shutdown();
         } catch (InterruptedException | ExecutionException e) {
         } finally {
-            mainTask.shutdownNow();
-            loggingTask.shutdownNow();
             endTask.shutdownNow();
         }
         execStop = System.currentTimeMillis();
