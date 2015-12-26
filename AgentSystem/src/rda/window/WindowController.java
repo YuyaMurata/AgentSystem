@@ -54,7 +54,7 @@ public class WindowController{
 	}
 
 	public void close(){
-            running = true;
-            Thread.interrupted();
+            running = false;
+            Thread.currentThread().interrupt();
 	}
 }
