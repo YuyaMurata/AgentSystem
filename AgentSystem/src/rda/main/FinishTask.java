@@ -37,8 +37,7 @@ public class FinishTask implements Runnable{
         logger.print(finishMarker, "Main Task is Cancelled !", null);
         
         try{
-            main.shutdownNow();
-            //main.shutdown();
+            main.shutdown();
             log.shutdown();
             
             MessageQueueTimer.getInstance().close();

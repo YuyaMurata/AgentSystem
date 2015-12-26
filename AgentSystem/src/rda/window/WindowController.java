@@ -32,10 +32,14 @@ public class WindowController{
             
             sendMessageQueue();
 	}
-
+        
+        public Thread sendThread;
         public Queue queue = new ArrayDeque();
 	private void sendMessageQueue(){
-            if(!running) return ;
+            if(!running){
+                sendThread = Thread.currentThread();
+                return ;
+            }
             
             try {
                 Window obj = (Window)queue.poll();
@@ -55,6 +59,6 @@ public class WindowController{
 
 	public void close(){
             running = false;
-            Thread.currentThread().interrupt();
+            sendThread.interrupt();
 	}
 }
