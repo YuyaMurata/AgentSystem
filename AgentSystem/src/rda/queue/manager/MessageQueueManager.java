@@ -111,9 +111,7 @@ public class MessageQueueManager {
         return mqMap.size() > 1000;
     }
     
-    private Boolean running = true;
     public void event(String name){
-        if(!running) return ;
         
         String distAgent = manager.decompose(name);
         
@@ -128,7 +126,6 @@ public class MessageQueueManager {
     }
     
     public void stopAll(){
-        running = false;
         for(ReciveMessageQueue mq : mqMap.values())
             synchronized(this) { mq.stop();}
     }

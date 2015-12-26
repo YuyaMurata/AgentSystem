@@ -6,7 +6,6 @@
 package rda.main;
 
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.log.AgentSystemLogger;
@@ -39,10 +38,15 @@ public class FinishTask implements Runnable{
         }catch(Exception e){
         }finally{
             main.shutdownNow();
+            log.shutdownNow();
+            
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+            }
             
             MessageQueueTimer.getInstance().close();
             MessageQueueManager.getInstance().stopAll();
-            log.shutdownNow();
         }
     }
     
