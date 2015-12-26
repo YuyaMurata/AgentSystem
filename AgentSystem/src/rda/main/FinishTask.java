@@ -31,6 +31,9 @@ public class FinishTask implements Runnable{
     
     @Override
     public void run() {
+        MessageQueueTimer.getInstance().close();
+        MessageQueueManager.getInstance().stopAll();
+        
         future.cancel(true);
         
         AgentSystemLogger logger = AgentSystemLogger.getInstance();
@@ -39,9 +42,6 @@ public class FinishTask implements Runnable{
         try{
             main.shutdown();
             log.shutdown();
-                    
-            MessageQueueTimer.getInstance().close();
-            MessageQueueManager.getInstance().stopAll();
         }catch(Exception e){
         }finally{
             main.shutdownNow();
