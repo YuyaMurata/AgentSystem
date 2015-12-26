@@ -52,8 +52,8 @@ public class MessageQueueManager {
         if(mqMap.get(agID) != null) return false;
         
         //Create Agent
-        CreateUserAgent agent = new CreateUserAgent();
-        agent.create(agID);
+        //CreateUserAgent agent = new CreateUserAgent();
+        //agent.create(agID);
         
         //Setting MessageQueue
         ReciveMessageQueue mq = new ReciveMessageQueue(agID);
@@ -86,7 +86,7 @@ public class MessageQueueManager {
     }
     
     private Boolean flg = false;
-    public synchronized String decompose(String pid){
+    public String decompose(String pid){
         //Autonomy Mode
         if(mode == 0 || limit()) flg = true;
         

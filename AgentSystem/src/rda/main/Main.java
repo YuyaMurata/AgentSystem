@@ -103,7 +103,6 @@ public class Main implements SetProperty, SetDataType{
         } catch (InterruptedException | ExecutionException e) {
         } finally {
             endTask.shutdownNow();
-            AgentConnection.getInstance().close();
         }
         execStop = System.currentTimeMillis();
     }

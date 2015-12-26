@@ -2,6 +2,7 @@ package rda.queue.reciver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import rda.agent.user.creator.CreateUserAgent;
 
 import rda.agent.user.updater.UpdateUser;
 import rda.queue.id.IDToMQN;
@@ -27,8 +28,8 @@ public class ReciveMQProcess extends Thread{
         IDToMQN id = IDToMQN.getInstance();
         
         //Create Agent
-        //CreateUserAgent agent = new CreateUserAgent();
-        //agent.create(agID);
+        CreateUserAgent agent = new CreateUserAgent();
+        agent.create(agID);
         
         //Setting Update
         UpdateUser user = new UpdateUser();
