@@ -19,11 +19,11 @@ import rda.queue.timer.MessageQueueTimer;
  */
 public class FinishTask implements Runnable{
     private ScheduledExecutorService main, log;
-    private ScheduledFuture future;
+    private MainSchedule task;
     private static final Marker finishMarker = MarkerFactory.getMarker("AgentSystem Finish Main");
     
-    public FinishTask(ScheduledFuture future, ScheduledExecutorService main, ScheduledExecutorService log) {
-        this.future = future;
+    public FinishTask(MainSchedule task, ScheduledExecutorService main, ScheduledExecutorService log) {
+        this.task = task;
         this.main = main;
         this.log = log;
     }
@@ -31,7 +31,7 @@ public class FinishTask implements Runnable{
     
     @Override
     public void run() {
-        //future.cancel(true);
+        task.finish();
         
         AgentSystemLogger logger = AgentSystemLogger.getInstance();
         logger.print(finishMarker, "Main Task is Cancelled !", null);

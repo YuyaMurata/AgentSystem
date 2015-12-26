@@ -52,7 +52,7 @@ public class MainSchedule implements Runnable, SetDataType{
         sendMessage(timer);
     }
     
-    public void isFinish(){
+    public void finish(){
         mq.close();
     }
 }

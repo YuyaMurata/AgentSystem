@@ -83,7 +83,6 @@ public class Main implements SetProperty, SetDataType{
         execStart = System.currentTimeMillis();
         
         //Start Main Schedule
-        //ScheduledFuture mainTaskFuture = 
         mainTask.scheduleAtFixedRate
                 (task, TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
         
@@ -94,7 +93,7 @@ public class Main implements SetProperty, SetDataType{
         
         //Stop Main Schedule
         ScheduledFuture future = endTask.schedule
-                (new FinishTask(null, mainTask, endTask), 
+                (new FinishTask(task, mainTask, endTask), 
                 TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
         
         try {

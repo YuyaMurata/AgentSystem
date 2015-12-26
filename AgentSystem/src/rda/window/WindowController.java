@@ -11,8 +11,9 @@ public class WindowController{
         private MessageQueueManager manager = MessageQueueManager.getInstance();
 	private HashMap<String, Window> window = new HashMap<>();
         
-        private final Integer size;
+        private Integer size;
         private long wait;
+        private Boolean running = true;
         
 	public String name;
 	public WindowController(int numberOfMQ, int limit, String name, long wait) {
@@ -34,11 +35,14 @@ public class WindowController{
 
         public Queue queue = new ArrayDeque();
 	private void sendMessageQueue(){
+            if(!running) return ;
+            
             try {
                 Window obj = (Window)queue.poll();
                 if(obj != null)
                     manager.getMessageQueue(obj.id).putMessage(obj.get());
             } catch (InterruptedException e) {
+                System.out.println("Intterrupted Finish Task Wake!!");
             } catch (MessageQueueEvent mqex) {
                 mqex.printEvent();
                         
@@ -50,6 +54,7 @@ public class WindowController{
 	}
 
 	public void close(){
-            manager.stopAll();
+            running = true;
+            Thread.interrupted();
 	}
 }
