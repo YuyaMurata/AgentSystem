@@ -98,17 +98,18 @@ public class Main implements SetProperty, SetDataType{
                 public void run(){
                     mainTaskFuture.cancel(true);
                     logger.print(mainMarker, "Main Task is Cancelled !", null);
+                    
+                    mainTask.shutdown();
+                    loggingTask.shutdown();
+                    
+                    MessageQueueTimer.getInstance().close();
+                    MessageQueueManager.getInstance().stopAll();
                 }
             }, TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
         
         try {
             future.get();
-            mainTask.shutdown();
-            loggingTask.shutdown();
             endTask.shutdown();
-            
-            MessageQueueTimer.getInstance().close();
-            MessageQueueManager.getInstance().stopAll();
         } catch (InterruptedException | ExecutionException e) {
         } finally {
             mainTask.shutdownNow();
