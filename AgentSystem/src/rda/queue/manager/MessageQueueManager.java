@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import rda.queue.id.IDToMQN;
 import java.util.Map;
 import rda.agent.user.creator.CreateUserAgent;
+import rda.log.AgentSystemLogger;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
 
@@ -20,6 +21,8 @@ public class MessageQueueManager {
     private static MessageQueueManager manager = new MessageQueueManager();
     private Map<String, ReciveMessageQueue> mqMap = new LinkedHashMap<>();
     private IDToMQN id = IDToMQN.getInstance();
+    
+    private AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
     private Integer mode, reserve;
 
@@ -91,8 +94,8 @@ public class MessageQueueManager {
         
         String cid = id.createID(); 
         
-        if(create(cid)) System.out.println("Create Agents ("+pid+"->"+cid+")");
-        else System.out.println("Take Reserve Agents ("+pid+"->"+cid+")");
+        if(create(cid)) logger.print(null, "Create Agents ({}->{})",new Object[]{pid,cid});
+        else logger.print(null, "Take Reserve Agents ({}->{})",new Object[]{pid,cid});
             
         id.addDistAgent(pid, cid);
         
@@ -108,11 +111,24 @@ public class MessageQueueManager {
         return mqMap.size() > 1000;
     }
     
+    private Boolean running = true;
+    public void event(String name){
+        if(!running) return ;
+        
+        String distAgent = manager.decompose(name);
+        
+        //イベント出力
+        logger.printMQEvent(logger.dataMarker, 
+                "MQName_,{},{},: ########## Load Detecting ########## ",
+                new String[]{name, distAgent});
+    }
+    
     public Boolean getState(String agID){
         return mqMap.get(agID).isFull();
     }
     
     public void stopAll(){
+        running = false;
         for(ReciveMessageQueue mq : mqMap.values())
             synchronized(this) { mq.stop();}
     }

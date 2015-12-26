@@ -9,7 +9,6 @@ public class MessageQueueEvent extends Exception{
     /**
     *
     */
-    private static final Marker dataMarker = MarkerFactory.getMarker("data");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
     private MessageQueueManager manager = MessageQueueManager.getInstance();
@@ -21,11 +20,6 @@ public class MessageQueueEvent extends Exception{
     }
 
     public void printEvent(){
-        String distAgent = manager.decompose(name);
-        
-        //イベント出力
-        logger.printMQEvent(dataMarker, 
-                "MQName_,{},{},: ########## Load Detecting ########## ",
-                new String[]{name, distAgent});
+        manager.event(name);
     }
 }
