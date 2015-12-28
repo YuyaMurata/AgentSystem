@@ -27,10 +27,8 @@ public class ReciveMessageQueue implements SetProperty{
 
     public void putMessage(Object msg) throws InterruptedException, MessageQueueEvent{
         //System.out.println("RECIVE::"+name+" PUT MESSAGE!! ["+queue.size()+"]");
+        if(!isRunning()) throw new InterruptedException();
         
-        synchronized(this){
-            if(!isRunning()) throw new IllegalStateException();
-        }
         if(isFull())
             throw new MessageQueueEvent(name);
         

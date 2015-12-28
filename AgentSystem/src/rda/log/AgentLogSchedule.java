@@ -22,13 +22,20 @@ public class AgentLogSchedule implements Runnable{
     public AgentLogSchedule() {
     }
     
-    //private AgentConnection conn = AgentConnection.getInstance();
+    private AgentConnection conn = AgentConnection.getInstance();
+    
     @Override
     public void run() {
-        //mqSS.mqLogging();
-        System.out.println(Thread.currentThread().getName());
-        //logger.print(scheduleMaker,
-        //        "AgentConnection Idle_{} Active_{}", new Object[]{conn.getActiveObject(), conn.getIdleObject()});
+        try{
+            if(Thread.interrupted()) throw new InterruptedException();
+            
+            mqSS.mqLogging();
+        
+            logger.print(scheduleMaker,
+                    "AgentConnection Idle_{} Active_{}", new Object[]{conn.getActiveObject(), conn.getIdleObject()});
+        } catch (InterruptedException ex) {
+            System.out.println("Logging Schedule Finish Interrupted!");
+        }
     }
     
 }

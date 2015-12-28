@@ -22,7 +22,7 @@ public class WindowController{
             this.wait = wait;
 	}
 
-	public void sendMessage(MessageObject mes){
+	public void sendMessage(MessageObject mes) throws InterruptedException{
             if(window.get(mes.id) == null) window.put(mes.id, new Window(mes.id, size));
             
             if(window.get(mes.id).add(mes)){
@@ -35,19 +35,17 @@ public class WindowController{
         
         public Thread sendThread;
         public Queue queue = new ArrayDeque();
-	private void sendMessageQueue(){
-            if(!running){
-                sendThread = Thread.currentThread();
-                return ;
-            }
+	private void sendMessageQueue() throws InterruptedException{
+            //if(!running){
+            //    sendThread = Thread.currentThread();
+            //    return ;
+            //}
             
             try {
                 Window obj = (Window)queue.poll();
                 if(obj != null)
                     manager.getMessageQueue(obj.id).putMessage(obj.get());
-            } catch (InterruptedException e) {
-                System.out.println("Intterrupted Finish Task Wake!!");
-            } catch (MessageQueueEvent mqex) {
+            }catch (MessageQueueEvent mqex) {
                 mqex.printEvent();
                         
                 try {
@@ -58,7 +56,7 @@ public class WindowController{
 	}
 
 	public void close(){
-            running = false;
-            sendThread.interrupt();
+            //running = false;
+            //sendThread.interrupt();
 	}
 }

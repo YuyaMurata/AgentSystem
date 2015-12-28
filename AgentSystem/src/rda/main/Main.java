@@ -7,6 +7,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
+import rda.agent.client.AgentConnection;
 import rda.data.SetDataType;
 import rda.log.AgentLogSchedule;
 import rda.log.AgentSystemLogger;
@@ -20,6 +21,7 @@ public class Main implements SetProperty, SetDataType{
     private static final ScheduledExecutorService endTask = Executors.newSingleThreadScheduledExecutor();
     private static final ScheduledExecutorService loggingTask = Executors.newSingleThreadScheduledExecutor();
     private static MainSchedule task;
+    private static AgentLogSchedule task2;
     
     private static final Marker mainMarker = MarkerFactory.getMarker("AgentSystem Main");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
@@ -36,6 +38,8 @@ public class Main implements SetProperty, SetDataType{
         task = new MainSchedule(
                 new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow", AGENT_WAIT),
                 TIME_PERIOD);
+        
+        task2 = new AgentLogSchedule();
         
         initStop = System.currentTimeMillis();
     }
@@ -76,6 +80,8 @@ public class Main implements SetProperty, SetDataType{
 
     private static Long execStart, execStop;
     private static void execute(){
+        FutureMap fMap = new FutureMap();
+        
         //Start
         exec_debug();
         
@@ -83,26 +89,33 @@ public class Main implements SetProperty, SetDataType{
         execStart = System.currentTimeMillis();
         
         //Start Main Schedule
-        mainTask.scheduleAtFixedRate
-                (task, TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
+        fMap.put(task, mainTask.scheduleAtFixedRate
+                (task, TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS)
+        );
         
         //Start Agen Logging Schedule
-        loggingTask.scheduleAtFixedRate
-                (new AgentLogSchedule(), 
-                TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
+        fMap.put(task2, loggingTask.scheduleAtFixedRate
+                (task2,TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS)
+        );
         
         //Stop Main Schedule
         ScheduledFuture future = endTask.schedule
-                (new FinishTask(task, mainTask, endTask), 
+                (new FinishTask(fMap), 
                 TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
         
         try {
             future.get();
+            
+            mainTask.shutdown();
+            loggingTask.shutdown();
             endTask.shutdown();
         } catch (InterruptedException | ExecutionException e) {
         } finally {
+            mainTask.shutdownNow();
+            loggingTask.shutdownNow();
             endTask.shutdownNow();
         }
+        
         execStop = System.currentTimeMillis();
     }
     

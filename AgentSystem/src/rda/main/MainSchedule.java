@@ -5,6 +5,8 @@
  */
 package rda.main;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.data.SetDataType;
@@ -32,7 +34,7 @@ public class MainSchedule implements Runnable, SetDataType{
         this.timer = -1L;
     }
     
-    private void sendMessage(Long t){
+    private void sendMessage(Long t) throws InterruptedException{
         MessageObject msg;
         while((msg = DATA_TYPE.generate(t)) != null)
             mq.sendMessage(msg);
@@ -45,11 +47,15 @@ public class MainSchedule implements Runnable, SetDataType{
     
     @Override
     public void run() {
-        timer++;
-        
-        logging();
-        
-        sendMessage(timer);
+        try {
+            timer++;
+            
+            logging();
+            
+            sendMessage(timer);
+        } catch (InterruptedException ex) {
+            System.out.println("Main Schedule Finish Interrupted!");
+        }
     }
     
     public void finish(){
