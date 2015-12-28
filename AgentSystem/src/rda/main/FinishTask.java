@@ -41,7 +41,7 @@ public class FinishTask implements Runnable{
             log.shutdownNow();
             
             try {
-                Thread.sleep(1000);
+                Thread.sleep(10000);
             } catch (InterruptedException ex) {
             }
             
