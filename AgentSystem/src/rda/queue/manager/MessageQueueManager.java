@@ -41,6 +41,9 @@ public class MessageQueueManager {
             create(agID);
         }
         
+        //MQ Length Logging
+        registerMQSS();
+        
         //Init ID
         id.init();
         
@@ -64,9 +67,6 @@ public class MessageQueueManager {
         synchronized(mqMap){
             mqMap.put(agID, mq);
         }
-        
-        //MQ Length Logging
-        registerMQSS();
         
         return true;
     }

@@ -32,32 +32,29 @@ public class MQSpecificStorage{
     }
     
     private Collection agValues;
-    private StringBuilder mqSizeFormat;
     public void storeMessageQueue(Collection agValues){
         this.agValues = agValues;
+    }
+    
+    public void mqLogging() throws InterruptedException{
+        if(!running) throw new InterruptedException();
         
         StringBuilder mqName = new StringBuilder("AgentID");
-        mqSizeFormat = new StringBuilder("MQL");
+        StringBuilder mqSizeFormat = new StringBuilder("MQL");
+        List<Integer> mqSize = new ArrayList<>();
         for(Object ag : agValues){
             //Data 列の作成
             mqSizeFormat.append(",{}");
             
             //Field 列の作成
             mqName.append(",").append(((ReciveMessageQueue)ag).name);
-        }
-        
-        logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
-    }
-    
-    public void mqLogging() throws InterruptedException{
-        if(!running) throw new InterruptedException();
-        
-        List<Integer> mqSize = new ArrayList<>();
-        for(Object ag : agValues)
+            
             mqSize.add(((ReciveMessageQueue)ag).getSize());
+        }
         
         
         //Record MessageQueue Length
+        logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
         logger.printMQLength(logger.dataMarker, mqSizeFormat.toString(), 
                 mqSize.toArray(new Integer[mqSize.size()]));
     }
