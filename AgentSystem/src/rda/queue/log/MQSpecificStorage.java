@@ -38,8 +38,6 @@ public class MQSpecificStorage{
         StringBuilder mqName = new StringBuilder("AgentID");
         mqSizeFormat = new StringBuilder("MQL");
         for(Object ag : agValues){
-            if(!((ReciveMessageQueue)ag).isRunning()) return ;
-            
             //Data 列の作成
             mqSizeFormat.append(",{}");
             
@@ -50,10 +48,10 @@ public class MQSpecificStorage{
         logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
     }
     
-    public void mqLogging(){
+    public void mqLogging() throws InterruptedException{
         List<Integer> mqSize = new ArrayList<>();
         for(Object ag : agValues){
-            if(!((ReciveMessageQueue)ag).isRunning()) return ;
+            if(!((ReciveMessageQueue)ag).isRunning()) throw new InterruptedException();
             mqSize.add(((ReciveMessageQueue)ag).getSize());
         }
         
