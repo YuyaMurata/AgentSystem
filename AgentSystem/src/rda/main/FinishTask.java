@@ -32,14 +32,13 @@ public class FinishTask implements Runnable{
     public void run() {
         try{
             main.shutdownNow();
-            log.shutdownNow();
+            //log.shutdownNow();
             
-            AgentSystemLogger logger = AgentSystemLogger.getInstance();
-            logger.print(finishMarker, "Main Task is Cancelled !", null);
+            System.out.println("Main Task is Cancelled !");
         }catch(Exception e){
         }finally{
             //main.shutdownNow();
-            //log.shutdownNow();
+            log.shutdownNow();
             
             MessageQueueTimer.getInstance().close();
             MessageQueueManager.getInstance().stopAll();
