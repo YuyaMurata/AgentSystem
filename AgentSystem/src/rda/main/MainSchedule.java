@@ -5,8 +5,6 @@
  */
 package rda.main;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.data.SetDataType;
