@@ -38,6 +38,8 @@ public class MQSpecificStorage{
         StringBuilder mqName = new StringBuilder("AgentID");
         mqSizeFormat = new StringBuilder("MQL");
         for(Object ag : agValues){
+            if(!((ReciveMessageQueue)ag).isRunning()) return;
+            
             //Data 列の作成
             mqSizeFormat.append(",{}");
             
