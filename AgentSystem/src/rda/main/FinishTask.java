@@ -5,7 +5,6 @@
  */
 package rda.main;
 
-import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.queue.manager.MessageQueueManager;
