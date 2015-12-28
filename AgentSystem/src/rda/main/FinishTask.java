@@ -32,17 +32,19 @@ public class FinishTask implements Runnable{
     public void run() {
         try{
             main.shutdownNow();
-            //log.shutdownNow();
-            
             System.out.println("Main Task is Cancelled !");
+            
+            log.shutdownNow();
+            System.out.println("Log Task is Cancelled !");
         }catch(Exception e){
         }finally{
             //main.shutdownNow();
-            log.shutdownNow();
-            
-            MessageQueueTimer.getInstance().close();
-            MessageQueueManager.getInstance().stopAll();
+            //log.shutdownNow();
         }
+        
+        MessageQueueTimer.getInstance().close();
+        MessageQueueManager.getInstance().stopAll();
+        
     }
     
 }
