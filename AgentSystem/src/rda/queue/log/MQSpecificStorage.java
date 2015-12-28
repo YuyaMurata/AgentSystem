@@ -22,6 +22,7 @@ public class MQSpecificStorage{
     private static final MQSpecificStorage mqSS = new MQSpecificStorage();
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     private static IDToMQN id = IDToMQN.getInstance();
+    private static Boolean running = true;
     
     private MQSpecificStorage(){   
     }
@@ -49,14 +50,19 @@ public class MQSpecificStorage{
     }
     
     public void mqLogging() throws InterruptedException{
+        if(!running) throw new InterruptedException();
+        
         List<Integer> mqSize = new ArrayList<>();
-        for(Object ag : agValues){
-            if(!((ReciveMessageQueue)ag).isRunning()) throw new InterruptedException();
+        for(Object ag : agValues)
             mqSize.add(((ReciveMessageQueue)ag).getSize());
-        }
+        
         
         //Record MessageQueue Length
         logger.printMQLength(logger.dataMarker, mqSizeFormat.toString(), 
                 mqSize.toArray(new Integer[mqSize.size()]));
+    }
+    
+    public void close(){
+        running = false;
     }
 }
