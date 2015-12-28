@@ -33,6 +33,7 @@ public class FinishTask implements Runnable{
         try{
             main.shutdown();
             task.finish();
+            log.shutdown();
             AgentSystemLogger logger = AgentSystemLogger.getInstance();
             logger.print(finishMarker, "Main Task is Cancelled !", null);
         }catch(Exception e){
