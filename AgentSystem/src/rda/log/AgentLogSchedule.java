@@ -16,7 +16,7 @@ import rda.queue.log.MQSpecificStorage;
  */
 public class AgentLogSchedule implements Runnable{
     private static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
-    private AgentSystemLogger logger = AgentSystemLogger.getInstance();
+    private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Logger Schedule");
 
     public AgentLogSchedule() {
