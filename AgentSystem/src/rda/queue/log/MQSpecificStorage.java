@@ -51,6 +51,7 @@ public class MQSpecificStorage{
     public void mqLogging(){
         List<Integer> mqSize = new ArrayList<>();
         for(Object ag : agValues){
+            if(!((ReciveMessageQueue)ag).isRunning()) return;
             mqSize.add(((ReciveMessageQueue)ag).getSize());
         }
         
