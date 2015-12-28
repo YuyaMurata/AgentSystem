@@ -22,13 +22,13 @@ public class AgentLogSchedule implements Runnable{
     public AgentLogSchedule() {
     }
     
-    private AgentConnection conn = AgentConnection.getInstance();
+    //private AgentConnection conn = AgentConnection.getInstance();
     @Override
     public void run() {
         //mqSS.mqLogging();
-        
-        logger.print(scheduleMaker,
-                "AgentConnection Idle_{} Active_{}", new Object[]{conn.getActiveObject(), conn.getIdleObject()});
+        System.out.println("Logging AgentSystem!!");
+        //logger.print(scheduleMaker,
+        //        "AgentConnection Idle_{} Active_{}", new Object[]{conn.getActiveObject(), conn.getIdleObject()});
     }
     
 }
