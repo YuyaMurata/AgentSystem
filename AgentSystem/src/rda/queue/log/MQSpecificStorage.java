@@ -36,7 +36,7 @@ public class MQSpecificStorage{
         this.agValues = agValues;
     }
     
-    public void mqLogging() throws InterruptedException{
+    public synchronized void mqLogging() throws InterruptedException{
         try{
         if(!running) throw new InterruptedException();
         
