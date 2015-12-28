@@ -25,7 +25,7 @@ public class AgentLogSchedule implements Runnable{
     private AgentConnection conn = AgentConnection.getInstance();
     @Override
     public void run() {
-        mqSS.mqLogging();
+        //mqSS.mqLogging();
         
         logger.print(scheduleMaker,
                 "AgentConnection Idle_{} Active_{}", new Object[]{conn.getActiveObject(), conn.getIdleObject()});
