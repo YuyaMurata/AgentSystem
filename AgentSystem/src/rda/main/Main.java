@@ -93,9 +93,9 @@ public class Main implements SetProperty, SetDataType{
         );
         
         //Start Agen Logging Schedule
-        //fMap.put(task2, loggingTask.scheduleAtFixedRate
-        //        (task2,TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS)
-        //);
+        fMap.put(task2, loggingTask.scheduleAtFixedRate
+                (task2,TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS)
+        );
         
         //Stop Main Schedule
         ScheduledFuture future = endTask.schedule
@@ -106,12 +106,12 @@ public class Main implements SetProperty, SetDataType{
             future.get();
             
             mainTask.shutdown();
-            //loggingTask.shutdown();
+            loggingTask.shutdown();
             endTask.shutdown();
         } catch (InterruptedException | ExecutionException e) {
         } finally {
             mainTask.shutdownNow();
-            //loggingTask.shutdownNow();
+            loggingTask.shutdownNow();
             endTask.shutdownNow();
         }
         

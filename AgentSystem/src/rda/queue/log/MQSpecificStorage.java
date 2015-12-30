@@ -37,7 +37,6 @@ public class MQSpecificStorage{
     }
     
     public synchronized void mqLogging() throws InterruptedException{
-        try{
         if(!running) throw new InterruptedException();
         
         StringBuilder mqName = new StringBuilder("AgentID");
@@ -57,9 +56,6 @@ public class MQSpecificStorage{
         logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
         logger.printMQLength(logger.dataMarker, mqSizeFormat.toString(), 
                 mqSize.toArray(new Integer[mqSize.size()]));
-        }catch(Exception e){
-            e.printStackTrace();
-        }
     }
     
     public void close(){
