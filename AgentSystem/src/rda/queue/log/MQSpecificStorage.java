@@ -20,7 +20,6 @@ import rda.queue.reciver.ReciveMessageQueue;
 public class MQSpecificStorage{
     private static final MQSpecificStorage mqSS = new MQSpecificStorage();
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
-    private static IDToMQN id = IDToMQN.getInstance();
     private static Boolean running = true;
     
     private MQSpecificStorage(){   
