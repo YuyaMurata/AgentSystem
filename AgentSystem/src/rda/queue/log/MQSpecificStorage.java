@@ -40,7 +40,7 @@ public class MQSpecificStorage{
         StringBuilder mqName = new StringBuilder("AgentID");
         StringBuilder mqSizeFormat = new StringBuilder("MQL");
         List<Integer> mqSize = new ArrayList<>();
-        for(Object ag : agValues){
+        /*for(Object ag : agValues){
             if(Thread.interrupted()) throw new InterruptedException();
             
             //Data 列の作成
@@ -50,7 +50,7 @@ public class MQSpecificStorage{
             mqName.append(",").append(((ReciveMessageQueue)ag).name);
             
             mqSize.add(((ReciveMessageQueue)ag).getSize());
-        }
+        }*/
         
         //Record MessageQueue Length
         if(Thread.interrupted()) throw new InterruptedException();
