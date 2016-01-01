@@ -5,6 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.data.SetDataType;
@@ -13,6 +15,7 @@ import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
 import rda.queue.id.IDToMQN;
 import rda.queue.manager.MessageQueueManager;
+import rda.queue.timer.MessageQueueTimer;
 import rda.window.WindowController;
 
 public class Main implements SetProperty, SetDataType{
@@ -97,13 +100,26 @@ public class Main implements SetProperty, SetDataType{
                 (task2,TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS)
         );
         
-        //Stop Main Schedule
-        ScheduledFuture future = endTask.schedule
-                (new FinishTask(fMap), 
-                TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
-        
         try {
-            future.get();
+            //Stop Main Schedule
+            //ScheduledFuture future = endTask.schedule
+            //        (new FinishTask(fMap),
+            //        TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
+
+            Thread.sleep(TIME_RUN + TIME_DELAY);
+        } catch (InterruptedException ex) {
+        } finally {
+            fMap.mainFuture.cancel(true);
+            mainTask.shutdownNow();
+            fMap.logFuture.cancel(true);
+            loggingTask.shutdownNow();
+        
+            MessageQueueTimer.getInstance().close();
+            MessageQueueManager.getInstance().stopAll();
+        }
+        
+        /*try {
+            //future.get();
             
             mainTask.shutdown();
             mainTask.awaitTermination(1, TimeUnit.SECONDS);
@@ -117,7 +133,7 @@ public class Main implements SetProperty, SetDataType{
             mainTask.shutdownNow();
             loggingTask.shutdownNow();
             endTask.shutdownNow();
-        }
+        }*/
         
         execStop = System.currentTimeMillis();
     }
