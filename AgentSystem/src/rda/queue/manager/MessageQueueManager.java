@@ -5,9 +5,11 @@
  */
 package rda.queue.manager;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import rda.queue.id.IDToMQN;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import rda.agent.user.creator.CreateUserAgent;
 import rda.log.AgentSystemLogger;
 import rda.queue.log.MQSpecificStorage;
@@ -20,7 +22,7 @@ import rda.queue.reciver.ReciveMessageQueue;
 public class MessageQueueManager {
     private static final MessageQueueManager manager = new MessageQueueManager();
     private static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
-    private Map<String, ReciveMessageQueue> mqMap = new LinkedHashMap<>();
+    private Map<String, ReciveMessageQueue> mqMap = new ConcurrentHashMap();
     private IDToMQN id = IDToMQN.getInstance();
     
     private AgentSystemLogger logger = AgentSystemLogger.getInstance();
@@ -127,6 +129,6 @@ public class MessageQueueManager {
     
     public void stopAll(){
         for(ReciveMessageQueue mq : mqMap.values())
-            synchronized(this) { mq.stop();}
+            mq.stop();
     }
 }
