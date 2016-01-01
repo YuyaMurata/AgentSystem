@@ -36,7 +36,7 @@ public class MQSpecificStorage{
         this.agValues = agValues;
     }
     
-    public synchronized void mqLogging() throws InterruptedException{
+    public void mqLogging() throws InterruptedException{
         /*StringBuilder mqName = new StringBuilder("AgentID");
         StringBuilder mqSizeFormat = new StringBuilder("MQL");
         List<Integer> mqSize = new ArrayList<>();
