@@ -33,12 +33,16 @@ public class AgentLogSchedule implements Runnable{
     @Override
     public void run() {
         try{
-            //System.out.println("Thread Check"+Thread.currentThread().getName());
+            System.out.println("Thread Check 0"+Thread.currentThread().getName());
             if(Thread.interrupted()) throw new InterruptedException();
             
+            System.out.println("Thread Check 1"+Thread.currentThread().getName());
             mqSS.mqLogging();
             
+            System.out.println("Thread Check 2"+Thread.currentThread().getName());
             logging();
+            
+            System.out.println("Thread Check 3"+Thread.currentThread().getName());
         } catch (InterruptedException e) {
             System.out.println("Logging Schedule Finish Interrupted!");
         }
