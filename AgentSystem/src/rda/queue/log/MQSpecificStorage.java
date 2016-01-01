@@ -37,12 +37,12 @@ public class MQSpecificStorage{
     }
     
     public synchronized void mqLogging() throws InterruptedException{
-        if(!running) throw new InterruptedException();
-        
         StringBuilder mqName = new StringBuilder("AgentID");
         StringBuilder mqSizeFormat = new StringBuilder("MQL");
         List<Integer> mqSize = new ArrayList<>();
         for(Object ag : agValues){
+            if(Thread.currentThread().isInterrupted()) throw new InterruptedException();
+            
             //Data 列の作成
             mqSizeFormat.append(",{}");
             
