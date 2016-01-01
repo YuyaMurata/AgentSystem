@@ -41,6 +41,7 @@ public class MQSpecificStorage{
         StringBuilder mqSizeFormat = new StringBuilder("MQL");
         List<Integer> mqSize = new ArrayList<>();
         for(Object ag : agValues){
+            if(Thread.interrupted()) throw new InterruptedException();
             
             //Data 列の作成
             mqSizeFormat.append(",{}");
@@ -52,6 +53,7 @@ public class MQSpecificStorage{
         }
         
         //Record MessageQueue Length
+        if(Thread.interrupted()) throw new InterruptedException();
         logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
         logger.printMQLength(logger.dataMarker, mqSizeFormat.toString(), 
                 mqSize.toArray(new Integer[mqSize.size()]));

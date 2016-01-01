@@ -24,15 +24,18 @@ public class AgentLogSchedule implements Runnable{
     
     private AgentConnection conn = AgentConnection.getInstance();
     
-    public void logging(){
+    public void logging() throws InterruptedException{
         logger.print(scheduleMaker,
             "AgentConnection Idle_{} Active_{}", 
             new Object[]{conn.getActiveObject(), conn.getIdleObject()});
+        if(Thread.interrupted()) throw new InterruptedException();
     }
     
     @Override
     public void run() {
         try{
+            if(Thread.interrupted()) throw new InterruptedException();
+            
             mqSS.mqLogging();
             
             logging();

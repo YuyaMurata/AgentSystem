@@ -36,11 +36,7 @@ public class WindowController{
         public Thread sendThread;
         public Queue queue = new ArrayDeque();
 	private void sendMessageQueue() throws InterruptedException{
-            //if(!running){
-            //    sendThread = Thread.currentThread();
-            //    return ;
-            //}
-            
+            if(Thread.interrupted()) throw new InterruptedException();
             try {
                 Window obj = (Window)queue.poll();
                 if(obj != null)
@@ -52,6 +48,8 @@ public class WindowController{
                     Thread.sleep(wait);
                 } catch (InterruptedException ex) {
                 }
+            }finally{
+                if(Thread.interrupted()) throw new InterruptedException();
             }
 	}
 
