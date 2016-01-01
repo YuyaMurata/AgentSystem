@@ -106,7 +106,7 @@ public class Main implements SetProperty, SetDataType{
             //        (new FinishTask(fMap),
             //        TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
 
-            Thread.sleep(TIME_RUN + TIME_DELAY);
+            Thread.sleep(TIME_RUN*1000 + TIME_DELAY);
         } catch (InterruptedException ex) {
         } finally {
             fMap.mainFuture.cancel(true);
