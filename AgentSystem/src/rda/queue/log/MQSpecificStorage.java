@@ -56,8 +56,4 @@ public class MQSpecificStorage{
         logger.printMQLength(logger.dataMarker, mqSizeFormat.toString(), 
                 mqSize.toArray(new Integer[mqSize.size()]));*/
     }
-    
-    public void close(){
-        running = false;
-    }
 }

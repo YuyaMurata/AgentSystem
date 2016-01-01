@@ -18,8 +18,8 @@ import rda.queue.reciver.ReciveMessageQueue;
  * @author 悠也
  */
 public class MessageQueueManager {
-    private static MessageQueueManager manager = new MessageQueueManager();
-    private static MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
+    private static final MessageQueueManager manager = new MessageQueueManager();
+    private static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     private Map<String, ReciveMessageQueue> mqMap = new LinkedHashMap<>();
     private IDToMQN id = IDToMQN.getInstance();
     
@@ -126,8 +126,6 @@ public class MessageQueueManager {
     }
     
     public void stopAll(){
-        mqSS.close();
-        
         for(ReciveMessageQueue mq : mqMap.values())
             synchronized(this) { mq.stop();}
     }
