@@ -106,7 +106,11 @@ public class Main implements SetProperty, SetDataType{
             future.get();
             
             mainTask.shutdown();
+            mainTask.awaitTermination(1, TimeUnit.SECONDS);
+            
             loggingTask.shutdown();
+            loggingTask.awaitTermination(1, TimeUnit.SECONDS);
+            
             endTask.shutdown();
         } catch (InterruptedException | ExecutionException e) {
         } finally {
