@@ -5,6 +5,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.data.SetDataType;
@@ -13,6 +15,7 @@ import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
 import rda.queue.id.IDToMQN;
 import rda.queue.manager.MessageQueueManager;
+import rda.queue.timer.MessageQueueTimer;
 import rda.window.WindowController;
 
 public class Main implements SetProperty, SetDataType{
@@ -98,26 +101,18 @@ public class Main implements SetProperty, SetDataType{
         );
         
         //Stop Main Schedule
-        ScheduledFuture future = endTask.schedule
-                (new FinishTask(fMap),
-                TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
-
-        
         try {
-            future.get();
-            
-            mainTask.shutdown();
-            mainTask.awaitTermination(1, TimeUnit.SECONDS);
-            
-            loggingTask.shutdown();
-            loggingTask.awaitTermination(1, TimeUnit.SECONDS);
-            
-            endTask.shutdown();
-        } catch (InterruptedException | ExecutionException e) {
-        } finally {
+            Thread.sleep(TIME_RUN*1000+TIME_DELAY);
+        } catch (InterruptedException ex) {
+        } finally{
+            fMap.mainFuture.cancel(true);
             mainTask.shutdownNow();
+            
+            fMap.logFuture.cancel(true);
             loggingTask.shutdownNow();
-            endTask.shutdownNow();
+            
+            MessageQueueTimer.getInstance().close();
+            MessageQueueManager.getInstance().stopAll();
         }
         
         execStop = System.currentTimeMillis();
