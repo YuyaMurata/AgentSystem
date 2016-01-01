@@ -41,10 +41,6 @@ public class MQSpecificStorage{
         StringBuilder mqSizeFormat = new StringBuilder("MQL");
         List<Integer> mqSize = new ArrayList<>();
         for(Object ag : agValues){
-            if(Thread.currentThread().isInterrupted()){
-                System.err.println("Throw Interrupt!!");
-                throw new InterruptedException();
-            }
             
             //Data 列の作成
             mqSizeFormat.append(",{}");
