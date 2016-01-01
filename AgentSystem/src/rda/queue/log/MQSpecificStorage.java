@@ -18,7 +18,6 @@ import rda.queue.reciver.ReciveMessageQueue;
  * @author kaeru
  */
 public class MQSpecificStorage{
-    public final ConcurrentSkipListMap<String, Integer> map = new ConcurrentSkipListMap<>();
     private static final MQSpecificStorage mqSS = new MQSpecificStorage();
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     private static IDToMQN id = IDToMQN.getInstance();
@@ -33,7 +32,7 @@ public class MQSpecificStorage{
     
     private Collection agValues;
     public void storeMessageQueue(Collection agValues){
-        this.agValues = agValues;
+        //this.agValues = agValues;
     }
     
     public void mqLogging() throws InterruptedException{
