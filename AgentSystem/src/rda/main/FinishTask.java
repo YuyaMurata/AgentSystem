@@ -25,8 +25,12 @@ public class FinishTask implements Runnable{
     
     @Override
     public void run() {
-        //fMap.mainFuture.cancel(true);
-        fMap.logFuture.cancel(true);
+        if(fMap.mainFuture.cancel(true)) System.out.println("oo MainSchedule is Cancel");
+        else System.out.println("xx MainSchedule is not Cancel");
+        
+        if(fMap.logFuture.cancel(true))System.out.println("oo LogSchedule is Cancel");
+        else System.out.println("xx LogSchedule is not Cancel");
+        
         
         MessageQueueTimer.getInstance().close();
         MessageQueueManager.getInstance().stopAll();

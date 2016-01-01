@@ -100,26 +100,14 @@ public class Main implements SetProperty, SetDataType{
                 (task2,TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS)
         );
         
-        try {
-            //Stop Main Schedule
-            //ScheduledFuture future = endTask.schedule
-            //        (new FinishTask(fMap),
-            //        TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
+        //Stop Main Schedule
+        ScheduledFuture future = endTask.schedule
+                (new FinishTask(fMap),
+                TIME_RUN + TIME_DELAY / 1000, TimeUnit.SECONDS);
 
-            Thread.sleep(TIME_RUN*1000 + TIME_DELAY);
-        } catch (InterruptedException ex) {
-        } finally {
-            fMap.mainFuture.cancel(true);
-            mainTask.shutdownNow();
-            fMap.logFuture.cancel(true);
-            loggingTask.shutdownNow();
         
-            MessageQueueTimer.getInstance().close();
-            MessageQueueManager.getInstance().stopAll();
-        }
-        
-        /*try {
-            //future.get();
+        try {
+            future.get();
             
             mainTask.shutdown();
             mainTask.awaitTermination(1, TimeUnit.SECONDS);
@@ -133,7 +121,7 @@ public class Main implements SetProperty, SetDataType{
             mainTask.shutdownNow();
             loggingTask.shutdownNow();
             endTask.shutdownNow();
-        }*/
+        }
         
         execStop = System.currentTimeMillis();
     }
