@@ -101,7 +101,7 @@ public class Main implements SetProperty, SetDataType{
             Thread.sleep(TIME_RUN*1000+TIME_DELAY);
         
             mainTask.shutdown();
-            fMap.mainFuture.cancel(true);
+            //fMap.mainFuture.cancel(true);
         } catch (InterruptedException ex) {
         } finally{
             mainTask.shutdownNow();
