@@ -35,6 +35,7 @@ public class WindowController{
         public void send(String id) throws InterruptedException{
             Window w = window.get(id);
             try {
+                System.out.println("Window::"+w);
                 manager.getMessageQueue(id).putMessage(w.clone());
                 w = null;
             } catch (MessageQueueEvent mqev) {
