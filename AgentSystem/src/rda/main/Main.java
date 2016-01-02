@@ -87,9 +87,10 @@ public class Main implements SetProperty, SetDataType{
         execStart = System.currentTimeMillis();
         
         //Start Main Schedule
-        fMap.put(task, mainTask.scheduleAtFixedRate
-                (task, TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS)
-        );
+        //fMap.put(task, 
+        mainTask.scheduleAtFixedRate
+                (task, TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
+        //);
         
         //Start Agen Logging Schedule
         //fMap.put(task2, loggingTask.scheduleAtFixedRate
