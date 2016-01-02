@@ -36,7 +36,7 @@ public class WindowController{
             Window w = window.get(id);
             try {
                 System.out.println("Window::"+w);
-                manager.getMessageQueue(id).putMessage(w.clone());
+                manager.getMessageQueue(id).putMessage(w.get());
                 w = null;
             } catch (MessageQueueEvent mqev) {
                 if(!Thread.currentThread().isInterrupted()) return;
@@ -50,7 +50,7 @@ public class WindowController{
             if(window.get(mes.id) == null) window.put(mes.id, new Window(mes.id, size));
             
             if(window.get(mes.id).add(mes)){
-                queue.add(window.get(mes.id).clone());
+                queue.add(window.get(mes.id));
                 window.remove(mes.id);
             }
             

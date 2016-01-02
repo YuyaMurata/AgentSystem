@@ -12,7 +12,7 @@ import rda.queue.obj.MessageObject;
  *
  * @author kaeru
  */
-public class Window implements Cloneable{
+public class Window{
     public String id;
     public Integer limit;
     private ArrayList win = new ArrayList();
@@ -32,14 +32,5 @@ public class Window implements Cloneable{
     
     public ArrayList get(){
         return this.win;
-    }
-    
-    @Override
-    public Object clone(){
-        try {
-            return super.clone();
-        } catch (CloneNotSupportedException ex) {
-            throw new InternalError(ex.toString());
-        }
     }
 }
