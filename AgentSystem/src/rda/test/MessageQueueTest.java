@@ -2,6 +2,8 @@ package rda.test;
 
 import rda.test.setter.TestParameter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rda.agent.creator.CreateAgent;
 
 import rda.data.fileout.OutputData;
@@ -24,17 +26,23 @@ public class MessageQueueTest extends TestParameter{
         
         for(int i=0; i < run; i++){
             
-            //WindowContoroler to MQ
-            mq.sendMessage(msg);
-            
-            // Direct MessageQueue
-            /*oneMessage = new ArrayList<MessageObject>();
-            oneMessage.add(msg);
-            rmq.putMessage(oneMessage);*/
+            try {
+                //WindowContoroler to MQ
+                mq.sendMessage(msg);
+                
+                // Direct MessageQueue
+                /*oneMessage = new ArrayList<MessageObject>();
+                oneMessage.add(msg);
+                rmq.putMessage(oneMessage);*/
+            } catch (InterruptedException ex) {
+            }
         }
         
-        //WindowContoroler  Data End
-        mq.sendMessage(new MessageObject(msg.id, -1));
+        try {
+            //WindowContoroler  Data End
+            mq.sendMessage(new MessageObject(msg.id, -1));
+        } catch (InterruptedException ex) {
+        }
         
         mq.close();
         

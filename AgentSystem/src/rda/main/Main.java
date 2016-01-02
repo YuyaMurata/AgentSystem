@@ -1,12 +1,8 @@
 package rda.main;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.data.SetDataType;

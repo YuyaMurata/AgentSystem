@@ -34,9 +34,9 @@ public class MainSchedule implements Runnable, SetDataType{
     
     private void sendMessage(Long t) throws InterruptedException{
         MessageObject msg;
-        while((msg = DATA_TYPE.generate(t)) != null){
-            if(Thread.interrupted()) throw new InterruptedException();
-            mq.sendMessage(msg);
+        while(((msg = DATA_TYPE.generate(t)) != null) && !Thread.currentThread().isInterrupted()){
+            if(mq.pack(msg)) mq.send(msg.id);
+            //mq.sendMessage(msg);
         }
     }
     

@@ -21,6 +21,29 @@ public class WindowController{
             this.size = limit;
             this.wait = wait;
 	}
+        
+        public Boolean pack(MessageObject msg){
+            Window w = window.get(msg.id);
+            if(w == null) {
+                w = new Window(msg.id, size);
+                window.put(msg.id, w);
+            }
+            
+            return w.add(msg);
+        }
+        
+        public void send(String id) throws InterruptedException{
+            Window w = window.get(id);
+            try {
+                manager.getMessageQueue(id).putMessage(w.clone());
+                w = null;
+            } catch (MessageQueueEvent mqev) {
+                if(!Thread.currentThread().isInterrupted()) return;
+                
+                mqev.printEvent();
+                Thread.sleep(wait);
+            }
+        }
 
 	public void sendMessage(MessageObject mes) throws InterruptedException{
             if(window.get(mes.id) == null) window.put(mes.id, new Window(mes.id, size));
