@@ -41,7 +41,7 @@ public class MessageQueueManager {
         }
         
         //MQ Length Logging
-        //registerMQSS();
+        mqSS.storeMessageQueue(mqMap.values());
         
         //Init ID
         id.init();
@@ -101,10 +101,6 @@ public class MessageQueueManager {
         
         return cid;
     }
-     
-    //private void registerMQSS(){
-    //    mqSS.storeMessageQueue(mqMap.values());
-    //}
     
     private Boolean limit(){
         return mqMap.size() > 1000;

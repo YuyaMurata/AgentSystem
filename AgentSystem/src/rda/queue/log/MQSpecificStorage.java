@@ -31,11 +31,11 @@ public class MQSpecificStorage{
     
     private Collection agValues;
     public void storeMessageQueue(Collection agValues){
-        //this.agValues = agValues;
+        this.agValues = agValues;
     }
     
     public void mqLogging() throws InterruptedException{
-        /*StringBuilder mqName = new StringBuilder("AgentID");
+        StringBuilder mqName = new StringBuilder("AgentID");
         StringBuilder mqSizeFormat = new StringBuilder("MQL");
         List<Integer> mqSize = new ArrayList<>();
         for(Object ag : agValues){
@@ -54,6 +54,6 @@ public class MQSpecificStorage{
         if(Thread.interrupted()) throw new InterruptedException();
         logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
         logger.printMQLength(logger.dataMarker, mqSizeFormat.toString(), 
-                mqSize.toArray(new Integer[mqSize.size()]));*/
+                mqSize.toArray(new Integer[mqSize.size()]));
     }
 }

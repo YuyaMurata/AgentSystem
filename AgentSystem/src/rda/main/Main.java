@@ -93,8 +93,9 @@ public class Main implements SetProperty, SetDataType{
         //);
         
         //Start Agen Logging Schedule
-        //fMap.put(task2, loggingTask.scheduleAtFixedRate
-        //        (task2,TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS)
+        //fMap.put(task2, 
+        loggingTask.scheduleAtFixedRate
+                (task2,TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
         //);
         
         //Stop Main Schedule
@@ -102,12 +103,11 @@ public class Main implements SetProperty, SetDataType{
             Thread.sleep(TIME_RUN*1000+TIME_DELAY);
         
             mainTask.shutdown();
-            //fMap.mainFuture.cancel(true);
+            loggingTask.shutdown();
         } catch (InterruptedException ex) {
         } finally{
             mainTask.shutdownNow();
-            
-            //loggingTask.shutdownNow();
+            loggingTask.shutdownNow();
             //fMap.logFuture.cancel(true);
             
             MessageQueueTimer.getInstance().close();
