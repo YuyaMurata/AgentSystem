@@ -25,7 +25,7 @@ public class Window{
     public Boolean add(MessageObject msg){
         if(msg.data != -1) win.add(msg);
         
-        if(win.size() >= limit || msg.data != -1) return true;
+        if((win.size() >= limit) || (msg.data == -1)) return true;
         
         return false;
     }
