@@ -103,11 +103,15 @@ public class Main implements SetProperty, SetDataType{
             Thread.sleep(TIME_RUN*1000+TIME_DELAY);
         
             mainTask.shutdown();
+            if(!mainTask.awaitTermination(5, TimeUnit.SECONDS))
+                mainTask.shutdownNow();
+            
             loggingTask.shutdown();
+            if(!loggingTask.awaitTermination(5, TimeUnit.SECONDS))
+                loggingTask.shutdownNow();
         } catch (InterruptedException ex) {
         } finally{
-            mainTask.shutdownNow();
-            loggingTask.shutdownNow();
+            
             //fMap.logFuture.cancel(true);
             
             MessageQueueTimer.getInstance().close();
