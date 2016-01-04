@@ -42,7 +42,7 @@ public class AgentConnection {
     }
     
     public AgentClient getConnection() throws AgentException{
-        if(manager.state()) throw new AgentException();
+        if(!manager.state()) throw new AgentException();
         AgentClient ag = null;
         
         try {
