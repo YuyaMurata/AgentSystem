@@ -8,6 +8,7 @@ package rda.queue.manager;
 import rda.queue.id.IDToMQN;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import rda.agent.user.creator.CreateUserAgent;
 import rda.log.AgentSystemLogger;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
@@ -55,8 +56,8 @@ public class MessageQueueManager {
         if(mqMap.get(agID) != null) return false;
         
         //Create Agent
-        //CreateUserAgent agent = new CreateUserAgent();
-        //agent.create(agID);
+        CreateUserAgent agent = new CreateUserAgent();
+        agent.create(agID);
         
         //Setting MessageQueue
         ReciveMessageQueue mq = new ReciveMessageQueue(agID);
