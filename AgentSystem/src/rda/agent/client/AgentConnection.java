@@ -18,7 +18,7 @@ import rda.queue.manager.MessageQueueManager;
 public class AgentConnection {
     private ObjectPool<AgentClient> _pool;
     private static final AgentConnection connector = new AgentConnection();
-    private Integer NUMBER_OF_POOL =-1;
+    private Integer NUMBER_OF_POOL =16;
     
     private static MessageQueueManager manager = MessageQueueManager.getInstance();
     
