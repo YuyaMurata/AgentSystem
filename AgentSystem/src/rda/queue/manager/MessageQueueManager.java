@@ -107,7 +107,6 @@ public class MessageQueueManager {
     }
     
     public void event(String name){
-        
         String distAgent = manager.decompose(name);
         
         //イベント出力

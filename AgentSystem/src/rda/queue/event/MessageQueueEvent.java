@@ -1,7 +1,5 @@
 package rda.queue.event;
 
-import org.slf4j.Marker;
-import org.slf4j.MarkerFactory;
 import rda.log.AgentSystemLogger;
 import rda.queue.manager.MessageQueueManager;
 

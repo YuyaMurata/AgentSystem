@@ -51,7 +51,6 @@ public class MQSpecificStorage{
         }
         
         //Record MessageQueue Length
-        if(Thread.interrupted()) throw new InterruptedException();
         logger.printMQLength(logger.fieldMarker, mqName.toString(), null);
         logger.printMQLength(logger.dataMarker, mqSizeFormat.toString(), 
                 mqSize.toArray(new Integer[mqSize.size()]));

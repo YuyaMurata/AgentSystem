@@ -38,7 +38,7 @@ public class WindowController{
                 manager.getMessageQueue(id).putMessage(w.get());
                 window.put(id, null);
             } catch (MessageQueueEvent mqev) {
-                if(!Thread.currentThread().isInterrupted()) return;
+                if(Thread.currentThread().isInterrupted()) return;
                 
                 mqev.printEvent();
                 Thread.sleep(wait);
