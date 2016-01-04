@@ -70,10 +70,10 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
 	}
 	
         public void create(String agID){
-            AgentConnection ag = AgentConnection.getInstance();
-            ProfileGenerator profileGen = ProfileGenerator.getInstance();
-            
             try {
+                AgentConnection ag = AgentConnection.getInstance();
+                ProfileGenerator profileGen = ProfileGenerator.getInstance();
+                
                 AgentClient client = ag.getConnection();
                 
                 agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});

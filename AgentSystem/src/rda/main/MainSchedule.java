@@ -59,8 +59,4 @@ public class MainSchedule implements Runnable, SetDataType{
             System.out.println("Main Schedule Finish Interrupted!");
         }
     }
-    
-    public void finish(){
-        mq.close();
-    }
 }

@@ -43,9 +43,7 @@ public class MessageQueueTest extends TestParameter{
             mq.sendMessage(new MessageObject(msg.id, -1));
         } catch (InterruptedException ex) {
         }
-        
-        mq.close();
-        
+
         /*try {
             rmq.close().join();
         } catch (InterruptedException ex) {

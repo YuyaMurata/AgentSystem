@@ -5,10 +5,12 @@
  */
 package rda.agent.client;
 
+import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.client.AgentClient;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import rda.queue.manager.MessageQueueManager;
 
 /**
  *
@@ -18,6 +20,8 @@ public class AgentConnection {
     private ObjectPool<AgentClient> _pool;
     private static final AgentConnection connector = new AgentConnection();
     private Integer NUMBER_OF_POOL =-1;
+    
+    private static MessageQueueManager manager = MessageQueueManager.getInstance();
     
     private AgentConnection(){
         GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
@@ -37,7 +41,8 @@ public class AgentConnection {
         return connector;
     }
     
-    public AgentClient getConnection(){
+    public AgentClient getConnection() throws AgentException{
+        if(manager.state()) throw new AgentException();
         AgentClient ag = null;
         
         try {

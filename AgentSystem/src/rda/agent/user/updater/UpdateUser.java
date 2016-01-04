@@ -62,9 +62,8 @@ public class UpdateUser implements AgentExecutor, Serializable{
 	}
 
 	public void sendUpdateMessage(String agID, ArrayList data){
-            AgentConnection ag = AgentConnection.getInstance();
-            
             try {
+                AgentConnection ag = AgentConnection.getInstance();
                 AgentClient client = ag.getConnection();
                 
                 agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID}); 

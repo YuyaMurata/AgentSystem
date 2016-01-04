@@ -75,9 +75,4 @@ public class WindowController{
                 if(Thread.interrupted()) throw new InterruptedException();
             }
 	}
-
-	public void close(){
-            //running = false;
-            //sendThread.interrupt();
-	}
 }

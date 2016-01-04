@@ -5,12 +5,9 @@
  */
 package rda.queue.manager;
 
-import java.util.Collection;
-import java.util.LinkedHashMap;
 import rda.queue.id.IDToMQN;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import rda.agent.user.creator.CreateUserAgent;
 import rda.log.AgentSystemLogger;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
@@ -23,9 +20,9 @@ public class MessageQueueManager {
     private static final MessageQueueManager manager = new MessageQueueManager();
     private static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     private Map<String, ReciveMessageQueue> mqMap = new ConcurrentHashMap();
-    private IDToMQN id = IDToMQN.getInstance();
+    private static IDToMQN id = IDToMQN.getInstance();
     
-    private AgentSystemLogger logger = AgentSystemLogger.getInstance();
+    private static AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
     private Integer mode, reserve;
 
@@ -127,7 +124,13 @@ public class MessageQueueManager {
         return mqMap.get(agID).isFull();
     }
     
+    private Boolean running = true;
+    public Boolean state(){
+        return running;
+    }
+    
     public void stopAll(){
+        running = false;
         for(ReciveMessageQueue mq : mqMap.values())
             mq.stop();
     }
