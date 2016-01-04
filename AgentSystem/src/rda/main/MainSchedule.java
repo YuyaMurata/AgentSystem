@@ -42,7 +42,7 @@ public class MainSchedule implements Runnable, SetDataType{
     
     private void logging(){
         logger.print(scheduleMaker, 
-                "QS:{} Experiment Step : {} [{}ms]", new Object[]{mq.queue.size(), timer, interval});
+                "Experiment Step : {} [{}ms]", new Object[]{timer, interval});
     }
     
     @Override
