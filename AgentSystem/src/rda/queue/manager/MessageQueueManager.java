@@ -63,9 +63,7 @@ public class MessageQueueManager {
         mq.start();
         
         //MQ registe MQManager
-        synchronized(mqMap){
-            mqMap.put(agID, mq);
-        }
+        mqMap.put(agID, mq);
         
         return true;
     }
