@@ -41,7 +41,7 @@ public class WindowController{
                 if(Thread.currentThread().isInterrupted()) return;
                 
                 mqev.printEvent();
-                Thread.sleep(wait);
+                //Thread.sleep(wait);
             }
         }
 
