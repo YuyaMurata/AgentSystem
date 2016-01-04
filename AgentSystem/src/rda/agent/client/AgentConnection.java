@@ -5,7 +5,6 @@
  */
 package rda.agent.client;
 
-import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.client.AgentClient;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
@@ -41,8 +40,7 @@ public class AgentConnection {
         return connector;
     }
     
-    public AgentClient getConnection() throws AgentException{
-        if(!manager.state()) throw new AgentException();
+    public AgentClient getConnection(){
         AgentClient ag = null;
         
         try {
