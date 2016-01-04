@@ -9,23 +9,23 @@ import com.ibm.agent.exa.client.AgentClient;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import rda.property.SetProperty;
 import rda.queue.manager.MessageQueueManager;
 
 /**
  *
  * @author kaeru
  */
-public class AgentConnection {
+public class AgentConnection implements SetProperty{
     private ObjectPool<AgentClient> _pool;
     private static final AgentConnection connector = new AgentConnection();
-    private Integer NUMBER_OF_POOL =16;
     
     private static MessageQueueManager manager = MessageQueueManager.getInstance();
     
     private AgentConnection(){
         GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
-        conf.setMaxIdle(NUMBER_OF_POOL);
-        conf.setMaxTotal(NUMBER_OF_POOL);
+        conf.setMaxIdle(POOLSIZE);
+        conf.setMaxTotal(POOLSIZE);
         
         this._pool = new GenericObjectPool<>(new AgentClientFactory("localhost:2809", "rda", "agent"), conf);
                 

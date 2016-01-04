@@ -50,6 +50,7 @@ public interface SetProperty {
 	public static final Long AGENT_WAIT = Long.valueOf(prop.getValue("agent", "wait.agent"));
         public static final Integer DATA_VOLUME = Integer.valueOf(prop.getValue("agent", "data.volume"));
         public static final Integer AGENT_DEFAULT_VALUE = Integer.valueOf(prop.getValue("agent", "agent.default.value"));
+        public static final Integer POOLSIZE = Integer.valueOf(prop.getValue("agent", "pool.size"));
         public static final Integer AGENT_MODE_AUTONOMY = Integer.valueOf(prop.getValue("agent", "agent.mode.autonomy"));
         public static final Integer AGENT_MODE_RESERVE = Integer.valueOf(prop.getValue("agent", "agent.mode.reserve"));
         public static final Integer DATA_MODE_GENERATE = Integer.valueOf(prop.getValue("agent", "data.mode.generate"));
