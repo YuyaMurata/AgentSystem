@@ -217,7 +217,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
     
     /**
      * Create AggregateLog elements
-     * csv_Data -> List
+     * csv_Data - List
      */
     //TimeList
     public static List dataToTime(CSVReader csvMQLReader) throws IOException{
