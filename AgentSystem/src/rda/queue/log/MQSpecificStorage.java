@@ -8,7 +8,6 @@ package rda.queue.log;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.ConcurrentSkipListMap;
 import rda.log.AgentSystemLogger;
 import rda.queue.id.IDToMQN;
 import rda.queue.reciver.ReciveMessageQueue;
@@ -20,6 +19,7 @@ import rda.queue.reciver.ReciveMessageQueue;
 public class MQSpecificStorage{
     private static final MQSpecificStorage mqSS = new MQSpecificStorage();
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
+    private static final IDToMQN id = IDToMQN.getInstance();
     private static Boolean running = true;
     
     private MQSpecificStorage(){   
@@ -40,6 +40,7 @@ public class MQSpecificStorage{
         List<Integer> mqSize = new ArrayList<>();
         for(Object ag : agValues){
             if(Thread.interrupted()) throw new InterruptedException();
+            if(id.checkAGID(((ReciveMessageQueue)ag).name)) continue;
             
             //Data 列の作成
             mqSizeFormat.append(",{}");

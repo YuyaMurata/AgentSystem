@@ -138,6 +138,10 @@ public class IDToMQN implements SetProperty{
             return agIDList;
         }
         
+        public Boolean checkAGID(String agID){
+            return agIDList.indexOf(agID) != -1;
+        }
+        
         // System Out
         public String toString(){
             StringBuilder sb = new StringBuilder();
