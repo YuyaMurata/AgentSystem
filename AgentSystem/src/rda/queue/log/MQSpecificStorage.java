@@ -40,7 +40,7 @@ public class MQSpecificStorage{
         List<Integer> mqSize = new ArrayList<>();
         for(Object ag : agValues){
             if(Thread.interrupted()) throw new InterruptedException();
-            if(id.checkAGID(((ReciveMessageQueue)ag).name)) continue;
+            if(!id.checkAGID(((ReciveMessageQueue)ag).name)) continue;
             
             //Data 列の作成
             mqSizeFormat.append(",{}");

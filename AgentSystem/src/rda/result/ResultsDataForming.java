@@ -318,7 +318,6 @@ public class ResultsDataForming implements SetProperty, SetDataType{
 
         for(String time : timeList){
             String event = "";
-            System.out.println("MQMAP::"+time+","+eventMap);
             if(eventMap.get(time) != null){
                 HashMap mqMap = eventMap.get(time);
                 for(String agID : agIDList)
