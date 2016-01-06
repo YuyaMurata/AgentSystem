@@ -34,7 +34,7 @@ public class MessageQueueManager {
     public void initMessageQueue(Integer n, Integer mode, Integer reserve, Integer m){
         this.mode = mode;
         this.reserve = reserve;
-        this.max = m;
+        this.max = 1000;
         
         //Agent Create
         for(int i=0; i < n; i++){
@@ -49,7 +49,10 @@ public class MessageQueueManager {
         id.init();
         
         //Reserve Agents
-        if(reserve == 1) reserve(m);
+        if(reserve == 1) {
+            reserve(m);
+            this.max = m;
+        }
     }
     
     private Boolean create(String agID){
@@ -103,7 +106,7 @@ public class MessageQueueManager {
     }
     
     private Boolean limit(){
-        return mqMap.size() >= 1000;
+        return mqMap.size() >= max;
     }
     
     public void event(String name){
