@@ -134,6 +134,10 @@ public class IDToMQN implements SetProperty{
             }
         }
         
+        public Integer getNumberOfActiveAgents(){
+            return agIDList.size();
+        }
+        
         public List getAGIDList(){
             return agIDList;
         }
