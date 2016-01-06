@@ -103,11 +103,11 @@ public class Main implements SetProperty, SetDataType{
             Thread.sleep(TIME_RUN*1000+TIME_DELAY);
         
             mainTask.shutdown();
-            if(!mainTask.awaitTermination(1, TimeUnit.SECONDS))
+            if(!mainTask.awaitTermination(0, TimeUnit.SECONDS))
                 mainTask.shutdownNow();
             
             loggingTask.shutdown();
-            if(!loggingTask.awaitTermination(1, TimeUnit.SECONDS))
+            if(!loggingTask.awaitTermination(0, TimeUnit.SECONDS))
                 loggingTask.shutdownNow();
         } catch (InterruptedException ex) {
         } finally{
