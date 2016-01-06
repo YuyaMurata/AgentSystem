@@ -102,7 +102,7 @@ public class MessageQueueManager {
     }
     
     private Boolean limit(){
-        return mqMap.size() > 1000;
+        return mqMap.size() >= reserve;
     }
     
     public void event(String name){
