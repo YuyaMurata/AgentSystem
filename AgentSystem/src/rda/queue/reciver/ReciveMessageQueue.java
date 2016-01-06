@@ -2,8 +2,6 @@ package rda.queue.reciver;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.log.AgentSystemLogger;
@@ -74,10 +72,10 @@ public class ReciveMessageQueue implements SetProperty{
                 new String[]{name});
     }
     
-    public void stop(){
-        synchronized(this){ runnable = false; }
-        mqThread.interrupt();
+    public void syncstop(){
+        if(mqThread.isAlive())
         try {
+            stop();
             mqThread.join();
         } catch (InterruptedException ex) {
         }
@@ -85,5 +83,10 @@ public class ReciveMessageQueue implements SetProperty{
         logger.print(rMQMarker, 
                 "Recive Message Queue {} Stop!!",
                 new String[]{name});
+    }
+    
+    public void stop(){
+        synchronized(this){ runnable = false; }
+        mqThread.interrupt();
     }
 }

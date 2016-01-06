@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import org.apache.commons.math3.random.RandomDataGenerator;
 import rda.data.profile.ProfileGenerator;
+import rda.queue.id.IDToMQN;
 import rda.queue.obj.MessageObject;
 
 /**
@@ -28,12 +29,13 @@ public class DataTest extends TestParameter{
         
         TreeMap map = new TreeMap();
         ProfileGenerator gen = ProfileGenerator.getInstance();
+        IDToMQN id = IDToMQN.getInstance();
         
         MessageObject msg;
         for(long t =0; t < TIME_RUN; t++){
             start = System.currentTimeMillis();
             while((msg = test.DATA_TYPE.generate(t)) != null){
-                int key = Integer.valueOf((String)gen.getProf(msg.id).get("Age"));
+                String key = id.ageToAGID(msg.id);
                 
                 Long cnt = 0L;
                 if(map.get(key) != null) cnt = (Long)map.get(key) + 1;
@@ -48,7 +50,7 @@ public class DataTest extends TestParameter{
         }
         
         long total = 0L;
-        for(Integer key : (Set<Integer>)map.keySet()){
+        for(Object key : map.keySet()){
             total = total+(Long)map.get(key);
             System.out.println(key+","+map.get(key));
         }

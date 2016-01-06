@@ -127,5 +127,8 @@ public class MessageQueueManager {
         running = false;
         for(ReciveMessageQueue mq : mqMap.values())
             mq.stop();
+        
+        for(ReciveMessageQueue mq : mqMap.values())
+            mq.syncstop();
     }
 }
