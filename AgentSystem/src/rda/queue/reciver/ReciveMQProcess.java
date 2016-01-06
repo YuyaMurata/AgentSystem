@@ -47,7 +47,7 @@ public class ReciveMQProcess extends Thread{
                     dataMap.get(msg.id).add(msg.data);
                 }
             
-                if(mq.isEmpty() || mqt.getTimer()){
+                if(mqt.getTimer()){
                     for(String uid : dataMap.keySet()){
                         //user.sendUpdateMessage(agID, dataMap.get(uid));
                         user.sendUpdateMessage(id.ageToAGID(uid), dataMap.get(uid));
