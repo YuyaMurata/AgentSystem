@@ -25,7 +25,7 @@ public class MessageQueueManager {
     
     private static AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
-    private Integer mode, reserve;
+    private Integer mode, reserve, max;
 
     public static MessageQueueManager getInstance(){
         return manager;
@@ -34,6 +34,7 @@ public class MessageQueueManager {
     public void initMessageQueue(Integer n, Integer mode, Integer reserve, Integer m){
         this.mode = mode;
         this.reserve = reserve;
+        this.max = m;
         
         //Agent Create
         for(int i=0; i < n; i++){
@@ -102,7 +103,7 @@ public class MessageQueueManager {
     }
     
     private Boolean limit(){
-        return mqMap.size() >= reserve;
+        return mqMap.size() >= max;
     }
     
     public void event(String name){
