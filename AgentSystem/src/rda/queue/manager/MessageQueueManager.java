@@ -51,7 +51,7 @@ public class MessageQueueManager {
         //Reserve Agents
         if(reserve == 1) {
             reserve(m);
-            this.max = m;
+            //this.max = m;
         }
     }
     
