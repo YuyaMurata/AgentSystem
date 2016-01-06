@@ -106,7 +106,7 @@ public class MessageQueueManager {
     }
     
     private Boolean limit(){
-        return id.getNumberOfActiveAgents() >= max;
+        return mqMap.size() >= max;
     }
     
     public void event(String name){
