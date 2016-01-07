@@ -5,8 +5,6 @@
  */
 package rda.result;
 
-import com.ibm.commons.collections.BidiMap;
-import com.ibm.commons.collections.bidimap.DualHashBidiMap;
 import com.ibm.ws.xs.jdk5.java.util.Arrays;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -369,6 +367,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             agentTreeList.add(fields.toArray(new String[fields.size()]));
             
             //Data
+            HashMap<String, HashMap<String, Integer>> eventMap = new HashMap<>();
             String[] line;
             while((line =csvMQEReader.readNext()) != null){
                 if(line.length < 1) continue;
