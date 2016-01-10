@@ -30,6 +30,8 @@ import rda.property.SetProperty;
  * @author kaeru
  */
 public class ResultsDataForming implements SetProperty, SetDataType{
+    private static final Integer digit = LOG_PERIOD.toString().length();
+    
     public static void main(String[] args) 
             throws FileNotFoundException, UnsupportedEncodingException, IOException, ParseException{
         String folderName = "user10";
@@ -241,7 +243,6 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         List<String> timeList = new ArrayList<>();
         
         //Data
-        Integer digit = TIME_PERIOD.toString().length();
         String[] line;
         while((line = reader.readNext()) != null){
             if(line.length < 1) continue;
@@ -317,7 +318,6 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         List<List<String>> dataMQEList = new ArrayList<>();
         
         //Data
-        Integer digit = TIME_PERIOD.toString().length();
         String[] line;
         HashMap<String, HashMap<String, Integer>> eventMap = new HashMap<>();
         while((line = reader.readNext()) != null){
@@ -360,7 +360,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         CSVReader reader = csvCPUReader;
         List<List<String>> dataCPUList = new ArrayList<>();
         
-        Integer digit = TIME_PERIOD.toString().length();
+        //Data
         String[] line;
         int nextime = 0;
         while((line = reader.readNext()) != null){
@@ -388,7 +388,6 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         List<List<String>> agentMapList = new ArrayList<>();
             
         //Data
-        Integer digit = TIME_PERIOD.toString().length();
         HashMap<String, HashMap<String, Integer>> eventMap = new HashMap<>();
         String[] line;
         while((line =reader.readNext()) != null){
