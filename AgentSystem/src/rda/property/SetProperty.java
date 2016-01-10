@@ -76,5 +76,5 @@ public interface SetProperty {
         public static final String LOG_RESULTS = prop.getValue("log", "file.results");
         public static final String LOG_AGTREE = prop.getValue("log", "file.agtree");
         public static final String LOG_ALL = prop.getValue("log", "file.all");
-        
+        public static final Long LOG_PERIOD = Long.valueOf(prop.getValue("log", "log.period"));
 }

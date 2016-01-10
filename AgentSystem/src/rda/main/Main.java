@@ -87,28 +87,27 @@ public class Main implements SetProperty, SetDataType{
         execStart = System.currentTimeMillis();
         
         //Start Main Schedule
-        //fMap.put(task, 
         mainTask.scheduleAtFixedRate
                 (task, TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
-        //);
         
         //Start Agen Logging Schedule
-        //fMap.put(task2, 
         loggingTask.scheduleAtFixedRate
-                (task2,TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
-        //);
+                (task2,TIME_DELAY, LOG_PERIOD, TimeUnit.MILLISECONDS);
         
         //Stop Main Schedule
         try {
             Thread.sleep(TIME_RUN*1000+TIME_DELAY);
-        
+            
+            //Shutdown Log
+            loggingTask.shutdown();
+            if(!loggingTask.awaitTermination(0, TimeUnit.SECONDS))
+                loggingTask.shutdownNow();
+            
+            //Shutdown Main
             mainTask.shutdown();
             if(!mainTask.awaitTermination(0, TimeUnit.SECONDS))
                 mainTask.shutdownNow();
             
-            loggingTask.shutdown();
-            if(!loggingTask.awaitTermination(0, TimeUnit.SECONDS))
-                loggingTask.shutdownNow();
         } catch (InterruptedException ex) {
         } finally{
             

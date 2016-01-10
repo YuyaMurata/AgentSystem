@@ -17,9 +17,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,16 +47,10 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             csvSummary.flush();
         }
         
-        //Create LogAggregate(Length Event CPU)
+        //Create LogAggregate(Length, Event, CPU, Map)
         try (CSVWriter csvSystem = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+"/System-"+createCSVFileName()+".csv")))) {
             csvWriteMQandCPU(map, csvSystem);
             csvSystem.flush();
-        }
-        
-        //Create AgentTree
-        try (CSVWriter csvAgentTree = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+"/AgentTree-"+createCSVFileName()+".csv")))) {
-            csvWriteAgentTree(map, csvAgentTree);
-            csvAgentTree.flush();
         }
     }
     
@@ -87,7 +79,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
     //Commons Output File Name
     public static final String createCSVFileName() {
         String fileName = LOG_ALL;
-        fileName = fileName +"_para["
+        fileName = fileName +"_p["
                 + TIME_RUN + "s," 
                 + TIME_PERIOD + "ms,"
                 + "u" + NUMBER_OF_USER_AGENTS + ","
@@ -150,78 +142,105 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         }
     }
     
-    //Aggregate Log(MQLength, Events, CPU)
+    //Aggregate Log(MQLength, Events, CPU) -> CSV AgentSystem
     public static void csvWriteMQandCPU(HashMap<String, File> map, CSVWriter csv)
             throws FileNotFoundException, UnsupportedEncodingException, IOException, ParseException{
     
         //Info Time
         List<String> timeList = dataToTime(new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8")));
-            
+        
+        //CPU (vmstat.csv)
+        List<List<String>> dataCPUList = dataToCPU(new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_CPU)), "UTF-8")), timeList);
+        
         //Info NumberOfAgents
         List<String> agentList = dataToNumAgents(new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8")));
+        
+        //Info Agents Map
+        List<List<String>> agentMapList = dataToAgentMap(new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQE)), "UTF-8")), timeList);
             
         //Info_MQLength.csv
-        List<String> dataMQLList = dataToMQL(new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8")));
+        List<List<String>> dataMQLList = dataToMQL(new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQL)), "UTF-8")));
             
         //Info_MQEvent.csv
-        List<String> dataMQEList = dataToMQE(new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQE)), "UTF-8")), timeList);
-            
-        //CPU (vmstat.csv)
-        List<String> dataCPUList = dataToCPU(new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_CPU)), "UTF-8")), timeList);
-
+        List<List<String>> dataMQEList = dataToMQE(new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQE)), "UTF-8")), timeList);
+        
+        //Check DataLists
         System.out.println("MQL:"+dataMQLList.size());
         System.out.println("MQE:"+dataMQEList.size());
         System.out.println("CPU:"+dataCPUList.size());
             
         //List -> CSV
+        //Field
         List<String> csvList = new ArrayList<>();
+        //Time Field
         csvList.add("Time"); 
+        //CPU Field
         csvList.add("CPU:us"); csvList.add("CPU:sy");
+        //Num Agents Field
         csvList.add("Numeber Of Agents");
+        csvList.add("");
+        //AgentMap Field
+        for(String agID : rootAGIDList) csvList.add(agID+"Map");
+        csvList.add("");
+        //MQ Length Field
         for(String agID : agIDList) csvList.add(agID+"Length");
         csvList.add("");
+        //MQ Event Field
         for(String agID : agIDList) csvList.add(agID+"Event");
+        //Write Fields
         csv.writeNext(csvList.toArray(new String[csvList.size()]));
-            
+        
+        //Data
         for(int i = 0; i < timeList.size(); i++){
+            //CSV a row Initialise 
             csvList = new ArrayList<>();
                 
             //Time
             csvList.add(timeList.get(i));
                 
             //CPU
-            for(String cpu : dataCPUList.get(i).split(","))
+            for(String cpu : dataCPUList.get(i))
                 csvList.add(cpu);
-                
+            
             //Number Of Agent
             csvList.add(agentList.get(i));
-                
+            
+            //Column Space
+            csvList.add("");
+            
+            //AgentMap
+            for(String agmap : agentMapList.get(i))
+                csvList.add(agmap);
+            
+            //Column Space
+            csvList.add("");
+            
             //MQLength
-            for(String len : dataMQLList.get(i).split(","))
-                if(len.length() > 0) csvList.add(len);
-            for(int j = 0; j < agIDList.size() - dataMQLList.get(i).split(",").length; j++)
-                csvList.add("0");
+            for(String len : dataMQLList.get(i))
+                csvList.add(len);
                 
-            //Colomn Space
+            //Column Space
             csvList.add("");
                 
             //MQEvent
-            for(String event : dataMQEList.get(i).split(","))
-                if(event.length() > 0) csvList.add(event);
-                
+            for(String event : dataMQEList.get(i))
+                csvList.add(event);
+  
+            //CSV a row Write
             csv.writeNext(csvList.toArray(new String[csvList.size()]));
         }                   
     }
     
-    /**
+    /*
      * Create AggregateLog elements
      * csv_Data - List
      */
-    //TimeList
+    //Data To TimeList
     public static List dataToTime(CSVReader csvMQLReader) throws IOException{
         CSVReader reader = csvMQLReader;
         List<String> timeList = new ArrayList<>();
         
+        //Data
         Integer digit = TIME_PERIOD.toString().length();
         String[] line;
         while((line = reader.readNext()) != null){
@@ -236,11 +255,12 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         return timeList;
     }
     
-    //Number Of Agents
+    //Data To Number Of Agents
     public static List dataToNumAgents(CSVReader csvMQLReader) throws IOException{
         CSVReader reader = csvMQLReader;
         List<String> agentList = new ArrayList<>();
         
+        //Data
         String[] line;
         while((line = reader.readNext()) != null){
             if(line.length < 1) continue;
@@ -254,11 +274,12 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         return agentList;
     }
     
-    //MessageQueueLength
+    //Data To MessageQueue Length
     public static List dataToMQL(CSVReader csvMQLReader) throws IOException{
         CSVReader reader = csvMQLReader;
-        List<String> dataMQLList = new ArrayList<>();
+        List<List<String>> dataMQLList = new ArrayList<>();
         
+        //Data
         Integer numOfAgents = 0;
         String[] line, field = null, data;
         Map dataToFieldMap = new TreeMap();
@@ -281,7 +302,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                 for(String agID : agIDList)
                     if(dataToFieldMap.get(agID) == null) mql.add("0");
                     else mql.add((String) dataToFieldMap.get(agID));
-                dataMQLList.add(String.join(",", mql.toArray(new String[mql.size()])));
+                dataMQLList.add(mql);
                 dataToFieldMap.clear();
             }
                         
@@ -290,11 +311,12 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         return dataMQLList;
     }
     
-    //MessageQueueEvent
+    //Data To MessageQueue Event
     public static List dataToMQE(CSVReader csvMQEReader, List<String> timeList) throws IOException{
         CSVReader reader = csvMQEReader;
-        List<String> dataMQEList = new ArrayList<>();
+        List<List<String>> dataMQEList = new ArrayList<>();
         
+        //Data
         Integer digit = TIME_PERIOD.toString().length();
         String[] line;
         HashMap<String, HashMap<String, Integer>> eventMap = new HashMap<>();
@@ -303,8 +325,10 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             if(line[1].contains("field")) continue;
                 
             String subLine = line[0].substring(0, line[0].length()-digit);
+            
             if(eventMap.get(subLine) == null)
                 eventMap.put(subLine, new HashMap<String, Integer>());
+            
             if(eventMap.get(subLine) != null){
                 HashMap<String, Integer> mqMap = eventMap.get(subLine);
                 if(mqMap.get(line[3]) != null)
@@ -315,97 +339,109 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         }
 
         for(String time : timeList){
-            String event = "";
+            List<String> event = new ArrayList<>();
             if(eventMap.get(time) != null){
                 HashMap mqMap = eventMap.get(time);
                 for(String agID : agIDList)
                     if(mqMap.get(agID) != null){
-                        event = event+","+mqMap.get(agID);
+                        event.add(((Integer)mqMap.get(agID)).toString());
                     }
-                    else event = event+",0";
+                    else event.add("0");
             } else 
-                for(String agID : agIDList) event = event+",0";
-            dataMQEList.add(event.substring(1));
+                for(String agID : agIDList) event.add("0");
+            dataMQEList.add(event);
         }
         
         return dataMQEList;
     }
     
-    //CPU Availability
+    //Data To CPU Availability
     public static List dataToCPU(CSVReader csvCPUReader, List timeList) throws IOException{
         CSVReader reader = csvCPUReader;
-        List<String> dataCPUList = new ArrayList<>();
+        List<List<String>> dataCPUList = new ArrayList<>();
         
         Integer digit = TIME_PERIOD.toString().length();
         String[] line;
         int nextime = 0;
         while((line = reader.readNext()) != null){
+            List<String> cpu = new ArrayList<>();
             if(line.length < 1 || timeList.size() == nextime) continue;
             String time = line[0].substring(0, line[0].length()-digit);
             if(time.compareTo((String)timeList.get(nextime)) >= 0){
-                dataCPUList.add(line[1]+","+line[2]);
+                cpu.add(line[1]);
+                cpu.add(line[2]);
+                dataCPUList.add(cpu);
                 nextime++;
             }
         }
+        
         while(timeList.size() - dataCPUList.size() > 0)
             dataCPUList.add(dataCPUList.get(dataCPUList.size()-1));
         
         return dataCPUList;
     }
     
-    //Create AgentMap (MQEvents)
+    //Data To AgentMap (MQEvents)
     private static HashMap<String, String> agentTreeMap = new HashMap<>();
-    public static void csvWriteAgentTree(HashMap<String, File> map, CSVWriter csv) 
-                throws UnsupportedEncodingException, FileNotFoundException, IOException{
-        try (CSVReader csvMQEReader = new CSVReader(new InputStreamReader(new FileInputStream(map.get(LOG_MQE)), "UTF-8"))) {
-            List<String[]> agentTreeList = new ArrayList<>();
+    public static List dataToAgentMap(CSVReader csvMQEReader, List<String> timeList) throws IOException{
+        CSVReader reader = csvMQEReader;    
+        List<List<String>> agentMapList = new ArrayList<>();
             
-            //Field
-            List<String> fields = new ArrayList<>();
-            fields.add("Time");
-            for(String id : rootAGIDList) fields.add(id);
-            agentTreeList.add(fields.toArray(new String[fields.size()]));
+        //Data
+        Integer digit = TIME_PERIOD.toString().length();
+        HashMap<String, HashMap<String, Integer>> eventMap = new HashMap<>();
+        String[] line;
+        while((line =reader.readNext()) != null){
+            if(line.length < 1) continue;
+            if(line[1].contains("field")) continue;
             
-            //Data
-            HashMap<String, HashMap<String, Integer>> eventMap = new HashMap<>();
-            String[] line;
-            while((line =csvMQEReader.readNext()) != null){
-                if(line.length < 1) continue;
-                if(line[1].contains("field")) continue;
-                
-                List<String> data = new ArrayList<>();
-                agentTreeMap.put(line[4], line[3]);
-                
-                String regID = searchParent(line[4]);
-                data.add(line[0]);
-                for(String id : rootAGIDList){
-                    if(id.equals(regID)) data.add("1");
-                    else data.add("");
-                }
-                
-                agentTreeList.add(data.toArray(new String[data.size()]));
+            agentTreeMap.put(line[4], line[3]);
+            String regID = searchParent(line[3]);
+            
+            String subLine = line[0].substring(0, line[0].length()-digit);
+            
+            if(eventMap.get(subLine) == null)
+                eventMap.put(subLine, new HashMap<String, Integer>());
+            
+            if(eventMap.get(subLine) != null){
+                HashMap<String, Integer> mqMap = eventMap.get(subLine);
+                if(mqMap.get(regID) != null)
+                    mqMap.put(regID, mqMap.get(regID)+1);
+                else
+                    mqMap.put(regID, 1);
             }
-            
-            csv.writeNext(new String[]{"Time", "AgentList"});
-            for(String[] agent : agentTreeList)
-                csv.writeNext(agent);
         }
+        
+        Boolean flg = true;
+        for(String time : timeList){
+            List<String> agmap = new ArrayList<>();
+            
+            if(eventMap.get(time) != null){
+                HashMap mqMap = eventMap.get(time);
+                for(String agID : rootAGIDList)
+                    if(mqMap.get(agID) != null){
+                        agmap.add(((Integer)mqMap.get(agID)).toString());
+                    }
+                    else agmap.add("0");
+            } else{
+                if(flg){
+                    for(String agID : rootAGIDList) agmap.add("1");
+                    flg = false;
+                }
+                else for(String agID : rootAGIDList) agmap.add("0");
+            }
+            agentMapList.add(agmap);
+        }
+        
+        return agentMapList;
     }
     
-    //Search Root AgentID
+    //Tool Search Root AgentID
     private static String searchParent(String pid){
         if(agentTreeMap.get(pid) == null){
             return pid;
         }else{
             return searchParent(agentTreeMap.get(pid));
         }
-    }
-
-    public Boolean checkTime(String cputime, String time) throws ParseException{
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-        Date time1 = sdf.parse(time);
-        Date time2 = sdf.parse(cputime);
-        
-        return time1.compareTo(time2) < 0;
     }
 }
