@@ -30,7 +30,7 @@ import rda.property.SetProperty;
  * @author kaeru
  */
 public class ResultsDataForming implements SetProperty, SetDataType{
-    private static final Integer digit = LOG_PERIOD.toString().length();
+    private static final Integer digit = LOG_PERIOD.toString().length()-1;
     
     public static void main(String[] args) 
             throws FileNotFoundException, UnsupportedEncodingException, IOException, ParseException{
@@ -84,12 +84,13 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         fileName = fileName +"_p["
                 + TIME_RUN + "s," 
                 + TIME_PERIOD + "ms,"
-                + "u" + NUMBER_OF_USER_AGENTS + ","
+                + "u"  + NUMBER_OF_USER_AGENTS + ","
                 + "ag" + NUMBER_OF_RANK_AGENTS + ","
-                + "s" + NUMBER_OF_SERVER + ","
+                + "s"  + NUMBER_OF_SERVER + ","
                 + "st" + SERVER_THREAD + ","
-                + "t" + DATA_TYPE.getName() + ","
-                + "L" + QUEUE_LENGTH + ","
+                + "t"  + DATA_TYPE.getName() + ","
+                + "lp" + LOG_PERIOD +","
+                + "L"  + QUEUE_LENGTH + ","
                 + "ws" + WINDOW_SIZE + ","
                 + "w(" + AGENT_WAIT + "," + QUEUE_WAIT +")"
                 +"]";
@@ -411,25 +412,9 @@ public class ResultsDataForming implements SetProperty, SetDataType{
             }
         }
         
-        Boolean flg = true;
         for(String time : timeList){
-            List<String> agmap = new ArrayList<>();
-            
-            if(eventMap.get(time) != null){
-                HashMap mqMap = eventMap.get(time);
-                for(String agID : rootAGIDList)
-                    if(mqMap.get(agID) != null){
-                        agmap.add(((Integer)mqMap.get(agID)).toString());
-                    }
-                    else agmap.add("0");
-            } else{
-                if(flg){
-                    for(String agID : rootAGIDList) agmap.add("1");
-                    flg = false;
-                }
-                else for(String agID : rootAGIDList) agmap.add("0");
-            }
-            agentMapList.add(agmap);
+            //agentMapList.add(setListDistAgent(eventMap, time));
+            agentMapList.add(setTotalListDistAgent(eventMap, time));
         }
         
         return agentMapList;
@@ -442,5 +427,51 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         }else{
             return searchParent(agentTreeMap.get(pid));
         }
+    }
+    
+    private static Boolean flg = true;
+    private static List<String> setListDistAgent(HashMap eventMap, String time){
+        List<String> agmap = new ArrayList<>();
+            
+        if(eventMap.get(time) != null){
+            HashMap mqMap = (HashMap) eventMap.get(time);
+            for(String agID : rootAGIDList)
+                if(mqMap.get(agID) != null){
+                    agmap.add(((Integer)mqMap.get(agID)).toString());
+                }
+                else agmap.add("0");
+        } else{
+            if(flg){
+                for(String agID : rootAGIDList) agmap.add("1");
+                flg = false;
+            }
+            else for(String agID : rootAGIDList) agmap.add("0");
+        }
+        
+        return agmap;
+    }
+    
+    private static HashMap<String, Integer> totalMap = new HashMap();
+    private static List<String> setTotalListDistAgent(HashMap eventMap, String time){
+        //Init Total Map
+        if(flg){
+            for(String agID : rootAGIDList) totalMap.put(agID, 1);
+            flg = false;
+        }
+        
+        List<String> agmap = new ArrayList<>();
+            
+        if(eventMap.get(time) != null){
+            HashMap mqMap = (HashMap) eventMap.get(time);
+            for(String agID : rootAGIDList)
+                if(mqMap.get(agID) != null){
+                    Integer total = totalMap.get(agID) + (Integer) mqMap.get(agID);
+                    totalMap.put(agID, total);
+                }
+        }
+        
+        for(String agID : rootAGIDList) agmap.add(((Integer)totalMap.get(agID)).toString());
+        
+        return agmap;
     }
 }
