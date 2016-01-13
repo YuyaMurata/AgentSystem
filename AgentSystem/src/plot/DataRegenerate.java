@@ -98,6 +98,7 @@ public class DataRegenerate implements SetProperty{
         
         //reject Fields
         String[] fields = reader.readNext();
+        System.out.println("Fields::"+fields);
         
         //Data
         Long time = -1L;
