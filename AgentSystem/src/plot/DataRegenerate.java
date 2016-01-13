@@ -63,9 +63,9 @@ public class DataRegenerate implements SetProperty{
         for(File list : fileList){
             System.out.println(list.toString());
             
-            if (list.toString().contains("Summary")) key = "summary";
+            if (list.toString().contains("Summary-ALL")) key = "summary";
             else if (list.toString().contains(LOG_MQE)) key = LOG_MQE;
-            else if (list.toString().contains("System")) key = "system";
+            else if (list.toString().contains("System-ALL")) key = "system";
             else key = "test";
             
             map.put(key, list);
