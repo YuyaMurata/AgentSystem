@@ -6,7 +6,7 @@ set yrange [0:1000];
 set timefmt "%Y-%m-%d %H:%M:%S";
 set ticscale 0.2;
 set term png size 32000,20000;
-set output "gnuplot-png.png";
+set output "multiplot-png.png";
 set style fill solid;
 set multiplot layout 15,16;
 set title "R#0000";

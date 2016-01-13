@@ -1,6 +1,0 @@
-cd "C:/Users/kaeru/Documents/NetBeansProjects/AgentSystem/AgentSystem/logs/user10";
-set datafile separator ",";
-set xrange [0:600]
-set yrange [0:1000]
-set palette rgbformula 22,13,-31
-splot "sysdata_gnuplot.csv" using 1:2:3 with pm3d

@@ -38,13 +38,18 @@ public class DataRegenerate implements SetProperty{
         setAgentMap(map);
         
         //CSVWrite
-        //CSVWriter csv = new CSVWriter(new OutputStreamWriter(new FileOutputStream(path+"/sysdata_gnuplot.csv")), ',', CSVWriter.NO_QUOTE_CHARACTER);
-        //csvWritePlotData(map, csv);
-        //csv.flush();
+        map.put("gnuplotcsv", new File(path+"\\sysdata_gnuplot.csv"));
+        CSVWriter csv = new CSVWriter(new OutputStreamWriter(new FileOutputStream(map.get("gnuplotcsv"))), ',', CSVWriter.NO_QUOTE_CHARACTER);
+        csvWritePlotData(map, csv);
+        csv.flush();
         
-        OutputData out = new OutputData(map.get("current")+"\\script.plt");
-        createScript(map, out);
-        out.close();
+        OutputData out1 = new OutputData(map.get("current")+"\\splot_script.plt");
+        createScriptSplot(map, out1);
+        out1.close();
+        
+        OutputData out2 = new OutputData(map.get("current")+"\\multiplot_script.plt");
+        createScriptMultiPlot(map, out2);
+        out2.close();
     }
     
     //UserN folder - getfile
@@ -124,7 +129,31 @@ public class DataRegenerate implements SetProperty{
             csv.writeNext(plot.toArray(new String[plot.size()]));
     }
     
-    public static void createScript(HashMap map, OutputData out) throws FileNotFoundException, IOException{
+    // splot script
+    public static void createScriptSplot(HashMap map, OutputData out){
+        String path = map.get("current").toString().replace("\\", "/");
+        out.write("cd \""+path+"\";");
+        
+        String fname = map.get("gnuplotcsv").toString().split("\\\\")[map.get("gnuplotcsv").toString().split("\\\\").length-1];
+        out.write("data=\""+fname+"\";");
+        
+        out.write("set xlabel \"Time\";");
+        out.write("set ylabel \"Agent No.\";");
+        out.write("set zlabel \"Length\";");
+        
+        out.write("set xrange [400:600];");
+        out.write("set zrange [0:1000];");
+        
+        out.write("set datafile separator \",\";");
+        out.write("set term png size 640,480;");
+        out.write("set output \"splot-png.png\";");
+        
+        out.write("set palette rgbformulae 22,13,-31;");
+        out.write("splot data using 1:2:3 with pm3d;");
+    }
+    
+    // multiplot script
+    public static void createScriptMultiPlot(HashMap map, OutputData out) throws FileNotFoundException, IOException{
         CSVReader reader = new CSVReader(new FileReader((File) map.get("system")));
         String[] fields = reader.readNext();
         Integer layout = 0;
@@ -149,7 +178,7 @@ public class DataRegenerate implements SetProperty{
         
         //PNG Out
         out.write("set term png size 32000,20000;");
-        out.write("set output \"gnuplot-png.png\";");
+        out.write("set output \"multiplot-png.png\";");
         
         Integer x = (int)Math.sqrt(layout);
         Integer y = x+1;

@@ -1,0 +1,12 @@
+cd "C:/Users/kaeru/Documents/NetBeansProjects/AgentSystem/AgentSystem/logs/user10";
+data="sysdata_gnuplot.csv";
+set xlabel "Time";
+set ylabel "Agent No.";
+set zlabel "Length";
+set xrange [400:600];
+set zrange [0:1000];
+set datafile separator ",";
+set term png size 640,480;
+set output "splot-png.png";
+set palette rgbformulae 22,13,-31;
+splot data using 1:2:3 with pm3d;

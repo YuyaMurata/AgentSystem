@@ -46,5 +46,7 @@ do
     mv vmstat.* logs/${LOG_FD}${i}
 
     java -cp $CLASSPATH rda.result.ResultsDataForming ${LOG_FD}${i}
+    
+    java -cp $CLASSPATH plot.DataRegenerate ${LOG_FD}${i}
 
 done
