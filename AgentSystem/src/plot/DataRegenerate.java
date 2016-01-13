@@ -38,16 +38,16 @@ public class DataRegenerate implements SetProperty{
         setAgentMap(map);
         
         //CSVWrite
-        map.put("gnuplotcsv", new File(path+"\\sysdata_gnuplot.csv"));
+        map.put("gnuplotcsv", new File(path+"/sysdata_gnuplot.csv"));
         CSVWriter csv = new CSVWriter(new OutputStreamWriter(new FileOutputStream(map.get("gnuplotcsv"))), ',', CSVWriter.NO_QUOTE_CHARACTER);
         csvWritePlotData(map, csv);
         csv.flush();
         
-        OutputData out1 = new OutputData(map.get("current")+"\\splot_script.plt");
+        OutputData out1 = new OutputData(map.get("current")+"/splot_script.plt");
         createScriptSplot(map, out1);
         out1.close();
         
-        OutputData out2 = new OutputData(map.get("current")+"\\multiplot_script.plt");
+        OutputData out2 = new OutputData(map.get("current")+"/multiplot_script.plt");
         createScriptMultiPlot(map, out2);
         out2.close();
     }
@@ -131,10 +131,10 @@ public class DataRegenerate implements SetProperty{
     
     // splot script
     public static void createScriptSplot(HashMap map, OutputData out){
-        String path = map.get("current").toString().replace("\\", "/");
+        String path = map.get("current").toString();//.replace("\\", "/");
         out.write("cd \""+path+"\";");
         
-        String fname = map.get("gnuplotcsv").toString().split("\\\\")[map.get("gnuplotcsv").toString().split("\\\\").length-1];
+        String fname = map.get("gnuplotcsv").toString().split("/")[map.get("gnuplotcsv").toString().split("/").length-1];
         out.write("data=\""+fname+"\";");
         
         out.write("set xlabel \"Time\";");
@@ -164,9 +164,9 @@ public class DataRegenerate implements SetProperty{
         setColorMap(cmap);
         
         //cd replace \ - /
-        String path = map.get("current").toString().replace("\\", "/");
+        String path = map.get("current").toString();//.replace("\\", "/");
         out.write("cd \""+path+"\";");
-        String fname = map.get("system").toString().split("\\\\")[map.get("system").toString().split("\\\\").length-1];
+        String fname = map.get("system").toString().split("/")[map.get("system").toString().split("/").length-1];
         out.write("data=\""+fname+"\";");
         
         out.write("set datafile separator \",\";");
