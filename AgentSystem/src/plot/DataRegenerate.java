@@ -133,7 +133,8 @@ public class DataRegenerate implements SetProperty{
         String path = map.get("current").toString();//.replace("\\", "/");
         out.write("cd \""+path+"\";");
         
-        String fname = map.get("gnuplotcsv").toString().split("/")[map.get("gnuplotcsv").toString().split("/").length-1];
+        //String fname = map.get("gnuplotcsv").toString().split("/")[map.get("gnuplotcsv").toString().split("/").length-1];
+        String fname = "C:/Users/悠也/Desktop/logs/user10"; //NotePC
         out.write("data=\""+fname+"\";");
         
         out.write("set xlabel \"Time\";");

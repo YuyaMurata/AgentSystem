@@ -38,7 +38,7 @@ public class AgentLogSchedule implements Runnable{
             
             mqSS.mqLogging();
             
-            logging();
+            //logging();
         } catch (InterruptedException e) {
             System.out.println("Logging Schedule Finish Interrupted!");
         }
