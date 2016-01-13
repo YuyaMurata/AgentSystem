@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import rda.data.fileout.OutputData;
 import rda.property.SetProperty;
-import static rda.property.SetProperty.LOG_MQE;
 
 /**
  *
@@ -98,7 +97,7 @@ public class DataRegenerate implements SetProperty{
         
         //reject Fields
         String[] fields = reader.readNext();
-        System.out.println("Fields::"+fields);
+        for(String f : fields) System.out.println("Fields::"+f);
         
         //Data
         Long time = -1L;
