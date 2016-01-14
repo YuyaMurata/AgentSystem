@@ -141,7 +141,7 @@ public class DataRegenerate implements SetProperty{
         out.write("set ylabel \"Agent No.\";");
         out.write("set zlabel \"Length\";");
         
-        out.write("set xrange [400:600];");
+        //out.write("set xrange [400:600];");
         out.write("set zrange [0:1000];");
         
         out.write("set datafile separator \",\";");
