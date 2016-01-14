@@ -130,11 +130,11 @@ public class DataRegenerate implements SetProperty{
     
     // splot script
     public static void createScriptSplot(HashMap map, OutputData out){
-        String path = map.get("current").toString();//.replace("\\", "/");
+        //String path = map.get("current").toString();//.replace("\\", "/");
+        String path = "C:/Users/悠也/Desktop/logs/user10"; //NotePC
         out.write("cd \""+path+"\";");
         
-        //String fname = map.get("gnuplotcsv").toString().split("/")[map.get("gnuplotcsv").toString().split("/").length-1];
-        String fname = "C:/Users/悠也/Desktop/logs/user10"; //NotePC
+        String fname = map.get("gnuplotcsv").toString().split("/")[map.get("gnuplotcsv").toString().split("/").length-1];
         out.write("data=\""+fname+"\";");
         
         out.write("set xlabel \"Time\";");
@@ -164,7 +164,8 @@ public class DataRegenerate implements SetProperty{
         setColorMap(cmap);
         
         //cd replace \ - /
-        String path = map.get("current").toString();//.replace("\\", "/");
+        //String path = map.get("current").toString();//.replace("\\", "/");
+        String path = "C:/Users/悠也/Desktop/logs/user10"; //NotePC
         out.write("cd \""+path+"\";");
         String fname = map.get("system").toString().split("/")[map.get("system").toString().split("/").length-1];
         out.write("data=\""+fname+"\";");
