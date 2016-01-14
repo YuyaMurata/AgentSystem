@@ -5,6 +5,9 @@
  */
 package rda.main;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.data.SetDataType;
@@ -23,13 +26,15 @@ public class MainSchedule implements Runnable, SetDataType{
     
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
+    private static final ScheduledExecutorService mainTask = Executors.newSingleThreadScheduledExecutor();
     
-    public MainSchedule(WindowController win, Long interval) {
+    public MainSchedule(Long delay, WindowController win, Long period) {
         this.mq = win;
-        this.interval = interval;
+        this.interval = period;
         
         //Initialise Time Step
         this.timer = -1L;
+        mainTask.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
     private void sendMessage(Long t) throws InterruptedException{
@@ -57,6 +62,17 @@ public class MainSchedule implements Runnable, SetDataType{
             sendMessage(timer);
         } catch (InterruptedException ex) {
             System.out.println("Main Schedule Finish Interrupted!");
+        }
+    }
+    
+    public void stop(){
+        //Shutdown Main
+        mainTask.shutdown();
+        try {
+            if(!mainTask.awaitTermination(0, TimeUnit.SECONDS))
+                mainTask.shutdownNow();
+        } catch (InterruptedException ex) {
+            mainTask.shutdownNow();
         }
     }
 }

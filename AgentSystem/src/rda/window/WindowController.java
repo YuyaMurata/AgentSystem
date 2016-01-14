@@ -1,8 +1,6 @@
 package rda.window;
 
-import java.util.ArrayDeque;
 import java.util.HashMap;
-import java.util.Queue;
 import rda.queue.obj.MessageObject;
 import rda.queue.event.MessageQueueEvent;
 import rda.queue.manager.MessageQueueManager;
@@ -13,7 +11,6 @@ public class WindowController{
         
     private Integer size;
     private long wait;
-    private Boolean running = true;
         
     public String name;
     public WindowController(int numberOfMQ, int limit, String name, long wait) {

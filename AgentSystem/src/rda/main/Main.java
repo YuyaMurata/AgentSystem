@@ -1,8 +1,5 @@
 package rda.main;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.data.SetDataType;
@@ -15,12 +12,6 @@ import rda.queue.timer.MessageQueueTimer;
 import rda.window.WindowController;
 
 public class Main implements SetProperty, SetDataType{
-    private static final ScheduledExecutorService mainTask = Executors.newSingleThreadScheduledExecutor();
-    private static final ScheduledExecutorService endTask = Executors.newSingleThreadScheduledExecutor();
-    private static final ScheduledExecutorService loggingTask = Executors.newSingleThreadScheduledExecutor();
-    private static MainSchedule task;
-    private static AgentLogSchedule task2;
-    
     private static final Marker mainMarker = MarkerFactory.getMarker("AgentSystem Main");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
@@ -32,13 +23,6 @@ public class Main implements SetProperty, SetDataType{
         //Start System Out
         init_debug();
 
-        // Set Window 
-        task = new MainSchedule(
-                new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow", AGENT_WAIT),
-                TIME_PERIOD);
-        
-        task2 = new AgentLogSchedule();
-        
         initStop = System.currentTimeMillis();
     }
 
@@ -87,26 +71,20 @@ public class Main implements SetProperty, SetDataType{
         execStart = System.currentTimeMillis();
         
         //Start Main Schedule
-        mainTask.scheduleAtFixedRate
-                (task, TIME_DELAY, TIME_PERIOD, TimeUnit.MILLISECONDS);
+        MainSchedule task = new MainSchedule(TIME_DELAY,
+                new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow", AGENT_WAIT),
+                TIME_PERIOD);
+        
         
         //Start Agen Logging Schedule
-        loggingTask.scheduleAtFixedRate
-                (task2,TIME_DELAY, LOG_PERIOD, TimeUnit.MILLISECONDS);
+        AgentLogSchedule task2 = new AgentLogSchedule(TIME_DELAY, LOG_PERIOD);
         
         //Stop Main Schedule
         try {
             Thread.sleep(TIME_RUN*1000+TIME_DELAY);
             
-            //Shutdown Log
-            loggingTask.shutdown();
-            if(!loggingTask.awaitTermination(0, TimeUnit.SECONDS))
-                loggingTask.shutdownNow();
-            
-            //Shutdown Main
-            mainTask.shutdown();
-            if(!mainTask.awaitTermination(0, TimeUnit.SECONDS))
-                mainTask.shutdownNow();
+            task2.stop();
+            task.stop();
             
         } catch (InterruptedException ex) {
         } finally{

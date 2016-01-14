@@ -122,13 +122,7 @@ public class MessageQueueManager {
         return mqMap.get(agID).isFull();
     }
     
-    private Boolean running = true;
-    public Boolean state(){
-        return running;
-    }
-    
     public void stopAll(){
-        running = false;
         for(ReciveMessageQueue mq : mqMap.values())
             mq.stop();
         
