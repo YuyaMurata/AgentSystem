@@ -22,18 +22,22 @@ import rda.window.WindowController;
 public class MainSchedule implements Runnable, SetDataType{
     private Long timer;
     private final WindowController mq;
-    private final Long interval;
     
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     private static final ScheduledExecutorService mainTask = Executors.newSingleThreadScheduledExecutor();
     
+    private Long period, delay;
     public MainSchedule(Long delay, WindowController win, Long period) {
         this.mq = win;
-        this.interval = period;
+        this.period = period;
+        this.delay = delay;
         
         //Initialise Time Step
         this.timer = -1L;
+    }
+    
+    public void start(){
         mainTask.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
@@ -47,7 +51,7 @@ public class MainSchedule implements Runnable, SetDataType{
     
     private void logging(){
         logger.print(scheduleMaker, 
-                "Experiment Step : {} [{}ms]", new Object[]{timer, interval});
+                "Experiment Step : {} [{}ms]", new Object[]{timer, period});
     }
     
     @Override

@@ -9,6 +9,7 @@ import rda.queue.id.IDToMQN;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import rda.agent.user.creator.CreateUserAgent;
+import rda.log.AgentLogSchedule;
 import rda.log.AgentSystemLogger;
 import rda.queue.log.MQSpecificStorage;
 import rda.queue.reciver.ReciveMessageQueue;
@@ -53,6 +54,13 @@ public class MessageQueueManager {
             reserve(m);
             //this.max = m;
         }
+        
+    }
+    
+    private AgentLogSchedule aglog;
+    public void initLogger(Long delay, Long period){
+        // AgentLog Scheduler Initialise
+        aglog = new AgentLogSchedule(delay, period);
     }
     
     private Boolean create(String agID){
@@ -122,7 +130,13 @@ public class MessageQueueManager {
         return mqMap.get(agID).isFull();
     }
     
+    public void startAgentLog(){
+        aglog.start();
+    }
+    
     public void stopAll(){
+        aglog.stop();
+        
         for(ReciveMessageQueue mq : mqMap.values())
             mq.stop();
         

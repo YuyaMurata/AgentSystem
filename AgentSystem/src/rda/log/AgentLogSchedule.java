@@ -23,11 +23,17 @@ public class AgentLogSchedule implements Runnable{
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Logger Schedule");
     private static final ScheduledExecutorService loggingTask = Executors.newSingleThreadScheduledExecutor();
     
+    private Long  delay, period;
     public AgentLogSchedule(Long delay, Long period) {
-        loggingTask.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
+        this.delay = delay;
+        this.period = period;
     }
     
     private AgentConnection conn = AgentConnection.getInstance();
+    
+    public void start(){
+        loggingTask.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
+    }
     
     public void logging() throws InterruptedException{
         logger.print(scheduleMaker,
