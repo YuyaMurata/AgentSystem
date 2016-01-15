@@ -71,7 +71,7 @@ public class Main implements SetProperty, SetDataType{
         execStart = System.currentTimeMillis();
         
         //Start Main Schedule
-        MainSchedule task = new MainSchedule(TIME_DELAY,
+        MainSchedule task1 = new MainSchedule(TIME_DELAY,
                 new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow", AGENT_WAIT),
                 TIME_PERIOD);
         
@@ -84,7 +84,7 @@ public class Main implements SetProperty, SetDataType{
             Thread.sleep(TIME_RUN*1000+TIME_DELAY);
             
             task2.stop();
-            task.stop();
+            task1.stop();
             
         } catch (InterruptedException ex) {
         } finally{
