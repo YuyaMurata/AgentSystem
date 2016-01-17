@@ -25,7 +25,7 @@ public class MainSchedule implements Runnable, SetDataType{
     
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
-    private static final ScheduledExecutorService mainTask = Executors.newSingleThreadScheduledExecutor();
+    //private static final ScheduledExecutorService mainTask = Executors.newSingleThreadScheduledExecutor();
     
     private Long period, delay;
     public MainSchedule(Long delay, WindowController win, Long period) {
