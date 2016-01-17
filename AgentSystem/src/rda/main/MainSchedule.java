@@ -38,7 +38,7 @@ public class MainSchedule implements Runnable, SetDataType{
     }
     
     public void start(){
-        mainTask.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
+        //mainTask.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
     private void sendMessage(Long t) throws InterruptedException{
@@ -71,12 +71,12 @@ public class MainSchedule implements Runnable, SetDataType{
     
     public void stop(){
         //Shutdown Main
-        mainTask.shutdown();
+        /*mainTask.shutdown();
         try {
             if(!mainTask.awaitTermination(0, TimeUnit.SECONDS))
                 mainTask.shutdownNow();
         } catch (InterruptedException ex) {
             mainTask.shutdownNow();
-        }
+        }*/
     }
 }

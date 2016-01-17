@@ -1,5 +1,6 @@
 package rda.main;
 
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.data.SetDataType;
@@ -8,6 +9,7 @@ import rda.property.SetProperty;
 import rda.queue.id.IDToMQN;
 import rda.queue.manager.MessageQueueManager;
 import rda.queue.timer.MessageQueueTimer;
+import rda.timer.Restrict;
 import rda.window.WindowController;
 
 public class Main implements SetProperty, SetDataType{
@@ -75,7 +77,8 @@ public class Main implements SetProperty, SetDataType{
         execStart = System.currentTimeMillis();
         
         //Start Main Schedule
-        task.start();
+        Restrict.setRestrictParam(TIME_PERIOD, TimeUnit.MILLISECONDS);
+        Restrict.timedRun(task, TIME_DELAY, TIME_RUN, TimeUnit.SECONDS);
         
         //Start Agen Logging Schedule
         MessageQueueManager manager = MessageQueueManager.getInstance();
