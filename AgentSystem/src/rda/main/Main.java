@@ -87,7 +87,7 @@ public class Main implements SetProperty, SetDataType{
         //Stop Main Schedule
         try {
             Thread.sleep(TIME_RUN*1000+TIME_DELAY);
-            task.stop();
+            //task.stop();
             
         } catch (InterruptedException ex) {
         } finally{         
