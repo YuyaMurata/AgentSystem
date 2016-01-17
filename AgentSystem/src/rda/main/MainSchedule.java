@@ -42,13 +42,13 @@ public class MainSchedule implements Runnable, SetDataType{
     }
     
     private void sendMessage(Long t){
-        try {
+        //try {
         MessageObject msg;
         while(((msg = DATA_TYPE.generate(t)) != null) && !Thread.currentThread().isInterrupted()){
-            if(mq.pack(msg)) mq.send(msg.id);
+            //if(mq.pack(msg)) mq.send(msg.id);
             //mq.sendMessage(msg);
         }
-        }catch(InterruptedException e){}
+        //}catch(InterruptedException e){}
     }
     
     private void logging(){
