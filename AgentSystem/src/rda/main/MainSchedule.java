@@ -62,7 +62,7 @@ public class MainSchedule implements Runnable, SetDataType{
             
             logging();
             
-            sendMessage(timer); 
+            //sendMessage(timer); 
     }
     
     public void stop(){
