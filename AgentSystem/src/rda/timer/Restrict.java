@@ -12,6 +12,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -49,12 +51,19 @@ public class Restrict implements Runnable{
         Future f = schedule.scheduleAtFixedRate(r, delay, _period, _scheduleUnit);
         try{
             f.get(timeout, unit);
-        } catch(TimeoutException e) {
-        } catch (InterruptedException ex) {
-        } catch (ExecutionException ex) {
+        } catch(TimeoutException e1) {
+        } catch (InterruptedException e2) {
+        } catch (ExecutionException e3) {
         } finally {
             f.cancel(true);
             schedule.shutdown();
+            
+            try {
+                if(!schedule.awaitTermination(0, unit))
+                    schedule.shutdownNow();
+            } catch (InterruptedException e4) {
+                schedule.shutdownNow();
+            }
         }
     }
     
