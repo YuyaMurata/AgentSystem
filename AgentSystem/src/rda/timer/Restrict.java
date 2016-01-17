@@ -57,13 +57,6 @@ public class Restrict implements Runnable{
         } finally {
             f.cancel(true);
             schedule.shutdown();
-            
-            try {
-                if(!schedule.awaitTermination(0, unit))
-                    schedule.shutdownNow();
-            } catch (InterruptedException e4) {
-                schedule.shutdownNow();
-            }
         }
     }
     

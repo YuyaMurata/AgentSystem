@@ -41,12 +41,14 @@ public class MainSchedule implements Runnable, SetDataType{
         //mainTask.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
-    private void sendMessage(Long t) throws InterruptedException{
+    private void sendMessage(Long t){
+        try {
         MessageObject msg;
         while(((msg = DATA_TYPE.generate(t)) != null) && !Thread.currentThread().isInterrupted()){
             if(mq.pack(msg)) mq.send(msg.id);
             //mq.sendMessage(msg);
         }
+        }catch(InterruptedException e){}
     }
     
     private void logging(){
@@ -56,17 +58,11 @@ public class MainSchedule implements Runnable, SetDataType{
     
     @Override
     public void run() {
-        try {
-            if(Thread.interrupted()) throw new InterruptedException();
-            
-            timer++;
+        timer++;
             
             logging();
             
-            sendMessage(timer);
-        } catch (InterruptedException ex) {
-            System.out.println("Main Schedule Finish Interrupted!");
-        }
+            sendMessage(timer); 
     }
     
     public void stop(){
