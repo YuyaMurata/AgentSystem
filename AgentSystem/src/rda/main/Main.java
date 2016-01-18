@@ -81,8 +81,8 @@ public class Main implements SetProperty, SetDataType{
         Restrict.timedRun(task, TIME_DELAY, TIME_RUN, TimeUnit.SECONDS);
         
         //Start Agen Logging Schedule
-        MessageQueueManager manager = MessageQueueManager.getInstance();
-        manager.startAgentLog();
+        //MessageQueueManager manager = MessageQueueManager.getInstance();
+        //manager.startAgentLog();
         
         //Stop Main Schedule
         try {
