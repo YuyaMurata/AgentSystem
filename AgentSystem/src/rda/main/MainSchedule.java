@@ -21,7 +21,7 @@ import rda.window.WindowController;
  */
 public class MainSchedule implements Runnable, SetDataType{
     private Long timer;
-    private final WindowController mq;
+    private WindowController mq;
     
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
@@ -29,7 +29,7 @@ public class MainSchedule implements Runnable, SetDataType{
     
     private Long period, delay;
     public MainSchedule(Long delay, WindowController win, Long period) {
-        this.mq = win;
+        //this.mq = win;
         this.period = period;
         this.delay = delay;
         
@@ -60,9 +60,9 @@ public class MainSchedule implements Runnable, SetDataType{
     public void run() {
         timer++;
             
-            //logging();
+        logging();
             
-            //sendMessage(timer); 
+        //sendMessage(timer); 
     }
     
     public void stop(){
