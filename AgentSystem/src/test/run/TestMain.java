@@ -18,8 +18,8 @@ public class TestMain {
         
         Runnable r1 = new RunnableTimeTest();
         Runnable r2 = new RunnableTimeTest();
-        FutureTest.timedRun(r1, 10, TimeUnit.SECONDS);
-        FutureTest.timedRun(r2, 10, TimeUnit.SECONDS);
+        Restrict.timedRun(r1, 0, 10, TimeUnit.SECONDS);
+        Restrict.timedRun(r2, 0, 10, TimeUnit.SECONDS);
         
         long stop = System.currentTimeMillis();
         System.out.println("ExecTime : "+(stop-start));
