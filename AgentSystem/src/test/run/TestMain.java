@@ -6,6 +6,8 @@
 package test.run;
 
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,8 +20,15 @@ public class TestMain {
         
         Runnable r1 = new RunnableTimeTest();
         Runnable r2 = new RunnableTimeTest();
-        Restrict.timedRun(r1, 0, 10, TimeUnit.SECONDS);
-        Restrict.timedRun(r2, 0, 10, TimeUnit.SECONDS);
+        Restrict rest1 = new Restrict();
+        rest1.setRestrictParam(1000L, TimeUnit.MILLISECONDS);
+        rest1.timedRun(r1, 0, 10, TimeUnit.SECONDS);
+        
+        //Restrict rest2 = new Restrict();
+        //rest2.setRestrictParam(1000L, TimeUnit.MILLISECONDS);
+        //rest2.timedRun(r2, 5, 10, TimeUnit.SECONDS);
+        
+        rest1.syncStop();
         
         long stop = System.currentTimeMillis();
         System.out.println("ExecTime : "+(stop-start));

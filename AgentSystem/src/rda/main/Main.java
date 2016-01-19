@@ -78,7 +78,7 @@ public class Main implements SetProperty, SetDataType{
         
         //Start Main Schedule
         Restrict.setRestrictParam(TIME_PERIOD, TimeUnit.MILLISECONDS);
-        Restrict.timedRun(new DataStreamScheduler(), TIME_DELAY, TIME_RUN, TimeUnit.SECONDS);
+        Restrict.timedRun(task, TIME_DELAY, TIME_RUN, TimeUnit.SECONDS);
         
         //Start Agen Logging Schedule
         //MessageQueueManager manager = MessageQueueManager.getInstance();
