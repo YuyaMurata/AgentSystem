@@ -87,11 +87,14 @@ public class Main implements SetProperty, SetDataType{
         
         //Stop Main Schedule
         try {
+            System.out.println("Start Main Wait!");
             Thread.sleep(TIME_RUN*1000+TIME_DELAY);
+            System.out.println("Stop Main Wait!");
             //task.stop();
             
         } catch (InterruptedException ex) {
-        } finally{         
+        } finally{
+            System.out.println("MQ Timer Stop!");
             MessageQueueTimer.getInstance().close();
             MessageQueueManager.getInstance().stopAll();
         }

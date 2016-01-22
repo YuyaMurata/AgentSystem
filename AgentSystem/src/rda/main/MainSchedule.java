@@ -21,7 +21,7 @@ import rda.window.WindowController;
  */
 public class MainSchedule implements Runnable, SetDataType{
     private Long timer;
-    private WindowController mq;
+    //private WindowController mq;
     
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Main Schedule");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
