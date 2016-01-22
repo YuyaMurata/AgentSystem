@@ -15,6 +15,7 @@ public class ReciveMQProcess extends Thread{
     
     public ReciveMQProcess(ReciveMessageQueue queue) {
         this.mq = queue;
+        super.setName(queue.name);
     }
 
     @Override
