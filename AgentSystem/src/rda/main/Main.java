@@ -79,7 +79,7 @@ public class Main implements SetProperty, SetDataType{
         //Start Main Schedule
         Restrict rest = new Restrict();
         rest.setRestrictParam(TIME_PERIOD, TimeUnit.MILLISECONDS);
-        rest.timedRun(task, TIME_DELAY, TIME_RUN, TimeUnit.SECONDS);
+        rest.timedRun(new StreamDataSchedule(), TIME_DELAY, TIME_RUN, TimeUnit.SECONDS);
         
         //Start Agen Logging Schedule
         //MessageQueueManager manager = MessageQueueManager.getInstance();
