@@ -62,6 +62,8 @@ public class Restrict implements Runnable{
         } finally {
             f.cancel(true);
             schedule.shutdown();
+            
+            System.out.println("Restrict Finish Run!");
         }
     }
 }
