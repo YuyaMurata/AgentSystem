@@ -31,9 +31,10 @@ public class MessageQueueTimer implements Runnable, SetProperty{
     @Override
     public void run() {
         binaryTimer = !binaryTimer;
+        System.out.println("******** Thread Print ********");
         for(Thread t : Thread.getAllStackTraces().keySet()){
             if(t.getName().contains("R#")) continue;
-            System.out.println("Thread Stats::"+t.getName()+"="+t.getState());
+            System.out.println("Thread Stats::"+t.getName()+"="+t.getState()+" num="+Thread.getAllStackTraces().size());
         }
     }
     
