@@ -60,8 +60,8 @@ public class Restrict implements Runnable{
         } catch (InterruptedException e2) {
         } catch (ExecutionException e3) {
         } finally {
-            schedule.shutdown();
             f.cancel(true);
+            schedule.shutdown();
         }
     }
 }

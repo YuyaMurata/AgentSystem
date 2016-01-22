@@ -27,7 +27,7 @@ public class Main implements SetProperty, SetDataType{
         
         // Data Input Scheduler Initialise
         task = new MainSchedule(TIME_DELAY,
-                new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow", AGENT_WAIT),
+                null,//new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow", AGENT_WAIT),
                 TIME_PERIOD);
         
         initStop = System.currentTimeMillis();
