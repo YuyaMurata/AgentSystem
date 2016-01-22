@@ -28,7 +28,7 @@ public class MainSchedule implements Runnable, SetDataType{
     //private static final ScheduledExecutorService mainTask = Executors.newSingleThreadScheduledExecutor();
     
     private Long period, delay;
-    public MainSchedule(Long delay, WindowController win, Long period) {
+    public MainSchedule(Long delay, Long period) {
         //this.mq = win;
         this.period = period;
         this.delay = delay;
