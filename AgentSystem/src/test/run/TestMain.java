@@ -5,9 +5,8 @@
  */
 package test.run;
 
+import rda.timer.Restrict;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,8 +26,6 @@ public class TestMain {
         //Restrict rest2 = new Restrict();
         //rest2.setRestrictParam(1000L, TimeUnit.MILLISECONDS);
         //rest2.timedRun(r2, 5, 10, TimeUnit.SECONDS);
-        
-        rest1.syncStop();
         
         long stop = System.currentTimeMillis();
         System.out.println("ExecTime : "+(stop-start));

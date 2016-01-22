@@ -12,8 +12,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -23,6 +21,9 @@ public class Restrict implements Runnable{
     private Runnable r;
     private long timeout, delay;
     private TimeUnit unit;
+
+    public Restrict() {
+    }
     
     private Restrict(Runnable r, long delay, long timeout, TimeUnit unit){
         this.r = r;
@@ -31,36 +32,36 @@ public class Restrict implements Runnable{
         this.unit = unit;
     }
     
-    private static ExecutorService exec;
-    public static void timedRun(Runnable r, long delay, long timeout, TimeUnit unit){
-        exec = Executors.newSingleThreadExecutor();
-        exec.execute(new Restrict(r, delay, timeout, unit));
-        exec.shutdown();
+    private ExecutorService exec = Executors.newSingleThreadExecutor();
+    public void timedRun(Runnable r, long delay, long timeout, TimeUnit unit){
+        Restrict rest = new Restrict(r, delay, timeout, unit);
+        rest.start(rest);
     }
     
-    private static TimeUnit _scheduleUnit = TimeUnit.SECONDS;
-    private static Long _period = 1L;
-    public static void setRestrictParam(Long period, TimeUnit unit){
-        _period = period;
-        _scheduleUnit = unit;
+    private TimeUnit scheduleUnit = TimeUnit.SECONDS;
+    private long period = 1;
+    public void setRestrictParam(long period, TimeUnit unit){
+        this.period = period;
+        this.scheduleUnit = unit;
+    }
+    
+    private void start(Runnable r){
+        exec.execute(r);
+        exec.shutdown();
     }
 
     @Override
     public void run() {
         ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
-        Future f = schedule.scheduleAtFixedRate(r, delay, _period, _scheduleUnit);
+        Future f = schedule.scheduleAtFixedRate(r, delay, period, scheduleUnit);
         try{
             f.get(timeout, unit);
         } catch(TimeoutException e1) {
         } catch (InterruptedException e2) {
         } catch (ExecutionException e3) {
         } finally {
-            f.cancel(true);
             schedule.shutdown();
+            f.cancel(true);
         }
-    }
-    
-    public static void syncStop(){
-        while(!exec.isTerminated()) ;
     }
 }
