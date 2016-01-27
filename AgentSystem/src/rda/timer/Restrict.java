@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -18,10 +19,19 @@ import java.util.concurrent.TimeoutException;
  * @author kaeru
  */
 public class Restrict implements Runnable{
+    private static Integer cnt = 0;
     private Runnable r;
     private long timeout, delay;
     private TimeUnit unit;
-
+    
+    private final ExecutorService exec = Executors.newSingleThreadExecutor(new ThreadFactory()
+    {
+        @Override
+        public Thread newThread(Runnable r) {
+            return new Thread(r, "Restrict:"+cnt++);
+        }
+    });
+    
     public Restrict() {
     }
     
@@ -32,7 +42,6 @@ public class Restrict implements Runnable{
         this.unit = unit;
     }
     
-    private ExecutorService exec = Executors.newSingleThreadExecutor();
     public void timedRun(Runnable r, long delay, long timeout, TimeUnit unit){
         Restrict rest = new Restrict(r, delay, timeout, unit);
         rest.start(rest);
@@ -52,7 +61,14 @@ public class Restrict implements Runnable{
 
     @Override
     public void run() {
-        ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
+        ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor(new ThreadFactory()
+        {
+            @Override
+            public Thread newThread(Runnable r) {
+                return new Thread(r, "TimedSchedule");
+            }
+        });
+        
         Future f = schedule.scheduleAtFixedRate(r, delay, period, scheduleUnit);
         try{
             f.get(timeout, unit);
