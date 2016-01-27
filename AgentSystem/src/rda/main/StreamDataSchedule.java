@@ -28,5 +28,4 @@ public class StreamDataSchedule implements Runnable{
         time++;
         logging();
     }
-    
 }

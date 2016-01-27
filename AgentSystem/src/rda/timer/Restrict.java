@@ -65,7 +65,7 @@ public class Restrict implements Runnable{
         {
             @Override
             public Thread newThread(Runnable r) {
-                return new Thread(r, "TimedSchedule");
+                return new Thread(r, "Timed Schedule");
             }
         });
         
@@ -77,9 +77,10 @@ public class Restrict implements Runnable{
         } catch (ExecutionException e3) {
         } finally {
             f.cancel(true);
-            schedule.shutdown();
+            schedule.shutdownNow();
             
             System.out.println("Restrict Finish Run!");
+            exec.shutdownNow();
         }
     }
 }
