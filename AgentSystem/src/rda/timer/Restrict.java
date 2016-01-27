@@ -13,6 +13,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -77,10 +79,20 @@ public class Restrict implements Runnable{
         } catch (ExecutionException e3) {
         } finally {
             f.cancel(true);
-            schedule.shutdownNow();
+            schedule.shutdown();
+            try {
+                if(!schedule.awaitTermination(0, TimeUnit.SECONDS))
+                    schedule.shutdownNow();
+            } catch (InterruptedException ex) {
+            }
+            
+            try {
+                if(!exec.awaitTermination(0, TimeUnit.SECONDS))
+                    exec.shutdownNow();
+            } catch (InterruptedException ex) {
+            }
             
             System.out.println("Restrict Finish Run!");
-            exec.shutdownNow();
         }
     }
 }
