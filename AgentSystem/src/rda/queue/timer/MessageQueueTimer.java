@@ -53,6 +53,6 @@ public class MessageQueueTimer implements Runnable, SetProperty{
     
     public void close(){
         binaryTimer = false;
-        //ex.shutdownNow();
+        ex.shutdownNow();
     }
 }
