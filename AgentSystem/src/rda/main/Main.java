@@ -1,13 +1,16 @@
 package rda.main;
 
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.data.SetDataType;
+import rda.log.AgentLogSchedule;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
 import rda.queue.id.IDToMQN;
 import rda.queue.manager.MessageQueueManager;
 import rda.queue.timer.MessageQueueTimer;
+import rda.timer.Restrict;
 
 public class Main implements SetProperty, SetDataType{
     private static final Marker mainMarker = MarkerFactory.getMarker("AgentSystem Main");
@@ -78,6 +81,8 @@ public class Main implements SetProperty, SetDataType{
         dataScheduler.start();
         
         //Start Agen Logging Schedule
+        Restrict rest = new Restrict();
+        rest.timedRun(new AgentLogSchedule(TIME_DELAY, TIME_PERIOD), TIME_DELAY, TIME_RUN, TimeUnit.SECONDS);
         //MessageQueueManager manager = MessageQueueManager.getInstance();
         //manager.startAgentLog();
         

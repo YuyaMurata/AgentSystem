@@ -21,7 +21,7 @@ public class AgentLogSchedule implements Runnable{
     private static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Logger Schedule");
-    private static final ScheduledExecutorService loggingTask = Executors.newSingleThreadScheduledExecutor();
+    private static final ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
     
     private Long  delay, period;
     public AgentLogSchedule(Long delay, Long period) {
@@ -32,7 +32,7 @@ public class AgentLogSchedule implements Runnable{
     private AgentConnection conn = AgentConnection.getInstance();
     
     public void start(){
-        loggingTask.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
+        schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
     public void logging() throws InterruptedException{
@@ -50,7 +50,7 @@ public class AgentLogSchedule implements Runnable{
             
             mqSS.mqLogging();
             
-            //logging();
+            logging();
         } catch (InterruptedException e) {
             System.out.println("Logging Schedule Finish Interrupted!");
         }
@@ -58,12 +58,13 @@ public class AgentLogSchedule implements Runnable{
     
     public void stop(){
         //Shutdown Log
-        loggingTask.shutdown();
+        schedule.shutdown();
+        
         try {
-            if(!loggingTask.awaitTermination(0, TimeUnit.SECONDS))
-                loggingTask.shutdownNow();
+            if(!schedule.awaitTermination(0, TimeUnit.SECONDS))
+                schedule.shutdownNow();
         } catch (InterruptedException ex) {
-            loggingTask.shutdownNow();
+            schedule.shutdownNow();
         }
     }
 }

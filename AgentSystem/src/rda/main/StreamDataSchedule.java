@@ -87,6 +87,7 @@ public class StreamDataSchedule implements Runnable, SetDataType{
     public void stop(){
         //Shutdown Main
         schedule.shutdown();
+        
         try {
             if(!schedule.awaitTermination(0, TimeUnit.SECONDS))
                 schedule.shutdownNow();
