@@ -5,7 +5,7 @@ import rda.agent.user.updater.UpdateUser;
 
 public class UpdateTest extends TestParameter{
 	
-    private static void execute(int num){
+    private static void execute(Long num){
         UpdateUser user = new UpdateUser();
         
     }
