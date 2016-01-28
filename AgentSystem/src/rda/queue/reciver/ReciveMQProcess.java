@@ -44,10 +44,11 @@ public class ReciveMQProcess extends Thread{
                 }
                 
                 ArrayList<MessageObject> window = (ArrayList<MessageObject>)mq.getMessage();
-                for(MessageObject msg : window){
-                    if(dataMap.get(msg.id) == null) dataMap.put(msg.id, new ArrayList());
-                    dataMap.get(msg.id).add(msg.data);
-                }
+                if(window != null)
+                    for(MessageObject msg : window){
+                        if(dataMap.get(msg.id) == null) dataMap.put(msg.id, new ArrayList());
+                        dataMap.get(msg.id).add(msg.data);
+                    }
             
                 if(mqt.getTimer()){
                     for(String uid : dataMap.keySet()){
