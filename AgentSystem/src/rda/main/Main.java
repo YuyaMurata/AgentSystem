@@ -1,6 +1,5 @@
 package rda.main;
 
-import java.util.concurrent.TimeUnit;
 import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.data.SetDataType;
@@ -9,8 +8,6 @@ import rda.property.SetProperty;
 import rda.queue.id.IDToMQN;
 import rda.queue.manager.MessageQueueManager;
 import rda.queue.timer.MessageQueueTimer;
-import rda.timer.Restrict;
-import rda.window.WindowController;
 
 public class Main implements SetProperty, SetDataType{
     private static final Marker mainMarker = MarkerFactory.getMarker("AgentSystem Main");
@@ -77,9 +74,8 @@ public class Main implements SetProperty, SetDataType{
         execStart = System.currentTimeMillis();
         
         //Start Main Schedule
-        Restrict rest = new Restrict();
-        rest.setRestrictParam(TIME_PERIOD, TimeUnit.MILLISECONDS);
-        rest.timedRun(new StreamDataSchedule(), TIME_DELAY, TIME_RUN, TimeUnit.SECONDS);
+        StreamDataSchedule dataScheduler = new StreamDataSchedule(TIME_DELAY, TIME_PERIOD, WINDOW_SIZE, AGENT_WAIT);
+        dataScheduler.start();
         
         //Start Agen Logging Schedule
         //MessageQueueManager manager = MessageQueueManager.getInstance();
@@ -90,12 +86,14 @@ public class Main implements SetProperty, SetDataType{
             System.out.println("Start Main Wait!");
             Thread.sleep(TIME_RUN*1000+TIME_DELAY);
             System.out.println("Stop Main Wait!");
-            //task.stop();
             
+            dataScheduler.stop();
         } catch (InterruptedException ex) {
         } finally{
-            System.out.println("MQ Timer Stop!");
+            System.out.println("MessageQueue Timer Stop !");
             MessageQueueTimer.getInstance().close();
+            
+            System.out.println("MessageQueue StopALL !");
             MessageQueueManager.getInstance().stopAll();
         }
         

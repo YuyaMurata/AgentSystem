@@ -12,9 +12,7 @@ public class WindowController{
     private Integer size;
     private long wait;
         
-    public String name;
-    public WindowController(int numberOfMQ, int limit, String name, long wait) {
-        this.name = name;
+    public WindowController(int limit, long wait) {
         this.size = limit;
         this.wait = wait;
     }
@@ -28,6 +26,14 @@ public class WindowController{
             
         return w.add(msg);
     }
+    
+    public Window get(String id){
+        return window.get(id);
+    }
+    
+    public void remove(String id){
+        window.put(id, null);
+    }
         
     public void send(String id) throws InterruptedException{
         Window w = window.get(id);
@@ -35,7 +41,7 @@ public class WindowController{
             manager.getMessageQueue(id).putMessage(w.get());
             window.put(id, null);
         } catch (MessageQueueEvent mqev) {
-            if(Thread.currentThread().isInterrupted()) return;
+            if(Thread.currentThread().isInterrupted()) return ;
             
             mqev.printEvent();
             //Thread.sleep(wait);

@@ -18,7 +18,7 @@ public class StreamDataTest {
         System.out.println("Test Start!");
         
         Restrict rest = new Restrict();
-        rest.timedRun(new StreamDataSchedule(), 0, 10, TimeUnit.SECONDS);
+        //rest.timedRun(new StreamDataSchedule(), 0, 10, TimeUnit.SECONDS);
         
         System.out.println("Test Stop!");
     }
