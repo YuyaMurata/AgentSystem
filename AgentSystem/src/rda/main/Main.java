@@ -10,7 +10,6 @@ import rda.property.SetProperty;
 import rda.queue.id.IDToMQN;
 import rda.queue.manager.MessageQueueManager;
 import rda.queue.timer.MessageQueueTimer;
-import rda.timer.Restrict;
 
 public class Main implements SetProperty, SetDataType{
     private static final Marker mainMarker = MarkerFactory.getMarker("AgentSystem Main");
