@@ -13,7 +13,7 @@ import rda.property.SetProperty;
  * @author kaeru
  */
 public interface SetDataType extends SetProperty{
-    public final MountData type = new MountData(
+    public static final MountData type = new MountData(
                 TIME_RUN, 
                 TIME_PERIOD, 
                 DATA_VOLUME, 
@@ -22,7 +22,6 @@ public interface SetDataType extends SetProperty{
                 DATA_MODE_GENERATE,
                 DATA_MODE_PROFILE
             );
-    //public final ImpulseData type = new ImpulseData(TIME_RUN, TIME_PERIOD, DATA_VOLUME, NUMBER_OF_USER_AGENTS, AGENT_DEFAULT_VALUE);
     
     public static final DataGenerator DATA_TYPE = new DataGenerator(type);
 }
