@@ -8,6 +8,7 @@ import rda.agent.user.updater.UpdateUser;
 import rda.queue.id.IDToMQN;
 import rda.queue.obj.MessageObject;
 import rda.queue.timer.MessageQueueTimer;
+import rda.window.Window;
 
 public class ReciveMQProcess extends Thread{
     private final ReciveMessageQueue mq;
@@ -43,12 +44,11 @@ public class ReciveMQProcess extends Thread{
                     if(!mq.isRunning()) break;
                 }
                 
-                ArrayList<MessageObject> window = (ArrayList<MessageObject>)mq.getMessage();
-                if(window != null)
-                    for(MessageObject msg : window){
-                        if(dataMap.get(msg.id) == null) dataMap.put(msg.id, new ArrayList());
-                        dataMap.get(msg.id).add(msg.data);
-                    }
+                Window window = (Window) mq.getMessage();
+                for(MessageObject msg : (ArrayList<MessageObject>) window.get()){
+                    if(dataMap.get(msg.id) == null) dataMap.put(msg.id, new ArrayList());
+                    dataMap.get(msg.id).add(msg.data);
+                }
             
                 if(mqt.getTimer()){
                     for(String uid : dataMap.keySet()){
