@@ -72,6 +72,6 @@ public class AgentLogSchedule implements Runnable{
             schedule.shutdownNow();
         }
         
-        System.out.println(name + " : Finish !");
+        System.out.println(name + " : Stop !");
     }
 }
