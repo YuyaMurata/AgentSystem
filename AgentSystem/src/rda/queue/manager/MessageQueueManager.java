@@ -134,9 +134,11 @@ public class MessageQueueManager {
         aglog.start();
     }
     
-    public void stopAll(){
+    public void stopAgentLog(){
         aglog.stop();
-        
+    }
+    
+    public void stopAll(){
         for(ReciveMessageQueue mq : mqMap.values())
             mq.stop();
         

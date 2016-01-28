@@ -81,10 +81,8 @@ public class Main implements SetProperty, SetDataType{
         dataScheduler.start();
         
         //Start Agen Logging Schedule
-        Restrict rest = new Restrict();
-        rest.timedRun(new AgentLogSchedule(TIME_DELAY, TIME_PERIOD, TIME_RUN), TIME_DELAY, TIME_RUN, TimeUnit.SECONDS);
-        //MessageQueueManager manager = MessageQueueManager.getInstance();
-        //manager.startAgentLog();
+        MessageQueueManager manager = MessageQueueManager.getInstance();
+        manager.startAgentLog();
         
         //Stop Main Schedule
         try {
@@ -93,6 +91,7 @@ public class Main implements SetProperty, SetDataType{
             System.out.println("Stop Main Wait!");
             
             dataScheduler.stop();
+            manager.stopAgentLog();
         } catch (InterruptedException ex) {
         } finally{
             System.out.println("MessageQueue Timer Stop !");

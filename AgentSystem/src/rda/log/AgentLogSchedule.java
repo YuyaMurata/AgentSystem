@@ -36,6 +36,7 @@ public class AgentLogSchedule implements Runnable{
     
     public void start(){
         System.out.println(name + " : Start !");
+        
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
