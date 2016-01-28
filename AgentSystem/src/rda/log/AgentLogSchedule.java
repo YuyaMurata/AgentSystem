@@ -18,9 +18,10 @@ import rda.queue.log.MQSpecificStorage;
  * @author kaeru
  */
 public class AgentLogSchedule implements Runnable{
+    private static final String name = "Logger Schedule";
     private static final MQSpecificStorage mqSS = MQSpecificStorage.getInstance();
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
-    private static final Marker scheduleMaker = MarkerFactory.getMarker("Logger Schedule");
+    private static final Marker scheduleMaker = MarkerFactory.getMarker(name);
     private static final ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
     
     private Long  time, delay, period, timeout;
@@ -34,6 +35,7 @@ public class AgentLogSchedule implements Runnable{
     private static AgentConnection conn = AgentConnection.getInstance();
     
     public void start(){
+        System.out.println(name + " : Start !");
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
@@ -53,7 +55,7 @@ public class AgentLogSchedule implements Runnable{
             
             log();
         } catch (InterruptedException e) {
-            System.out.println("Logging Schedule Finish Interrupted!");
+            System.out.println(name + " : Finish Interrupted !");
             stop();
         }
     }
@@ -68,5 +70,7 @@ public class AgentLogSchedule implements Runnable{
         } catch (InterruptedException ex) {
             schedule.shutdownNow();
         }
+        
+        System.out.println(name + " : Finish !");
     }
 }

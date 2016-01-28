@@ -48,6 +48,7 @@ public class StreamDataSchedule implements Runnable, SetDataType{
     }
     
     public void start(){
+        System.out.println(name + " : Start !");
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
@@ -95,5 +96,7 @@ public class StreamDataSchedule implements Runnable, SetDataType{
             schedule.shutdownNow();
             System.out.println(name+" : Finished Scheduler !!");
         }
+        
+        System.out.println(name + " : Stop !");
     }
 }
