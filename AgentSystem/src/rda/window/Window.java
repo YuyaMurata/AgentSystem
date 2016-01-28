@@ -13,19 +13,19 @@ import rda.queue.obj.MessageObject;
  * @author kaeru
  */
 public class Window{
-    public String id;
-    public Integer limit;
+    private String id;
+    private Integer size;
     private ArrayList win = new ArrayList();
 
     public Window(String id, Integer limit) {
         this.id = id;
-        this.limit = limit;
+        this.size = limit;
     }
   
     public Boolean add(MessageObject msg){
         if(msg.data != -1) win.add(msg);
         
-        if((win.size() >= limit) || (msg.data == -1)) return true;
+        if((win.size() >= size) || (msg.data == -1)) return true;
         
         return false;
     }
