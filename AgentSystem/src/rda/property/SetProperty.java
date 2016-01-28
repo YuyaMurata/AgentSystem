@@ -42,7 +42,7 @@ public interface SetProperty {
          * time.delay
 	 * number.rank.agent
 	 */
-	public static final Integer TIME_RUN = Integer.valueOf(prop.getValue("agent", "time.run"));
+	public static final Long TIME_RUN = Long.valueOf(prop.getValue("agent", "time.run"));
 	public static final Long TIME_PERIOD = Long.valueOf(prop.getValue("agent", "time.period")); // ms
         public static final Long TIME_DELAY = Long.valueOf(prop.getValue("agent", "time.delay")) * 1000; // sec
 	public static final Integer NUMBER_OF_USER_AGENTS = Integer.valueOf(prop.getValue("agent", "number.user.agent"));

@@ -26,9 +26,9 @@ public class Main implements SetProperty, SetDataType{
         init_debug();
         
         // Data Input Scheduler Initialise
-        task = new MainSchedule(TIME_DELAY,
-                //new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow", AGENT_WAIT),
-                TIME_PERIOD);
+        //task = new MainSchedule(TIME_DELAY,
+        //        //new WindowController(NUMBER_OF_QUEUE , WINDOW_SIZE, "DataWindow", AGENT_WAIT),
+        //        TIME_PERIOD);
         
         initStop = System.currentTimeMillis();
     }
@@ -41,7 +41,7 @@ public class Main implements SetProperty, SetDataType{
         //Start Manager
         MessageQueueManager manager = MessageQueueManager.getInstance();
         manager.initMessageQueue(numOfAgents, mode, reserve, numOfReserve);
-        manager.initLogger(TIME_DELAY, TIME_PERIOD);
+        manager.initLogger(TIME_DELAY, TIME_PERIOD, TIME_RUN);
         
         createStop = System.currentTimeMillis();
     }
@@ -82,7 +82,7 @@ public class Main implements SetProperty, SetDataType{
         
         //Start Agen Logging Schedule
         Restrict rest = new Restrict();
-        rest.timedRun(new AgentLogSchedule(TIME_DELAY, TIME_PERIOD), TIME_DELAY, TIME_RUN, TimeUnit.SECONDS);
+        rest.timedRun(new AgentLogSchedule(TIME_DELAY, TIME_PERIOD, TIME_RUN), TIME_DELAY, TIME_RUN, TimeUnit.SECONDS);
         //MessageQueueManager manager = MessageQueueManager.getInstance();
         //manager.startAgentLog();
         

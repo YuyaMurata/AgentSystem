@@ -23,36 +23,38 @@ public class AgentLogSchedule implements Runnable{
     private static final Marker scheduleMaker = MarkerFactory.getMarker("Logger Schedule");
     private static final ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
     
-    private Long  delay, period;
-    public AgentLogSchedule(Long delay, Long period) {
+    private Long  time, delay, period, timeout;
+    public AgentLogSchedule(Long delay, Long period, Long timeout) {
         this.delay = delay;
         this.period = period;
+        this.timeout = timeout * (1000 / period);
+        this.time = -1L;
     }
     
-    private AgentConnection conn = AgentConnection.getInstance();
+    private static AgentConnection conn = AgentConnection.getInstance();
     
     public void start(){
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
-    public void logging() throws InterruptedException{
+    public void log() throws InterruptedException {
+        mqSS.mqLogging();
+        
         logger.print(scheduleMaker,
             "AgentConnection Idle_{} Active_{}", 
             new Object[]{conn.getActiveObject(), conn.getIdleObject()});
-        
-        if(Thread.interrupted()) throw new InterruptedException();
     }
     
     @Override
     public void run() {
         try{
-            if(Thread.interrupted()) throw new InterruptedException();
+            time++;
+            if(Thread.interrupted() || (time >= timeout)) throw new InterruptedException();
             
-            mqSS.mqLogging();
-            
-            logging();
+            log();
         } catch (InterruptedException e) {
             System.out.println("Logging Schedule Finish Interrupted!");
+            stop();
         }
     }
     

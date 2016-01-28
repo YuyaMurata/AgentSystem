@@ -58,9 +58,9 @@ public class MessageQueueManager {
     }
     
     private AgentLogSchedule aglog;
-    public void initLogger(Long delay, Long period){
+    public void initLogger(Long delay, Long period, Long timeout){
         // AgentLog Scheduler Initialise
-        aglog = new AgentLogSchedule(delay, period);
+        aglog = new AgentLogSchedule(delay, period, timeout);
     }
     
     private Boolean create(String agID){
