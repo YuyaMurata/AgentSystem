@@ -79,7 +79,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
     }
     
     //Commons Output File Name
-    public static final String createCSVFileName() {
+    public static String createCSVFileName() {
         String fileName = LOG_ALL;
         fileName = fileName +"_p["
                 + TIME_RUN + "s," 
