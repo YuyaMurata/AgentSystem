@@ -51,7 +51,7 @@ public class AgentLogSchedule implements Runnable{
     @Override
     public void run() {
         try{
-            time++;
+            //time++;
             if(Thread.interrupted() || (time >= timeout)) throw new InterruptedException();
             
             log();
