@@ -32,7 +32,7 @@ public class AgentLogSchedule implements Runnable{
         this.time = -1L;
     }
     
-    private static AgentConnection conn = AgentConnection.getInstance();
+    //private static AgentConnection conn = AgentConnection.getInstance();
     
     public void start(){
         System.out.println(name + " : Start !");
@@ -43,9 +43,10 @@ public class AgentLogSchedule implements Runnable{
     public void log() throws InterruptedException {
         mqSS.mqLogging();
         
-        logger.print(scheduleMaker,
+        /*logger.print(scheduleMaker,
             "AgentConnection Idle_{} Active_{}", 
             new Object[]{conn.getActiveObject(), conn.getIdleObject()});
+        */
     }
     
     @Override
