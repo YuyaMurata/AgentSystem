@@ -14,7 +14,7 @@ public class ReciveMessageQueue implements SetProperty{
     public final String name;
     private final BlockingQueue<Object> queue;
     private final ReciveMQProcess mqThread;
-    private Boolean runnable;
+    //private Boolean runnable;
     
     private static final Marker rMQMarker = MarkerFactory.getMarker("ReciveMessageQueue");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
@@ -66,7 +66,7 @@ public class ReciveMessageQueue implements SetProperty{
     }
     
     public void start(){
-        synchronized(this) { runnable = true; }
+        //synchronized(this) { runnable = true; }
         mqThread.start();
         
         logger.print(rMQMarker, 
@@ -88,7 +88,7 @@ public class ReciveMessageQueue implements SetProperty{
     }
     
     public void stop(){
-        synchronized(this){ runnable = false; }
+        //synchronized(this){ runnable = false; }
         mqThread.interrupt();
     }
 }
