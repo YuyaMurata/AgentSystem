@@ -130,6 +130,11 @@ public class MessageQueueManager {
         return mqMap.get(agID).isFull();
     }
     
+    private static Boolean runnable = false;
+    public Boolean isRunnable(){
+        return runnable;
+    }
+    
     public void startAgentLog(){
         aglog.start();
     }
