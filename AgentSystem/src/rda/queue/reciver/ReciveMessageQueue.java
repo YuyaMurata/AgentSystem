@@ -8,6 +8,7 @@ import rda.log.AgentSystemLogger;
 
 import rda.property.SetProperty;
 import rda.queue.event.MessageQueueEvent;
+import rda.queue.manager.MessageQueueManager;
 
 public class ReciveMessageQueue implements SetProperty{
     public final String name;
@@ -59,8 +60,9 @@ public class ReciveMessageQueue implements SetProperty{
         return queue.size();
     }
         
+    private static final MessageQueueManager manager = MessageQueueManager.getInstance();
     public Boolean isRunning(){
-        return runnable;
+        return manager.isRunnable();
     }
     
     public void start(){

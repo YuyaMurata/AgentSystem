@@ -130,7 +130,7 @@ public class MessageQueueManager {
         return mqMap.get(agID).isFull();
     }
     
-    private static Boolean runnable = false;
+    private static Boolean runnable =true;
     public Boolean isRunnable(){
         return runnable;
     }
@@ -144,6 +144,8 @@ public class MessageQueueManager {
     }
     
     public void stopAll(){
+        runnable = false;
+        
         for(ReciveMessageQueue mq : mqMap.values())
             mq.stop();
         

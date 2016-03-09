@@ -6,13 +6,13 @@ import rda.agent.user.creator.CreateUserAgent;
 
 import rda.agent.user.updater.UpdateUser;
 import rda.queue.id.IDToMQN;
+import rda.queue.manager.MessageQueueManager;
 import rda.queue.obj.MessageObject;
 import rda.queue.timer.MessageQueueTimer;
 import rda.window.Window;
 
 public class ReciveMQProcess extends Thread{
     private final ReciveMessageQueue mq;
-    private Boolean running = false;
     
     public ReciveMQProcess(ReciveMessageQueue queue) {
         this.mq = queue;
@@ -21,7 +21,7 @@ public class ReciveMQProcess extends Thread{
 
     @Override
     public void run() {
-        this.running = true;
+        MessageQueueManager manager = MessageQueueManager.getInstance();
         
         MessageQueueTimer mqt = MessageQueueTimer.getInstance();
         String agID = mq.name;
@@ -38,10 +38,10 @@ public class ReciveMQProcess extends Thread{
         
         HashMap<String, ArrayList> dataMap = new HashMap();
         
-        while(true){
+        while(manager.isRunnable()){
             try{
                 synchronized(this){
-                    if(!mq.isRunning()) break;
+                    if(!manager.isRunnable()) break;
                 }
                 
                 Window window = (Window) mq.getMessage();
