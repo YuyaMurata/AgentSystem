@@ -84,9 +84,8 @@ public class IDToMQN implements SetProperty{
             
             //System.out.println("AGList:: agID="+agID+" list="+distAGList);
             
-            //Roulette get Dist-Agent
+            //Geet Dist-Agent
             Integer sid = agentHash(uid, distAGList.size());
-            //Integer sid = agentRoulette(distAGList);
             String destAGID = distAGList.get(sid);
             
             return destAGID;
@@ -96,21 +95,6 @@ public class IDToMQN implements SetProperty{
         public Integer agentHash(String uid, int size){
             int hash = Math.abs(uid.hashCode());
             return  hash % size;
-        }
-        
-        //Roulette Dist-Agent
-        private MessageQueueManager manager = MessageQueueManager.getInstance();
-        private Random rand = new Random();
-        public Integer agentRoulette(List<String> agList){
-            int cnt = 0, sid = 0;
-            if(agList.size() > 1)
-                while(cnt == agList.size()+1){
-                    sid = rand.nextInt(agList.size());
-                    if(!manager.getState(agList.get(sid))) break;
-                    cnt++;
-                }
-            
-            return sid;
         }
         
         //Add Distributed Agent
