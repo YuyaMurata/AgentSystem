@@ -24,7 +24,8 @@ public class TestSettings extends TestParameter {
                 NUMBER_OF_USER, 
                 VALUE,
                 DATA_MODE,
-                DATA_PROFILE_MODE
+                DATA_PROFILE_MODE,
+                Integer.MAX_VALUE
         );
         
         DATA_TYPE = new DataGenerator(type);

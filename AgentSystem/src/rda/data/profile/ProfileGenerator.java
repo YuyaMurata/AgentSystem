@@ -21,6 +21,8 @@ public class ProfileGenerator {
 	
     public ProfileGenerator() {
         // TODO 自動生成されたコンストラクター・スタブ
+        rand.reSeed(Integer.MAX_VALUE);
+        
         mu = 100/2;
         sigma = 100/10;
     }

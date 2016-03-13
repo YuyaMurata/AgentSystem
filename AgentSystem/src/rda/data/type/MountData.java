@@ -14,7 +14,7 @@ public class MountData implements DataType{
     private Long time, period;
     private Integer volume;
     
-    public MountData(Long time, Long period, int volume, int numberOfUser, int valueOfUser, int datamode, int profmode) {
+    public MountData(Long time, Long period, int volume, int numberOfUser, int valueOfUser, int datamode, int profmode, long seed) {
         this.name = "MountType";
         this.data = new Data();
         
@@ -23,7 +23,7 @@ public class MountData implements DataType{
         this.volume = volume;
         
         //initialise
-        data.init(numberOfUser, valueOfUser, datamode);
+        data.init(numberOfUser, valueOfUser, datamode, seed);
         
         //Generate User
         ProfileGenerator prof = ProfileGenerator.getInstance();

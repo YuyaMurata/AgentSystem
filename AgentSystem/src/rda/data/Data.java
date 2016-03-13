@@ -24,10 +24,12 @@ public class Data{
     public Data() {}
 
     //Set All UserID
-    public void init(int n, int value, int mode){
+    public void init(int n, int value, int mode, long seed){
         this.numOfUser = n;
         this.value = value;
         this.mode = mode;
+        
+        rand.reSeed(seed);
     }
         
     private Integer idNo(){
