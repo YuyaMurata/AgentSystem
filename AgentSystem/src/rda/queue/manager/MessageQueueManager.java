@@ -5,6 +5,7 @@
  */
 package rda.queue.manager;
 
+import java.util.List;
 import rda.queue.id.IDToMQN;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -151,5 +152,10 @@ public class MessageQueueManager {
         
         for(ReciveMessageQueue mq : mqMap.values())
             mq.syncstop();
+    }
+    
+    List<Object> qsList;
+    public void add(Object observe){
+       qsList.add(observe);
     }
 }
