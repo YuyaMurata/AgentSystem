@@ -20,8 +20,8 @@ public class ThreadLogger {
     
     public void print(){
         for(String name: (Set<String>)map.keySet()){
-            System.out.println(name+":"+map.get(name));
-            System.out.println(name+":"+(Long)stopMap.get(name)+"[ms]");
+            //System.out.println(name+":"+map.get(name));
+            System.out.println(name+","+(Long)stopMap.get(name)+"[ms]");
         }
     }
     

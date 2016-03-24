@@ -18,16 +18,16 @@ public class ThreadA extends Thread{
     }
     
     private Integer count = 0;
-    private Long start, stop;
+    private Long stop;
     public void run(){
-        start = System.currentTimeMillis();
         
         while(logger.getRun()){
             logger.update(name, count);
             count++;
         }
         stop = System.currentTimeMillis();
-        logger.stopREC(name,stop-start);
+        
+        logger.stopREC(name,stop - ThreadLoggingMain.start);
     }
 
 }

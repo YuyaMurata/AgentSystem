@@ -12,16 +12,16 @@ import java.util.ArrayList;
  * @author kaeru
  */
 public class ThreadLoggingMain {
+    public static Long start;
+    
     public static void main(String[] args) {
         ThreadLogger mainLogger = new ThreadLogger();
         
         ArrayList<ThreadA> threadLists = new ArrayList<>();
         
-        Long start, stop;
+        Long stop;
         
-        
-        
-        for(int i=0; i < 1000; i++)
+        for(int i=0; i < 10; i++)
             threadLists.add(new ThreadA("n["+i+"]", mainLogger));
         
         start = System.currentTimeMillis();
@@ -31,7 +31,7 @@ public class ThreadLoggingMain {
         stop = System.currentTimeMillis();
         
         try {
-            Thread.sleep(5000);
+            Thread.sleep(60000);
             mainLogger.setStop();
         } catch (InterruptedException ex) {
         } finally {
