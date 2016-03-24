@@ -9,6 +9,17 @@ package rda.agent.queue;
  *
  * @author 悠也
  */
-public class MessageQueueProcess {
+public abstract class MessageQueueProcess extends Thread{
+    public void start(){
+        Thread p = new Thread(this);
+        p.start();
+    }
     
+    @Override
+    public void run(){
+        
+        while(true){
+            
+        }
+    }
 }

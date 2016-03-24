@@ -154,6 +154,7 @@ public class MessageQueueManager {
             mq.syncstop();
     }
     
+    //Logger用にMQの監視オブジェクトを登録
     List<Object> qsList;
     public void add(Object observe){
        qsList.add(observe);
