@@ -7,7 +7,6 @@ package rda.data.type;
 
 import rda.data.Data;
 import rda.data.DataType;
-import rda.data.profile.ProfileGenerator;
 import rda.queue.obj.MessageObject;
 
 /**
@@ -23,7 +22,7 @@ public class FlatData  implements DataType{
     private Long time, period;
     private Integer volume;
     
-    public FlatData(Long time, Long period, int volume, int numberOfUser, int valueOfUser, int datamode, int profmode, long seed) {
+    public FlatData(Long time, Long period, int volume, int numberOfUser, int valueOfUser, int datamode, long seed) {
         this.name = "FlatType";
         this.data = new Data();
         
@@ -33,10 +32,6 @@ public class FlatData  implements DataType{
         
         //initialise
         data.init(numberOfUser, valueOfUser, datamode, seed);
-        
-        //Generate User
-        ProfileGenerator prof = ProfileGenerator.getInstance();
-        prof.generate(numberOfUser, profmode);
         
         count = -1L;
     }

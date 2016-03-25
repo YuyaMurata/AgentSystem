@@ -20,7 +20,6 @@ public interface SetDataType extends SetProperty{
                 NUMBER_OF_USER_AGENTS, 
                 AGENT_DEFAULT_VALUE,
                 DATA_MODE_GENERATE,
-                DATA_MODE_PROFILE,
                 Integer.MAX_VALUE // Random Seed
             );
     

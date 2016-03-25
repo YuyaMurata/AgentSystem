@@ -12,82 +12,85 @@ import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import rda.agent.client.AgentConnection;
+import rda.agent.queue.MessageQueue;
 import rda.agent.user.message.InitUserMessage;
 
 public class CreateRankAgent implements AgentExecutor, Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 856847026370330593L;
-	public static final String AGENT_TYPE = "useragent";
-	static final String MESSAGE_TYPE = "initUserAgent";
+    /**
+    * 
+    */
+    private static final long serialVersionUID = 856847026370330593L;
+    public static final String AGENT_TYPE = "useragent";
+    static final String MESSAGE_TYPE = "initUserAgent";
 	
-	public CreateRankAgent() {
-		// TODO 自動生成されたコンストラクター・スタブ
-	}
+    public CreateRankAgent() {
+        // TODO 自動生成されたコンストラクター・スタブ
+    }
 	
-	AgentKey agentKey;
-	HashMap<String, String> prof;
-	public CreateRankAgent(AgentKey agentKey, HashMap<String, String> prof) {
-		// TODO 自動生成されたコンストラクター・スタブ
-		this.agentKey = agentKey;
-		this.prof = prof;
-	}
+    AgentKey agentKey;
+    HashMap<String, String> prof;
+    public CreateRankAgent(AgentKey agentKey, HashMap<String, String> prof) {
+        // TODO 自動生成されたコンストラクター・スタブ
+        this.agentKey = agentKey;
+        this.prof = prof;
+    }
 	
-	@Override
-	public Object complete(Collection<Object> results) {
-		// TODO 自動生成されたメソッド・スタブ
-		Object[] ret = results.toArray();
-		return ret[0];
-	}
+    @Override
+    public Object complete(Collection<Object> results) {
+        // TODO 自動生成されたメソッド・スタブ
+        Object[] ret = results.toArray();
+        return ret[0];
+    }
 
-	@Override
-	public Object execute() {
-		// TODO 自動生成されたメソッド・スタブ
-		try {
-			AgentManager agentManager = AgentManager.getAgentManager();
-			if (agentManager.exists(agentKey)) {
-				return "agent (" + agentKey + ") already exists";
-			}
-		
-			agentManager.createAgent(agentKey);
-		
-		
-			MessageFactory factory = MessageFactory.getFactory();
-			InitUserMessage msg = (InitUserMessage)factory.getMessage(MESSAGE_TYPE);
-		
-			msg.setParams(prof.get("Name"), prof.get("Sex"), 
-                                    prof.get("Age"), prof.get("Address"));
-		
-			Object ret = agentManager.sendMessage(agentKey, msg);
-		
-			return ret;
-		} catch (AgentException | IllegalAccessException | InstantiationException e) {
-		}
-		
-		return null;
-	}
-	
-        public void create(String agID){
-            try {
-                AgentConnection ag = AgentConnection.getInstance();
-                ProfileGenerator profileGen = ProfileGenerator.getInstance();
-                
-                AgentClient client = ag.getConnection();
-                
-                agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
-                
-                prof = profileGen.getAGIDProf(agID);
-                
-                CreateRankAgent executor = new CreateRankAgent(agentKey, prof);
-                Object reply = client.execute(agentKey, executor);
-		
-                System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
-                
-                ag.returnConnection(client);
-                
-            } catch (AgentException e) {
+    @Override
+    public Object execute() {
+        // TODO 自動生成されたメソッド・スタブ
+        try {
+            AgentManager agentManager = AgentManager.getAgentManager();
+            if (agentManager.exists(agentKey)) {
+                return "agent (" + agentKey + ") already exists";
             }
-	}
-
+		
+            agentManager.createAgent(agentKey);
+	
+            MessageFactory factory = MessageFactory.getFactory();
+            InitUserMessage msg = (InitUserMessage)factory.getMessage(MESSAGE_TYPE);
+		
+            msg.setParams(prof.get("Name"), prof.get("Sex"), 
+                        prof.get("Age"), prof.get("Address"));
+		
+            Object ret = agentManager.sendMessage(agentKey, msg);
+		
+            return ret;
+        } catch (AgentException | IllegalAccessException | InstantiationException e) {
+        }
+		
+        return null;
+    }
+	
+    public void create(String agID, Integer size){
+        try {
+            AgentConnection ag = AgentConnection.getInstance();
+            ProfileGenerator profileGen = ProfileGenerator.getInstance();
+            
+            AgentClient client = ag.getConnection();
+                
+            agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
+            prof = profileGen.getAGIDProf(agID);
+            
+            //Create Agent
+            CreateRankAgent executor = new CreateRankAgent(agentKey, prof);
+            Object reply = client.execute(agentKey, executor);
+            
+            System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
+            
+            ag.returnConnection(client);
+            
+            //Create AgentQueue
+            MessageQueue mq = new MessageQueue(agID, size);
+            mq.start();
+                
+        } catch (AgentException e) {
+        }
+    }
 }

@@ -18,18 +18,19 @@ public class ProfileGenerator {
     public static ProfileGenerator getInstance(){
         return profgen;
     }
-	
-    public ProfileGenerator() {
-        // TODO 自動生成されたコンストラクター・スタブ
+    
+    public void initProfile(Integer numberOfUser, Integer mode, Long seed){
+        //Random Parameter
         rand.reSeed(Integer.MAX_VALUE);
-        
         mu = 100/2;
         sigma = 100/10;
+        
+        generate(numberOfUser, mode);
     }
     
     private HashMap<String, HashMap> profMap = new HashMap<>();
     private List<String> userList = new ArrayList<>();
-    public void generate(Integer n, Integer mode){
+    private void generate(Integer n, Integer mode){
         StringBuilder digit = new StringBuilder();
         for(int i=0; i < n.toString().length(); i++)
             digit.append("0");
@@ -68,7 +69,7 @@ public class ProfileGenerator {
         return age;
     }
         
-    private Integer getFratAge(){
+    private Integer getFlatAge(){
         Integer age = (int) rand.nextInt(1, 100);
         return age;
     }
@@ -76,7 +77,7 @@ public class ProfileGenerator {
     private HashMap generateProfile(String id) {
         //Store Profile
         HashMap<String, String> prof = new HashMap<>();
-		
+	
         //ID
         prof.put("UserID", id);
         
@@ -88,7 +89,7 @@ public class ProfileGenerator {
         else prof.put("Sex", "F");
         
         //Age
-        if(mode == 0)prof.put("Age", getFratAge().toString());
+        if(mode == 0)prof.put("Age", getFlatAge().toString());
         else prof.put("Age", getGaussAge().toString());
         
         //Address
