@@ -13,16 +13,21 @@ import rda.queue.manager.MessageQueueManager;
  *
  * @author 悠也
  */
-public class MessageQueue {
+public class MessageQueue extends MessageQueueProcess{
+    private static final MessageQueueManager manager = MessageQueueManager.getInstance();
+
     private BlockingQueue<Object> queue;
+    private String name;
     
     public MessageQueue(String name, Integer size){
         this.queue = new ArrayBlockingQueue<Object>(size);
+        
+        //Message Queue Length @RECORDS
         QueueObserver observe = new QueueObserver(name, queue);
+        register(observe);
     }
     
     private void register(QueueObserver observe){
-        MessageQueueManager manager = MessageQueueManager.getInstance();
         manager.add(observe);
     }
     
@@ -39,5 +44,27 @@ public class MessageQueue {
             queue.put(message);
         } catch (InterruptedException ex) {
         }
+    }
+    
+    //MessageQueue Process Overrides
+    @Override
+    public String getAgentID() {
+        return name;
+    }
+
+    @Override
+    public MessageQueue getMessageQueue() {
+        return this;
+    }
+
+    @Override
+    public Boolean getRunnable() {
+        return manager.isRunnable();
+    }
+
+    @Override
+    public void start() {
+        Thread process = this;
+        process.start();
     }
 }

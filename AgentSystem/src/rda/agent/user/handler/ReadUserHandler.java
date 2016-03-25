@@ -2,11 +2,10 @@ package rda.agent.user.handler;
 
 import rda.Profile;
 import rda.Useragent;
-import rda.agent.user.reader.UserInfo;
-
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;
 import com.ibm.agent.exa.TxID;
+import rda.agent.user.reader.UserInfo;
 
 public class ReadUserHandler extends MessageHandler{
 

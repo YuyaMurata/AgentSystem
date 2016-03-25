@@ -3,8 +3,6 @@ package rda.agent.user.updater;
 import java.io.Serializable;
 import java.util.Collection;
 
-import rda.agent.user.message.UpdateUserMessage;
-
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.AgentManager;
@@ -13,6 +11,7 @@ import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.util.ArrayList;
 import rda.agent.client.AgentConnection;
+import rda.agent.user.message.UpdateUserMessage;
 
 public class UpdateUser implements AgentExecutor, Serializable{
 	/**

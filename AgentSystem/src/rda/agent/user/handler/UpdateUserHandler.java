@@ -4,11 +4,11 @@ import java.sql.Timestamp;
 
 import rda.Log;
 import rda.Useragent;
-import rda.agent.user.message.UpdateUserMessage;
 
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;
 import com.ibm.agent.exa.TxID;
+import rda.agent.user.message.UpdateUserMessage;
 
 public class UpdateUserHandler extends MessageHandler{
 

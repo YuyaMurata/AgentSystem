@@ -3,10 +3,10 @@ package rda.test;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import rda.agent.user.reader.UserInfo;
 import rda.log.AgentSystemLogger;
 import rda.property.SetProperty;
 import rda.agent.reader.ReadALLAgents;
+import rda.agent.user.reader.UserInfo;
 
 public class ReadTest implements SetProperty{
 

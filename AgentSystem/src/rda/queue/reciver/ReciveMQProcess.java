@@ -2,8 +2,6 @@ package rda.queue.reciver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import rda.agent.user.creator.CreateUserAgent;
-
 import rda.agent.user.updater.UpdateUser;
 import rda.queue.id.IDToMQN;
 import rda.queue.manager.MessageQueueManager;

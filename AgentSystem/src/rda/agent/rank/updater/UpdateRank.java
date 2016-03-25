@@ -1,9 +1,7 @@
-package rda.agent.user.updater;
+package rda.agent.rank.updater;
 
 import java.io.Serializable;
 import java.util.Collection;
-
-import rda.agent.user.message.UpdateUserMessage;
 
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.AgentKey;
@@ -13,6 +11,7 @@ import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.util.ArrayList;
 import rda.agent.client.AgentConnection;
+import rda.agent.user.message.UpdateUserMessage;
 
 public class UpdateRank implements AgentExecutor, Serializable{
 	/**
@@ -65,11 +64,11 @@ public class UpdateRank implements AgentExecutor, Serializable{
             }
 	}
 
-	public void sendUpdateMessage(ArrayList data){
+	public void sendUpdateMessage(Object data){
             try {
                 AgentClient client = agcon.getConnection();
                     
-                UpdateRank executor = new UpdateRank(agentKey, data);
+                UpdateRank executor = new UpdateRank(agentKey, (ArrayList)data);
                 Object reply = client.execute(agentKey, executor);
                 //if(reply == null) System.err.println("Cannot Find Agent : "+agentKey);
                 //System.out.println("A message from the agent[" + agentKey + "]: " + reply);

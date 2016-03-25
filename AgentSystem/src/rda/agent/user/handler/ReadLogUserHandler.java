@@ -4,12 +4,11 @@ import java.util.Iterator;
 
 import rda.Log;
 import rda.Useragent;
-import rda.agent.user.logger.LogInfo;
-
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;
 import com.ibm.agent.exa.TxID;
 import com.ibm.agent.exa.entity.Entity;
+import rda.agent.user.logger.LogInfo;
 
 public class ReadLogUserHandler extends MessageHandler{
 
