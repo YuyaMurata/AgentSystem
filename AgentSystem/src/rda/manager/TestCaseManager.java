@@ -18,7 +18,9 @@ import rda.data.type.MountData;
  */
 public class TestCaseManager{
     private static TestCaseManager manager = new TestCaseManager();
-    private static DataGenerator datagen;
+    public static ProfileGenerator profgen;
+    public static DataGenerator datagen;
+    
     
     private TestCaseManager(){}
     public static TestCaseManager getInstance(){
@@ -31,8 +33,8 @@ public class TestCaseManager{
     }
     
     private void initProfile(Map profParam){
-        ProfileGenerator profile = ProfileGenerator.getInstance();
-        profile.initProfile(
+        profgen = ProfileGenerator.getInstance();
+        profgen.initProfile(
                 (Integer) profParam.get("AMOUNT_USER"),
                 (Integer) profParam.get("PROFILE_MODE"),
                 (Long)    profParam.get("SEED")

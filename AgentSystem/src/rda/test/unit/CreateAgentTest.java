@@ -1,7 +1,7 @@
 package rda.test.unit;
 
 import rda.agent.creator.CreateAgent;
-import rda.agent.user.creator.CreateRankAgent;
+import rda.agent.user.creator.CreateUserAgent;
 import rda.test.setter.TestParameter;
 
 public class CreateAgentTest extends TestParameter{
@@ -12,7 +12,7 @@ public class CreateAgentTest extends TestParameter{
     }
     
     public void createAgent(String agID){
-        CreateRankAgent user = new CreateRankAgent();
+        CreateUserAgent user = new CreateUserAgent();
         user.create(agID);
     }
 }

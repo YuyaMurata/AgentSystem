@@ -14,7 +14,7 @@ import com.ibm.agent.exa.client.AgentExecutor;
 import rda.agent.client.AgentConnection;
 import rda.agent.user.message.InitUserMessage;
 
-public class CreateRankAgent implements AgentExecutor, Serializable{
+public class CreateUserAgent implements AgentExecutor, Serializable{
 	/**
 	 * 
 	 */
@@ -22,13 +22,13 @@ public class CreateRankAgent implements AgentExecutor, Serializable{
 	public static final String AGENT_TYPE = "useragent";
 	static final String MESSAGE_TYPE = "initUserAgent";
 	
-	public CreateRankAgent() {
+	public CreateUserAgent() {
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 	
 	AgentKey agentKey;
 	HashMap<String, String> prof;
-	public CreateRankAgent(AgentKey agentKey, HashMap<String, String> prof) {
+	public CreateUserAgent(AgentKey agentKey, HashMap<String, String> prof) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.agentKey = agentKey;
 		this.prof = prof;
@@ -79,7 +79,7 @@ public class CreateRankAgent implements AgentExecutor, Serializable{
                 
                 prof = profileGen.getAGIDProf(agID);
                 
-                CreateRankAgent executor = new CreateRankAgent(agentKey, prof);
+                CreateUserAgent executor = new CreateUserAgent(agentKey, prof);
                 Object reply = client.execute(agentKey, executor);
 		
                 System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");

@@ -1,6 +1,6 @@
 package rda.agent.creator;
 
-import rda.agent.user.creator.CreateRankAgent;
+import rda.agent.user.creator.CreateUserAgent;
 
 public class CreateAgent {
     
@@ -9,7 +9,7 @@ public class CreateAgent {
     }
 	
     public void create(String agentType, int numUserAgents){
-        CreateRankAgent user = new CreateRankAgent();
+        CreateUserAgent user = new CreateUserAgent();
         
         for(int i=0; i < numUserAgents; i++){
             String id = agentType+i;

@@ -5,6 +5,8 @@
  */
 package rda.manager;
 
+import java.util.Map;
+
 /**
  *
  * @author 悠也
@@ -16,6 +18,10 @@ public class AgentMessageQueueManager {
     private void AgentMessageQueueManager(){}
     public static AgentMessageQueueManager getInstance(){
         return manager;
+    }
+    
+    public void initAgentMessageQueueManager(Map agentMQParam){
+        
     }
     
     

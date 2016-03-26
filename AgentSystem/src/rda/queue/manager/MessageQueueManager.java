@@ -9,7 +9,7 @@ import java.util.List;
 import rda.queue.id.IDToMQN;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import rda.agent.user.creator.CreateRankAgent;
+import rda.agent.user.creator.CreateUserAgent;
 import rda.log.AgentLogSchedule;
 import rda.log.AgentSystemLogger;
 import rda.queue.log.MQSpecificStorage;
@@ -68,7 +68,7 @@ public class MessageQueueManager {
         if(mqMap.get(agID) != null) return false;
         
         //Create Agent
-        CreateRankAgent agent = new CreateRankAgent();
+        CreateUserAgent agent = new CreateUserAgent();
         agent.create(agID);
         
         //Setting MessageQueue
