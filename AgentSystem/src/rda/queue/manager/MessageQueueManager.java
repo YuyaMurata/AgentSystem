@@ -27,16 +27,17 @@ public class MessageQueueManager {
     
     private static AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
-    private Integer mode, reserve, max;
+    private Integer mode, reserve, max, size;
 
     public static MessageQueueManager getInstance(){
         return manager;
     }
     
-    public void initMessageQueue(Integer n, Integer mode, Integer reserve, Integer m){
+    public void initMessageQueue(Integer n, Integer mode, Integer reserve, Integer m, Integer size){
         this.mode = mode;
         this.reserve = reserve;
         this.max = 1000;
+        this.size = size;
         
         //Agent Create
         for(int i=0; i < n; i++){
@@ -72,7 +73,7 @@ public class MessageQueueManager {
         agent.create(agID);
         
         //Setting MessageQueue
-        ReciveMessageQueue mq = new ReciveMessageQueue(agID);
+        ReciveMessageQueue mq = new ReciveMessageQueue(agID, size);
         mq.start();
         
         //MQ registe MQManager

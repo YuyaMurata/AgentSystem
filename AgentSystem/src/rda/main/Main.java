@@ -39,7 +39,7 @@ public class Main implements SetProperty, SetDataType{
         
         //Start Manager
         MessageQueueManager manager = MessageQueueManager.getInstance();
-        manager.initMessageQueue(numOfAgents, mode, reserve, numOfReserve);
+        manager.initMessageQueue(numOfAgents, mode, reserve, numOfReserve, Integer.MAX_VALUE);
         manager.initLogger(TIME_DELAY, LOG_PERIOD, TIME_RUN);
         
         createStop = System.currentTimeMillis();

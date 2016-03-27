@@ -1,17 +1,14 @@
 package rda.queue.id;
 
 import java.text.DecimalFormat;
-import rda.property.SetProperty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.TreeMap;
 import rda.data.profile.ProfileGenerator;
-import rda.queue.manager.MessageQueueManager;
 
-public class IDToMQN implements SetProperty{
+public class IDToMQN{
 	//AgentKey Define
 	//private static final int HASH_MOD = 9973;
         private static IDToMQN idToMQN = new IDToMQN();
@@ -51,7 +48,7 @@ public class IDToMQN implements SetProperty{
                 familyMap.put(agID, agID);
                 
                 //Init AgeToMQN Map <Age, SID(MQ No.)>
-                Integer range = agIDList.indexOf(agID) * 100 / NUMBER_OF_QUEUE;
+                Integer range = agIDList.indexOf(agID) * 100 / numberOfQueue;
                 ageMap.put(range.toString(), agID);
             }
         }
@@ -147,5 +144,10 @@ public class IDToMQN implements SetProperty{
                 sb.append("," + id);
             
             return sb.toString();
+        }
+        
+        private Integer numberOfQueue = 0;
+        public void setNumQueue(Integer num){
+            this.numberOfQueue = num;
         }
 }

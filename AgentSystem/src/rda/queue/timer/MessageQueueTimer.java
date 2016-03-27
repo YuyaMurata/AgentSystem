@@ -9,13 +9,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
-import rda.property.SetProperty;
 
 /**
  *
  * @author kaeru
  */
-public class MessageQueueTimer implements Runnable, SetProperty{
+public class MessageQueueTimer implements Runnable{
     private Boolean binaryTimer;
     private static final MessageQueueTimer timer = new MessageQueueTimer();
     
@@ -27,10 +26,15 @@ public class MessageQueueTimer implements Runnable, SetProperty{
         }
     });
     
+    private Long period = 100L;
+    public void setTImerPriod(Long period){
+        this.period = period;
+    }
+    
     private MessageQueueTimer() {
         this.binaryTimer = false;
         
-        ex.scheduleAtFixedRate(this, 0, QUEUE_WAIT, TimeUnit.MILLISECONDS);
+        ex.scheduleAtFixedRate(this, 0, period, TimeUnit.MILLISECONDS);
     }
     
     public static MessageQueueTimer getInstance(){

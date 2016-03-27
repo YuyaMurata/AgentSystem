@@ -6,23 +6,24 @@ import org.slf4j.Marker;
 import org.slf4j.MarkerFactory;
 import rda.log.AgentSystemLogger;
 
-import rda.property.SetProperty;
 import rda.queue.event.MessageQueueEvent;
 import rda.queue.manager.MessageQueueManager;
 
-public class ReciveMessageQueue implements SetProperty{
+public class ReciveMessageQueue{
     public final String name;
     private final BlockingQueue<Object> queue;
     private final ReciveMQProcess mqThread;
     //private Boolean runnable;
+    private Integer size;
     
     private static final Marker rMQMarker = MarkerFactory.getMarker("ReciveMessageQueue");
     private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     
-    public ReciveMessageQueue(String name) {
+    public ReciveMessageQueue(String name, Integer size) {
         this.name = name;
+        this.size = size;
         
-        this.queue = new ArrayBlockingQueue<>(QUEUE_LENGTH);
+        this.queue = new ArrayBlockingQueue<>(size);
         this.mqThread = new ReciveMQProcess(this);
     }
 
@@ -41,7 +42,7 @@ public class ReciveMessageQueue implements SetProperty{
     }
     
     public Boolean isFull(){
-        return getSize() >= QUEUE_LENGTH;
+        return getSize() >= size;
     }
     
     public Boolean isEmpty(){

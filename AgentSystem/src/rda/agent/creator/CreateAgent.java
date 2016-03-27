@@ -8,10 +8,10 @@ public class CreateAgent {
         // TODO 自動生成されたコンストラクター・スタブ
     }
 	
-    public void create(String agentType, int numUserAgents){
+    public void create(String agentType, int numberOfAgents){
         CreateUserAgent user = new CreateUserAgent();
         
-        for(int i=0; i < numUserAgents; i++){
+        for(int i=0; i < numberOfAgents; i++){
             String id = agentType+i;
             user.create(id);
         }	

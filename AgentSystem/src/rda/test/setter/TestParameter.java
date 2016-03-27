@@ -5,6 +5,9 @@
  */
 package rda.test.setter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author kaeru
@@ -14,15 +17,36 @@ public abstract class TestParameter {
     public static final int NUMBER_OF_USER = 100000;
     public static final int NUMBER_OF_AGENTS = 10;
     public static final int NUMBER_DATA = 100000;
-    public static final Long TIME_RUN = 60L;
+    public static final Long TIME_RUN = 10L;
     public static final Long TIME_PERIOD = 1000L;
     public static final int TIME_WAIT = 100;
     public static final int VOLUME = 10000;
     public static final int VALUE = 1;
     public static final int NUMBER_OF_QUEUE = 1;
+    public static final int QUEUE_LENGTH = 1000;
     public static final int WINDOW_SIZE = 100;
     public static final int DATA_MODE = 1;
-    public static final int DATA_PROFILE_MODE = 1;
+    public static final int PROFILE_MODE = 1;
+    public static final Long SEED = Long.MAX_VALUE;
     
     public static final String AGENT_TYPE = "useragent";
+    
+    public static final Map profParam = 
+        new HashMap<Object, Object>() {{
+        put("AMOUNT_USER", NUMBER_OF_USER);
+        put("MODE", PROFILE_MODE);
+        put("SEED", SEED);
+    }};
+    
+    public static final Map dataParam = 
+        new HashMap<Object, Object>() {{
+        put("TIME_RUN", TIME_RUN); 
+        put("TIME_PERIOD", TIME_PERIOD); 
+        put("DATA_VOLUME", VOLUME); 
+        put("NUMBER_OF_AGENTS", NUMBER_OF_AGENTS);
+        put("AGENT_DEFAULT_VALUE", VALUE);
+        put("MODE", DATA_MODE);
+        put("SEED", SEED);
+        put("SELECT_TYPE", 0);
+    }};
 }

@@ -18,8 +18,8 @@ import rda.data.type.MountData;
  */
 public class TestCaseManager{
     private static TestCaseManager manager = new TestCaseManager();
-    public static ProfileGenerator profgen;
-    public static DataGenerator datagen;
+    public ProfileGenerator profgen;
+    public DataGenerator datagen;
     
     
     private TestCaseManager(){}
@@ -36,7 +36,7 @@ public class TestCaseManager{
         profgen = ProfileGenerator.getInstance();
         profgen.initProfile(
                 (Integer) profParam.get("AMOUNT_USER"),
-                (Integer) profParam.get("PROFILE_MODE"),
+                (Integer) profParam.get("MODE"),
                 (Long)    profParam.get("SEED")
         );
     }
@@ -46,9 +46,9 @@ public class TestCaseManager{
                 (Long)    dataParam.get("TIME_RUN"), 
                 (Long)    dataParam.get("TIME_PERIOD"), 
                 (Integer) dataParam.get("DATA_VOLUME"), 
-                (Integer) dataParam.get("NUMBER_OF_USER_AGENTS"), 
+                (Integer) dataParam.get("NUMBER_OF_AGENTS"), 
                 (Integer) dataParam.get("AGENT_DEFAULT_VALUE"),
-                (Integer) dataParam.get("DATA_MODE"),
+                (Integer) dataParam.get("MODE"),
                 (Long)    dataParam.get("SEED")
         );
         
@@ -56,9 +56,9 @@ public class TestCaseManager{
                 (Long)    dataParam.get("TIME_RUN"), 
                 (Long)    dataParam.get("TIME_PERIOD"), 
                 (Integer) dataParam.get("DATA_VOLUME"), 
-                (Integer) dataParam.get("NUMBER_OF_USER_AGENTS"), 
+                (Integer) dataParam.get("NUMBER_OF_AGENTS"), 
                 (Integer) dataParam.get("AGENT_DEFAULT_VALUE"),
-                (Integer) dataParam.get("DATA_MODE_GENERATE"),
+                (Integer) dataParam.get("MODE"),
                 (Long)    dataParam.get("SEED")
         );
         
@@ -66,9 +66,9 @@ public class TestCaseManager{
                 (Long)    dataParam.get("TIME_RUN"), 
                 (Long)    dataParam.get("TIME_PERIOD"), 
                 (Integer) dataParam.get("DATA_VOLUME"), 
-                (Integer) dataParam.get("NUMBER_OF_USER_AGENTS"), 
+                (Integer) dataParam.get("NUMBER_OF_AGENTS"), 
                 (Integer) dataParam.get("AGENT_DEFAULT_VALUE"),
-                (Integer) dataParam.get("DATA_MODE_GENERATE"),
+                (Integer) dataParam.get("MODE"),
                 (Long)    dataParam.get("SEED")
         );
         

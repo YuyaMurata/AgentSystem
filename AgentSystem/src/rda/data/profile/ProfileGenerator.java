@@ -9,10 +9,13 @@ import org.apache.commons.math3.random.RandomDataGenerator;
 public class ProfileGenerator {
     private static final ProfileGenerator profgen; 
     private static final RandomDataGenerator rand = new RandomDataGenerator();
-    private Integer mu, sigma, mode;
+    private static Integer mu, sigma, mode;
         
     static {
         profgen = new ProfileGenerator();
+        mode = 0;
+        mu = 100/2;
+        sigma = 100/10;
     }
 	
     public static ProfileGenerator getInstance(){
@@ -41,7 +44,7 @@ public class ProfileGenerator {
         this.mode = mode;
         
         for(int i=0; i < n; i++){
-            String uid = "U#"+dformat.format(i);
+            String uid = "usid-"+dformat.format(i);
             profMap.put(uid, generateProfile(uid));
             userList.add(uid);
         }
@@ -53,7 +56,7 @@ public class ProfileGenerator {
     }
     
     public HashMap getProf(String uid){
-        //U#系のProfileを生成
+        //UserのProfileを生成
         return profMap.get(uid);
     }
     
