@@ -7,10 +7,10 @@ import rda.test.setter.TestParameter;
 public class CreateAgentTest extends TestParameter{
     public static void main(String[] args) {
         //User Agents
-        createUserAgents(NUMBER_OF_AGENTS);
+        //createUserAgents(NUMBER_OF_AGENTS);
         
         //Rank Agents
-        //createRankAgents(NUMBER_OF_AGENTS);
+        createRankAgents(NUMBER_OF_AGENTS);
     }
     
     public static void createUserAgents(Integer numberOfUserAgents){
