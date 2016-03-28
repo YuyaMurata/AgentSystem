@@ -17,7 +17,7 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 public class AgentConnection {
     private ObjectPool<AgentClient> _pool;
     private static final AgentConnection connector = new AgentConnection();
-    private Integer poolsize = 0;
+    private Integer poolsize = 8;
     
     private AgentConnection(){
         GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
