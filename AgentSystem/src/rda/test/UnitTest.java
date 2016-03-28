@@ -6,7 +6,6 @@
 package rda.test;
 
 import com.ibm.agent.exa.AgentKey;
-import rda.test.unit.CreateAgentTest;
 
 /**
  *
