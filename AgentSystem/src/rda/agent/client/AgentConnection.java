@@ -17,15 +17,22 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 public class AgentConnection {
     private ObjectPool<AgentClient> _pool;
     private static final AgentConnection connector = new AgentConnection();
-    private static Integer poolsize = 8;
     
     private AgentConnection(){
+        createObjectPool(8);
+    }
+    
+    public static AgentConnection getInstance(){
+        return connector;
+    }
+    
+    private void createObjectPool(Integer poolsize){
         GenericObjectPoolConfig conf = new GenericObjectPoolConfig();
         conf.setMaxIdle(poolsize);
         conf.setMaxTotal(poolsize);
         
         this._pool = new GenericObjectPool<>(new AgentClientFactory("localhost:2809", "rda", "agent"), conf);
-                
+        
         System.out.println("***********************************************************");
         System.out.println("total:"+((GenericObjectPool) _pool).getMaxTotal()
                             +" , minIdle:"+((GenericObjectPool) _pool).getMinIdle()
@@ -33,12 +40,8 @@ public class AgentConnection {
         System.out.println("***********************************************************");
     }
     
-    public static AgentConnection getInstance(){
-        return connector;
-    }
-    
     public void setPoolSize(Integer poolsize){
-        this.poolsize = poolsize;
+        createObjectPool(poolsize);
     }
     
     public AgentClient getConnection(){
