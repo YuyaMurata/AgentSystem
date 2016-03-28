@@ -6,4 +6,3 @@ export CLASSPATH=$CLASSPATH:../library/Log/logback-access-1.1.3.jar:../library/L
  #CSV setting file
 export CLASSPATH=$CLASSPATH:../library/csv/opencsv-3.5.jar
 
-java -cp $CLASSPATH $1
