@@ -5,6 +5,7 @@
  */
 package rda.queue.manager;
 
+import java.util.ArrayList;
 import java.util.List;
 import rda.queue.id.IDToMQN;
 import java.util.Map;
@@ -155,7 +156,7 @@ public class MessageQueueManager {
     }
     
     //Logger用にMQの監視オブジェクトを登録
-    List<Object> qsList;
+    List<Object> qsList = new ArrayList<>();
     public void add(Object observe){
        qsList.add(observe);
     }
