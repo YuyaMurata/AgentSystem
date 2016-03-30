@@ -14,6 +14,7 @@ import com.ibm.agent.exa.client.AgentExecutor;
 import rda.agent.client.AgentConnection;
 import rda.agent.queue.MessageQueue;
 import rda.agent.user.message.InitUserMessage;
+import rda.queue.manager.MessageQueueManager;
 
 public class CreateRankAgent implements AgentExecutor, Serializable{
     /**
@@ -87,8 +88,7 @@ public class CreateRankAgent implements AgentExecutor, Serializable{
             ag.returnConnection(client);
             
             //Create AgentQueue
-            MessageQueue mq = new MessageQueue(agID, size);
-            mq.start();
+            MessageQueueManager.getInstance().register(new MessageQueue(agID, size));
                 
         } catch (AgentException e) {
         }

@@ -16,7 +16,6 @@ public abstract class MessageQueueProcess extends Thread{
     abstract public String getAgentID();
     abstract public MessageQueue getMessageQueue();
     abstract public Boolean getRunnable();
-    abstract public void start();
     
     @Override
     public void run(){

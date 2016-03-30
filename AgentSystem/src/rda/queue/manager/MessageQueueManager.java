@@ -6,10 +6,12 @@
 package rda.queue.manager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import rda.queue.id.IDToMQN;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import rda.agent.queue.MessageQueue;
 import rda.agent.user.creator.CreateUserAgent;
 import rda.log.AgentLogSchedule;
 import rda.log.AgentSystemLogger;
@@ -163,5 +165,11 @@ public class MessageQueueManager {
     List<Object> qsList = new ArrayList<>();
     public void add(Object observe){
        qsList.add(observe);
+    }
+    
+    Map mqList = new HashMap();
+    public void register(MessageQueue mq){
+        mqList.put(mq.getAgentID(), mq);
+        mq.start();
     }
 }

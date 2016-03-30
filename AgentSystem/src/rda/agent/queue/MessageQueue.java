@@ -14,8 +14,6 @@ import rda.queue.manager.MessageQueueManager;
  * @author 悠也
  */
 public class MessageQueue extends MessageQueueProcess{
-    private static final MessageQueueManager manager = MessageQueueManager.getInstance();
-
     private BlockingQueue<Object> queue;
     private String name;
     
@@ -28,7 +26,7 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     private void register(QueueObserver observe){
-        manager.add(observe);
+        MessageQueueManager.getInstance().add(observe);
     }
     
     public Object get(){
@@ -59,12 +57,6 @@ public class MessageQueue extends MessageQueueProcess{
 
     @Override
     public Boolean getRunnable() {
-        return manager.isRunnable();
-    }
-
-    @Override
-    public void start() {
-        Thread process = this;
-        process.start();
+        return MessageQueueManager.getInstance().isRunnable();
     }
 }
