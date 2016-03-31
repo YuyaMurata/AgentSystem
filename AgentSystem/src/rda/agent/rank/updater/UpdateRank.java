@@ -65,6 +65,8 @@ public class UpdateRank implements AgentExecutor, Serializable{
 	}
 
 	public void sendUpdateMessage(Object data){
+            if(data == null) return;
+            
             try {
                 AgentClient client = agcon.getConnection();
                     
