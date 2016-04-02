@@ -18,6 +18,7 @@ public class MessageQueue extends MessageQueueProcess{
     private String name;
     
     public MessageQueue(String name, Integer size){
+        this.name = name;
         this.queue = new ArrayBlockingQueue<Object>(size);
         
         //Message Queue Length @RECORDS
