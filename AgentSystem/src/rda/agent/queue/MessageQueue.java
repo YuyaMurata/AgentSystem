@@ -24,15 +24,13 @@ public class MessageQueue extends MessageQueueProcess{
         //Message Queue Length @RECORDS
         QueueObserver observe = new QueueObserver(name, queue);
         register(observe);
-        
-        //Supper
-        super.setMessageQueue(this);
     }
     
     private void register(QueueObserver observe){
         MessageQueueManager.getInstance().add(observe);
     }
     
+    @Override
     public Object get(){
         try {
             return queue.take();
@@ -41,6 +39,7 @@ public class MessageQueue extends MessageQueueProcess{
         return null;
     }
     
+    @Override
     public void put(Object message){
         try {
             queue.put(message);
