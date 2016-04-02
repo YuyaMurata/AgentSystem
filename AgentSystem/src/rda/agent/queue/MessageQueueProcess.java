@@ -21,7 +21,7 @@ public abstract class MessageQueueProcess extends Thread{
     
     @Override
     public void run(){
-        System.out.println("AGN::"+getAgentID());
+        System.out.println(">AgentID::"+getAgentID());
         
         UpdateRank agent = new UpdateRank(getAgentID());
         
