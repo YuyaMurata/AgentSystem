@@ -24,7 +24,7 @@ public class UpdateRank implements AgentExecutor, Serializable{
         
         public UpdateRank(String agID){
             this.agcon = AgentConnection.getInstance();
-            this.agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
+            this.agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
         }
 
 	AgentKey agentKey;
