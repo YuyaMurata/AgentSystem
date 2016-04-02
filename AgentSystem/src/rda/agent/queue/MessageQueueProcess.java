@@ -14,22 +14,24 @@ import rda.window.Window;
  */
 public abstract class MessageQueueProcess extends Thread{
     abstract public String getAgentID();
-    abstract public MessageQueue getMessageQueue();
     abstract public Boolean getRunnable();
+    private MessageQueue mq;
+    
+    public void setMessageQueue(MessageQueue mq){
+        this.mq = mq;
+    }
     
     @Override
     public void run(){
-        System.out.println("AGN::"+getAgentID());
-        System.out.println("AGN::"+getMessageQueue());
+        System.out.println("AGN::"+mq.getAgentID());
         
-        MessageQueue mq = getMessageQueue();
-        UpdateRank agent = new UpdateRank(getAgentID());
+        UpdateRank agent = new UpdateRank(mq.getAgentID());
         
-        System.out.println(">> Start--MessageQueue of "+getAgentID()+" run message processing");
+        System.out.println(">> Start--MessageQueue of "+mq.getAgentID()+" run message processing");
         while(getRunnable()){
             Object pack = mq.get();
             agent.sendUpdateMessage(((Window)pack).get());
         }
-        System.out.println(">> Stop--MessageQueue of "+getAgentID()+" shutdown message processing");
+        System.out.println(">> Stop--MessageQueue of "+mq.getAgentID()+" shutdown message processing");
     }
 }

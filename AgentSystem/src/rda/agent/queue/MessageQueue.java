@@ -23,6 +23,9 @@ public class MessageQueue extends MessageQueueProcess{
         //Message Queue Length @RECORDS
         QueueObserver observe = new QueueObserver(name, queue);
         register(observe);
+        
+        //Supper
+        super.setMessageQueue(this);
     }
     
     private void register(QueueObserver observe){
@@ -48,11 +51,6 @@ public class MessageQueue extends MessageQueueProcess{
     @Override
     public String getAgentID() {
         return name;
-    }
-
-    @Override
-    public MessageQueue getMessageQueue() {
-        return this;
     }
 
     @Override
