@@ -169,7 +169,7 @@ public class MessageQueueManager {
     
     Map mqList = new HashMap();
     public void register(MessageQueue mq){
-        mqList.put(mq.getAgentID(), mq);
+        mqList.put(mq.name, mq);
         mq.start();
     }
 }

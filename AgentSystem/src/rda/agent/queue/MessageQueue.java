@@ -8,6 +8,7 @@ package rda.agent.queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
+import rda.agent.template.AgentType;
 import rda.queue.manager.MessageQueueManager;
 
 /**
@@ -16,7 +17,8 @@ import rda.queue.manager.MessageQueueManager;
  */
 public class MessageQueue extends MessageQueueProcess{
     private BlockingQueue<Object> queue;
-    private String name;
+    public String name;
+    private AgentType agent;
     
     public MessageQueue(String name, Integer size){
         this.name = name;
@@ -50,12 +52,17 @@ public class MessageQueue extends MessageQueueProcess{
     
     //MessageQueue Process Overrides
     @Override
-    public String getAgentID() {
-        return name;
+    public Boolean getRunnable() {
+        return MessageQueueManager.getInstance().isRunnable();
     }
 
     @Override
-    public Boolean getRunnable() {
-        return MessageQueueManager.getInstance().isRunnable();
+    public void setAgentType(AgentType type) {
+        this.agent = type;
+    }
+
+    @Override
+    public AgentType getAgentType() {
+        return this.agent;
     }
 }

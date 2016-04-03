@@ -6,6 +6,7 @@
 package rda.agent.queue;
 
 import rda.agent.rank.updater.UpdateRank;
+import rda.agent.template.AgentType;
 import rda.window.Window;
 
 /**
@@ -13,25 +14,25 @@ import rda.window.Window;
  * @author 悠也
  */
 public abstract class MessageQueueProcess extends Thread{
-    abstract public String getAgentID();
     abstract public Boolean getRunnable();
     
     abstract public Object get();
     abstract public void put(Object message);
     
+    abstract public void setAgentType(AgentType type);
+    abstract public AgentType getAgentType();
+    
     @Override
     public void run(){
-        System.out.println(">AgentID::"+getAgentID());
-        
-        UpdateRank agent = new UpdateRank(getAgentID());
-        
-        System.out.println(">> Start--MessageQueue of "+getAgentID()+" run message processing");
+        AgentType agent = getAgentType();
+        System.out.println(">AgentID::"+agent.getID());
+        System.out.println(">> Start--MessageQueue of "+agent.getID()+" run message processing");
         while(getRunnable()){
             Object pack = get();
             
             if(pack != null)
-                agent.sendUpdateMessage(((Window)pack).get());
+                agent.sendMessage(((Window)pack).get());
         }
-        System.out.println(">> Stop--MessageQueue of "+getAgentID()+" shutdown message processing");
+        System.out.println(">> Stop--MessageQueue of "+agent.getID()+" shutdown message processing");
     }
 }

@@ -11,9 +11,10 @@ import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import java.util.ArrayList;
 import rda.agent.client.AgentConnection;
+import rda.agent.template.AgentType;
 import rda.agent.user.message.UpdateUserMessage;
 
-public class UpdateRank implements AgentExecutor, Serializable{
+public class UpdateRank extends AgentType implements AgentExecutor, Serializable{
 	/**
 	 *
 	 */
@@ -21,8 +22,10 @@ public class UpdateRank implements AgentExecutor, Serializable{
 	private static final String AGENT_TYPE = "useragent";
 	private static final String MESSAGE_TYPE = "updateUserAgent";
         private static AgentConnection agcon;
+        private String agID;
         
         public UpdateRank(String agID){
+            this.agID = agID;
             this.agcon = AgentConnection.getInstance();
             this.agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
         }
@@ -31,7 +34,7 @@ public class UpdateRank implements AgentExecutor, Serializable{
 	ArrayList data;
 	public UpdateRank(AgentKey agentKey, ArrayList data) {
 		// TODO 自動生成されたコンストラクター・スタブ
-		this.agentKey = agentKey;
+                this.agentKey = agentKey;
 		this.data = data;
 	}
 
@@ -64,7 +67,8 @@ public class UpdateRank implements AgentExecutor, Serializable{
             }
 	}
 
-	public void sendUpdateMessage(Object data){
+        @Override
+	public void sendMessage(Object data){
             if(data == null) return;
             
             try {
@@ -79,4 +83,9 @@ public class UpdateRank implements AgentExecutor, Serializable{
             } catch (AgentException e) {
             } 
         }
+
+    @Override
+    public String getID() {
+        return this.agID;
+    }
 }
