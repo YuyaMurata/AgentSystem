@@ -7,6 +7,7 @@ package rda.agent.queue;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 import rda.queue.manager.MessageQueueManager;
 
 /**
@@ -33,7 +34,7 @@ public class MessageQueue extends MessageQueueProcess{
     @Override
     public Object get(){
         try {
-            return queue.take();
+            return queue.poll(1000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
         }
         return null;
