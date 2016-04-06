@@ -80,6 +80,8 @@ public class CreateRankAgent implements AgentExecutor, Serializable{
             agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
             prof = profileGen.getAGIDProf(agID);
             
+            System.out.println(">Profile:"+prof);
+            
             //Create Agent
             CreateRankAgent executor = new CreateRankAgent(agentKey, prof);
             Object reply = client.execute(agentKey, executor);
