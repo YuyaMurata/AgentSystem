@@ -4,10 +4,13 @@ import rda.agent.rank.creator.CreateRankAgent;
 import rda.agent.user.creator.CreateUserAgent;
 import rda.manager.AgentMessageQueueManager;
 import rda.test.manager.UnitTestManager;
+import rda.test.msg.MessageBox;
 import rda.test.param.TestParameter;
 
 public class CreateAgentTest extends TestParameter{
     public static void main(String[] args) {
+        MessageBox.use("CreateAgents Test");
+        
         //Prepare
         UnitTestManager.getInstance().prepareManager();
         

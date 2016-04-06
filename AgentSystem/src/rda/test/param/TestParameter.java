@@ -49,4 +49,9 @@ public abstract class TestParameter {
         put("SEED", SEED);
         put("SELECT_TYPE", 0);
     }};
+    
+    public static final Map agentMQParam = 
+        new HashMap<Object, Object>() {{
+        put("QUEUE_LENGTH", QUEUE_LENGTH);
+    }};
 }

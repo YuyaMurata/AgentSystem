@@ -48,7 +48,6 @@ public class AgentMessageQueueManager {
         for(int i=0; i < numOfAgents; i++){
             String agID = id.genID();
             createAgent(agID);
-            
             id.initRegID(agID);
         }
     }

@@ -5,8 +5,6 @@
  */
 package rda.test.manager;
 
-import java.util.HashMap;
-import java.util.Map;
 import rda.manager.AgentMessageQueueManager;
 import rda.manager.IDManager;
 import rda.test.param.TestParameter;
@@ -24,9 +22,6 @@ public class UnitTestManager extends TestParameter{
     public void prepareManager(){
         AgentMessageQueueManager ag = AgentMessageQueueManager.getInstance();
         IDManager id = new IDManager("TEST#");
-        
-        Map agentMQParam = new HashMap();
-        agentMQParam.put("QUEUE_LENGTH", QUEUE_LENGTH);
         
         ag.initAgentMessageQueueManager(agentMQParam);
         ag.setIDManager(id);
