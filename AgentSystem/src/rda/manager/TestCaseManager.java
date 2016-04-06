@@ -46,7 +46,7 @@ public class TestCaseManager{
                 (Long)    dataParam.get("TIME_RUN"), 
                 (Long)    dataParam.get("TIME_PERIOD"), 
                 (Integer) dataParam.get("DATA_VOLUME"), 
-                (Integer) dataParam.get("NUMBER_OF_AGENTS"), 
+                (Integer) dataParam.get("AMOUNT_USER"), 
                 (Integer) dataParam.get("AGENT_DEFAULT_VALUE"),
                 (Integer) dataParam.get("MODE"),
                 (Long)    dataParam.get("SEED")
@@ -56,7 +56,7 @@ public class TestCaseManager{
                 (Long)    dataParam.get("TIME_RUN"), 
                 (Long)    dataParam.get("TIME_PERIOD"), 
                 (Integer) dataParam.get("DATA_VOLUME"), 
-                (Integer) dataParam.get("NUMBER_OF_AGENTS"), 
+                (Integer) dataParam.get("AMOUNT_USER"), 
                 (Integer) dataParam.get("AGENT_DEFAULT_VALUE"),
                 (Integer) dataParam.get("MODE"),
                 (Long)    dataParam.get("SEED")
@@ -66,7 +66,7 @@ public class TestCaseManager{
                 (Long)    dataParam.get("TIME_RUN"), 
                 (Long)    dataParam.get("TIME_PERIOD"), 
                 (Integer) dataParam.get("DATA_VOLUME"), 
-                (Integer) dataParam.get("NUMBER_OF_AGENTS"), 
+                (Integer) dataParam.get("AMOUNT_USER"), 
                 (Integer) dataParam.get("AGENT_DEFAULT_VALUE"),
                 (Integer) dataParam.get("MODE"),
                 (Long)    dataParam.get("SEED")

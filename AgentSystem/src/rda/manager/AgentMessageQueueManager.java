@@ -80,4 +80,8 @@ public class AgentMessageQueueManager {
         messageQueueMap.put(mq.name, mq);
         mq.start();
     }
+    
+    public Map getMQMap(){
+        return messageQueueMap;
+    }
 }

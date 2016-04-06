@@ -15,15 +15,21 @@ import rda.test.param.TestParameter;
  */
 public class UnitTestManager extends TestParameter{
     private static UnitTestManager manager = new UnitTestManager();
+    private IDManager id;
     public static UnitTestManager getInstance(){
         return manager;
     }
     
     public void prepareManager(){
         AgentMessageQueueManager ag = AgentMessageQueueManager.getInstance();
-        IDManager id = new IDManager("TEST#");
+        id = new IDManager("TEST#");
         
         ag.initAgentMessageQueueManager(agentMQParam);
         ag.setIDManager(id);
+    }
+    
+    public void createPseudoAgents(){
+        for(int i=0; i < NUMBER_OF_AGENTS; i++)
+            id.initRegID(id.genID());
     }
 }

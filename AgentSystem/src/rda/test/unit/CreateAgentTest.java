@@ -26,6 +26,7 @@ public class CreateAgentTest extends TestParameter{
         createStop();
     }
     
+    //UserAgentのCreatorで作成
     public static void createUserAgents(Integer numberOfUserAgents){
         CreateUserAgent userAgent = new CreateUserAgent();
         
@@ -33,6 +34,7 @@ public class CreateAgentTest extends TestParameter{
             userAgent.create("U#00"+i);
     }
     
+    //RankAgentのCreatorで作成
     public static void createRankAgents(Integer numberOfRankAgents){
         CreateRankAgent rankAgent = new CreateRankAgent();
         
@@ -41,6 +43,7 @@ public class CreateAgentTest extends TestParameter{
         
     }
     
+    //AgentMQManagerで生成
     public static void createAgentsFromManager(Integer numberOfAgents){
         AgentMessageQueueManager.getInstance().createNumberOfAgents(numberOfAgents);    
     }

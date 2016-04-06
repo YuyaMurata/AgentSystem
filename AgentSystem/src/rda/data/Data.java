@@ -52,11 +52,13 @@ public class Data{
 
     //Get Data userID = Call % NUMBER_USER_AGENTS
     public MessageObject getData(){
-        return new MessageObject(prof.getUser(idNo()), value);
+        String uid = prof.getUser(idNo());
+        return new MessageObject(uid , value, (String)prof.getProf(uid).get("TargetID"));
     }
     
     public MessageObject getPoison(){
-        return new MessageObject(prof.getUser(idNo()), -1);
+        String uid = prof.getUser(idNo());
+        return new MessageObject(uid, -1, (String)prof.getProf(uid).get("TargetID"));
     }
     
 }

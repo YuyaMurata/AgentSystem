@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import rda.manager.TestCaseManager;
 import rda.queue.obj.MessageObject;
+import rda.test.manager.UnitTestManager;
 import rda.test.param.TestParameter;
 
 /**
@@ -19,6 +20,10 @@ public class DataGenerateTest extends TestParameter{
     private static Map validate = new HashMap();
     
     public static void main(String[] args) {
+        UnitTestManager test = UnitTestManager.getInstance();
+        test.prepareManager();
+        test.createPseudoAgents();
+        
         TestCaseManager tcmanager = TestCaseManager.getInstance();
         tcmanager.initTestCase(dataParam, profParam);
         
@@ -30,10 +35,10 @@ public class DataGenerateTest extends TestParameter{
             msgcnt++;
             
             //Validation (ID & Message Data)
-            if(validate.get(msg.id) == null) validate.put(msg.id, 0);
-            else if((Integer)validate.get(msg.id) != -1){
-                Integer msgValue = (Integer)validate.get(msg.id) + msg.data;
-                validate.put(msg.id, msgValue);
+            if(validate.get(msg.destID) == null) validate.put(msg.destID, 0);
+            else if((Integer)validate.get(msg.destID) != -1){
+                Integer msgValue = (Integer)validate.get(msg.destID) + msg.data;
+                validate.put(msg.destID, msgValue);
             }
         }
         

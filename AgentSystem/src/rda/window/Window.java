@@ -13,24 +13,24 @@ import rda.queue.obj.MessageObject;
  * @author kaeru
  */
 public class Window{
-    private String id;
+    public String destID;
     private Integer size;
     private ArrayList win = new ArrayList();
 
     public Window(String id, Integer limit) {
-        this.id = id;
+        this.destID = id;
         this.size = limit;
     }
   
-    public Boolean add(MessageObject msg){
+    public Window pack(MessageObject msg){
         if(msg.data != -1) win.add(msg);
         
-        if((win.size() >= size) || (msg.data == -1)) return true;
+        if((win.size() >= size) || (msg.data == -1)) return this;
         
-        return false;
+        return null;
     }
     
-    public ArrayList get(){
+    public ArrayList unpack(){
         return this.win;
     }
 }

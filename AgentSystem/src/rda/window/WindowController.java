@@ -18,14 +18,14 @@ public class WindowController{
         this.wait = wait;
     }
         
-    public Boolean pack(MessageObject msg){
-        Window w = window.get(msg.id);
+    public Window pack(MessageObject msg){
+        Window w = window.get(msg.destID);
         if(w == null) {
-            w = new Window(msg.id, size);
-            window.put(msg.id, w);
+            w = new Window(msg.destID, size);
+            window.put(msg.destID, w);
         }
             
-        return w.add(msg);
+        return w.pack(msg);
     }
     
     public Window get(String id){
@@ -39,7 +39,7 @@ public class WindowController{
     public void send(String id) throws InterruptedException{
         Window w = window.get(id);
         try {
-            manager.getMessageQueue(id).putMessage(w.get());
+            manager.getMessageQueue(id).putMessage(w.unpack());
             window.put(id, null);
         } catch (MessageQueueEvent mqev) {
             if(Thread.currentThread().isInterrupted()) return ;

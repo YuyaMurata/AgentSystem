@@ -43,7 +43,7 @@ public class ReciveMQProcess extends Thread{
                 }
                 
                 Window window = (Window) mq.getMessage();
-                for(MessageObject msg : (ArrayList<MessageObject>) window.get()){
+                for(MessageObject msg : (ArrayList<MessageObject>) window.unpack()){
                     if(dataMap.get(msg.id) == null) dataMap.put(msg.id, new ArrayList());
                     dataMap.get(msg.id).add(msg.data);
                 }
