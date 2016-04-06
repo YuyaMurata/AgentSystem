@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.math3.random.RandomDataGenerator;
+import rda.manager.AgentMessageQueueManager;
 
 public class ProfileGenerator {
     private static final ProfileGenerator profgen; 
@@ -79,7 +80,7 @@ public class ProfileGenerator {
 	
     private HashMap generateProfile(String id) {
         //Store Profile
-        HashMap<String, String> prof = new HashMap<>();
+        HashMap prof = new HashMap<>();
 	
         //ID
         prof.put("UserID", id);
@@ -92,11 +93,15 @@ public class ProfileGenerator {
         else prof.put("Sex", "F");
         
         //Age
-        if(mode == 0)prof.put("Age", getFlatAge().toString());
-        else prof.put("Age", getGaussAge().toString());
+        if(mode == 0)prof.put("Age", getFlatAge());
+        else prof.put("Age", getGaussAge());
         
         //Address
         prof.put("Address", "Address-" + id);
+        
+        //TargetID
+        prof.put("Destination", 
+        AgentMessageQueueManager.getInstance().getIDManager().ageToID((Integer)prof.get("Age")));
         
         return prof;
     }

@@ -17,18 +17,21 @@ public class ArrayTest {
         HashMap map = new HashMap();
         ArrayList<ArrayList> list = new ArrayList<>();
         ArrayList<String> str = new ArrayList<>();
+        
         str.add("TESTEST");
         list.add(str);
         map.put("TEST1", list);
-        System.out.println("MAP"+map);
         
-        Object after = map.get("TEST1");
-        after = null;
-        System.out.println("MAP"+map);
-        System.out.println("LIST"+str);
+        System.out.println("MAP1"+map);
         
-        map.put("TEST1", after);
-        System.out.println("MAP"+map);
-        System.out.println("LIST"+str);
+        ArrayList after = (ArrayList)map.get("TEST1");
+        after.add("AFTER");
+        
+        System.out.println("MAP2"+map);
+        System.out.println("LIST1"+str);
+        
+        after.add("TEST");
+        System.out.println("MAP3"+map.get("TEST1"));
+        System.out.println("LIST2"+str);
     }
 }

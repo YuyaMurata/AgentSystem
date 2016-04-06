@@ -1,7 +1,5 @@
 package rda.test.unit;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.agent.rank.creator.CreateRankAgent;
 import rda.agent.user.creator.CreateUserAgent;
 import rda.queue.manager.MessageQueueManager;

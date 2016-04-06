@@ -9,6 +9,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import rda.agent.template.AgentType;
+import rda.queue.event.MessageQueueEvent;
 import rda.queue.manager.MessageQueueManager;
 
 /**
@@ -43,10 +44,11 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     @Override
-    public void put(Object message){
+    public void put(Object message) throws MessageQueueEvent{
         try {
-            queue.put(message);
+            queue.offer(message, 10, TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
+            throw new MessageQueueEvent(name);
         }
     }
     

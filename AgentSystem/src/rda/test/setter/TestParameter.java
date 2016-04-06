@@ -15,7 +15,7 @@ import java.util.Map;
 public abstract class TestParameter {
     //Experiment Condition
     public static final int NUMBER_OF_USER = 100000;
-    public static final int NUMBER_OF_AGENTS = 10;
+    public static final int NUMBER_OF_AGENTS = 100;
     public static final int NUMBER_DATA = 100000;
     public static final Long TIME_RUN = 10L;
     public static final Long TIME_PERIOD = 1000L;

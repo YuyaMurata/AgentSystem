@@ -5,8 +5,8 @@
  */
 package rda.agent.queue;
 
-import rda.agent.rank.updater.UpdateRank;
 import rda.agent.template.AgentType;
+import rda.queue.event.MessageQueueEvent;
 import rda.window.Window;
 
 /**
@@ -17,7 +17,7 @@ public abstract class MessageQueueProcess extends Thread{
     abstract public Boolean getRunnable();
     
     abstract public Object get();
-    abstract public void put(Object message);
+    abstract public void put(Object message) throws MessageQueueEvent;
     
     abstract public void setAgentType(AgentType type);
     abstract public AgentType getAgentType();

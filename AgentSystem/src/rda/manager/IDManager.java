@@ -17,41 +17,56 @@ import java.util.TreeMap;
  * @author kaeru
  */
 public class IDManager {
-    private static IDManager manager = new IDManager();
-    private IDManager(){}
+    private String rule;
+    private DecimalFormat dformat;
+    private TreeMap ageMap = new TreeMap();
+    private Map regAgentMap = new HashMap();
     
-    public static IDManager getInstance(){
-        return manager;
+    public IDManager(String rule){
+        this.rule = rule;
+        this.dformat= new DecimalFormat("0000");
     }
     
-    public void initIDManager(){
-        
+    private Integer serialID = 0;
+    public synchronized String genID(){      
+        String agID = rule+dformat.format(serialID++);
+        return agID;
     }
     
-    private Map ageToAGIDMap = new TreeMap();
-    private void initAgeToAGID(){
-        for(int i=0; i < 10; i++){
-            if(i >= agIDList.size()) break;
-            ageToAGIDMap.put(i*10, agIDList.get(i));
+    //Register InitAgent
+    public synchronized void initRegID(String id){
+        if(serialID-1 < 10){
+            List agList = new ArrayList();
+            agList.add(id);
+            regAgentMap.put(id, agList);
+            ageMap.put(serialID * 10, id);
+        } else {
+            List agList = (List)regAgentMap.get(ageMap.get(((serialID % 10)+1) * 10));
+            agList.add(id);
         }
     }
     
-    private Map agIDMap = new HashMap<>();
-    private synchronized void setCandidateAgents(String pid, String cid){
-        if(agIDMap.get(pid) == null) agIDMap.put(pid, new ArrayList<>());
-        List candidateList = (List) agIDMap.get(pid);
-        candidateList.add(cid);
-        agIDMap.put(pid, candidateList);
+    public synchronized void regID(String id){
+        
     }
     
-    private static Integer serialID = 0;
-    public static synchronized String genID(){
-        DecimalFormat dformat= new DecimalFormat("0000");
-        return "R#"+dformat.format(serialID++);
+    public String ageToID(Integer age){
+        return (String) ageMap.ceilingEntry(age).getValue();
     }
     
-    private static List agIDList = new ArrayList();
-    public static synchronized void regID(String agID){
-        agIDList.add(agID);
+    //Test Print
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("<IDManager>\n");
+        
+        sb.append("<<Age To AgentID>>\n");
+        for(Object key : ageMap.keySet())
+            sb.append(key+":"+ageMap.get(key)+"\n");
+        
+        sb.append("<<Register Key and Lists>>\n");
+        for(Object key : regAgentMap.keySet())
+            sb.append(key+":"+regAgentMap.get(key)+"\n");
+        
+        return sb.toString();
     }
 }
