@@ -81,7 +81,7 @@ public class ProfileGenerator {
     
     private HashMap genUserProfile(String id) {
         //Store Profile
-        HashMap prof = new HashMap<>();
+        HashMap prof = new HashMap<String, String>();
 	
         //ID
         prof.put("UserID", id);
@@ -94,22 +94,22 @@ public class ProfileGenerator {
         else prof.put("Sex", "F");
         
         //Age
-        if(mode == 0)prof.put("Age", getFlatAge());
-        else prof.put("Age", getGaussAge());
+        if(mode == 0)prof.put("Age", getFlatAge().toString());
+        else prof.put("Age", getGaussAge()).toString();
         
         //Address
         prof.put("Address", "Address-" + id);
         
         //TargetID
         prof.put("TargetID", 
-        AgentMessageQueueManager.getInstance().getIDManager().ageToID((Integer)prof.get("Age")));
+        AgentMessageQueueManager.getInstance().getIDManager().ageToID(Integer.valueOf((String)prof.get("Age"))));
        
         return prof;
     }
     
     private HashMap genAgentProfile(String id) {
         //Store Profile
-        HashMap prof = new HashMap<>();
+        HashMap prof = new HashMap<String, String>();
 	
         //ID
         prof.put("UserID", id);
@@ -122,8 +122,8 @@ public class ProfileGenerator {
         else prof.put("Sex", "F");
         
         //Age
-        if(mode == 0)prof.put("Age", getFlatAge());
-        else prof.put("Age", getGaussAge());
+        if(mode == 0)prof.put("Age", getFlatAge().toString());
+        else prof.put("Age", getGaussAge().toString());
         
         //Address
         prof.put("Address", "Address-" + id);
