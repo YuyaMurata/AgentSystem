@@ -1,6 +1,6 @@
 package rda.test;
 
-import rda.test.setter.TestParameter;
+import rda.test.param.TestParameter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -7,7 +7,8 @@ package rda.test.unit;
 
 import rda.agent.queue.MessageQueue;
 import rda.queue.event.MessageQueueEvent;
-import rda.test.setter.TestParameter;
+import rda.test.msg.MessageBox;
+import rda.test.param.TestParameter;
 
 /**
  *
@@ -15,13 +16,14 @@ import rda.test.setter.TestParameter;
  */
 public class MessageQueueTest extends TestParameter {
     public static void main(String[] args) {
+        MessageBox.use("MessageQueue Test");
         MessageQueue mq = new MessageQueue("TEST#0", QUEUE_LENGTH);
         
-        for(int i=0; i < QUEUE_LENGTH+1; i++)
+        for(int i=0; i < QUEUE_LENGTH + 5; i++)
             try {
-                mq.put("Test");
-            } catch (MessageQueueEvent ev) {
-                ev.printEvent();
+                mq.put("Test"+i);
+            } catch (MessageQueueEvent mqev) {
+                mqev.printEvent();
             }
     }
 }

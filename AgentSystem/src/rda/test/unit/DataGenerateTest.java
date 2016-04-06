@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import rda.manager.TestCaseManager;
 import rda.queue.obj.MessageObject;
-import rda.test.setter.TestParameter;
+import rda.test.param.TestParameter;
 
 /**
  *

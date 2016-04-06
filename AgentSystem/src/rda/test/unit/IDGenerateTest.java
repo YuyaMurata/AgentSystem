@@ -6,7 +6,7 @@
 package rda.test.unit;
 
 import rda.manager.IDManager;
-import rda.test.setter.TestParameter;
+import rda.test.param.TestParameter;
 
 /**
  *

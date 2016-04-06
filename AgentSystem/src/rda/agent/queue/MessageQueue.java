@@ -9,8 +9,8 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import rda.agent.template.AgentType;
+import rda.manager.AgentMessageQueueManager;
 import rda.queue.event.MessageQueueEvent;
-import rda.queue.manager.MessageQueueManager;
 
 /**
  *
@@ -19,11 +19,13 @@ import rda.queue.manager.MessageQueueManager;
 public class MessageQueue extends MessageQueueProcess{
     private BlockingQueue<Object> queue;
     public String name;
+    private Integer size;
     private AgentType agent;
     
     public MessageQueue(String name, Integer size){
         this.name = name;
-        this.queue = new ArrayBlockingQueue<Object>(size);
+        this.size = size;
+        this.queue = new ArrayBlockingQueue<Object>(size+1);
         
         //Message Queue Length @RECORDS
         QueueObserver observe = new QueueObserver(name, queue);
@@ -31,7 +33,7 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     private void register(QueueObserver observe){
-        MessageQueueManager.getInstance().add(observe);
+        AgentMessageQueueManager.getInstance().add(observe);
     }
     
     @Override
@@ -48,14 +50,15 @@ public class MessageQueue extends MessageQueueProcess{
         try {
             queue.offer(message, 10, TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
-            throw new MessageQueueEvent(name);
         }
+        
+        if(queue.size() > size) throw new MessageQueueEvent(name, message);
     }
     
     //MessageQueue Process Overrides
     @Override
     public Boolean getRunnable() {
-        return MessageQueueManager.getInstance().isRunnable();
+        return AgentMessageQueueManager.getInstance().getState();
     }
 
     @Override

@@ -18,23 +18,33 @@ import rda.agent.rank.creator.CreateRankAgent;
  */
 public class AgentMessageQueueManager {
     private static AgentMessageQueueManager manager = new AgentMessageQueueManager();
+    private Boolean runnable;
     private Integer queueLength;
     private IDManager id;
     
     //Singleton
     private void AgentMessageQueueManager(){}
+    
     public static AgentMessageQueueManager getInstance(){
         return manager;
     }
     
     public void initAgentMessageQueueManager(Map agentMQParam){
-        
+        this.queueLength = (Integer)agentMQParam.get("QUEUE_LENGTH");
+        this.runnable = true;
+    }
+    
+    //IDManager setter, getter
+    public void setIDManager(IDManager id){
+        this.id = id;
+    }
+    
+    public IDManager getIDManager(){
+        return id;
     }
     
     //Agentの複数生成 e.g.("R#", 10)
-    public void createNumberOfAgents(String nameRule, Integer numOfAgents){
-        this.id = new IDManager(nameRule);
-        
+    public void createNumberOfAgents(Integer numOfAgents){
         for(int i=0; i < numOfAgents; i++){
             String agID = id.genID();
             createAgent(agID);
@@ -48,8 +58,7 @@ public class AgentMessageQueueManager {
     }
     
     //MessageQueueの実行管理
-    private static Boolean runnable =true;
-    public Boolean isRunnable(){
+    public Boolean getState(){
         return runnable;
     }
     
@@ -69,9 +78,5 @@ public class AgentMessageQueueManager {
     public void register(MessageQueue mq){
         messageQueueMap.put(mq.name, mq);
         mq.start();
-    }
-    
-    public IDManager getIDManager(){
-        return id;
     }
 }

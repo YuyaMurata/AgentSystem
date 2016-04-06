@@ -2,16 +2,23 @@ package rda.test.unit;
 
 import rda.agent.rank.creator.CreateRankAgent;
 import rda.agent.user.creator.CreateUserAgent;
-import rda.queue.manager.MessageQueueManager;
-import rda.test.setter.TestParameter;
+import rda.manager.AgentMessageQueueManager;
+import rda.test.manager.UnitTestManager;
+import rda.test.param.TestParameter;
 
 public class CreateAgentTest extends TestParameter{
     public static void main(String[] args) {
+        //Prepare
+        UnitTestManager.getInstance().prepareManager();
+        
         //User Agents
         //createUserAgents(NUMBER_OF_AGENTS);
         
         //Rank Agents
-        createRankAgents(NUMBER_OF_AGENTS);
+        //createRankAgents(NUMBER_OF_AGENTS);
+        
+        //Agents From Manager
+        createAgentsFromManager(NUMBER_OF_AGENTS);
         
         createStop();
     }
@@ -28,6 +35,11 @@ public class CreateAgentTest extends TestParameter{
         
         for(int i=0; i < numberOfRankAgents; i++)
             rankAgent.create("R#00"+i, QUEUE_LENGTH);
+        
+    }
+    
+    public static void createAgentsFromManager(Integer numberOfAgents){
+        AgentMessageQueueManager.getInstance().createNumberOfAgents(numberOfAgents);    
     }
     
     private static void createStop(){
@@ -36,6 +48,6 @@ public class CreateAgentTest extends TestParameter{
         } catch (InterruptedException ex) {
         }
         
-        MessageQueueManager.getInstance().testStop();
+        AgentMessageQueueManager.getInstance().doShutdown();
     }
 }

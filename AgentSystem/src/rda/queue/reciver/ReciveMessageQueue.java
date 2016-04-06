@@ -32,13 +32,9 @@ public class ReciveMessageQueue{
         if(!isRunning()) throw new InterruptedException();
         
         if(isFull())
-            throw new MessageQueueEvent(name);
+            throw new MessageQueueEvent(name, msg);
         
         queue.put(msg);
-    }
-    
-    public void event() throws MessageQueueEvent{
-        throw new MessageQueueEvent(name);
     }
     
     public Boolean isFull(){

@@ -15,7 +15,7 @@ import rda.agent.client.AgentConnection;
 import rda.agent.queue.MessageQueue;
 import rda.agent.rank.updater.UpdateRank;
 import rda.agent.user.message.InitUserMessage;
-import rda.queue.manager.MessageQueueManager;
+import rda.manager.AgentMessageQueueManager;
 
 public class CreateRankAgent implements AgentExecutor, Serializable{
     /**
@@ -91,8 +91,8 @@ public class CreateRankAgent implements AgentExecutor, Serializable{
             //Create AgentQueue
             MessageQueue mq = new MessageQueue(agID, size);
             mq.setAgentType(new UpdateRank(agID));
-            MessageQueueManager.getInstance().register(mq);
-                
+            AgentMessageQueueManager.getInstance().register(mq);
+            
         } catch (AgentException e) {
         }
     }

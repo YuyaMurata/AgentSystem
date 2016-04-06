@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rda.test.setter;
+package rda.test.param;
 
 import rda.data.profile.ProfileGenerator;
 import rda.data.DataGenerator;
