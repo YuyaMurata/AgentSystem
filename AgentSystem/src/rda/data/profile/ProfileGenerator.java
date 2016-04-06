@@ -46,14 +46,15 @@ public class ProfileGenerator {
         
         for(int i=0; i < n; i++){
             String uid = "usid-"+dformat.format(i);
-            profMap.put(uid, generateProfile(uid));
+            HashMap prof = genUserProfile(uid);
+            profMap.put(uid, prof);
             userList.add(uid);
         }
     }
     
     public HashMap getAGIDProf(String agID){
         //R#系のAgentのProfileを生成
-        return generateProfile(agID);
+        return genAgentProfile(agID);
     }
     
     public HashMap getProf(String uid){
@@ -77,8 +78,8 @@ public class ProfileGenerator {
         Integer age = (int) rand.nextInt(1, 100);
         return age;
     }
-	
-    private HashMap generateProfile(String id) {
+    
+    private HashMap genUserProfile(String id) {
         //Store Profile
         HashMap prof = new HashMap<>();
 	
@@ -100,9 +101,33 @@ public class ProfileGenerator {
         prof.put("Address", "Address-" + id);
         
         //TargetID
-        prof.put("Destination", 
+        prof.put("TargetID", 
         AgentMessageQueueManager.getInstance().getIDManager().ageToID((Integer)prof.get("Age")));
+       
+        return prof;
+    }
+    
+    private HashMap genAgentProfile(String id) {
+        //Store Profile
+        HashMap prof = new HashMap<>();
+	
+        //ID
+        prof.put("UserID", id);
         
+        //Name
+        prof.put("Name", "Name-" + id);
+        
+        //Sex
+        if(rand.nextInt(0, 1) == 0) prof.put("Sex", "M");  
+        else prof.put("Sex", "F");
+        
+        //Age
+        if(mode == 0)prof.put("Age", getFlatAge());
+        else prof.put("Age", getGaussAge());
+        
+        //Address
+        prof.put("Address", "Address-" + id);
+       
         return prof;
     }
 }
