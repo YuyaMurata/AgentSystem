@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rda.main;
+package rda.stream;
 
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -24,23 +24,23 @@ import rda.window.WindowController;
 public class DataStream implements Runnable{
     private static final String name = "DataStream";
     private final ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
-    private static Long time, term;
-    private long delay, period;
+    private Long time, term;
+    private long delay, period, wait;
     private WindowController window;
     private Window msgPack;
     private static TestCaseManager tcmanager = TestCaseManager.getInstance();
     private Map mqMap;
 
-    public DataStream(long delay, long period, int wsize, long wait) {
-        this.delay = delay;
-        this.period = period;
+    public DataStream(Map streamMap) {
+        this.term = (Long)streamMap.get("TIME_RUN");
+        this.period = (Long)streamMap.get("TIME_PERIOD");
         
-        window = new WindowController(wsize, wait);
+        window = new WindowController((Integer)streamMap.get("WINDOW_SIZE"), (Integer)streamMap.get("TIME_WAIT"));
         mqMap = AgentMessageQueueManager.getInstance().getMQMap();
     }
     
     public void start(){
-        System.out.println(name + " : Start !");
+        System.out.println(">"+name + " : Start !");
         time = 0L;
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
@@ -73,5 +73,23 @@ public class DataStream implements Runnable{
             time++;
             stream(time);
         }
+    }
+    
+    public void stop(){
+        try {
+            Thread.sleep(term*1000);
+        } catch (InterruptedException ex) {
+        }
+        
+        try {
+            schedule.shutdown();
+            if(!schedule.awaitTermination(1, TimeUnit.SECONDS))
+                schedule.shutdownNow();
+        } catch (InterruptedException ex) {
+            schedule.shutdownNow();
+        } finally{
+            schedule.shutdownNow();
+        }
+            
     }
 }

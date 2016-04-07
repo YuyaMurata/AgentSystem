@@ -20,6 +20,7 @@ public class AgentMessageQueueManager {
     private static AgentMessageQueueManager manager = new AgentMessageQueueManager();
     private Boolean runnable;
     private Integer queueLength;
+    private Long queuewait, agentwait;
     private IDManager id;
     
     //Singleton
@@ -31,6 +32,8 @@ public class AgentMessageQueueManager {
     
     public void initAgentMessageQueueManager(Map agentMQParam){
         this.queueLength = (Integer)agentMQParam.get("QUEUE_LENGTH");
+        this.queuewait = (Long)agentMQParam.get("QUEUE_WAIT");
+        this.agentwait = (Long)agentMQParam.get("AGENT_WAIT");
         this.runnable = true;
     }
     
@@ -55,7 +58,7 @@ public class AgentMessageQueueManager {
     //Agentの単生成 e.g.("R#01")
     private void createAgent(String agID){
         CreateRankAgent rankAgent = new CreateRankAgent();
-        rankAgent.create(agID, queueLength);
+        rankAgent.create(agID, queueLength, queuewait, agentwait);
     }
     
     //MessageQueueの実行管理

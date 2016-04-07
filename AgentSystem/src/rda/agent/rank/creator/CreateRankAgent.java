@@ -70,7 +70,7 @@ public class CreateRankAgent implements AgentExecutor, Serializable{
         return null;
     }
 	
-    public void create(String agID, Integer size){
+    public void create(String agID, Integer size, Long queuewait, Long agentwait){
         try {
             AgentConnection ag = AgentConnection.getInstance();
             ProfileGenerator profileGen = ProfileGenerator.getInstance();
@@ -91,7 +91,7 @@ public class CreateRankAgent implements AgentExecutor, Serializable{
             ag.returnConnection(client);
             
             //Create AgentQueue
-            MessageQueue mq = new MessageQueue(agID, size);
+            MessageQueue mq = new MessageQueue(agID, size, queuewait, agentwait);
             mq.setAgentType(new UpdateRank(agID));
             AgentMessageQueueManager.getInstance().register(mq);
             

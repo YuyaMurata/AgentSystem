@@ -17,7 +17,7 @@ import rda.test.param.TestParameter;
 public class MessageQueueTest extends TestParameter {
     public static void main(String[] args) {
         MessageBox.use("MessageQueue Test");
-        MessageQueue mq = new MessageQueue("TEST#0", QUEUE_LENGTH);
+        MessageQueue mq = new MessageQueue("TEST#0", QUEUE_LENGTH, 10L, 10L);
         
         for(int i=0; i < QUEUE_LENGTH + 5; i++)
             try {

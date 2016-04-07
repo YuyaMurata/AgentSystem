@@ -57,7 +57,7 @@ public class StreamDataSchedule implements Runnable, SetDataType{
         MessageObject msg;
         
         while(((msg = DATA_TYPE.generate(t)) != null) && !Thread.currentThread().isInterrupted()){
-            if(windowControl.pack(msg)) {
+            if(windowControl.pack(msg) != null) {
                 //Get MessageQueue
                 ReciveMessageQueue mq = manager.getMessageQueue(msg.id);
                 

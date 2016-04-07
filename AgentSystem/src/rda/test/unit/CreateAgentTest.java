@@ -39,7 +39,7 @@ public class CreateAgentTest extends TestParameter{
         CreateRankAgent rankAgent = new CreateRankAgent();
         
         for(int i=0; i < numberOfRankAgents; i++)
-            rankAgent.create("R#00"+i, QUEUE_LENGTH);
+            rankAgent.create("R#00"+i, QUEUE_LENGTH, 10L, 10L);
         
     }
     

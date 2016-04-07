@@ -21,10 +21,13 @@ public class MessageQueue extends MessageQueueProcess{
     public String name;
     private Integer size;
     private AgentType agent;
+    private long getwait, putwait;
     
-    public MessageQueue(String name, Integer size){
+    public MessageQueue(String name, Integer size, Long queuewait, Long agentwait){
         this.name = name;
         this.size = size;
+        this.getwait = agentwait;
+        this.putwait = queuewait;
         this.queue = new ArrayBlockingQueue<Object>(size+1);
         
         //Message Queue Length @RECORDS
@@ -39,7 +42,7 @@ public class MessageQueue extends MessageQueueProcess{
     @Override
     public Object get(){
         try {
-            return queue.poll(1000, TimeUnit.MILLISECONDS);
+            return queue.poll(getwait, TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
         }
         return null;
@@ -48,7 +51,7 @@ public class MessageQueue extends MessageQueueProcess{
     @Override
     public void put(Object message) throws MessageQueueEvent{
         try {
-            queue.offer(message, 10, TimeUnit.MILLISECONDS);
+            queue.offer(message, putwait, TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
         }
         

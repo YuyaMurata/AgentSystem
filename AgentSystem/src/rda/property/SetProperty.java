@@ -7,6 +7,8 @@ public interface SetProperty {
 	 
 	public static final String AGENT_TYPE = "useragent";
         
+        public static final String NAME_RULE = "R#";
+        
 	//Server Property
 	/**
 	 * file:server.property
@@ -45,6 +47,7 @@ public interface SetProperty {
 	public static final Long TIME_RUN = Long.valueOf(prop.getValue("agent", "time.run"));
 	public static final Long TIME_PERIOD = Long.valueOf(prop.getValue("agent", "time.period")); // ms
         public static final Long TIME_DELAY = Long.valueOf(prop.getValue("agent", "time.delay")) * 1000; // sec
+        public static final Long TIME_WAIT = Long.valueOf(prop.getValue("agent", "time.wait"));
 	public static final Integer NUMBER_OF_USER_AGENTS = Integer.valueOf(prop.getValue("agent", "number.user.agent"));
 	public static final Integer NUMBER_OF_RANK_AGENTS = Integer.valueOf(prop.getValue("agent", "number.rank.agent"));
 	public static final Long AGENT_WAIT = Long.valueOf(prop.getValue("agent", "wait.agent"));
@@ -56,6 +59,7 @@ public interface SetProperty {
         public static final Integer DATA_MODE_GENERATE = Integer.valueOf(prop.getValue("agent", "data.mode.generate"));
         public static final Integer DATA_MODE_PROFILE = Integer.valueOf(prop.getValue("agent", "data.mode.profile"));
         public static final Integer NUMBER_OF_RESERVE = Integer.valueOf(prop.getValue("agent", "number.mode.reserve"));
+        public static final Integer SEED = Integer.MAX_VALUE;
         
         //Log Property
         /**
