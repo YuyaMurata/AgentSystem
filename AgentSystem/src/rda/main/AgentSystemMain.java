@@ -15,7 +15,7 @@ public class AgentSystemMain {
     private static SystemManager manager = SystemManager.getInstance();
     
     public static void main(String[] args) {
-        
+        prepare();
         execute();
     }
     
