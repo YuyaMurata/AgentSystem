@@ -24,8 +24,10 @@ public class UpdateUserHandler extends MessageHandler{
         // トランザクションIDを取得
         TxID tx = getTx();
         long updateData = 0;
-        for(Object data : updateMsg.data)
+        for(Object data : updateMsg.data){
             updateData =  updateData + ((MessageObject)data).data;
+            System.out.println(">>data::"+((MessageObject)data).data);
+        }
         user.setData(tx, user.getData(tx)+updateData);
 
         long updateCount = user.getConnectionCount(tx) + 1;
