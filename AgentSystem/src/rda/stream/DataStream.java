@@ -35,7 +35,7 @@ public class DataStream implements Runnable{
         this.term = (Long)streamMap.get("TIME_RUN");
         this.period = (Long)streamMap.get("TIME_PERIOD");
         
-        window = new WindowController((Integer)streamMap.get("WINDOW_SIZE"), (Integer)streamMap.get("TIME_WAIT"));
+        window = new WindowController((Integer)streamMap.get("WINDOW_SIZE"), (Long)streamMap.get("TIME_WAIT"));
         mqMap = AgentMessageQueueManager.getInstance().getMQMap();
     }
     
