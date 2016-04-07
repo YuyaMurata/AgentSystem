@@ -68,7 +68,7 @@ public class SystemManager implements SetProperty{
         Map map = new HashMap();
         map.put("AMOUNT_USER", NUMBER_OF_USER_AGENTS);
         map.put("MODE", DATA_MODE_PROFILE);
-        map.put("SEED", SEED);
+        map.put("SEED", PROF_SEED);
         return map;
     }
     
@@ -80,7 +80,7 @@ public class SystemManager implements SetProperty{
         map.put("AMOUNT_USER", NUMBER_OF_USER_AGENTS); 
         map.put("AGENT_DEFAULT_VALUE", AGENT_DEFAULT_VALUE);
         map.put("MODE", DATA_MODE_GENERATE);
-        map.put("SEED", SEED);
+        map.put("SEED", DATA_SEED);
         return map;
     }
     
