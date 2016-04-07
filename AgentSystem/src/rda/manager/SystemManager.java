@@ -79,6 +79,7 @@ public class SystemManager implements SetProperty{
         map.put("DATA_VOLUME", DATA_VOLUME); 
         map.put("AMOUNT_USER", NUMBER_OF_USER_AGENTS); 
         map.put("AGENT_DEFAULT_VALUE", AGENT_DEFAULT_VALUE);
+        map.put("SELECT_TYPE", DATA_SELECT_TYPE);
         map.put("MODE", DATA_MODE_GENERATE);
         map.put("SEED", DATA_SEED);
         return map;
