@@ -1,5 +1,7 @@
 package rda.queue.event;
 
+import rda.queue.obj.MessageObject;
+
 
 public class MessageQueueEvent extends Exception{
     /**
@@ -8,14 +10,14 @@ public class MessageQueueEvent extends Exception{
     //private MessageQueueManager manager = MessageQueueManager.getInstance();
     
     private final String name;
-    private final Object message;
+    private final MessageObject message;
     public MessageQueueEvent(String name, Object message) {
         super(name);
         this.name = name;
-        this.message = message;
+        this.message = (MessageObject)message;
     }
 
     public void printEvent(){
-        System.out.println(">MQEvents:"+name+"-msg="+message);
+        System.out.println(">MQEvents:"+name+"-msg="+message.toString());
     }
 }
