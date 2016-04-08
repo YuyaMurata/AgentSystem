@@ -10,7 +10,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import rda.agent.queue.MessageQueue;
-import rda.agent.queue.QueueObserver;
 import rda.manager.AgentMessageQueueManager;
 import rda.manager.TestCaseManager;
 import rda.queue.event.MessageQueueEvent;
@@ -83,16 +82,12 @@ public class DataStream implements Runnable{
         }
         
         System.out.println("> " + name +" : Stop !");
-        for(QueueObserver observe : AgentMessageQueueManager.getInstance().getObserver())
-            System.out.println("Observer : "+observe.getName() + "="+observe.notifyState());
         
         try {
             schedule.shutdown();
             if(!schedule.awaitTermination(1, TimeUnit.SECONDS))
                 schedule.shutdownNow();
         } catch (InterruptedException ex) {
-            schedule.shutdownNow();
-        } finally{
             schedule.shutdownNow();
         }
             
