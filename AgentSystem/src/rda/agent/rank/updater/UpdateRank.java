@@ -71,6 +71,8 @@ public class UpdateRank extends AgentType implements AgentExecutor, Serializable
 	public void sendMessage(Object data){
             if(data == null) return;
             
+            System.out.println(">Update--AgentKey:"+agentKey);
+            
             try {
                 AgentClient client = agcon.getConnection();
                     

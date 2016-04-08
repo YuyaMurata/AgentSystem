@@ -41,7 +41,7 @@ public class DataStream implements Runnable{
     }
     
     public void start(){
-        System.out.println(">"+name + " : Start !");
+        System.out.println("> "+name + " : Start !");
         time = 0L;
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
