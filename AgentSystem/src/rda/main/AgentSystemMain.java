@@ -33,6 +33,6 @@ public class AgentSystemMain {
     }
     
     private static void shutdown(){
-        
+        manager.shutdownSystem();
     }
 }
