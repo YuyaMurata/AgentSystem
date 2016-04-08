@@ -1,6 +1,8 @@
 package rda.queue.obj;
 
-public class MessageObject {
+import java.io.Serializable;
+
+public class MessageObject implements  Serializable{
 
     public String id, destID;
     public int data;
