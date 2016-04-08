@@ -15,6 +15,7 @@ public class MessageQueueEvent extends Exception{
         super(name);
         this.name = name;
         this.message = (MessageObject)message;
+        printEvent();
     }
 
     public void printEvent(){
