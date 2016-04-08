@@ -45,6 +45,7 @@ public class MessageQueue extends MessageQueueProcess{
             return queue.poll(getwait, TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
         }
+        
         return null;
     }
     

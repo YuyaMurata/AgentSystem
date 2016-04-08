@@ -99,6 +99,8 @@ public class DataStream implements Runnable{
         } catch (InterruptedException ex) {
             schedule.shutdownNow();
         }
+        
+        logging();
             
     }
 }
