@@ -24,9 +24,10 @@ public abstract class TestParameter {
     public static final int VALUE = 1;
     public static final int NUMBER_OF_QUEUE = 1;
     public static final int QUEUE_LENGTH = 1000;
+    public static final int SELECT_DATA_TYPE = 0;
     public static final int WINDOW_SIZE = 100;
     public static final int DATA_MODE = 1;
-    public static final int PROFILE_MODE = 0;
+    public static final int PROFILE_MODE = 1;
     public static final Long SEED = Long.MAX_VALUE;
     
     public static final String AGENT_TYPE = "useragent";
@@ -47,7 +48,7 @@ public abstract class TestParameter {
         put("AGENT_DEFAULT_VALUE", VALUE);
         put("MODE", DATA_MODE);
         put("SEED", SEED);
-        put("SELECT_TYPE", 0);
+        put("SELECT_TYPE", SELECT_DATA_TYPE);
     }};
     
     public static final Map agentMQParam = 
