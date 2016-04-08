@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import rda.agent.queue.MessageQueue;
+import rda.agent.queue.QueueObserver;
 import rda.agent.rank.creator.CreateRankAgent;
 
 /**
@@ -72,9 +73,13 @@ public class AgentMessageQueueManager {
     }
     
     //Logger用にMQの監視オブジェクトを登録
-    private static List<Object> observeList = new ArrayList<>();
+    private static List<QueueObserver> observeList = new ArrayList<>();
     public void add(Object observe){
-       observeList.add(observe);
+       observeList.add((QueueObserver) observe);
+    }
+    
+    public List<QueueObserver> getObserver(){
+        return observeList;
     }
     
     //ManagerにMessageQueueを登録
