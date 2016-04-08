@@ -73,14 +73,18 @@ public class UpdateRank extends AgentType implements AgentExecutor, Serializable
             
             try {
                 AgentClient client = agcon.getConnection();
-                    
+                
                 UpdateRank executor = new UpdateRank(agentKey, (ArrayList)data);
+                
+                System.out.println(">>data : "+(ArrayList)data);
+                
                 Object reply = client.execute(agentKey, executor);
-                if(reply == null) System.err.println("Cannot Find Agent : "+agentKey);
-                else System.out.println("A message from the agent[" + agentKey + "]: " + reply);
-                    
+                //if(reply == null) System.err.println("Cannot Find Agent : "+agentKey);
+                //else System.out.println("A message from the agent[" + agentKey + "]: " + reply);
+                
                 agcon.returnConnection(client);
             } catch (AgentException e) {
+                e.printStackTrace();
             } 
         }
 
