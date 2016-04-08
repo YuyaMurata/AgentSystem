@@ -76,8 +76,6 @@ public class UpdateRank extends AgentType implements AgentExecutor, Serializable
                 
                 UpdateRank executor = new UpdateRank(agentKey, (ArrayList)data);
                 
-                System.out.println(">>data : "+(ArrayList)data);
-                
                 Object reply = client.execute(agentKey, executor);
                 //if(reply == null) System.err.println("Cannot Find Agent : "+agentKey);
                 //else System.out.println("A message from the agent[" + agentKey + "]: " + reply);
