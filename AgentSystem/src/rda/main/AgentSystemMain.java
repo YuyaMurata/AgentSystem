@@ -8,7 +8,7 @@ package rda.main;
 import rda.manager.SystemManager;
 
 /**
- *
+ * 
  * @author 悠也
  */
 public class AgentSystemMain {
@@ -17,6 +17,7 @@ public class AgentSystemMain {
     public static void main(String[] args) {
         prepare();
         execute();
+        shutdown();
     }
     
     private static void prepare(){
@@ -29,5 +30,9 @@ public class AgentSystemMain {
     private static void execute(){
         manager.dataStream().start();
         manager.dataStream().stop();
+    }
+    
+    private static void shutdown(){
+        
     }
 }

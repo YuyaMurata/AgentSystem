@@ -24,9 +24,17 @@ public class SystemManager implements SetProperty{
     
     public void launchSystem(){
         System.out.println(">>Launch System");
+        
         agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap());
         dataSettings(NUMBER_OF_USER_AGENTS, preDataMap(), preProfMap());
         streamSettings(preStreamMap());
+    }
+    
+    public void shutdownSystem(){
+        AgentMessageQueueManager agManager = AgentMessageQueueManager.getInstance();
+        agManager.doShutdown();
+        
+        System.out.println(">>Shutdown System...");
     }
     
     private void agentSettings(String rule, Integer numberOfAgents, Map agentParam){
