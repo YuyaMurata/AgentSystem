@@ -56,10 +56,7 @@ public class MessageQueue extends MessageQueueProcess{
             throw new MessageQueueEvent(name, message);
         }
         
-        try {
-            queue.offer(message, putwait, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException ex) {
-        }
+        queue.offer(message);
     }
     
     //MessageQueue Process Overrides
