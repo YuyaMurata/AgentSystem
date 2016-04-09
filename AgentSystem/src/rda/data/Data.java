@@ -5,7 +5,6 @@
  */
 package rda.data;
 
-import java.util.ArrayList;
 import org.apache.commons.math3.random.RandomDataGenerator;
 import rda.data.profile.ProfileGenerator;
 import rda.queue.obj.MessageObject;
