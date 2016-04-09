@@ -1,6 +1,5 @@
 package rda.queue.event;
 
-import rda.log.AgentSystemLogger;
 import rda.queue.obj.MessageObject;
 
 
@@ -10,7 +9,7 @@ public class MessageQueueEvent extends Exception{
     */
     private final String name;
     private final MessageObject message;
-    private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
+    //private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
     public MessageQueueEvent(String name, Object message) {
         super(name);
         this.name = name;
@@ -18,7 +17,7 @@ public class MessageQueueEvent extends Exception{
     }
 
     public void printEvent(){
-        logger.print(logger.dataMarker, name, new Object[]{">MQEvents:",name,"-msg=",message.toString()});
+        //logger.print(logger.dataMarker, name, new Object[]{">MQEvents:",name,"-msg=",message.toString()});
         System.out.println(">MQEvents:"+name+"-msg="+message.toString());
     }
 }
