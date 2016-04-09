@@ -61,8 +61,6 @@ public class DataStream implements Runnable{
                 //Get Destination ID
                 String agID = msgPack.destID;
                 
-                System.out.println("    >check MSG_OBJ::"+msg.toString());
-                
                 //MessageSender
                 try {
                     //Get MessageQueue
@@ -73,6 +71,8 @@ public class DataStream implements Runnable{
                 } catch (MessageQueueEvent mqev) {
                     mqev.printEvent();
                 }
+                
+                System.out.println("    >check MSG_OBJ::"+msg.toString());
             }
         }
     }
