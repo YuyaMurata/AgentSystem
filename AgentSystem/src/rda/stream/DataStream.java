@@ -60,6 +60,7 @@ public class DataStream implements Runnable{
             if((msgPack = window.pack(msg)) != null) {
                 //Get Destination ID
                 String agID = msgPack.destID;
+                String check = "";
                 
                 //MessageSender
                 try {
@@ -69,10 +70,11 @@ public class DataStream implements Runnable{
 
                     window.remove(agID);
                 } catch (MessageQueueEvent mqev) {
-                    //mqev.printEvent();
+                    mqev.printEvent();
+                    check = "CATCH!";
+                } finally {
+                    System.out.println(check);
                 }
-                
-                System.out.println("    >check MSG_OBJ::"+msg.toString());
             }
         }
     }
