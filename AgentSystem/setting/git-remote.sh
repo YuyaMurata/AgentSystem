@@ -16,7 +16,7 @@ if [ "$FLG_F" = "TRUE" ]; then
     rm -fR $CETA_HOME/classes/test
 fi
 
-ant -f ../build.xml
+ant -f ../build.xml > agentsystem_ant-buid.log
 \cp -fr ../build/classes/* $CETA_HOME/classes
 
 chmod 777 *.sh
