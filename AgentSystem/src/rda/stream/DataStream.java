@@ -56,21 +56,21 @@ public class DataStream implements Runnable{
         Map mqMap = AgentMessageQueueManager.getInstance().getMQMap();
         
         while((msg = tcmanager.datagen.generate(t)) != null){
-            if((msgPack = window.pack(msg)) != null) {
+            //if((msgPack = window.pack(msg)) != null) {
                 //Get Destination ID
-                String agID = msgPack.destID;
+                String agID = msg.destID;//msgPack.destID;
                 
                 //Get MessageQueue
                 MessageQueue mq = (MessageQueue)mqMap.get(agID);
                 
                 //MessageSender
                 try {
-                    mq.put(msgPack);
+                    mq.put(msg);
                     window.remove(agID);
                 } catch (MessageQueueEvent mqev) {
                     mqev.printEvent();
                 }
-            }
+            //}
         }
     }
     
