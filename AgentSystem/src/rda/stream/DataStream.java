@@ -69,7 +69,7 @@ public class DataStream implements Runnable{
 
                     window.remove(agID);
                 } catch (MessageQueueEvent mqev) {
-                    mqev.printEvent();
+                    //mqev.printEvent();
                 }
                 
                 System.out.println("    >check MSG_OBJ::"+msg.toString());
