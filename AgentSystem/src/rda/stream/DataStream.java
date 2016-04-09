@@ -31,14 +31,12 @@ public class DataStream implements Runnable{
     private WindowController window;
     private Window msgPack;
     private static TestCaseManager tcmanager = TestCaseManager.getInstance();
-    private Map mqMap;
 
     public DataStream(Map streamMap) {
         this.term = (Long)streamMap.get("TIME_RUN");
         this.period = (Long)streamMap.get("TIME_PERIOD");
         
         window = new WindowController((Integer)streamMap.get("WINDOW_SIZE"), (Long)streamMap.get("TIME_WAIT"));
-        mqMap = AgentMessageQueueManager.getInstance().getMQMap();
     }
     
     public void start(){
@@ -55,8 +53,9 @@ public class DataStream implements Runnable{
     
     private void stream(Long t){
         MessageObject msg;
+        Map mqMap = AgentMessageQueueManager.getInstance().getMQMap();
         
-        while(((msg = tcmanager.datagen.generate(t)) != null) && !Thread.currentThread().isInterrupted()){
+        while((msg = tcmanager.datagen.generate(t)) != null){
             if((msgPack = window.pack(msg)) != null) {
                 //Get Destination ID
                 String agID = msgPack.destID;
