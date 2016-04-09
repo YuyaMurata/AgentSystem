@@ -56,7 +56,10 @@ public class MessageQueue extends MessageQueueProcess{
         } catch (InterruptedException ex) {
         }
         
-        if(queue.size() > size) throw new MessageQueueEvent(name, message);
+        if(queue.size() > size){
+            System.out.println("    >> MessageQueueEvent!");
+            throw new MessageQueueEvent(name, message);
+        }
     }
     
     //MessageQueue Process Overrides
