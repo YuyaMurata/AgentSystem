@@ -51,12 +51,11 @@ public class MessageQueue extends MessageQueueProcess{
     
     @Override
     public void put(Object message) throws MessageQueueEvent{
-        if(queue.size() > size){
+        if(!queue.offer(message)){
             System.out.println("    >> MessageQueueEvent!--"+name);
             throw new MessageQueueEvent(name, message);
         }
         
-        queue.offer(message);
     }
     
     //MessageQueue Process Overrides
