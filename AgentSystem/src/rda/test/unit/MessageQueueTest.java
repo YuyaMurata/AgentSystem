@@ -22,6 +22,10 @@ public class MessageQueueTest extends TestParameter {
         MessageBox.use("MessageQueue Test");
         MessageQueue mq0 = new MessageQueue("TEST#0", QUEUE_LENGTH, 10L, 10L);
         MessageQueue mq1 = new MessageQueue("TEST#1", QUEUE_LENGTH, 10L, 10L);
+        
+        mq0.start();
+        mq1.start();
+        
         for(int i=0; i < 2*(QUEUE_LENGTH + 5); i++){
             try {
                 if(i%2 == 0)
@@ -33,5 +37,8 @@ public class MessageQueueTest extends TestParameter {
             }
             
         }
+        
+        mq0.stop();
+        mq1.stop();
     }
 }

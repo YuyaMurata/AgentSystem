@@ -60,20 +60,16 @@ public class DataStream implements Runnable{
             if((msgPack = window.pack(msg)) != null) {
                 //Get Destination ID
                 String agID = msgPack.destID;
-                String check = "";
+                
+                //Get MessageQueue
+                MessageQueue mq = (MessageQueue)mqMap.get(agID);
                 
                 //MessageSender
                 try {
-                    //Get MessageQueue
-                    MessageQueue mq = (MessageQueue)mqMap.get(agID);
                     mq.put(msgPack);
-
                     window.remove(agID);
                 } catch (MessageQueueEvent mqev) {
                     mqev.printEvent();
-                    check = "CATCH!";
-                } finally {
-                    System.out.println(check);
                 }
             }
         }

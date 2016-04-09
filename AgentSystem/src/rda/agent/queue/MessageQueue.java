@@ -51,10 +51,8 @@ public class MessageQueue extends MessageQueueProcess{
     
     @Override
     public void put(Object message) throws MessageQueueEvent{
-        if(!queue.offer(message)){
-            System.out.println("    >> MessageQueueEvent!--"+name);
+        if(!queue.offer(message))
             throw new MessageQueueEvent(name, message);
-        }
         
     }
     

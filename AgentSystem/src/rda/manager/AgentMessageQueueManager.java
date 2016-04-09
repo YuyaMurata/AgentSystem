@@ -86,7 +86,7 @@ public class AgentMessageQueueManager {
     private static Map messageQueueMap = new HashMap();
     public void register(MessageQueue mq){
         messageQueueMap.put(mq.name, mq);
-        mq.start();
+        //mq.start();
     }
     
     public Map getMQMap(){
