@@ -51,14 +51,14 @@ public class MessageQueue extends MessageQueueProcess{
     
     @Override
     public void put(Object message) throws MessageQueueEvent{
+        if(queue.size() > size){
+            System.out.println("    >> MessageQueueEvent!--"+name);
+            throw new MessageQueueEvent(name, message);
+        }
+        
         try {
             queue.offer(message, putwait, TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
-        }
-        
-        if(queue.size() > size){
-            System.out.println("    >> MessageQueueEvent!");
-            throw new MessageQueueEvent(name, message);
         }
     }
     
