@@ -48,7 +48,7 @@ public interface SetProperty {
 	public static final Long TIME_PERIOD = Long.valueOf(prop.getValue("agent", "time.period")); // ms
         public static final Long TIME_DELAY = Long.valueOf(prop.getValue("agent", "time.delay")) * 1000; // sec
         public static final Long TIME_WAIT = Long.valueOf(prop.getValue("agent", "time.wait"));
-	public static final Integer NUMBER_OF_USER_AGENTS = Integer.valueOf(prop.getValue("agent", "number.user.agent"));
+	public static final Integer NUMBER_OF_USERS = Integer.valueOf(prop.getValue("agent", "number.user"));
 	public static final Integer NUMBER_OF_RANK_AGENTS = Integer.valueOf(prop.getValue("agent", "number.rank.agent"));
 	public static final Long AGENT_WAIT = Long.valueOf(prop.getValue("agent", "wait.agent"));
         public static final Integer DATA_VOLUME = Integer.valueOf(prop.getValue("agent", "data.volume"));

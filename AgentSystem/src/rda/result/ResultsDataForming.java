@@ -84,7 +84,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
         fileName = fileName +"_p["
                 + TIME_RUN + "s," 
                 + TIME_PERIOD + "ms,"
-                + "u"  + NUMBER_OF_USER_AGENTS + ","
+                + "u"  + NUMBER_OF_USERS + ","
                 + "ag" + NUMBER_OF_RANK_AGENTS + ","
                 + "s"  + NUMBER_OF_SERVER + ","
                 + "st" + SERVER_THREAD + ","

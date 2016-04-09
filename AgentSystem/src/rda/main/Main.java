@@ -111,7 +111,7 @@ public class Main implements SetProperty, SetDataType{
                 new Object[]{NUMBER_OF_SERVER, HOST_ADDRESS.toString()});
         logger.printResults(logger.titleMarker, 
                 "UserN_{} AgentN_{} Wait[ms]: Agent_{}", 
-                new Object[]{NUMBER_OF_USER_AGENTS, NUMBER_OF_RANK_AGENTS, AGENT_WAIT});      
+                new Object[]{NUMBER_OF_USERS, NUMBER_OF_RANK_AGENTS, AGENT_WAIT});      
         logger.printResults(logger.titleMarker, 
                 "MsgQueueN_{} MaxMQLength_{} WindowSize_{} Wait[ms]: Queue_{} ", 
                 new Object[]{NUMBER_OF_QUEUE, QUEUE_LENGTH, WINDOW_SIZE, QUEUE_WAIT});

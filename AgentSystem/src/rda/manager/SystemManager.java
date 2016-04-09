@@ -26,7 +26,7 @@ public class SystemManager implements SetProperty{
         System.out.println(">>Launch System");
         
         agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap());
-        dataSettings(NUMBER_OF_USER_AGENTS, preDataMap(), preProfMap());
+        dataSettings(NUMBER_OF_USERS, preDataMap(), preProfMap());
         streamSettings(preStreamMap());
     }
     
@@ -74,7 +74,7 @@ public class SystemManager implements SetProperty{
     
     private Map preProfMap(){
         Map map = new HashMap();
-        map.put("AMOUNT_USER", NUMBER_OF_USER_AGENTS);
+        map.put("AMOUNT_USER", NUMBER_OF_USERS);
         map.put("MODE", DATA_MODE_PROFILE);
         map.put("SEED", PROF_SEED);
         return map;
@@ -85,7 +85,7 @@ public class SystemManager implements SetProperty{
         map.put("TIME_RUN", TIME_RUN);
         map.put("TIME_PERIOD", TIME_PERIOD); 
         map.put("DATA_VOLUME", DATA_VOLUME); 
-        map.put("AMOUNT_USER", NUMBER_OF_USER_AGENTS); 
+        map.put("AMOUNT_USER", NUMBER_OF_USERS); 
         map.put("AGENT_DEFAULT_VALUE", AGENT_DEFAULT_VALUE);
         map.put("SELECT_TYPE", DATA_SELECT_TYPE);
         map.put("MODE", DATA_MODE_GENERATE);

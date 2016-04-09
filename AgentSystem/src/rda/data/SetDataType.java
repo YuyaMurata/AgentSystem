@@ -17,7 +17,7 @@ public interface SetDataType extends SetProperty{
                 TIME_RUN, 
                 TIME_PERIOD, 
                 DATA_VOLUME, 
-                NUMBER_OF_USER_AGENTS, 
+                NUMBER_OF_USERS, 
                 AGENT_DEFAULT_VALUE,
                 DATA_MODE_GENERATE,
                 Integer.MAX_VALUE // Random Seed
