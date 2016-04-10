@@ -58,7 +58,7 @@ public class DataStream implements Runnable{
         MessageObject msg;
         Window msgPack;
         
-        while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
+        while(((msg = tcmanager.datagen.generate(t)) != null)){
             if((msgPack = window.pack(msg)) != null) {
                 //Get Destination ID
                 String agID = msgPack.getDestID();
