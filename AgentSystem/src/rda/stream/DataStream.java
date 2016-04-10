@@ -67,7 +67,7 @@ public class DataStream implements Runnable{
                 //MessageSender
                 try {
                     mq.put(msgPack);
-                    //window.remove(agID);
+                    window.remove(agID);
                 } catch (MessageQueueEvent mqev) {
                     mqev.printEvent();
                 }
