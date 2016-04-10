@@ -58,7 +58,7 @@ public class DBAccess implements AgentExecutor, Serializable {
             props.put("region", regionName);
 			
             // JDBC接続を得る
-            con = DriverManager.getConnection("jdbc:ceta:sample", props);
+            con = DriverManager.getConnection("jdbc:ceta:rda", props);
 
             // 顧客属性レコード数を得るSQLを生成し，検索を行う．
             stmt = con.prepareStatement("select count(*) from useragent");
@@ -99,6 +99,7 @@ public class DBAccess implements AgentExecutor, Serializable {
             
             Object ret = client.execute(executor);
             Collection<Object> col = (Collection<Object>)ret;
+            
             for(Object o : col) {
                 int n = (Integer)o;
                 System.out.println("num of agents = " + n);
@@ -110,4 +111,3 @@ public class DBAccess implements AgentExecutor, Serializable {
         }
     }
 }
-
