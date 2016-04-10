@@ -100,6 +100,8 @@ public class DBAccess implements AgentExecutor, Serializable {
             Object ret = client.execute(executor);
             Collection<Object> col = (Collection<Object>)ret;
             
+            System.out.println("COLLECTION::"+col);
+            
             for(Object o : col) {
                 int n = (Integer)o;
                 System.out.println("num of agents = " + n);
