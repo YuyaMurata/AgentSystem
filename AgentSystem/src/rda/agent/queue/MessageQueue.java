@@ -8,6 +8,8 @@ package rda.agent.queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rda.agent.template.AgentType;
 import rda.manager.AgentMessageQueueManager;
 import rda.queue.event.MessageQueueEvent;
@@ -19,13 +21,11 @@ import rda.queue.event.MessageQueueEvent;
 public class MessageQueue extends MessageQueueProcess{
     private BlockingQueue<Object> queue;
     public String name;
-    private Integer size;
     private AgentType agent;
     private long getwait, putwait;
     
     public MessageQueue(String name, Integer size, Long queuewait, Long agentwait){
         this.name = name;
-        this.size = size;
         this.getwait = agentwait;
         this.putwait = queuewait;
         this.queue = new ArrayBlockingQueue<>(size+1);
@@ -51,8 +51,11 @@ public class MessageQueue extends MessageQueueProcess{
     
     @Override
     public void put(Object msgpack) throws MessageQueueEvent{
-        if(!queue.offer(msgpack))
+        try {
+            queue.offer(msgpack, putwait, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException ex) {
             throw new MessageQueueEvent(name, msgpack);
+        }
         
     }
     
