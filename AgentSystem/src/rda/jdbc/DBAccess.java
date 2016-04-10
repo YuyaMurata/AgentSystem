@@ -67,9 +67,12 @@ public class DBAccess implements AgentExecutor, Serializable {
             ResultSet rs = stmt.executeQuery();
 
             // 顧客属性レコード数を得て，その数を処理結果とする
-            rs.next();
-            System.out.println("Results::"+rs.toString());
-            return null;
+            Map results = new HashMap();
+            while(rs.next()){
+                results.put(rs.getString(1), rs.getLong(2));
+            }
+            
+            return results;
         } catch(Exception e) {
             e.printStackTrace();
             return e;
@@ -103,8 +106,8 @@ public class DBAccess implements AgentExecutor, Serializable {
             Collection<Object> col = (Collection<Object>)ret;
             
             for(Object o : col) {
-                int n = (Integer)o;
-                System.out.println("num of agents = " + n);
+                Map n = (Map)o;
+                System.out.println(n);
             }
             
             con.returnConnection(client);
