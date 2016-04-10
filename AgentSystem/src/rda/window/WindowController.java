@@ -14,8 +14,12 @@ public class WindowController{
     }
         
     public Window pack(MessageObject msg){
+        System.out.println("WINDOW_CTL : 1"+ windowMap + "[" +msg.toString()+"]");
+        
         if(windowMap.get(msg.destID) == null)
             windowMap.put(msg.destID, new Window(msg.destID, size));
+        
+        System.out.println("WINDOW_CTL : 2"+ windowMap + "[" +msg.toString()+"]");
         
         return windowMap.get(msg.destID).pack(msg);
     }
@@ -25,6 +29,7 @@ public class WindowController{
     }
     
     public void remove(String id){
+        System.out.println("WINDOW_CTL : 5"+ windowMap + "[" +id+"]");
         windowMap.remove(id);
     }
         
