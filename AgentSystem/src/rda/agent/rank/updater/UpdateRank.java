@@ -7,7 +7,6 @@ import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
-import java.util.ArrayList;
 import java.util.List;
 import rda.agent.client.AgentConnection;
 import rda.agent.template.AgentType;
