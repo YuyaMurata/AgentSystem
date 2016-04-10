@@ -22,10 +22,12 @@ public class MessageQueue extends MessageQueueProcess{
     private BlockingQueue<Object> queue;
     public String name;
     private AgentType agent;
+    private Integer size;
     private long getwait, putwait;
     
     public MessageQueue(String name, Integer size, Long queuewait, Long agentwait){
         this.name = name;
+        this.size = size;
         this.getwait = agentwait;
         this.putwait = queuewait;
         this.queue = new ArrayBlockingQueue<>(size+1);
@@ -54,8 +56,9 @@ public class MessageQueue extends MessageQueueProcess{
         try {
             queue.offer(msgpack, putwait, TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
-            throw new MessageQueueEvent(name, msgpack);
         }
+        
+        if(queue.size() > size) throw new MessageQueueEvent(name, msgpack);
         
     }
     
