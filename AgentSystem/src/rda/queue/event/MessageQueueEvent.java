@@ -18,6 +18,6 @@ public class MessageQueueEvent extends Exception{
 
     public void printEvent(){
         //logger.print(logger.dataMarker, name, new Object[]{">MQEvents:",name,"-msg=",message.toString()});
-        System.out.println(">MQEvents:"+name+"-msg="+msgpack.toString());
+        //System.out.println(">MQEvents:"+name+"-msg="+msgpack.toString());
     }
 }
