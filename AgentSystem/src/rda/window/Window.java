@@ -13,13 +13,17 @@ import rda.queue.obj.MessageObject;
  * @author kaeru
  */
 public class Window{
-    public String destID;
+    private String id;
     private Integer size;
     private ArrayList win = new ArrayList();
 
     public Window(String id, Integer limit) {
-        this.destID = id;
+        this.id = id;
         this.size = limit;
+    }
+    
+    public String getDestID(){
+        return id;
     }
   
     public Window pack(MessageObject msg){

@@ -44,7 +44,7 @@ public class StreamDataSchedule implements Runnable, SetDataType{
         this.delay = delay;
         this.period = period;
         
-        windowControl = new WindowController(wsize, wait);
+        windowControl = new WindowController(wsize);
     }
     
     public void start(){
