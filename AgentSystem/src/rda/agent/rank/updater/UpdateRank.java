@@ -1,6 +1,5 @@
 package rda.agent.rank.updater;
 
-import java.io.Serializable;
 import java.util.Collection;
 
 import com.ibm.agent.exa.AgentException;
@@ -8,13 +7,12 @@ import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
-import com.ibm.agent.exa.client.AgentExecutor;
 import java.util.ArrayList;
 import rda.agent.client.AgentConnection;
 import rda.agent.template.AgentType;
 import rda.agent.user.message.UpdateUserMessage;
 
-public class UpdateRank extends AgentType implements AgentExecutor, Serializable{
+public class UpdateRank extends AgentType {
 	/**
 	 *
 	 */

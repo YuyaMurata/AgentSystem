@@ -5,11 +5,14 @@
  */
 package rda.agent.template;
 
+import com.ibm.agent.exa.client.AgentExecutor;
+import java.io.Serializable;
+
 /**
  *
  * @author kaeru
  */
-public abstract class AgentType {
+public abstract class AgentType implements AgentExecutor, Serializable{
     public abstract void sendMessage(Object data); 
     public abstract String getID();
 }
