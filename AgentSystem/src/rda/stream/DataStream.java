@@ -41,8 +41,8 @@ public class DataStream implements Runnable{
     
     public void start(){
         System.out.println("> "+name + " : Start !");
-        time = 0L;
         runnable = true;
+        time = 0L;
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
@@ -58,7 +58,7 @@ public class DataStream implements Runnable{
         MessageObject msg;
         Window msgPack;
         
-        while(((msg = tcmanager.datagen.generate(t)) != null)){
+        while(((msg = tcmanager.datagen.generate(t)) != null) && (runnable == true)){
             if((msgPack = window.pack(msg)) != null) {
                 //Get Destination ID
                 String agID = msgPack.getDestID();
