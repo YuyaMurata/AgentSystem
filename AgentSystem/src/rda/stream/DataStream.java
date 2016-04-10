@@ -28,6 +28,7 @@ public class DataStream implements Runnable{
     private final ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
     private Long time, term;
     private long delay, period, wait;
+    private Boolean runnable;
     private WindowController window;
     private static TestCaseManager tcmanager = TestCaseManager.getInstance();
 
@@ -41,6 +42,7 @@ public class DataStream implements Runnable{
     public void start(){
         System.out.println("> "+name + " : Start !");
         time = 0L;
+        runnable = true;
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
@@ -56,7 +58,7 @@ public class DataStream implements Runnable{
         MessageObject msg;
         Window msgPack;
         
-        while((msg = tcmanager.datagen.generate(t)) != null){
+        while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
             if((msgPack = window.pack(msg)) != null) {
                 //Get Destination ID
                 String agID = msgPack.getDestID();
@@ -87,6 +89,8 @@ public class DataStream implements Runnable{
     }
     
     public void stop(){
+        runnable = false;
+        
         try {
             Thread.sleep(term*1000);
         } catch (InterruptedException ex) {
@@ -96,7 +100,7 @@ public class DataStream implements Runnable{
         
         try {
             schedule.shutdown();
-            if(!schedule.awaitTermination(1, TimeUnit.SECONDS))
+            if(!schedule.awaitTermination(0, TimeUnit.SECONDS))
                 schedule.shutdownNow();
         } catch (InterruptedException ex) {
             schedule.shutdownNow();
