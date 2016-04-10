@@ -58,6 +58,8 @@ public class DataStream implements Runnable{
         MessageObject msg;
         Window msgPack;
         
+        System.out.println("Runnable-"+runnable);
+        
         while(((msg = tcmanager.datagen.generate(t)) != null) && (runnable == true)){
             if((msgPack = window.pack(msg)) != null) {
                 //Get Destination ID
