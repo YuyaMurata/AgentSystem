@@ -50,8 +50,7 @@ public class UpdateRank extends AgentType {
                 AgentManager agentManager = AgentManager.getAgentManager();
                     
                 MessageFactory factory = MessageFactory.getFactory();
-                UpdateUserMessage msg;
-                msg = (UpdateUserMessage)factory.getMessage(MESSAGE_TYPE);
+                UpdateUserMessage msg = (UpdateUserMessage)factory.getMessage(MESSAGE_TYPE);
                 msg.setParams(data);
 
                 //Sync Message

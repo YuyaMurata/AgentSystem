@@ -5,7 +5,8 @@
  */
 package rda.window;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import rda.queue.obj.MessageObject;
 
 /**
@@ -15,7 +16,7 @@ import rda.queue.obj.MessageObject;
 public class Window{
     private String id;
     private Integer size;
-    private ArrayList win = new ArrayList();
+    private List win = new CopyOnWriteArrayList();
 
     public Window(String id, Integer limit) {
         this.id = id;
@@ -34,7 +35,7 @@ public class Window{
         return null;
     }
     
-    public ArrayList unpack(){
+    public List unpack(){
         return this.win;
     }
 }

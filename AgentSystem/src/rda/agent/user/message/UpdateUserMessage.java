@@ -1,13 +1,13 @@
 package rda.agent.user.message;
 
 import com.ibm.agent.exa.Message;
-import java.util.ArrayList;
+import java.util.List;
 
 public class UpdateUserMessage extends Message{
 
-	public ArrayList data;
+	public List data;
 
-	public void setParams(ArrayList data){
+	public void setParams(List data){
 		this.data = data;
 	}
 }
