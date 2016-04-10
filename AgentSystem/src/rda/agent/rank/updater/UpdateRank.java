@@ -8,6 +8,7 @@ import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.ArrayList;
+import java.util.List;
 import rda.agent.client.AgentConnection;
 import rda.agent.template.AgentType;
 import rda.agent.user.message.UpdateUserMessage;
@@ -29,8 +30,8 @@ public class UpdateRank extends AgentType {
         }
 
 	AgentKey agentKey;
-	ArrayList data;
-	public UpdateRank(AgentKey agentKey, ArrayList data) {
+	List data;
+	public UpdateRank(AgentKey agentKey, List data) {
 		// TODO 自動生成されたコンストラクター・スタブ
                 this.agentKey = agentKey;
 		this.data = data;
@@ -71,7 +72,7 @@ public class UpdateRank extends AgentType {
             try {
                 AgentClient client = agcon.getConnection();
                 
-                UpdateRank executor = new UpdateRank(agentKey, (ArrayList)data);
+                UpdateRank executor = new UpdateRank(agentKey, (List)data);
                 
                 Object reply = client.execute(agentKey, executor);
                 //if(reply == null) System.err.println("Cannot Find Agent : "+agentKey);
