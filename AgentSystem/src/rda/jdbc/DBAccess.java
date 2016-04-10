@@ -17,6 +17,8 @@ import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import com.ibm.agent.soliddb.catalog.RegionCatalog;
+import java.util.HashMap;
+import java.util.Map;
 import rda.agent.client.AgentConnection;
 
 /**
@@ -34,7 +36,7 @@ public class DBAccess implements AgentExecutor, Serializable {
 
     @Override
     /**
-    * 各リージョンの顧客属性レコード数のコレクションを返す
+    * 各リージョンのAgentDataのコレクションを返す
     */
     public Object complete(Collection<Object> results) {
         return results;
@@ -43,7 +45,7 @@ public class DBAccess implements AgentExecutor, Serializable {
     @Override
     /**
     * エージェント実行環境のサーバにて，そのサーバのリージョンに対応する
-    * レプリカ用solidDBにJDBCで接続して，顧客属性レコードの数を得る
+    * レプリカ用solidDBにJDBCで接続して，AgentDataを得る
     */
     public Object execute() {
         Connection con = null;
@@ -60,14 +62,14 @@ public class DBAccess implements AgentExecutor, Serializable {
             // JDBC接続を得る
             con = DriverManager.getConnection("jdbc:ceta:rda", props);
 
-            // 顧客属性レコード数を得るSQLを生成し，検索を行う．
-            stmt = con.prepareStatement("select count(*) from useragent");
+            // AgentDataを得るSQLを生成し，検索を行う．
+            stmt = con.prepareStatement("select * from useragent");
             ResultSet rs = stmt.executeQuery();
 
             // 顧客属性レコード数を得て，その数を処理結果とする
             rs.next();
-            int numOfCustomers = rs.getInt(1);
-            return numOfCustomers;
+            System.out.println("Results::"+rs.toString());
+            return null;
         } catch(Exception e) {
             e.printStackTrace();
             return e;
@@ -99,8 +101,6 @@ public class DBAccess implements AgentExecutor, Serializable {
             
             Object ret = client.execute(executor);
             Collection<Object> col = (Collection<Object>)ret;
-            
-            System.out.println("COLLECTION::"+col);
             
             for(Object o : col) {
                 int n = (Integer)o;
