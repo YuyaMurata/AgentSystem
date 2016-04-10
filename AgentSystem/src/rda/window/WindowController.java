@@ -29,7 +29,6 @@ public class WindowController{
     }
     
     public void remove(String id){
-        System.out.println("WINDOW_CTL : 5 "+ windowMap.size() + "[" +id+"]");
         windowMap.remove(id);
     }
         

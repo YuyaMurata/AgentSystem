@@ -29,11 +29,7 @@ public class Window{
     public Window pack(MessageObject msg){
         if(msg.data != -1) win.add(msg);
         
-        System.out.println("WINDOW_CTL : 3 "+ id+"=" +win.size() + "/"+size + "[" +msg.toString()+"]");
-        
         if((win.size() >= size) || (msg.data == -1)) return this;
-        
-        System.out.println("WINDOW_CTL : 4 "+ id+"=" + win.size()+"/"+size + "[" +msg.toString()+"]");
         
         return null;
     }

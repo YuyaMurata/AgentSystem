@@ -70,6 +70,8 @@ public class DataStream implements Runnable{
                     window.remove(agID);
                 } catch (MessageQueueEvent mqev) {
                     mqev.printEvent();
+                } catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         }
