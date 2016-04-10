@@ -27,7 +27,7 @@ public class DataStream implements Runnable{
     private static final String name = "DataStream";
     private final ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
     private Long time, term;
-    private long delay, period, wait;
+    private long delay, period;
     private Boolean runnable;
     private WindowController window;
     private static TestCaseManager tcmanager = TestCaseManager.getInstance();
@@ -54,11 +54,8 @@ public class DataStream implements Runnable{
     
     private void stream(Long t){
         Map mqMap = AgentMessageQueueManager.getInstance().getMQMap();
-        
         MessageObject msg;
         Window msgPack;
-        
-        System.out.println("Runnable-"+runnable);
         
         while(((msg = tcmanager.datagen.generate(t)) != null) && (runnable == true)){
             if((msgPack = window.pack(msg)) != null) {
@@ -91,12 +88,12 @@ public class DataStream implements Runnable{
     }
     
     public void stop(){
-        runnable = false;
-        
         try {
             Thread.sleep(term*1000);
         } catch (InterruptedException ex) {
         }
+        
+        runnable = false;
         
         System.out.println("> " + name +" : Stop !");
         
