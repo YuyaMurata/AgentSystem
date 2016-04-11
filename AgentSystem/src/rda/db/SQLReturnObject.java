@@ -13,8 +13,9 @@ import java.util.Map;
  */
 public class SQLReturnObject {
     private Map results;
-    public void setResultSet(Map results){
-        this.results.putAll(results);
+    public void setResultSet(Map res){
+        System.out.println(">SQL_RET:"+res);
+        this.results.putAll(res);
     }
     
     public void print(){
