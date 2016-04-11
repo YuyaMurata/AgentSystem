@@ -17,8 +17,6 @@ import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import com.ibm.agent.soliddb.catalog.RegionCatalog;
-import java.util.HashMap;
-import java.util.Map;
 import rda.agent.client.AgentConnection;
 
 /**
@@ -102,6 +100,8 @@ public class DBAccess implements AgentExecutor, Serializable {
             
             Object ret = client.execute(executor);
             Collection<Object> col = (Collection<Object>)ret;
+            
+            System.out.println("COL:"+col);
             
             SQLReturnObject sqlResults = new SQLReturnObject();
             for(Object o : col) {
