@@ -102,8 +102,8 @@ public class DBAccess implements AgentExecutor, Serializable {
     
     public SQLReturnObject query(String sql) {        
         try {
-            System.out.println("region names:" + RegionCatalog.getInstance("localhost:2809").getRegionNameList());
-            System.out.println("SQL{"+sql+"}");
+            //System.out.println("region names:" + RegionCatalog.getInstance("localhost:2809").getRegionNameList());
+            //System.out.println("SQL{"+sql+"}");
             AgentConnection con = AgentConnection.getInstance();
             AgentClient client = con.getConnection();
             
