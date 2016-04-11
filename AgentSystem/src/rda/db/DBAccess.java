@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rda.jdbc;
+package rda.db;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -33,6 +33,7 @@ public class DBAccess implements AgentExecutor, Serializable {
     * 
     */
     private static final long serialVersionUID = -8284826433740843048L;
+    private String sqlstmt;
 
     @Override
     /**
@@ -63,16 +64,10 @@ public class DBAccess implements AgentExecutor, Serializable {
             con = DriverManager.getConnection("jdbc:ceta:rda", props);
 
             // AgentDataを得るSQLを生成し，検索を行う．
-            stmt = con.prepareStatement("select * from useragent");
+            stmt = con.prepareStatement(sqlstmt);
             ResultSet rs = stmt.executeQuery();
-
-            // 顧客属性レコード数を得て，その数を処理結果とする
-            Map results = new HashMap();
-            while(rs.next()){
-                results.put(rs.getString(1), rs.getLong(2));
-            }
             
-            return results;
+            return rs;
         } catch(Exception e) {
             e.printStackTrace();
             return e;
@@ -93,10 +88,13 @@ public class DBAccess implements AgentExecutor, Serializable {
             }
         }
     }
-	
-    public static void main(String[] args) {
+    
+    public SQLReturnObject query(String sql) {
+        this.sqlstmt = sql;
+        
         try {
             System.out.println("region names:" + RegionCatalog.getInstance("localhost:2809").getRegionNameList());
+            System.out.println("SQL{"+sql+"}");
             AgentConnection con = AgentConnection.getInstance();
             AgentClient client = con.getConnection();
             
@@ -105,14 +103,18 @@ public class DBAccess implements AgentExecutor, Serializable {
             Object ret = client.execute(executor);
             Collection<Object> col = (Collection<Object>)ret;
             
+            SQLReturnObject sqlResults = new SQLReturnObject();
             for(Object o : col) {
-                Map n = (Map)o;
-                System.out.println(n);
+                sqlResults.setResultSet((ResultSet)o);
             }
             
             con.returnConnection(client);
+            
+            return sqlResults;
         } catch(Exception e) {
             e.printStackTrace();
         }
+        
+        return null;
     }
 }
