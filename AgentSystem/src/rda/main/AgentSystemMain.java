@@ -5,6 +5,7 @@
  */
 package rda.main;
 
+import rda.manager.LoggerManager;
 import rda.manager.SystemManager;
 
 /**
@@ -18,6 +19,7 @@ public class AgentSystemMain {
         prepare();
         execute();
         shutdown();
+        resultout();
     }
     
     private static void prepare(){
@@ -34,5 +36,10 @@ public class AgentSystemMain {
     
     private static void shutdown(){
         manager.shutdownSystem();
+    }
+    
+    private static void resultout(){
+        LoggerManager log = LoggerManager.getInstance();
+        log.printAgentDBData();
     }
 }
