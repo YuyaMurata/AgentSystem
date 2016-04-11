@@ -107,6 +107,8 @@ public class DBAccess implements AgentExecutor, Serializable {
             Object ret = client.execute(executor);
             Collection<Object> col = (Collection<Object>)ret;
             
+            System.out.println(">DB:"+col);
+            
             SQLReturnObject sqlResults = new SQLReturnObject();
             for(Object o : col) {
                 sqlResults.setResultSet((ResultSet)o);

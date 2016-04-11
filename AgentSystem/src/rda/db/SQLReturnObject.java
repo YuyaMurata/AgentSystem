@@ -5,6 +5,7 @@
  */
 package rda.db;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,7 +13,7 @@ import java.sql.SQLException;
  *
  * @author kaeru
  */
-public class SQLReturnObject {
+public class SQLReturnObject implements Serializable{
     private ResultSet rs;
     public void setResultSet(ResultSet rs){
         this.rs = rs;
