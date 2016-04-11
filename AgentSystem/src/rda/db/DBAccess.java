@@ -31,8 +31,14 @@ public class DBAccess implements AgentExecutor, Serializable {
     * 
     */
     private static final long serialVersionUID = -8284826433740843048L;
-    private static String sqlstmt;
 
+    public DBAccess() {}
+
+    String sqlstmt;
+    public DBAccess(String sqlstmt) {
+        this.sqlstmt = sqlstmt;
+    }
+    
     @Override
     /**
     * 各リージョンのAgentDataのコレクションを返す
@@ -61,13 +67,9 @@ public class DBAccess implements AgentExecutor, Serializable {
             // JDBC接続を得る
             con = DriverManager.getConnection("jdbc:ceta:rda", props);
 
-            System.out.println("execute:"+sqlstmt);
-            
             // AgentDataを得るSQLを生成し，検索を行う．
             stmt = con.prepareStatement(sqlstmt);
             ResultSet rs = stmt.executeQuery();
-            
-            System.out.println("execute:"+rs);
             
             return rs;
         } catch(Exception e) {
@@ -91,21 +93,17 @@ public class DBAccess implements AgentExecutor, Serializable {
         }
     }
     
-    public SQLReturnObject query(String sql) {
-        this.sqlstmt = sql;
-        
+    public SQLReturnObject query(String sql) {        
         try {
             System.out.println("region names:" + RegionCatalog.getInstance("localhost:2809").getRegionNameList());
             System.out.println("SQL{"+sql+"}");
             AgentConnection con = AgentConnection.getInstance();
             AgentClient client = con.getConnection();
             
-            DBAccess executor = new DBAccess();
+            DBAccess executor = new DBAccess(sql);
             
             Object ret = client.execute(executor);
             Collection<Object> col = (Collection<Object>)ret;
-            
-            System.out.println("COL:"+col);
             
             SQLReturnObject sqlResults = new SQLReturnObject();
             for(Object o : col) {
