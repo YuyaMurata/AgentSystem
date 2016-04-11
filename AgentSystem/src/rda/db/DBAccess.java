@@ -16,7 +16,6 @@ import java.util.Properties;
 import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
-import com.ibm.agent.soliddb.catalog.RegionCatalog;
 import java.util.HashMap;
 import java.util.Map;
 import rda.agent.client.AgentConnection;

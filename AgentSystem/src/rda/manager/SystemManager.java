@@ -7,6 +7,7 @@ package rda.manager;
 
 import java.util.HashMap;
 import java.util.Map;
+import rda.agent.client.AgentConnection;
 import rda.property.SetProperty;
 import rda.stream.DataStream;
 
@@ -25,8 +26,9 @@ public class SystemManager implements SetProperty{
     public void launchSystem(){
         System.out.println(">>Launch System");
         
-        agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap());
+        agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap(), POOLSIZE);
         dataSettings(NUMBER_OF_USERS, preDataMap(), preProfMap());
+        loggerSettings();
         streamSettings(preStreamMap());
     }
     
@@ -37,7 +39,10 @@ public class SystemManager implements SetProperty{
         System.out.println(">>Shutdown System...");
     }
     
-    private void agentSettings(String rule, Integer numberOfAgents, Map agentParam){
+    private void agentSettings(String rule, Integer numberOfAgents, Map agentParam, Integer poolsize){
+        AgentConnection agconn = AgentConnection.getInstance();
+        agconn.setPoolSize(poolsize);
+        
         AgentMessageQueueManager agManager = AgentMessageQueueManager.getInstance();
         IDManager idManager = new IDManager(rule);
         
@@ -53,6 +58,10 @@ public class SystemManager implements SetProperty{
         tcManager.initTestCase(dataParam, profParam);
         
         System.out.println(">>> Finished Set TestCase");
+    }
+    
+    private void loggerSettings(){
+        LoggerManager.getInstance().initLoggerManager();
     }
     
     private DataStream stream;

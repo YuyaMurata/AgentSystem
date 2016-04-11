@@ -14,14 +14,19 @@ import rda.db.SQLReturnObject;
  */
 public class LoggerManager {
     private static final LoggerManager manager = new LoggerManager();
+    private DBAccess db;
     private LoggerManager(){}
     
     public static LoggerManager getInstance(){
         return manager;
     }
     
+    public void initLoggerManager(){
+        this.db = new DBAccess();
+    }
+    
     public void printAgentDBData(){
-        DBAccess db = new DBAccess();
+        
         SQLReturnObject obj = db.query("select * from useragent");
         obj.print();
     }
