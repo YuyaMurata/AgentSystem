@@ -5,6 +5,7 @@
  */
 package rda.db;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -12,9 +13,8 @@ import java.util.Map;
  * @author kaeru
  */
 public class SQLReturnObject {
-    private Map results;
+    private Map results = new HashMap();
     public void setResultSet(Map res){
-        System.out.println(">SQL_RET:"+res);
         this.results.putAll(res);
     }
     
