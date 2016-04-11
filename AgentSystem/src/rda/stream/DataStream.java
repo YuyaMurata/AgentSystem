@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import rda.agent.queue.MessageQueue;
 import rda.agent.queue.QueueObserver;
 import rda.manager.AgentMessageQueueManager;
+import rda.manager.LoggerManager;
 import rda.manager.TestCaseManager;
 import rda.queue.event.MessageQueueEvent;
 import rda.queue.obj.MessageObject;
@@ -50,6 +51,8 @@ public class DataStream implements Runnable{
         List<QueueObserver> observes = AgentMessageQueueManager.getInstance().getObserver();
         for(QueueObserver observe : observes)
             System.out.println(">>OBSERVE : "+observe.getName() + "-" + observe.notifyState());
+        
+        LoggerManager.getInstance().printAgentDBData();
     }
     
     private void stream(Long t){
