@@ -5,30 +5,26 @@
  */
 package rda.db;
 
-import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.Map;
 
 /**
  *
  * @author kaeru
  */
-public class SQLReturnObject implements Serializable{
-    private ResultSet rs;
-    public void setResultSet(ResultSet rs){
-        this.rs = rs;
+public class SQLReturnObject {
+    private Map results;
+    public void setResultSet(Map results){
+        this.results.putAll(results);
     }
     
     public void print(){
-        try {
-            Long total = 0L;
-            while(rs.next()){
-                System.out.println(rs.getString(1)+","+rs.getLong(2));
-                total = total+rs.getLong(2);
-            }
-            
-            System.out.println("> Total:"+total);
-        } catch (SQLException ex) {
+        System.out.println("\n--");
+        
+        Long total= 0L;
+        for(Object id : results.keySet()){
+            System.out.println(id+"="+results.get(id));
+            total = total+ (Long)results.get(id);
         }
+        System.out.println("> Total : "+total);
     }
 }

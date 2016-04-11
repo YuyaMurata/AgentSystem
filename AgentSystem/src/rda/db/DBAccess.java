@@ -17,6 +17,8 @@ import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import com.ibm.agent.soliddb.catalog.RegionCatalog;
+import java.util.HashMap;
+import java.util.Map;
 import rda.agent.client.AgentConnection;
 
 /**
@@ -71,7 +73,12 @@ public class DBAccess implements AgentExecutor, Serializable {
             stmt = con.prepareStatement(sqlstmt);
             ResultSet rs = stmt.executeQuery();
             
-            return rs;
+            //IDとDataを取得
+            Map results = new HashMap();
+            while(rs.next())
+                results.put(rs.getString(1), rs.getLong(2));
+            
+            return results;
         } catch(Exception e) {
             e.printStackTrace();
             return e;
@@ -107,7 +114,7 @@ public class DBAccess implements AgentExecutor, Serializable {
             
             SQLReturnObject sqlResults = new SQLReturnObject();
             for(Object o : col) {
-                sqlResults.setResultSet((ResultSet)o);
+                sqlResults.setResultSet((Map)o);
             }
             
             con.returnConnection(client);
