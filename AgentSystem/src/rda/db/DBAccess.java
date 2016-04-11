@@ -66,9 +66,7 @@ public class DBAccess implements AgentExecutor, Serializable {
 			
             // JDBC接続を得る
             con = DriverManager.getConnection("jdbc:ceta:rda", props);
-            
-            System.out.println(">execute:"+sqlstmt);
-            
+
             // AgentDataを得るSQLを生成し，検索を行う．
             stmt = con.prepareStatement(sqlstmt);
             ResultSet rs = stmt.executeQuery();
@@ -106,8 +104,6 @@ public class DBAccess implements AgentExecutor, Serializable {
             
             Object ret = client.execute(executor);
             Collection<Object> col = (Collection<Object>)ret;
-            
-            System.out.println(">DB:"+col);
             
             SQLReturnObject sqlResults = new SQLReturnObject();
             for(Object o : col) {
