@@ -31,7 +31,7 @@ public class DBAccess implements AgentExecutor, Serializable {
     * 
     */
     private static final long serialVersionUID = -8284826433740843048L;
-    private String sqlstmt;
+    private static String sqlstmt;
 
     @Override
     /**
@@ -64,6 +64,9 @@ public class DBAccess implements AgentExecutor, Serializable {
             // AgentDataを得るSQLを生成し，検索を行う．
             stmt = con.prepareStatement(sqlstmt);
             ResultSet rs = stmt.executeQuery();
+            
+            System.out.println("execute:"+sqlstmt);
+            System.out.println("execute:"+rs);
             
             return rs;
         } catch(Exception e) {
