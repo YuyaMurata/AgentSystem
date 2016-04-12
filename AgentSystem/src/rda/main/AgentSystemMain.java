@@ -5,7 +5,6 @@
  */
 package rda.main;
 
-import rda.manager.LoggerManager;
 import rda.manager.SystemManager;
 
 /**
@@ -42,7 +41,7 @@ public class AgentSystemMain {
     }
     
     private static void resultout(){
-        LoggerManager log = LoggerManager.getInstance();
-        log.printAgentDBData();
+        //LoggerManager log = LoggerManager.getInstance();
+        //log.printAgentDBData();
     }
 }

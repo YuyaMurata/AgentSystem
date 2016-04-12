@@ -41,8 +41,8 @@ public class LogSchedule implements Runnable{
     }
     
     private void logging(){
-        for(QueueObserver observe : observes)
-            System.out.println(">>OBSERVE : "+observe.getName() + "-" + observe.notifyState());
+        for(int i=0; i < observes.size(); i++)
+            System.out.println(">>OBSERVE : "+observes.get(i).getName() + "-" + observes.get(i).notifyState());
         
         LoggerManager.getInstance().printAgentDBData();
     }
