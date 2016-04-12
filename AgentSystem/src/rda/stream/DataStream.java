@@ -5,15 +5,12 @@
  */
 package rda.stream;
 
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import rda.agent.queue.MessageQueue;
-import rda.agent.queue.QueueObserver;
 import rda.manager.AgentMessageQueueManager;
-import rda.manager.LoggerManager;
 import rda.manager.TestCaseManager;
 import rda.queue.event.MessageQueueEvent;
 import rda.queue.obj.MessageObject;
@@ -47,14 +44,6 @@ public class DataStream implements Runnable{
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
-    private void logging(){
-        List<QueueObserver> observes = AgentMessageQueueManager.getInstance().getObserver();
-        for(QueueObserver observe : observes)
-            System.out.println(">>OBSERVE : "+observe.getName() + "-" + observe.notifyState());
-        
-        LoggerManager.getInstance().printAgentDBData();
-    }
-    
     private void stream(Long t){
         Map mqMap = AgentMessageQueueManager.getInstance().getMQMap();
         MessageObject msg;
@@ -85,7 +74,6 @@ public class DataStream implements Runnable{
     public void run() {
         if(term > time){
             System.out.println("-Time Period = "+time++);
-            logging();
             stream(time);
         }
     }
@@ -107,8 +95,6 @@ public class DataStream implements Runnable{
         } catch (InterruptedException ex) {
             schedule.shutdownNow();
         }
-        
-        logging();
             
     }
 }

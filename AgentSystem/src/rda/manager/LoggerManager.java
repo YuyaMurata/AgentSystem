@@ -26,7 +26,6 @@ public class LoggerManager {
     }
     
     public void printAgentDBData(){
-        
         SQLReturnObject obj = db.query("select * from useragent");
         obj.print();
     }
