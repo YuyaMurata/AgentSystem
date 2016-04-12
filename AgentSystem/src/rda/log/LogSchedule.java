@@ -21,7 +21,8 @@ import rda.manager.LoggerManager;
 public class LogSchedule implements Runnable{
     private static final String name = "LogSchedule";
     private final ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
-    private Long time, term, delay, period;
+    private Long time, term;
+    private long delay, period;
     private Boolean runnable;
     
     private List<QueueObserver> observes;
