@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import rda.agent.profile.AgentProfileGenerator;
 import rda.agent.queue.MessageQueue;
 import rda.agent.queue.QueueObserver;
 import rda.agent.rank.creator.CreateRankAgent;
@@ -32,6 +33,8 @@ public class AgentMessageQueueManager {
     }
     
     public void initAgentMessageQueueManager(Map agentMQParam){
+        //AgentProfileGenerator prof = AgentProfileGenerator.getInstance();
+        //prof.initProfile(0, 0);
         this.queueLength = (Integer)agentMQParam.get("QUEUE_LENGTH");
         this.queuewait = (Long)agentMQParam.get("QUEUE_WAIT");
         this.agentwait = (Long)agentMQParam.get("AGENT_WAIT");

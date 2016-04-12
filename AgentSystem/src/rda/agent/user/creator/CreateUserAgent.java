@@ -1,6 +1,5 @@
 package rda.agent.user.creator;
 
-import rda.data.profile.ProfileGenerator;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,6 +11,7 @@ import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import rda.agent.client.AgentConnection;
+import rda.agent.profile.AgentProfileGenerator;
 import rda.agent.user.message.InitUserMessage;
 
 public class CreateUserAgent implements AgentExecutor, Serializable{
@@ -71,13 +71,13 @@ public class CreateUserAgent implements AgentExecutor, Serializable{
         public void create(String agID){
             try {
                 AgentConnection ag = AgentConnection.getInstance();
-                ProfileGenerator profileGen = ProfileGenerator.getInstance();
+                AgentProfileGenerator profileGen = AgentProfileGenerator.getInstance();
                 
                 AgentClient client = ag.getConnection();
                 
                 agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
                 
-                prof = profileGen.getAGIDProf(agID);
+                prof = profileGen.genAgentProfile(agID);
                 
                 CreateUserAgent executor = new CreateUserAgent(agentKey, prof);
                 Object reply = client.execute(agentKey, executor);

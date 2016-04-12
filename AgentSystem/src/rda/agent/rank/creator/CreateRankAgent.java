@@ -1,6 +1,5 @@
 package rda.agent.rank.creator;
 
-import rda.data.profile.ProfileGenerator;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
@@ -12,6 +11,7 @@ import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
 import rda.agent.client.AgentConnection;
+import rda.agent.profile.AgentProfileGenerator;
 import rda.agent.queue.MessageQueue;
 import rda.agent.rank.updater.UpdateRank;
 import rda.agent.user.message.InitUserMessage;
@@ -73,12 +73,12 @@ public class CreateRankAgent implements AgentExecutor, Serializable{
     public void create(String agID, Integer size, Long queuewait, Long agentwait){
         try {
             AgentConnection ag = AgentConnection.getInstance();
-            ProfileGenerator profileGen = ProfileGenerator.getInstance();
+            AgentProfileGenerator profileGen = AgentProfileGenerator.getInstance();
             
             AgentClient client = ag.getConnection();
                 
             agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
-            prof = profileGen.getAGIDProf(agID);
+            prof = profileGen.genAgentProfile(agID);
             
             System.out.println(">Profile:"+prof);
             

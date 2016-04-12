@@ -52,11 +52,6 @@ public class ProfileGenerator {
         }
     }
     
-    public HashMap getAGIDProf(String agID){
-        //R#系のAgentのProfileを生成
-        return genAgentProfile(agID);
-    }
-    
     public HashMap getProf(String uid){
         //UserのProfileを生成
         return profMap.get(uid);
@@ -103,30 +98,6 @@ public class ProfileGenerator {
         //TargetID
         prof.put("TargetID", 
         AgentMessageQueueManager.getInstance().getIDManager().ageToID((Integer)prof.get("Age")));
-       
-        return prof;
-    }
-    
-    private HashMap genAgentProfile(String id) {
-        //Store Profile
-        HashMap prof = new HashMap<String, String>();
-	
-        //ID
-        prof.put("UserID", id);
-        
-        //Name
-        prof.put("Name", "Name-" + id);
-        
-        //Sex
-        if(rand.nextInt(0, 1) == 0) prof.put("Sex", "M");  
-        else prof.put("Sex", "F");
-        
-        //Age
-        if(mode == 0)prof.put("Age", getFlatAge().toString());
-        else prof.put("Age", getGaussAge().toString());
-        
-        //Address
-        prof.put("Address", "Address-" + id);
        
         return prof;
     }
