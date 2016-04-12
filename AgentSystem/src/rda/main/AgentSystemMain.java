@@ -17,6 +17,7 @@ public class AgentSystemMain {
     
     public static void main(String[] args) {
         prepare();
+        logger();
         execute();
         shutdown();
         resultout();
@@ -27,14 +28,16 @@ public class AgentSystemMain {
     }
     
     private static void logger(){
+        manager.logSchedule().start();
     }
     
     private static void execute(){
         manager.dataStream().start();
-        manager.dataStream().stop();
     }
     
     private static void shutdown(){
+        manager.dataStream().stop();
+        manager.logSchedule().stop();
         manager.shutdownSystem();
     }
     

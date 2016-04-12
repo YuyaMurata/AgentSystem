@@ -5,8 +5,10 @@
  */
 package rda.manager;
 
+import java.util.Map;
 import rda.db.DBAccess;
 import rda.db.SQLReturnObject;
+import rda.log.LogSchedule;
 
 /**
  *
@@ -15,14 +17,20 @@ import rda.db.SQLReturnObject;
 public class LoggerManager {
     private static final LoggerManager manager = new LoggerManager();
     private DBAccess db;
+    private LogSchedule log;
     private LoggerManager(){}
     
     public static LoggerManager getInstance(){
         return manager;
     }
     
-    public void initLoggerManager(){
+    public void initLoggerManager(Map loggerMap){
         this.db = new DBAccess();
+        this.log = new LogSchedule(loggerMap);
+    }
+    
+    public LogSchedule getLogSchedule(){
+        return log;
     }
     
     public void printAgentDBData(){

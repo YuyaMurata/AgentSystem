@@ -8,6 +8,7 @@ package rda.manager;
 import java.util.HashMap;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
+import rda.log.LogSchedule;
 import rda.property.SetProperty;
 import rda.stream.DataStream;
 
@@ -28,7 +29,7 @@ public class SystemManager implements SetProperty{
         
         agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap(), POOLSIZE);
         dataSettings(NUMBER_OF_USERS, preDataMap(), preProfMap());
-        loggerSettings();
+        loggerSettings(preLoggerMap());
         streamSettings(preStreamMap());
     }
     
@@ -60,8 +61,12 @@ public class SystemManager implements SetProperty{
         System.out.println(">>> Finished Set TestCase");
     }
     
-    private void loggerSettings(){
-        LoggerManager.getInstance().initLoggerManager();
+    private void loggerSettings(Map loggerMap){
+        LoggerManager.getInstance().initLoggerManager(loggerMap);
+    }
+    
+    public LogSchedule logSchedule(){
+        return LoggerManager.getInstance().getLogSchedule();
     }
     
     private DataStream stream;
@@ -108,6 +113,14 @@ public class SystemManager implements SetProperty{
         map.put("TIME_PERIOD", TIME_PERIOD);
         map.put("TIME_WAIT", TIME_WAIT);
         map.put("WINDOW_SIZE", WINDOW_SIZE);
+        return map;
+    }
+    
+    private Map preLoggerMap(){
+        Map map = new HashMap();
+        map.put("TIME_RUN", TIME_RUN);
+        map.put("TIME_PERIOD", LOG_PERIOD);
+        map.put("TIME_WAIT", TIME_WAIT);
         return map;
     }
 }
