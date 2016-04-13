@@ -5,6 +5,7 @@
  */
 package rda.test.agent;
 
+import java.util.Collection;
 import rda.agent.template.AgentType;
 
 /**
@@ -25,6 +26,16 @@ public class PsedoAgent extends AgentType{
     @Override
     public String getID() {
         return id;
+    }
+
+    @Override
+    public Object execute() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Object complete(Collection<Object> clctn) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

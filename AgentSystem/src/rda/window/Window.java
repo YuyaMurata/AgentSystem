@@ -7,6 +7,7 @@ package rda.window;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import rda.manager.AgentMessageQueueManager;
 import rda.queue.obj.MessageObject;
 
 /**
@@ -14,17 +15,17 @@ import rda.queue.obj.MessageObject;
  * @author kaeru
  */
 public class Window{
-    private String id;
+    private String originID;
     private Integer size;
     private List win = new CopyOnWriteArrayList();
 
     public Window(String id, Integer limit) {
-        this.id = id;
+        this.originID = id;
         this.size = limit;
     }
     
     public String getDestID(){
-        return id;
+        return AgentMessageQueueManager.getInstance().getIDManager().getDestID(originID);
     }
   
     public Window pack(MessageObject msg){
