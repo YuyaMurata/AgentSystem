@@ -10,7 +10,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 import rda.agent.template.AgentType;
 import rda.manager.AgentMessageQueueManager;
+import rda.manager.IDManager;
 import rda.queue.event.MessageQueueEvent;
+import rda.window.Window;
 
 /**
  *
@@ -51,12 +53,23 @@ public class MessageQueue extends MessageQueueProcess{
     
     @Override
     public void put(Object msgpack) throws MessageQueueEvent{
-        if(queue.size() > size) throw new MessageQueueEvent(name, msgpack);
+        if(queue.size() > size) event(msgpack);
         
         try {
             queue.offer(msgpack, putwait, TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
         }
+    }
+    
+    public void event(Object msgpack) throws MessageQueueEvent{
+        AgentMessageQueueManager agent = AgentMessageQueueManager.getInstance();
+        IDManager id = agent.getIDManager();
+        
+        String agID = id.genID();
+        agent.createAgent(agID);
+        id.regID(((Window)msgpack).getOrigID(), agID);
+        
+        throw new MessageQueueEvent(name, msgpack);
     }
     
     //MessageQueue Process Overrides

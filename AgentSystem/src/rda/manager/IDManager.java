@@ -49,8 +49,8 @@ public class IDManager {
         }
     }
     
-    public synchronized void regID(String id){
-        
+    public synchronized void regID(String origID, String id){
+        ((List)regAgentMap.get(origID)).add(id);
     }
     
     public String ageToID(Integer age){
