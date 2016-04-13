@@ -52,7 +52,10 @@ public class SystemManager implements SetProperty{
         agManager.createNumberOfAgents(numberOfAgents);
         
         if(agManager.getReserveMode() == 1){
-            
+            for(int i=0; i < (Integer)agentParam.get("AMOUNT_RESERVE_AGENT"); i++){
+                String agID = idManager.genReserveID();
+                agManager.createAgent(agID);
+            }
         }
         
         System.out.println(">>> Finished Set Agents & IDs");
@@ -89,6 +92,7 @@ public class SystemManager implements SetProperty{
         map.put("AGENT_WAIT", AGENT_WAIT);
         map.put("AGENT_MODE", AGENT_MODE_AUTONOMY);
         map.put("RESERVE_MODE", AGENT_MODE_RESERVE);
+        map.put("AMOUNT_RESERVE_AGENT", NUMBER_OF_RESERVE);
         return map;
     }
     
