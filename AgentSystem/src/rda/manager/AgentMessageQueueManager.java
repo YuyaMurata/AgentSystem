@@ -22,7 +22,7 @@ public class AgentMessageQueueManager {
     private Boolean runnable;
     private Integer queueLength;
     private Long queuewait, agentwait;
-    private Integer mode;
+    private Integer agentMode, reserveMode;
     private IDManager id;
     
     //Singleton
@@ -36,7 +36,8 @@ public class AgentMessageQueueManager {
         this.queueLength = (Integer)agentMQParam.get("QUEUE_LENGTH");
         this.queuewait = (Long)agentMQParam.get("QUEUE_WAIT");
         this.agentwait = (Long)agentMQParam.get("AGENT_WAIT");
-        this.mode = (Integer)agentMQParam.get("AGENT_MODE");
+        this.agentMode = (Integer)agentMQParam.get("AGENT_MODE");
+        this.reserveMode = (Integer)agentMQParam.get("RESERVE_MODE");
         this.runnable = true;
     }
     
@@ -95,7 +96,11 @@ public class AgentMessageQueueManager {
         return messageQueueMap;
     }
     
-    public Integer getMode(){
-        return mode;
+    public Integer getAutoMode(){
+        return agentMode;
+    }
+    
+    public Integer getReserveMode(){
+        return reserveMode;
     }
 }

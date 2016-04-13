@@ -36,6 +36,12 @@ public class IDManager {
         return agID;
     }
     
+    private Integer reserverID;
+    public synchronized String genReserveID(){
+        String agID = rule+dformat.format(reserverID++);
+        return agID;
+    }
+    
     //Register InitAgent
     public synchronized void initRegID(String id){
         if(serialID-1 < 10){
@@ -47,6 +53,7 @@ public class IDManager {
             List agList = (List)regAgentMap.get(ageMap.get(((serialID % 10)+1) * 10));
             agList.add(id);
         }
+        reserverID = serialID;
     }
     
     public synchronized void regID(String origID, String id){

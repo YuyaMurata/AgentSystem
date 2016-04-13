@@ -51,6 +51,10 @@ public class SystemManager implements SetProperty{
         agManager.setIDManager(idManager);
         agManager.createNumberOfAgents(numberOfAgents);
         
+        if(agManager.getReserveMode() == 1){
+            
+        }
+        
         System.out.println(">>> Finished Set Agents & IDs");
     }
     
@@ -84,6 +88,7 @@ public class SystemManager implements SetProperty{
         map.put("QUEUE_WAIT", QUEUE_WAIT);
         map.put("AGENT_WAIT", AGENT_WAIT);
         map.put("AGENT_MODE", AGENT_MODE_AUTONOMY);
+        map.put("RESERVE_MODE", AGENT_MODE_RESERVE);
         return map;
     }
     
