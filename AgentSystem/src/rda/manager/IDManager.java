@@ -57,8 +57,8 @@ public class IDManager {
         return (String) ageMap.ceilingEntry(age).getValue();
     }
     
-    public String getDestID(String originID){
-        List destAgentList = (List) regAgentMap.get(originID);
+    public String getDestID(String origID){
+        List destAgentList = (List) regAgentMap.get(origID);
         return (String)destAgentList.get(rand.nextInt(destAgentList.size()));
     }
     
