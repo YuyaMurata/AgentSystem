@@ -63,11 +63,13 @@ public class MessageQueue extends MessageQueueProcess{
     
     public void event(Object msgpack) throws MessageQueueEvent{
         AgentMessageQueueManager agent = AgentMessageQueueManager.getInstance();
-        IDManager id = agent.getIDManager();
+        if(agent.getMode() == 1){
+            IDManager id = agent.getIDManager();
+            String agID = id.genID();
         
-        String agID = id.genID();
-        agent.createAgent(agID);
-        id.regID(((Window)msgpack).getOrigID(), agID);
+            agent.createAgent(agID);
+            id.regID(((Window)msgpack).getOrigID(), agID);
+        }
         
         throw new MessageQueueEvent(name, msgpack);
     }

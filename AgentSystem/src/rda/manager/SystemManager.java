@@ -37,7 +37,7 @@ public class SystemManager implements SetProperty{
         AgentMessageQueueManager agManager = AgentMessageQueueManager.getInstance();
         agManager.doShutdown();
         
-        System.out.println(">>Shutdown System...");
+        System.out.println(">> Shutdown System...");
     }
     
     private void agentSettings(String rule, Integer numberOfAgents, Map agentParam, Map idParam, Integer poolsize){
@@ -83,6 +83,7 @@ public class SystemManager implements SetProperty{
         map.put("QUEUE_LENGTH", QUEUE_LENGTH);
         map.put("QUEUE_WAIT", QUEUE_WAIT);
         map.put("AGENT_WAIT", AGENT_WAIT);
+        map.put("AGENT_MODE", AGENT_MODE_AUTONOMY);
         return map;
     }
     
