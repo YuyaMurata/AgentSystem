@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 
 /**
@@ -21,9 +22,11 @@ public class IDManager {
     private DecimalFormat dformat;
     private TreeMap ageMap = new TreeMap();
     private Map regAgentMap = new HashMap();
+    private Random rand = new Random();
     
-    public IDManager(String rule){
-        this.rule = rule;
+    public IDManager(Map idParam){
+        this.rule = (String)idParam.get("RULE");
+        rand.setSeed((Long)idParam.get("SEED"));
         this.dformat= new DecimalFormat("0000");
     }
     
@@ -56,7 +59,7 @@ public class IDManager {
     
     public String getDestID(String originID){
         List destAgentList = (List) regAgentMap.get(originID);
-        return (String)destAgentList.get(0);
+        return (String)destAgentList.get(rand.nextInt(destAgentList.size()));
     }
     
     //Test Print

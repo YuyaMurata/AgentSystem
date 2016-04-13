@@ -24,6 +24,10 @@ public class Window{
         this.size = limit;
     }
     
+    public String getOrigID(){
+        return originID;
+    }
+    
     public String getDestID(){
         return AgentMessageQueueManager.getInstance().getIDManager().getDestID(originID);
     }

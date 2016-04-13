@@ -27,7 +27,7 @@ public class SystemManager implements SetProperty{
     public void launchSystem(){
         System.out.println(">>Launch System");
         
-        agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap(), POOLSIZE);
+        agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap(), preIDMap(), POOLSIZE);
         dataSettings(NUMBER_OF_USERS, preDataMap(), preProfMap());
         loggerSettings(preLoggerMap());
         streamSettings(preStreamMap());
@@ -40,12 +40,12 @@ public class SystemManager implements SetProperty{
         System.out.println(">>Shutdown System...");
     }
     
-    private void agentSettings(String rule, Integer numberOfAgents, Map agentParam, Integer poolsize){
+    private void agentSettings(String rule, Integer numberOfAgents, Map agentParam, Map idParam, Integer poolsize){
         AgentConnection agconn = AgentConnection.getInstance();
         agconn.setPoolSize(poolsize);
         
         AgentMessageQueueManager agManager = AgentMessageQueueManager.getInstance();
-        IDManager idManager = new IDManager(rule);
+        IDManager idManager = new IDManager(idParam);
         
         agManager.initAgentMessageQueueManager(agentParam);
         agManager.setIDManager(idManager);
@@ -83,6 +83,13 @@ public class SystemManager implements SetProperty{
         map.put("QUEUE_LENGTH", QUEUE_LENGTH);
         map.put("QUEUE_WAIT", QUEUE_WAIT);
         map.put("AGENT_WAIT", AGENT_WAIT);
+        return map;
+    }
+    
+    private Map preIDMap(){
+        Map map = new HashMap();
+        map.put("RULE", NAME_RULE);
+        map.put("SEED", ID_SEED);
         return map;
     }
     

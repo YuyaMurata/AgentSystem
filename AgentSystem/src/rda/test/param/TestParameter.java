@@ -29,6 +29,7 @@ public abstract class TestParameter {
     public static final int DATA_MODE = 1;
     public static final int PROFILE_MODE = 1;
     public static final Long SEED = Long.MAX_VALUE;
+    public static final String NAME_RULE = "TEST#";
     
     public static final String AGENT_TYPE = "useragent";
     
@@ -54,5 +55,11 @@ public abstract class TestParameter {
     public static final Map agentMQParam = 
         new HashMap<Object, Object>() {{
         put("QUEUE_LENGTH", QUEUE_LENGTH);
+    }};
+    
+    public static final Map idParam =
+        new HashMap<Object, Object>(){{
+        put("RULE", NAME_RULE);
+        put("SEED", SEED);
     }};
 }

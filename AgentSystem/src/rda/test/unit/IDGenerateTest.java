@@ -14,7 +14,7 @@ import rda.test.param.TestParameter;
  */
 public class IDGenerateTest extends TestParameter{
     public static void main(String[] args) {
-        IDManager id = new IDManager("TEST#");
+        IDManager id = new IDManager(idParam);
         for(int i=0; i < NUMBER_OF_AGENTS; i++){
             String testID = id.genID();
             id.initRegID(testID);
