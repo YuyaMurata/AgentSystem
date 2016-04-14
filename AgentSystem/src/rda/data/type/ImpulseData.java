@@ -1,8 +1,8 @@
 package rda.data.type;
 
+import rda.agent.queue.MessageObject;
 import rda.data.Data;
 import rda.data.DataType;
-import rda.queue.obj.MessageObject;
 
 public class ImpulseData implements DataType{
     private static final Long impulse = 1000000L;

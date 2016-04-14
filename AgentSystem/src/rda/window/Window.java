@@ -7,8 +7,8 @@ package rda.window;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import rda.agent.queue.MessageObject;
 import rda.manager.AgentMessageQueueManager;
-import rda.queue.obj.MessageObject;
 
 /**
  *

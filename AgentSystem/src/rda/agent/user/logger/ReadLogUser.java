@@ -3,13 +3,13 @@ package rda.agent.user.logger;
 import java.io.Serializable;
 import java.util.Collection;
 
-import rda.agent.client.CreateAgentClient;
-
 import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageFactory;
+import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
+import rda.agent.client.AgentConnection;
 
 public class ReadLogUser implements AgentExecutor, Serializable{
 	/**
@@ -58,15 +58,15 @@ public class ReadLogUser implements AgentExecutor, Serializable{
 
 	public void get(int numOfAgents) {
             try{
-                CreateAgentClient client = new CreateAgentClient();
-
+                AgentConnection agconn = AgentConnection.getInstance();
+                AgentClient client = agconn.getConnection();
                 for(int i=0; i < numOfAgents; i++){
                     String userID = "U#00"+i;
                     agentKey = new AgentKey(AGENT_TYPE, new Object[]{userID});
 
                     ReadLogUser executor = new ReadLogUser(agentKey);
 
-                    Object reply = client.getClient().execute(agentKey, executor);
+                    Object reply = client.execute(agentKey, executor);
 
                     if (reply != null) {
                         LogInfo info = (LogInfo)reply;

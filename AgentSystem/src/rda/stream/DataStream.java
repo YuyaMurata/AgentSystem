@@ -9,11 +9,11 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import rda.agent.queue.MessageObject;
 import rda.agent.queue.MessageQueue;
+import rda.agent.queue.MessageQueueEvent;
 import rda.manager.AgentMessageQueueManager;
 import rda.manager.TestCaseManager;
-import rda.queue.event.MessageQueueEvent;
-import rda.queue.obj.MessageObject;
 import rda.window.Window;
 import rda.window.WindowController;
 

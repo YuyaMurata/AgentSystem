@@ -1,8 +1,8 @@
 package rda.data.type;
 
+import rda.agent.queue.MessageObject;
 import rda.data.Data;
 import rda.data.DataType;
-import rda.queue.obj.MessageObject;
 
 public class MountData implements DataType{
     private final String name;

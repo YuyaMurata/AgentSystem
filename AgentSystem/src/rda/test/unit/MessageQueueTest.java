@@ -5,10 +5,10 @@
  */
 package rda.test.unit;
 
+import rda.agent.queue.MessageObject;
 import rda.agent.queue.MessageQueue;
+import rda.agent.queue.MessageQueueEvent;
 import rda.log.AgentSystemLogger;
-import rda.queue.event.MessageQueueEvent;
-import rda.queue.obj.MessageObject;
 import rda.test.msg.MessageBox;
 import rda.test.param.TestParameter;
 

@@ -6,7 +6,6 @@
 package rda.agent.queue;
 
 import rda.agent.template.AgentType;
-import rda.queue.event.MessageQueueEvent;
 import rda.window.Window;
 
 /**

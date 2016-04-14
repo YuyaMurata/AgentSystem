@@ -6,8 +6,8 @@
 package rda.data;
 
 import org.apache.commons.math3.random.RandomDataGenerator;
+import rda.agent.queue.MessageObject;
 import rda.data.profile.ProfileGenerator;
-import rda.queue.obj.MessageObject;
 
 /**
  *

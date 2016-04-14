@@ -7,8 +7,8 @@ package rda.test.unit;
 
 import java.util.HashMap;
 import java.util.Map;
+import rda.agent.queue.MessageObject;
 import rda.manager.TestCaseManager;
-import rda.queue.obj.MessageObject;
 import rda.test.manager.UnitTestManager;
 import rda.test.param.TestParameter;
 

@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 import rda.agent.template.AgentType;
 import rda.manager.AgentMessageQueueManager;
 import rda.manager.IDManager;
-import rda.queue.event.MessageQueueEvent;
 import rda.window.Window;
 
 /**

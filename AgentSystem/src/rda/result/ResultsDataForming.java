@@ -22,14 +22,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import rda.data.SetDataType;
 import rda.property.SetProperty;
 
 /**
  *
  * @author kaeru
  */
-public class ResultsDataForming implements SetProperty, SetDataType{
+public class ResultsDataForming implements SetProperty{
     private static final Integer digit = LOG_PERIOD.toString().length()-1;
     
     public static void main(String[] args) 
@@ -88,7 +87,7 @@ public class ResultsDataForming implements SetProperty, SetDataType{
                 + "ag" + NUMBER_OF_RANK_AGENTS + ","
                 + "s"  + NUMBER_OF_SERVER + ","
                 + "st" + SERVER_THREAD + ","
-                + "t"  + DATA_TYPE.getName() + ","
+                //+ "t"  + DATA_TYPE.getName() + ","
                 + "lp" + LOG_PERIOD +","
                 + "L"  + QUEUE_LENGTH + ","
                 + "ws" + WINDOW_SIZE + ","

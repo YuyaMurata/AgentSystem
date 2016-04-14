@@ -8,8 +8,8 @@ import rda.Useragent;
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;
 import com.ibm.agent.exa.TxID;
+import rda.agent.queue.MessageObject;
 import rda.agent.user.message.UpdateUserMessage;
-import rda.queue.obj.MessageObject;
 
 public class UpdateUserHandler extends MessageHandler{
 
