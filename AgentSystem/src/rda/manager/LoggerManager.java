@@ -43,4 +43,11 @@ public class LoggerManager {
         SQLReturnObject obj = db.query("select * from useragent");
         obj.print();
     }
+    
+    public void printMessageLatency(){
+        System.err.print(">");
+        for(Object agID : latencyMap.keySet())
+            System.out.print(agID+"="+latencyMap.get(agID)+",");
+        System.out.println("");
+    }
 }

@@ -45,6 +45,7 @@ public class LogSchedule implements Runnable{
             System.out.println(">>OBSERVE : "+observes.get(i).getName() + "-" + observes.get(i).notifyState());
         
         LoggerManager.getInstance().printAgentDBData();
+        LoggerManager.getInstance().printMessageLatency();
     }
     
     @Override
