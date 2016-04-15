@@ -116,7 +116,7 @@ public class AgentMessageQueueManager {
         }
         
         sb.deleteCharAt(sb.length()-1);
-        sbsize.deleteCharAt(sb.length()-1);
+        sbsize.deleteCharAt(sbsize.length()-1);
         
         sb.append("\n");
         sb.append(sbsize);
