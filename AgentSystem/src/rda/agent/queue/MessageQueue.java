@@ -32,7 +32,7 @@ public class MessageQueue extends MessageQueueProcess{
         this.queue = new ArrayBlockingQueue<>(size+1);
         
         //Message Queue Length @RECORDS
-        QueueObserver observe = new QueueObserver(name, new Integer(queue.size()));
+        QueueObserver observe = new QueueObserver(name, queue);
         register(observe);
     }
     

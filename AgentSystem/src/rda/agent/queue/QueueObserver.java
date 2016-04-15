@@ -13,11 +13,11 @@ import java.util.Queue;
  */
 public class QueueObserver {
     private String name;
-    private final Integer queue;
+    private final Queue queue;
 
-    public QueueObserver(String name, Integer queueSize) {
+    public QueueObserver(String name, Queue queue) {
         this.name = name;
-        this.queue = queueSize;
+        this.queue = queue;
     }
     
     public String getName(){
@@ -25,6 +25,6 @@ public class QueueObserver {
     }
     
     public Integer notifyState(){
-        return queue;
+        return queue.size();
     }
 }
