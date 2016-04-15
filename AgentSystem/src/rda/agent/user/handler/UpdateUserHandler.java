@@ -24,9 +24,13 @@ public class UpdateUserHandler extends MessageHandler{
         // トランザクションIDを取得
         TxID tx = getTx();
         long updateData = 0;
-        for(int i=0; i < updateMsg.data.size(); i++)
-            updateData =  updateData + ((MessageObject)updateMsg.data.get(i)).data;
-            
+        Long avgLatency = 0L;
+        for(int i=0; i < updateMsg.data.size(); i++){
+            MessageObject msgobj = (MessageObject)updateMsg.data.get(i);
+            updateData =  updateData + msgobj.data;
+            avgLatency = avgLatency + msgobj.latency();
+        }
+        
         user.setData(tx, user.getData(tx)+updateData);
 
         long updateCount = user.getConnectionCount(tx) + 1;
@@ -42,9 +46,7 @@ public class UpdateUserHandler extends MessageHandler{
             log.setLastAccessTime(tx, updateTime);
         }
 		
-        String message = "";//"UpdateUser for data:"+updateData+" Log["+updateCount+"]";
-
-        //System.out.println("Agent["+getAgentKey()+"]:"+message);
+        String message = avgLatency.toString();
 
         return message;
     }

@@ -1,22 +1,28 @@
 package rda.agent.queue;
 
-import rda.queue.obj.*;
 import java.io.Serializable;
 
 public class MessageObject implements  Serializable{
 
     public String id, destID;
     public int data;
+    private Long time;
 
     public MessageObject(String id, int data, String destID) {
         // TODO 自動生成されたコンストラクター・スタブ
         this.id = id;
         this.data = data;
         this.destID = destID;
+        this.time = System.currentTimeMillis();
     }
 	
     @Override
     public String toString(){
         return id+","+data+"->"+destID;
+    }
+    
+    public Long latency(){
+        Long arrive = System.currentTimeMillis();
+        return arrive - time;
     }
 }
