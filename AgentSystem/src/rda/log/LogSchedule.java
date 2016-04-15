@@ -36,14 +36,12 @@ public class LogSchedule implements Runnable{
         System.out.println("> "+name + " : Start !");
         runnable = true;
         time = 0L;
-        observes = AgentMessageQueueManager.getInstance().getObserver();
+        
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
     private void logging(){
-        for(int i=0; i < observes.size(); i++)
-            System.out.println(">>OBSERVE : "+observes.get(i).getName() + "-" + observes.get(i).notifyState());
-        
+        LoggerManager.getInstance().printQueueObserever();
         LoggerManager.getInstance().printAgentDBData();
         LoggerManager.getInstance().printMessageLatency();
     }

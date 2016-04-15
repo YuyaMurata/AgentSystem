@@ -39,15 +39,44 @@ public class LoggerManager {
         latencyMap.put(agID, latency);
     }
     
+    public void printQueueObserever(){
+        String observe = AgentMessageQueueManager.getInstance().observerToString();
+        System.out.println("> "+observe);
+        
+    }
+    
     public void printAgentDBData(){
         SQLReturnObject obj = db.query("select * from useragent");
-        obj.print();
+        System.out.println("> "+obj.toString());
     }
     
     public void printMessageLatency(){
-        System.out.print("> ");
-        for(Object agID : latencyMap.keySet())
-            System.out.print(agID+"="+latencyMap.get(agID)+",");
-        System.out.println("");
+        System.out.print("> "+latencyToString());
+    }
+    
+    public String latencyToString(){
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sblat = new StringBuilder();
+        Long avg = 0L;
+        for(Object agID : latencyMap.keySet()){
+            sb.append(agID);
+            sb.append(",");
+            
+            Long latency = (Long)latencyMap.get(agID);
+            
+            sblat.append(latency);
+            sblat.append(",");
+            
+            avg = avg + latency;
+        }
+        avg = avg / latencyMap.size();
+        
+        sb.append("Avg.");
+        sblat.append(avg);
+        
+        sb.append("\n");
+        sb.append(sblat);
+        
+        return sb.toString();
     }
 }

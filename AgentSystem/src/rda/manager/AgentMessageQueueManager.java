@@ -103,4 +103,24 @@ public class AgentMessageQueueManager {
     public Integer getReserveMode(){
         return reserveMode;
     }
+    
+    public String observerToString(){
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sbsize = new StringBuilder();
+        for(int i=0; i < observeList.size(); i++){
+            sb.append(observeList.get(i).getName());
+            sb.append(",");
+            
+            sbsize.append(observeList.get(i).notifyState());
+            sbsize.append(",");
+        }
+        
+        sb.deleteCharAt(sb.length()-1);
+        sbsize.deleteCharAt(sb.length()-1);
+        
+        sb.append("\n");
+        sb.append(sbsize);
+        
+        return sb.toString();
+    }
 }
