@@ -51,7 +51,7 @@ public class LoggerManager {
     }
     
     public void printMessageLatency(){
-        System.out.print("> MessageLatency:\n"+latencyToString());
+        System.out.println("> MessageLatency:\n"+latencyToString());
     }
     
     public String latencyToString(){
