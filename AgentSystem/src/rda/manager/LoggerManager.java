@@ -41,17 +41,17 @@ public class LoggerManager {
     
     public void printQueueObserever(){
         String observe = AgentMessageQueueManager.getInstance().observerToString();
-        System.out.println("> "+observe);
+        System.out.println("> QueueObserver:\n"+observe);
         
     }
     
     public void printAgentDBData(){
         SQLReturnObject obj = db.query("select * from useragent");
-        System.out.println("> "+obj.toString());
+        System.out.println("> DataTransaction:\n"+obj.toString());
     }
     
     public void printMessageLatency(){
-        System.out.print("> "+latencyToString());
+        System.out.print("> MessageLatency:\n"+latencyToString());
     }
     
     public String latencyToString(){
