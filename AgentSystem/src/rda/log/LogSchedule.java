@@ -48,9 +48,13 @@ public class LogSchedule implements Runnable{
     
     @Override
     public void run() {
+        try{
         if(term > time){
             time++;
             logging();
+        }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
     
