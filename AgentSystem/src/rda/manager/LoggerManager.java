@@ -45,7 +45,7 @@ public class LoggerManager {
     }
     
     public void printMessageLatency(){
-        System.err.print(">");
+        System.out.print("> ");
         for(Object agID : latencyMap.keySet())
             System.out.print(agID+"="+latencyMap.get(agID)+",");
         System.out.println("");

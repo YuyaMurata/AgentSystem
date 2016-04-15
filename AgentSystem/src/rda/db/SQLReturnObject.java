@@ -21,11 +21,30 @@ public class SQLReturnObject {
     public void print(){
         System.out.println("\n--");
         
+        System.out.println(">"+toString());
+    }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sbval = new StringBuilder();
         Long total= 0L;
         for(Object id : results.keySet()){
-            System.out.println(id+"="+results.get(id));
-            total = total+ (Long)results.get(id);
+            sb.append(id);
+            sb.append(",");
+            
+            Long value = (Long)results.get(id);
+            sbval.append(value);
+            sbval.append(",");
+            
+            total = total + value;
         }
-        System.out.println("> Total : "+total);
+        
+        sb.append("Total");
+        sbval.append(total);
+        
+        sb.append("\n");
+        sb.append(sbval);
+        
+        return sb.toString();
     }
 }
