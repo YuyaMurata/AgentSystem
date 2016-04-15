@@ -6,6 +6,7 @@
 package rda.manager;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import rda.db.DBAccess;
 import rda.db.SQLReturnObject;
 import rda.log.LogSchedule;
@@ -31,6 +32,11 @@ public class LoggerManager {
     
     public LogSchedule getLogSchedule(){
         return log;
+    }
+    
+    private Map latencyMap = new ConcurrentHashMap();
+    public void putMSGLatency(String agID, Long latency){
+        latencyMap.put(agID, latency);
     }
     
     public void printAgentDBData(){
