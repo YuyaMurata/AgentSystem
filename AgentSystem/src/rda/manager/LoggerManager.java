@@ -5,10 +5,14 @@
  */
 package rda.manager;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import rda.db.DBAccess;
 import rda.db.SQLReturnObject;
+import rda.log.AgentLogPrint;
 import rda.log.LogSchedule;
 
 /**
@@ -52,6 +56,17 @@ public class LoggerManager {
     
     public void printMessageLatency(){
         System.out.println("> MessageLatency:\n"+latencyToString());
+    }
+    
+    public Map latencyToMap(){
+        List field = new ArrayList(latencyMap.keySet());
+        List data = new ArrayList(latencyMap.values());
+        Map map = new HashMap();
+        
+        map.put("Field", field);
+        map.put("Data", data);
+        
+        return map;
     }
     
     public String latencyToString(){

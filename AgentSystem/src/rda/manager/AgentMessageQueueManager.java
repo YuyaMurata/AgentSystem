@@ -96,12 +96,32 @@ public class AgentMessageQueueManager {
         return messageQueueMap;
     }
     
+    public Integer getNumAgents(){
+        return messageQueueMap.size();
+    }
+    
     public Integer getAutoMode(){
         return agentMode;
     }
     
     public Integer getReserveMode(){
         return reserveMode;
+    }
+    
+    public Map observerToMap(){
+        List field = new ArrayList();
+        List data = new ArrayList();
+        Map map = new HashMap();
+        
+        for(int i=0; i < observeList.size(); i++){
+            field.add(observeList.get(i).getName());
+            data.add(observeList.get(i).notifyState());
+        }
+        
+        map.put("Field", field);
+        map.put("Data", data);
+        
+        return map;
     }
     
     public String observerToString(){

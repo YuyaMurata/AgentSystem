@@ -8,6 +8,7 @@ package rda.manager;
 import java.util.HashMap;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
+import rda.log.AgentLogPrint;
 import rda.log.LogSchedule;
 import rda.property.SetProperty;
 import rda.stream.DataStream;
@@ -87,12 +88,16 @@ public class SystemManager implements SetProperty{
     
     private Map preAgentMap(){
         Map map = new HashMap();
+        map.put("AMOUNT_OF_AGENTS", NUMBER_OF_RANK_AGENTS);
         map.put("QUEUE_LENGTH", QUEUE_LENGTH);
         map.put("QUEUE_WAIT", QUEUE_WAIT);
         map.put("AGENT_WAIT", AGENT_WAIT);
         map.put("AGENT_MODE", AGENT_MODE_AUTONOMY);
         map.put("RESERVE_MODE", AGENT_MODE_RESERVE);
         map.put("AMOUNT_RESERVE_AGENT", NUMBER_OF_RESERVE);
+        map.put("POOLSIZE", POOLSIZE);
+        AgentLogPrint.printPropertySettings("Agent", map);
+        
         return map;
     }
     
@@ -100,6 +105,8 @@ public class SystemManager implements SetProperty{
         Map map = new HashMap();
         map.put("RULE", NAME_RULE);
         map.put("SEED", ID_SEED);
+        AgentLogPrint.printPropertySettings("ID", map);
+        
         return map;
     }
     
@@ -108,6 +115,8 @@ public class SystemManager implements SetProperty{
         map.put("AMOUNT_USER", NUMBER_OF_USERS);
         map.put("MODE", DATA_MODE_PROFILE);
         map.put("SEED", PROF_SEED);
+        AgentLogPrint.printPropertySettings("UserProfile", map);
+        
         return map;
     }
     
@@ -121,6 +130,8 @@ public class SystemManager implements SetProperty{
         map.put("SELECT_TYPE", DATA_SELECT_TYPE);
         map.put("MODE", DATA_MODE_GENERATE);
         map.put("SEED", DATA_SEED);
+        AgentLogPrint.printPropertySettings("Data", map);
+        
         return map;
     }
     
@@ -130,6 +141,8 @@ public class SystemManager implements SetProperty{
         map.put("TIME_PERIOD", TIME_PERIOD);
         map.put("TIME_WAIT", TIME_WAIT);
         map.put("WINDOW_SIZE", WINDOW_SIZE);
+        AgentLogPrint.printPropertySettings("Stream", map);
+        
         return map;
     }
     
@@ -138,6 +151,8 @@ public class SystemManager implements SetProperty{
         map.put("TIME_RUN", TIME_RUN);
         map.put("TIME_PERIOD", LOG_PERIOD);
         map.put("TIME_WAIT", TIME_WAIT);
+        AgentLogPrint.printPropertySettings("Logger", map);
+        
         return map;
     }
 }

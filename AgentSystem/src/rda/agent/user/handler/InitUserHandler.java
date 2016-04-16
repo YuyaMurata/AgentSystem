@@ -47,8 +47,7 @@ public class InitUserHandler extends MessageHandler {
 			user.setConnectionCount(tx, 0);
 
 			// set User Log
-			String AccessID = String.valueOf(System.currentTimeMillis());
-			Log log = user.createLog(tx, AccessID);
+			Log log = user.createLog(tx, "init");
 
 			// 最終更新日
 			log.setLastAccessTime(tx, registerTime);

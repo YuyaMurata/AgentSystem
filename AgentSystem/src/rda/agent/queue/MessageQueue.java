@@ -62,15 +62,16 @@ public class MessageQueue extends MessageQueueProcess{
     
     public void event(Object msgpack) throws MessageQueueEvent{
         AgentMessageQueueManager agent = AgentMessageQueueManager.getInstance();
+        String agID = "";
         if(agent.getAutoMode() == 1){
             IDManager id = agent.getIDManager();
-            String agID = id.genID();
+            agID = id.genID();
         
             agent.createAgent(agID);
             id.regID(((Window)msgpack).getOrigID(), agID);
         }
         
-        throw new MessageQueueEvent(name, msgpack);
+        throw new MessageQueueEvent(name, agID, msgpack);
     }
     
     //MessageQueue Process Overrides

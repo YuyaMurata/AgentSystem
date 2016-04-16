@@ -5,7 +5,9 @@
  */
 package rda.db;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,10 +20,15 @@ public class SQLReturnObject {
         this.results.putAll(res);
     }
     
-    public void print(){
-        System.out.println("\n--");
+    public Map toMapList(){
+        List field = new ArrayList(results.keySet());
+        List data = new ArrayList(results.values());
+        Map map = new HashMap();
         
-        System.out.println(">"+toString());
+        map.put("Field", field);
+        map.put("Data", data);
+        
+        return map;
     }
     
     public String toString(){

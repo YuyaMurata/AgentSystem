@@ -38,15 +38,14 @@ public class UpdateUserHandler extends MessageHandler{
         user.setConnectionCount(tx, updateCount);
 
         // Update Log Records
-        if(updateCount % 10000 == 0){
-            String AccessID = String.valueOf(System.currentTimeMillis());
-            Log log = user.createLog(tx, AccessID);
-
-            // Update LastAccessTime
-            Timestamp updateTime = new Timestamp(System.currentTimeMillis());
-            log.setLastAccessTime(tx, updateTime);
-        }
-		
+        if(user.getLog(tx, "update") == null) user.createLog(tx, "update");
+        Log log = user.getLog(tx, "update");
+        
+        // Update LastAccessTime
+        Timestamp updateTime = new Timestamp(System.currentTimeMillis());
+        log.setLastAccessTime(tx, updateTime);
+        
+        	
         Long message = avgLatency;
 
         return message;

@@ -1,5 +1,6 @@
 package rda.agent.queue;
 
+import rda.log.AgentLogPrint;
 import rda.window.Window;
 
 
@@ -7,17 +8,17 @@ public class MessageQueueEvent extends Exception{
     /**
     *
     */
-    private final String name;
+    private final String name, clonename;
     private final Window msgpack;
-    //private static final AgentSystemLogger logger = AgentSystemLogger.getInstance();
-    public MessageQueueEvent(String name, Object msgpack) {
+    public MessageQueueEvent(String name, String clonename, Object msgpack) {
         super(name);
         this.name = name;
+        this.clonename = clonename;
         this.msgpack = (Window)msgpack;
     }
 
     public void printEvent(){
-        //logger.print(logger.dataMarker, name, new Object[]{">MQEvents:",name,"-msg=",message.toString()});
-        System.out.println(">MQEvents:"+name+"-msg="+msgpack.toString());
+        //System.out.println(">MQEvents:"+name+"-msg="+msgpack.toString());
+        AgentLogPrint.printAgentLoad(msgpack.getOrigID(), name, clonename);
     }
 }
