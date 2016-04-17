@@ -37,7 +37,8 @@ public class InitUserHandler extends MessageHandler {
 			// 住所をセット
 			prof.setAddress(tx, initMsg.address);
 			// 登録日
-			Timestamp registerTime = new Timestamp(System.currentTimeMillis());
+                        Long time = System.currentTimeMillis();
+			Timestamp registerTime = new Timestamp(time);
 			prof.setLastAccessTime(tx, registerTime);
 
 			//UserAgent初期化
@@ -51,6 +52,7 @@ public class InitUserHandler extends MessageHandler {
 
 			// 最終更新日
 			log.setLastAccessTime(tx, registerTime);
+                        log.setCurrentTime(tx, time.toString());
 
 			//System.out.println("InitHandler of Agent:" + getAgentKey() + " was initialized");
 

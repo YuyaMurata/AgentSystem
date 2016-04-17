@@ -32,9 +32,13 @@ public class SystemManager implements SetProperty{
         dataSettings(NUMBER_OF_USERS, preDataMap(), preProfMap());
         loggerSettings(preLoggerMap());
         streamSettings(preStreamMap());
+        
+        loggerTime("LaunchSystem", "StartTime");
     }
     
     public void shutdownSystem(){
+        loggerTime("ShutdownSystem", "StopTime");
+        
         AgentMessageQueueManager agManager = AgentMessageQueueManager.getInstance();
         agManager.doShutdown();
         
@@ -84,6 +88,12 @@ public class SystemManager implements SetProperty{
     
     public DataStream dataStream(){
         return stream;
+    }
+    
+    private void loggerTime(String str, String key){
+        Map map = new HashMap();
+        map.put(key, System.currentTimeMillis());
+        AgentLogPrint.printResults(str, map);
     }
     
     private Map preAgentMap(){

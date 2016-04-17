@@ -10,7 +10,8 @@ import com.ibm.agent.exa.TxID;
  * <p>entity type="log tablename="log <br>
  * attribute name="UserID" type="STRING" primarykey="true" relationto="UserID" <br>
  * attribute name="AccessID" type="STRING" primarykey="true" <br>
- * attribute name="LastAccessTime" type="TIMESTAMP" <br> 
+ * attribute name="CurrentTime" type="STRING" <br>
+ * attribute name="LastAccessTime" type="TIMESTAMP" <br>
 **/
 public class Log extends HPAEntity {
     /**
@@ -39,9 +40,14 @@ public class Log extends HPAEntity {
     public static final int ACCESSID = 1;
 
     /**
+    * Column index of CurrentTime
+    **/
+    public static final int CURRENTTIME = 2;
+
+    /**
     * Column index of LastAccessTime
     **/
-    public static final int LASTACCESSTIME = 2;
+    public static final int LASTACCESSTIME = 3;
 
     /**
      * This constructor is used by the runtime.
@@ -53,9 +59,7 @@ public class Log extends HPAEntity {
 
     /**
      * Get the version string
-     * @return 
     **/
-    @Override
     public String getVersion() {
         return "rda1.0";
     }
@@ -63,7 +67,6 @@ public class Log extends HPAEntity {
     /**
      * Get a value of UserID. 
      * The setter method of UserID is not generated because this attribute is a primarykey. 
-     * @param tx
      * @return UserID
      **/
     public final String getUserID(TxID tx) {
@@ -74,7 +77,6 @@ public class Log extends HPAEntity {
     /**
      * Get a value of AccessID. 
      * The setter method of AccessID is not generated because this attribute is a primarykey. 
-     * @param tx
      * @return AccessID
      **/
     public final String getAccessID(TxID tx) {
@@ -83,23 +85,42 @@ public class Log extends HPAEntity {
     }
 
     /**
-     * @param tx
+     * @return CurrentTime
+     **/
+    public final String getCurrentTime(TxID tx) {
+        // generated code
+        return getString(tx,2);
+    }
+
+    /**
+     * Set a value to CurrentTime. 
+     * @param tx a transaction context
+     * @param value a value to be set to CurrentTime
+     **/
+    public final void  setCurrentTime(TxID tx, String value) throws AgentException {
+        // generated code
+        if (value != null && value.length() > 32) {
+            throw new AgentException("CurrentTime > maxlength(32)");
+        }
+        setString(tx,2,value);
+    }
+
+    /**
      * @return LastAccessTime
      **/
     public final java.sql.Timestamp getLastAccessTime(TxID tx) {
         // generated code
-        return getTimestamp(tx,2);
+        return getTimestamp(tx,3);
     }
 
     /**
      * Set a value to LastAccessTime. 
      * @param tx a transaction context
      * @param value a value to be set to LastAccessTime
-     * @throws com.ibm.agent.exa.AgentException
      **/
     public final void  setLastAccessTime(TxID tx, java.sql.Timestamp value) throws AgentException {
         // generated code
-        setTimestamp(tx,2,value);
+        setTimestamp(tx,3,value);
     }
 
 }

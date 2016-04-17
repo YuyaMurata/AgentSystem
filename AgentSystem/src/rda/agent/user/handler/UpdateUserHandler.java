@@ -42,10 +42,11 @@ public class UpdateUserHandler extends MessageHandler{
         Log log = user.getLog(tx, "update");
         
         // Update LastAccessTime
-        Timestamp updateTime = new Timestamp(System.currentTimeMillis());
+        Long time = System.currentTimeMillis();
+        Timestamp updateTime = new Timestamp(time);
         log.setLastAccessTime(tx, updateTime);
+        log.setCurrentTime(tx, time.toString());
         
-        	
         Long message = avgLatency;
 
         return message;

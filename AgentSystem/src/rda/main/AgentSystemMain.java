@@ -19,7 +19,6 @@ public class AgentSystemMain {
         logger();
         execute();
         shutdown();
-        resultout();
     }
     
     private static void prepare(){
@@ -38,10 +37,5 @@ public class AgentSystemMain {
         manager.dataStream().stop();
         manager.logSchedule().stop();
         manager.shutdownSystem();
-    }
-    
-    private static void resultout(){
-        //LoggerManager log = LoggerManager.getInstance();
-        //log.printAgentDBData();
     }
 }
