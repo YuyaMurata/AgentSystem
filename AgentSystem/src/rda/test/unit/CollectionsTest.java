@@ -8,6 +8,7 @@ package rda.test.unit;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,8 +19,8 @@ public class CollectionsTest {
     public static void main(String[] args) {
         Map map = new HashMap();
         map.put("A", 1);map.put("B", 2);map.put("C", 3);
-        
-        System.out.println(new ArrayList(map.keySet()));
+        List list = new ArrayList(map.keySet());
+        System.out.println(list.toArray(new Object[list.size()]));
         System.out.println(new ArrayList(map.values()));
         
         Long time = System.currentTimeMillis();
