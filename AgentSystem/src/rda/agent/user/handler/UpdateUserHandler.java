@@ -38,8 +38,9 @@ public class UpdateUserHandler extends MessageHandler{
         user.setConnectionCount(tx, updateCount);
 
         // Update Log Records
-        if(user.getLog(tx, "update") == null) user.createLog(tx, "update");
         Log log = user.getLog(tx, "update");
+        if(log == null)
+            log = user.createLog(tx, "update");
         
         // Update LastAccessTime
         Long time = System.currentTimeMillis();

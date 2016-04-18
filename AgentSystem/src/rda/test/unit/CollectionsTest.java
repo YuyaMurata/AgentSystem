@@ -5,6 +5,7 @@
  */
 package rda.test.unit;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,8 @@ public class CollectionsTest {
         System.out.println(new ArrayList(map.keySet()));
         System.out.println(new ArrayList(map.values()));
         
-        
+        Long time = System.currentTimeMillis();
+        Timestamp timest = new Timestamp(time);
+        System.out.println("Time="+time.toString()+" stamp="+timest);
     }
 }
