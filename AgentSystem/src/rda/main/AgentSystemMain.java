@@ -16,8 +16,8 @@ public class AgentSystemMain {
     
     public static void main(String[] args) {
         prepare();
-        logger();
         execute();
+        logger();
         shutdown();
     }
     
