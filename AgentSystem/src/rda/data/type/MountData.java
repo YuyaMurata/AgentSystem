@@ -54,4 +54,9 @@ public class MountData implements DataType{
         
         return msg;
     }
+
+    @Override
+    public String toString(Long time) {
+        return String.valueOf(time * volume);
+    }
 }

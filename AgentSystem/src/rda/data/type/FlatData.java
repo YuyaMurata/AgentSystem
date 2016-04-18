@@ -62,4 +62,9 @@ public class FlatData  implements DataType{
         
         return name + " DataN_" + result;
     }
+
+    @Override
+    public String toString(Long time) {
+        return String.valueOf(volume);
+    }
 }

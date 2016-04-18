@@ -17,4 +17,6 @@ public interface DataType{
     
     @Override
     public abstract String toString();
+    
+    public abstract String toString(Long time);
 }

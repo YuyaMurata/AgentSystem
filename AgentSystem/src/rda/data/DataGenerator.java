@@ -22,4 +22,8 @@ public class DataGenerator {
     public String toString(){
         return type.toString();
     }
+    
+    public String toString(Long time){
+        return type.toString(time);
+    }
 }

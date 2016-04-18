@@ -43,10 +43,14 @@ public class LoggerManager {
         latencyMap.put(agID, latency);
     }
     
+    public void printTestcaseData(Long time){
+        String n = TestCaseManager.getInstance().datagen.toString(time);
+        AgentLogPrint.printTestcaseData(time.toString(), n);
+    }
+    
     public void printQueueObserever(){
         String observe = AgentMessageQueueManager.getInstance().observerToString();
         System.out.println("> QueueObserver:\n"+observe);
-        
     }
     
     public void printAgentDBData(){

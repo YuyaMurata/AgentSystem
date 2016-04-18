@@ -5,6 +5,7 @@
  */
 package rda.log;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -37,9 +38,12 @@ public class LogSchedule implements Runnable{
         time = 0L;
         
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
+        
+        loggerTime("StratTime", String.valueOf(System.currentTimeMillis()));
     }
     
-    private void logging(){
+    private void logging(Long time){
+        LoggerManager.getInstance().printTestcaseData(time);
         LoggerManager.getInstance().printQueueObserever();
         LoggerManager.getInstance().printAgentDBData();
         LoggerManager.getInstance().printMessageLatency();
@@ -49,7 +53,7 @@ public class LogSchedule implements Runnable{
     public void run() {
         if(term > time){
             time++;
-            logging();
+            logging(time);
         }
     }
     
@@ -66,6 +70,14 @@ public class LogSchedule implements Runnable{
             schedule.shutdownNow();
         }
         
-        logging();        
+        loggerTime("StopTime", String.valueOf(System.currentTimeMillis()));
+        
+        logging(0L);        
+    }
+    
+    private void loggerTime(String str, String key){
+        Map map = new HashMap();
+        map.put(key, System.currentTimeMillis());
+        AgentLogPrint.printResults(str, map);
     }
 }

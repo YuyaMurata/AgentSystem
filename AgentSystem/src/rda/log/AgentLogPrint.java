@@ -55,7 +55,7 @@ public class AgentLogPrint {
             logger.print(logger.titleMarker, str, new Object[]{key+"="+map.get(key)});
     }
     
-    public static void printTestcaseData(){
-        
+    public static void printTestcaseData(String str, String numdata){
+        logger.printResults(logger.dataMarker, str, new Object[]{"sec ="+numdata});
     }
 }
