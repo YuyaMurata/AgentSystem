@@ -18,10 +18,10 @@ public class AgentLogPrint {
     
     public static void printMessageQueueLog(Map length){
         List list = (List)length.get("Field");
-        logger.print(logger.fieldMarker, (String)length.get("Place"), list.toArray(new Object[list.size()]));
+        logger.printMQLength(logger.fieldMarker, (String)length.get("Place"), list.toArray(new Object[list.size()]));
         
         list = (List)length.get("Data");
-        logger.print(logger.dataMarker, (String)length.get("Place"), list.toArray(new Object[list.size()]));
+        logger.printMQLength(logger.dataMarker, (String)length.get("Place"), list.toArray(new Object[list.size()]));
     }
     
     public static void printAgentTransaction(Map transaction){
