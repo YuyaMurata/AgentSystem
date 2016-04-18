@@ -57,7 +57,6 @@ public class UpdateRank extends AgentType {
             //Sync Message
             Object ret = agentManager.sendMessage(agentKey, msg);
             //agentManager.putMessage(agentKey, msg);
-            System.out.println(">>> RETURN = "+ret);
 
             return ret;
         } catch (IllegalAccessException | InstantiationException e) {
@@ -78,7 +77,6 @@ public class UpdateRank extends AgentType {
             Object reply = client.execute(agentKey, executor);
             if(reply != null){
                 System.out.println(">>> REPLY = "+reply);
-                LoggerManager.getInstance().putMSGLatency(agID, (Long)reply);
             }
             agcon.returnConnection(client);
         } catch (AgentException e) {
