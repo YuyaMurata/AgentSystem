@@ -63,7 +63,7 @@ public class LoggerManager {
     
     public void printMessageLatency(){
         System.out.println("> MessageLatency:\n"+latencyToString());
-        AgentLogPrint.printMessageLatency(latencyMap);
+        AgentLogPrint.printMessageLatency(latencyToMap());
     }
     
     public Map latencyToMap(){
