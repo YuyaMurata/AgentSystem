@@ -76,7 +76,7 @@ public class LogSchedule implements Runnable{
         
         loggerTime("StopTime", String.valueOf(System.currentTimeMillis()));
         
-        logging(0L);        
+        logging(-1L);        
     }
     
     private void loggerTime(String str, String key){

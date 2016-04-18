@@ -57,6 +57,7 @@ public class ImpulseData implements DataType{
 
     @Override
     public String toString(Long time) {
+        if(time == -1L) return toString();
         if((time % timing) == 0) return String.valueOf(impulse - 1);
         else return String.valueOf(volume - 1);
     }

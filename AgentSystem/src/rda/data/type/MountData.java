@@ -57,6 +57,7 @@ public class MountData implements DataType{
 
     @Override
     public String toString(Long time) {
+        if(time == -1L) return toString();
         return String.valueOf(time * volume);
     }
 }
