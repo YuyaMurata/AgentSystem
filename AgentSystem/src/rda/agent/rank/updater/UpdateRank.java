@@ -57,6 +57,7 @@ public class UpdateRank extends AgentType {
             //Sync Message
             Object ret = agentManager.sendMessage(agentKey, msg);
             //agentManager.putMessage(agentKey, msg);
+            System.out.println(">>> RETURN = "+ret);
 
             return ret;
         } catch (IllegalAccessException | InstantiationException e) {
