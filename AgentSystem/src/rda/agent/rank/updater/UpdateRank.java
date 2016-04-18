@@ -75,9 +75,10 @@ public class UpdateRank extends AgentType {
             UpdateRank executor = new UpdateRank(agentKey, (List)data);
                 
             Object reply = client.execute(agentKey, executor);
-            if(reply != null)
+            if(reply != null){
+                System.out.println(">>> REPLY = "+reply);
                 LoggerManager.getInstance().putMSGLatency(agID, (Long)reply);
-                
+            }
             agcon.returnConnection(client);
         } catch (AgentException e) {
             e.printStackTrace();
