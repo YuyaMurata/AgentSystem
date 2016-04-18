@@ -32,8 +32,6 @@ public class UpdateUserHandler extends MessageHandler{
         }
         avgLatency = avgLatency / updateMsg.data.size();
         
-        System.out.println(">> **********AVG="+avgLatency);
-        
         user.setData(tx, user.getData(tx)+updateData);
 
         long updateCount = user.getConnectionCount(tx) + 1;
@@ -50,7 +48,9 @@ public class UpdateUserHandler extends MessageHandler{
         log.setCurrentTime(tx, time.toString());
         
         Long message = avgLatency;
-
+        
+        System.out.println(">> **********MSG="+message);
+        
         return message;
     }
 }
