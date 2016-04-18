@@ -32,6 +32,8 @@ public class UpdateUserHandler extends MessageHandler{
         }
         avgLatency = avgLatency / updateMsg.data.size();
         
+        System.out.println(">> **********AVG="+avgLatency);
+        
         user.setData(tx, user.getData(tx)+updateData);
 
         long updateCount = user.getConnectionCount(tx) + 1;

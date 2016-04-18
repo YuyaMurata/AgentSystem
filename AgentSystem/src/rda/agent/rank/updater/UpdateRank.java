@@ -41,7 +41,7 @@ public class UpdateRank extends AgentType {
     public Object complete(Collection<Object> results) {
         // TODO 自動生成されたメソッド・スタブ
         Object[] ret = results.toArray();
-        return ret;
+        return ret[0];
     }
 
     @Override
@@ -75,10 +75,8 @@ public class UpdateRank extends AgentType {
             UpdateRank executor = new UpdateRank(agentKey, (List)data);
                 
             Object reply = client.execute(agentKey, executor);
-            int i=0;
             if(reply != null){
-                for(Object rep : (Object[])reply)
-                System.out.println(">>> REPLY"+(i++)+" = "+rep);
+                System.out.println(">>> REPLY = "+reply);
             }
             agcon.returnConnection(client);
         } catch (AgentException e) {
