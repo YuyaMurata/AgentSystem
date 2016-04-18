@@ -109,15 +109,18 @@ public class AgentMessageQueueManager {
     }
     
     public Map observerToMap(){
+        StringBuilder place = new StringBuilder("MessageQueue");
         List field = new ArrayList();
         List data = new ArrayList();
         Map map = new HashMap();
         
         for(int i=0; i < observeList.size(); i++){
+            place.append(",{}");
             field.add(observeList.get(i).getName());
             data.add(observeList.get(i).notifyState());
         }
         
+        map.put("Place", place.toString());
         map.put("Field", field);
         map.put("Data", data);
         

@@ -21,10 +21,15 @@ public class SQLReturnObject {
     }
     
     public Map toMapList(){
+        StringBuilder place = new StringBuilder("Agent");
         List field = new ArrayList(results.keySet());
         List data = new ArrayList(results.values());
         Map map = new HashMap();
         
+        for(int i=0; i < field.size(); i++)
+            place.append(",{}");
+        
+        map.put("Place", place.toString());
         map.put("Field", field);
         map.put("Data", data);
         

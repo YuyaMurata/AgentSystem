@@ -20,6 +20,7 @@ public class CollectionsTest {
         Map map = new HashMap();
         map.put("A", 1);map.put("B", 2);map.put("C", 3);
         List list = new ArrayList(map.keySet());
+        
         System.out.println(list.toArray(new Object[list.size()]));
         System.out.println(new ArrayList(map.values()));
         
