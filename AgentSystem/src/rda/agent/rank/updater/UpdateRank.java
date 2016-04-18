@@ -75,9 +75,10 @@ public class UpdateRank extends AgentType {
             UpdateRank executor = new UpdateRank(agentKey, (List)data);
                 
             Object reply = client.execute(agentKey, executor);
+            int i=0;
             if(reply != null){
                 for(Object st : (Collection)reply)
-                    System.out.println(">>> REPLY = "+(String)reply);
+                    System.out.println(">>> REPLY"+(i++)+" = "+(String)reply);
             }
             agcon.returnConnection(client);
         } catch (AgentException e) {
