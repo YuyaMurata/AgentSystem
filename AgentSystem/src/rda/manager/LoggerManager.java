@@ -45,21 +45,25 @@ public class LoggerManager {
     
     public void printTestcaseData(Long time){
         String n = TestCaseManager.getInstance().datagen.toString(time);
+        System.out.println("> TestcaseGenData:"+n);
         AgentLogPrint.printTestcaseData(time.toString(), n);
     }
     
     public void printQueueObserever(){
         String observe = AgentMessageQueueManager.getInstance().observerToString();
         System.out.println("> QueueObserver:\n"+observe);
+        AgentLogPrint.printMessageQueueLog(AgentMessageQueueManager.getInstance().observerToMap());
     }
     
     public void printAgentDBData(){
         SQLReturnObject obj = db.query("select * from useragent");
         System.out.println("> DataTransaction:\n"+obj.toString());
+        AgentLogPrint.printAgentTransaction(obj.toMapList());
     }
     
     public void printMessageLatency(){
         System.out.println("> MessageLatency:\n"+latencyToString());
+        AgentLogPrint.printMessageLatency(latencyMap);
     }
     
     public Map latencyToMap(){
