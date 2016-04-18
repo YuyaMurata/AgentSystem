@@ -43,10 +43,14 @@ public class LogSchedule implements Runnable{
     }
     
     private void logging(Long time){
+        try{
         LoggerManager.getInstance().printTestcaseData(time);
         LoggerManager.getInstance().printQueueObserever();
         LoggerManager.getInstance().printAgentDBData();
         LoggerManager.getInstance().printMessageLatency();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
     
     @Override

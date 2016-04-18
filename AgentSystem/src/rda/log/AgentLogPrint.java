@@ -47,12 +47,12 @@ public class AgentLogPrint {
     
     public static void printPropertySettings(String str, Map map){
         for(Object key : map.keySet())
-            logger.print(logger.titleMarker, str, new Object[]{key+"="+map.get(key)});
+            logger.printResults(logger.titleMarker, str, new Object[]{key+"="+map.get(key)});
     }
     
     public static void printResults(String str, Map map){
         for(Object key : map.keySet())
-            logger.print(logger.titleMarker, str, new Object[]{key+"="+map.get(key)});
+            logger.printResults(logger.titleMarker, str, new Object[]{key+"="+map.get(key)});
     }
     
     public static void printTestcaseData(String str, String numdata){
