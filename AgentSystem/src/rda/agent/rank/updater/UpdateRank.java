@@ -11,6 +11,8 @@ import java.util.List;
 import rda.agent.client.AgentConnection;
 import rda.agent.template.AgentType;
 import rda.agent.user.message.UpdateUserMessage;
+import rda.log.AgentLogPrint;
+import rda.manager.AgentMessageQueueManager;
 import rda.manager.LoggerManager;
 
 public class UpdateRank extends AgentType {
@@ -76,7 +78,7 @@ public class UpdateRank extends AgentType {
                 
             Object reply = client.execute(agentKey, executor);
             if(reply != null){
-                System.out.println(">>> REPLY = "+reply);
+                LoggerManager.getInstance().putMSGLatency(agID, (Long)reply);
             }
             agcon.returnConnection(client);
         } catch (AgentException e) {

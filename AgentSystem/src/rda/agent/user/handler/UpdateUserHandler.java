@@ -50,8 +50,6 @@ public class UpdateUserHandler extends MessageHandler{
         
         Long message = avgLatency;
         
-        System.out.println(">> **********MSG="+message);
-        
         return message;
     }
 }
