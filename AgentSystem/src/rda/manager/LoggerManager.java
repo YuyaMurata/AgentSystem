@@ -89,6 +89,8 @@ public class LoggerManager {
     }
     
     public String latencyToString(){
+        if(latencyMap.size() < 1) return "";
+        
         StringBuilder sb = new StringBuilder();
         StringBuilder sblat = new StringBuilder();
         Long avg = 0L;
