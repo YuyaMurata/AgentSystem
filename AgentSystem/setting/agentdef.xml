@@ -20,7 +20,7 @@
 		<entity type="log">
 			<attribute name="UserID" type="string" primarykey="true" relationto="UserID" maxlength="32"/>
 			<attribute name="AccessID" type="string" primarykey="true" maxlength="16"/>
-			<attribute name="CurrentTime" type="string" maxlength="32"/>
+			<attribute name="CurrentTime" type="long"/>
                         <attribute name="LastAccessTime" type="timestamp" />
 		</entity>
 	</entities>

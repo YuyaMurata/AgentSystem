@@ -52,7 +52,7 @@ public class InitUserHandler extends MessageHandler {
 
 			// 最終更新日
 			log.setLastAccessTime(tx, registerTime);
-                        log.setCurrentTime(tx, time.toString());
+                        log.setCurrentTime(tx, time);
 
 			//System.out.println("InitHandler of Agent:" + getAgentKey() + " was initialized");
 

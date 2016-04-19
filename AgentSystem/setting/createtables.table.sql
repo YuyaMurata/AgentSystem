@@ -46,7 +46,7 @@ COMMIT WORK;
 CREATE TRANSIENT TABLE log(
 	UserID VARCHAR(64) NOT NULL,
 	AccessID VARCHAR(16) NOT NULL,
-        CurrentTime WVARCHAR(64),
+        CurrentTime BIGINT,
 	LastAccessTime TIMESTAMP,
 	PRIMARY KEY(UserID, AccessID)
 );

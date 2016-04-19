@@ -46,7 +46,7 @@ public class UpdateUserHandler extends MessageHandler{
         Long time = System.currentTimeMillis();
         Timestamp updateTime = new Timestamp(time);
         log.setLastAccessTime(tx, updateTime);
-        log.setCurrentTime(tx, time.toString());
+        log.setCurrentTime(tx, time);
         
         Long message = avgLatency;
         
