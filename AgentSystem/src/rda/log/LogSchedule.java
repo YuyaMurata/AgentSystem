@@ -21,7 +21,7 @@ import rda.manager.LoggerManager;
 public class LogSchedule implements Runnable{
     private static final String name = "LogSchedule";
     private final ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
-    private Long time, term;
+    private Long time, term, start, stop;
     private long delay, period;
     private Boolean runnable;
     
@@ -38,15 +38,15 @@ public class LogSchedule implements Runnable{
         time = 0L;
         
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
-        
-        loggerTime("StratTime", String.valueOf(System.currentTimeMillis()));
+        start = System.currentTimeMillis();
+        loggerTime("StratTime", String.valueOf(start));
     }
     
     private void logging(Long time){
         try{
         LoggerManager.getInstance().printTestcaseData(time);
         LoggerManager.getInstance().printQueueObserever();
-        LoggerManager.getInstance().printAgentDBData();
+        LoggerManager.getInstance().printAgentDBTranData();
         LoggerManager.getInstance().printMessageLatency();
         }catch(Exception e){
             e.printStackTrace();
@@ -74,14 +74,18 @@ public class LogSchedule implements Runnable{
             schedule.shutdownNow();
         }
         
-        loggerTime("StopTime", String.valueOf(System.currentTimeMillis()));
+        stop = System.currentTimeMillis();
+        loggerTime("StopTime", String.valueOf(stop));
+        LoggerManager.getInstance().printAgentDBLifeData(start);
+        
+        loggerTime("TransactionTime", String.valueOf(stop-start));
         
         logging(-1L);        
     }
     
-    private void loggerTime(String str, String key){
+    private void loggerTime(String key, String value){
         Map map = new HashMap();
-        map.put(key, System.currentTimeMillis());
-        AgentLogPrint.printResults(str, map);
+        map.put(value, System.currentTimeMillis());
+        AgentLogPrint.printResults("", map);
     }
 }

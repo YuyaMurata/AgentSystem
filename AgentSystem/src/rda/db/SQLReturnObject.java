@@ -26,6 +26,12 @@ public class SQLReturnObject {
         List data = new ArrayList(results.values());
         Map map = new HashMap();
         
+        field.add("Total");
+        Long total = 0L;
+        for(Long n : (List<Long>)data)
+            total = total + n;
+        data.add(total);
+        
         for(int i=0; i < field.size(); i++)
             place.append(",{}");
         
@@ -53,6 +59,45 @@ public class SQLReturnObject {
         
         sb.append("Total");
         sbval.append(total);
+        
+        sb.append("\n");
+        sb.append(sbval);
+        
+        return sb.toString();
+    }
+    
+    //log
+    public Map toMapList(Long time){
+        StringBuilder place = new StringBuilder("Agent");
+        List field = new ArrayList(results.keySet());
+        List data = new ArrayList(results.values());
+        Map map = new HashMap();
+        
+        for(int i=0; i < data.size(); i++)
+            data.set(i, (Long)data.get(i) - time);
+        
+        for(int i=0; i < field.size(); i++)
+            place.append(",{}");
+        
+        map.put("Place", place.toString());
+        map.put("Field", field);
+        map.put("Data", data);
+        
+        return map;
+    }
+    
+    public String toString(Long time){
+        StringBuilder sb = new StringBuilder();
+        StringBuilder sbval = new StringBuilder();
+        Long total= 0L;
+        for(Object id : results.keySet()){
+            sb.append(id);
+            sb.append(",");
+            
+            Long value = (Long)results.get(id);
+            sbval.append(value-time);
+            sbval.append(",");
+        }
         
         sb.append("\n");
         sb.append(sbval);

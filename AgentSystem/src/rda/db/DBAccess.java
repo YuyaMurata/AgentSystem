@@ -74,10 +74,23 @@ public class DBAccess implements AgentExecutor, Serializable {
             
             //IDとDataを取得
             Map results = new HashMap();
-            while(rs.next())
-                results.put(rs.getString(1), rs.getLong(2));
+            if(sqlstmt.contains("useragent")){
+                while(rs.next()){
+                     results.put(rs.getString(1), rs.getLong(2));
+                }
+                return results;
+            }
             
-            return results;
+            if(sqlstmt.contains("log")){
+                while(rs.next()){
+                    if(rs.getString(2).contains("update"))
+                        results.put(rs.getString(1), rs.getLong(3));
+                }
+                return results;
+            }
+            
+            return null;
+            
         } catch(Exception e) {
             e.printStackTrace();
             return e;

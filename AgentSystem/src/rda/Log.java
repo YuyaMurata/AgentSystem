@@ -10,7 +10,7 @@ import com.ibm.agent.exa.TxID;
  * <p>entity type="log tablename="log <br>
  * attribute name="UserID" type="STRING" primarykey="true" relationto="UserID" <br>
  * attribute name="AccessID" type="STRING" primarykey="true" <br>
- * attribute name="CurrentTime" type="STRING" <br>
+ * attribute name="CurrentTime" type="LONG" <br>
  * attribute name="LastAccessTime" type="TIMESTAMP" <br>
 **/
 public class Log extends HPAEntity {
@@ -87,9 +87,9 @@ public class Log extends HPAEntity {
     /**
      * @return CurrentTime
      **/
-    public final String getCurrentTime(TxID tx) {
+    public final long getCurrentTime(TxID tx) {
         // generated code
-        return getString(tx,2);
+        return getLong(tx,2);
     }
 
     /**
@@ -97,12 +97,9 @@ public class Log extends HPAEntity {
      * @param tx a transaction context
      * @param value a value to be set to CurrentTime
      **/
-    public final void  setCurrentTime(TxID tx, String value) throws AgentException {
+    public final void  setCurrentTime(TxID tx, long value) throws AgentException {
         // generated code
-        if (value != null && value.length() > 32) {
-            throw new AgentException("CurrentTime > maxlength(32)");
-        }
-        setString(tx,2,value);
+        setLong(tx,2,value);
     }
 
     /**

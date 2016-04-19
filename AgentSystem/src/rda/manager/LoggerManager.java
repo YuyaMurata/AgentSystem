@@ -55,10 +55,16 @@ public class LoggerManager {
         AgentLogPrint.printMessageQueueLog(AgentMessageQueueManager.getInstance().observerToMap());
     }
     
-    public void printAgentDBData(){
+    public void printAgentDBTranData(){
         SQLReturnObject obj = db.query("select * from useragent");
         System.out.println("> DataTransaction:\n"+obj.toString());
         AgentLogPrint.printAgentTransaction(obj.toMapList());
+    }
+    
+    public void printAgentDBLifeData(Long time){
+        SQLReturnObject obj = db.query("select * from log");
+        System.out.println("> AgentLifeTime:\n"+obj.toString(time));
+        AgentLogPrint.printAgentTransaction(obj.toMapList(time));
     }
     
     public void printMessageLatency(){
