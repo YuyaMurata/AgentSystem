@@ -85,7 +85,7 @@ public class LogSchedule implements Runnable{
     
     private void loggerTime(String key, String value){
         Map map = new HashMap();
-        map.put(value, System.currentTimeMillis());
+        map.put(key, value);
         AgentLogPrint.printResults("", map);
     }
 }
