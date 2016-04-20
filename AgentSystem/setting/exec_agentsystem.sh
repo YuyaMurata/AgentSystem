@@ -1,7 +1,6 @@
 #Initialise
-./git-remote.sh
-mkdir logs
-mkdir logs/history
+#./git-remote.sh
+mkdir -p logs/history
 rm -f vmstat.log
 
 #Setting CLASS PATH
