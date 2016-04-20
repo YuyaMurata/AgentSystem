@@ -1,4 +1,6 @@
 #Initialise
+./git-remote.sh
+mkdir logs
 mkdir logs/history
 rm -f vmstat.log
 
@@ -7,7 +9,6 @@ source ./set_classpath.sh
 
 #{1..10}
 #Experimental
-mkdir logs
 
 java -cp $CLASSPATH -Xms4096m -Xmx4096m rda.agent.disposer.Dispose
 
