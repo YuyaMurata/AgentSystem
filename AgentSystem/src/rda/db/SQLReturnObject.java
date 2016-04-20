@@ -68,7 +68,7 @@ public class SQLReturnObject {
     
     //log
     public Map toMapList(Long time){
-        StringBuilder place = new StringBuilder("Agent");
+        StringBuilder place = new StringBuilder("AgentLifeTime");
         List field = new ArrayList(results.keySet());
         List data = new ArrayList(results.values());
         Map map = new HashMap();

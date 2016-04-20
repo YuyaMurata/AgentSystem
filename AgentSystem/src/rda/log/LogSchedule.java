@@ -75,12 +75,13 @@ public class LogSchedule implements Runnable{
         }
         
         stop = System.currentTimeMillis();
+        
+        logging(-1L);
+        
         loggerTime("StopTime", String.valueOf(stop));
+        
         LoggerManager.getInstance().printAgentDBLifeData(start);
-        
         loggerTime("TransactionTime", String.valueOf(stop-start));
-        
-        logging(-1L);        
     }
     
     private void loggerTime(String key, String value){
