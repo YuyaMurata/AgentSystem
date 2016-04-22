@@ -19,9 +19,9 @@ public class MessageQueueEvent extends Exception{
     }
 
     public void printEvent(){
-        if(AgentMessageQueueManager.getInstance().getAutoMode() == 1){
+        //if(AgentMessageQueueManager.getInstance().getAutoMode() == 1){
             //System.out.println(">MQEvents:"+name+"-msg="+msgpack.toString());
             AgentLogPrint.printAgentLoad(msgpack.getOrigID(), name, clonename);
-        }
+        //}
     }
 }

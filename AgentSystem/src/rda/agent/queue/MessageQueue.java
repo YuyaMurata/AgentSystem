@@ -8,8 +8,6 @@ package rda.agent.queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.agent.template.AgentType;
 import rda.manager.AgentMessageQueueManager;
 import rda.manager.IDManager;
@@ -54,9 +52,7 @@ public class MessageQueue extends MessageQueueProcess{
     
     @Override
     public void put(Object msgpack) throws MessageQueueEvent{
-        if(!queue.offer(msgpack)) {
-            event(msgpack);
-        }
+        if(!queue.offer(msgpack)) event(msgpack);
     }
     
     public void event(Object msgpack) throws MessageQueueEvent{
