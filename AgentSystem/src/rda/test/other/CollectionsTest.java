@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rda.test.unit;
+package rda.test.other;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
