@@ -29,7 +29,7 @@ mv vmstat.* logs/
 mv logs `hostname`_`date +%Y%m%d%H%M%S`_logs
 zip -r `hostname`_`date +%Y%m%d%H%M%S`_logs.zip *_logs
 cp *_logs.zip $CETA_HOME/App/dropbox_log
-dropbox upload $CETA_HOME/App/dropbox_log/*.zip logs
+dropbox upload $CETA_HOME/App/dropbox_log/*.zip logs/
 mv $CETA_HOME/App/dropbox_log/*.zip $CETA_HOME/App/dropbox_log/old/
 
 rm -fr *_logs

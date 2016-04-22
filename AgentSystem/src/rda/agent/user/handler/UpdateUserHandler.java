@@ -30,7 +30,7 @@ public class UpdateUserHandler extends MessageHandler{
             updateData =  updateData + msgobj.data;
             avgLatency = avgLatency + msgobj.latency();
         }
-        avgLatency = avgLatency / updateMsg.data.size();
+        if(updateMsg.data.size() > 0) avgLatency = avgLatency / updateMsg.data.size();
         
         user.setData(tx, user.getData(tx)+updateData);
 
