@@ -61,7 +61,7 @@ public class UpdateRank extends AgentType {
             return ret;
         } catch (IllegalAccessException | InstantiationException e) {
             // TODO 自動生成された catch ブロック
-            return e;
+            return 0L;
         }
     }
 
