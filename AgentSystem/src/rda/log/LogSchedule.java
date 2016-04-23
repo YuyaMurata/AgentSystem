@@ -6,12 +6,10 @@
 package rda.log;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import rda.agent.queue.QueueObserver;
 import rda.manager.LoggerManager;
 
 /**
@@ -23,9 +21,7 @@ public class LogSchedule implements Runnable{
     private final ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
     private Long time, term, start, stop;
     private long delay, period;
-    private Boolean runnable;
-    
-    private List<QueueObserver> observes;
+
     
     public LogSchedule(Map loggerMap) {
         this.term = (Long)loggerMap.get("TIME_RUN");
@@ -34,7 +30,6 @@ public class LogSchedule implements Runnable{
     
     public void start(){
         System.out.println("> "+name + " : Start !");
-        runnable = true;
         time = 0L;
         
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
@@ -61,8 +56,7 @@ public class LogSchedule implements Runnable{
         }
     }
     
-    public void stop(){       
-        runnable = false;
+    public void stop(){
         
         System.out.println("> " + name +" : Stop !");
         
