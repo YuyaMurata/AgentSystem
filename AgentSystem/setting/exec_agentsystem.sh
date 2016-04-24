@@ -1,5 +1,5 @@
 #Initialise
-#./git-remote.sh
+./git-remote.sh
 mkdir -p logs/history
 rm -f vmstat.log
 
