@@ -18,7 +18,7 @@ public class WindowController{
         
     public WindowController(int limit, Long aliveTime, int poolsize) {
         this.size = limit;
-        this.aliveThread = Executors.newFixedThreadPool(poolsize);
+        //this.aliveThread = Executors.newFixedThreadPool(poolsize);
         this.aliveTime = aliveTime;
     }
         
@@ -26,7 +26,7 @@ public class WindowController{
         if(windowMap.get(msg.destID) == null){
             Window window = new Window(this, msg.destID, size);
             windowMap.put(msg.destID, window);
-            aliveThread.execute(new WindowAliveThread(this, window, aliveTime));
+            //aliveThread.execute(new WindowAliveThread(this, window, aliveTime));
         }
         
         windowMap.get(msg.destID).pack(msg);
