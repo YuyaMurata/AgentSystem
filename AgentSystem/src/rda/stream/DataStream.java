@@ -73,8 +73,9 @@ public class DataStream implements Runnable{
     @Override
     public void run() {
         if(term > time){
-            System.out.println("-Time Period = "+time++);
+            System.out.println("-Time Period = "+time);
             stream(time);
+            time++;
         }
     }
     

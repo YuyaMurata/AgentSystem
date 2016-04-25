@@ -89,7 +89,19 @@ public class ResultsAgentTransaction {
             String[] line;
             while((line = data.readNext()) != null){
                 if(line.length < 1) continue;
-                csv.writeNext(line);
+                List<String> list = new ArrayList<>();
+                list.addAll(Arrays.asList(line));
+                
+                // Interpolation rows
+                if(list.size() != field.size())
+                    for(int j = list.size(); j < field.size(); j++)
+                        list.add("");
+                
+                String total = line[line.length-1];
+                list.set(line.length-1, "");
+                list.set(list.size()-1, total);
+                
+                csv.writeNext(list.toArray(new String[list.size()]));
                 csv.flush();
             }
             
@@ -128,11 +140,6 @@ public class ResultsAgentTransaction {
             while((line = tmpdata.readNext()) != null){
                 List<String> list = new ArrayList<>();
                 list.addAll(Arrays.asList(line));
-                
-                // Interpolation rows
-                if(list.size() != field.size())
-                    for(int j = list.size(); j < field.size(); j++)
-                        list.add("");
                 
                 list.add(testValue.get(i));
                 list.add(cumlativeValue.get(i));
