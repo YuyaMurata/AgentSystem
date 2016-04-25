@@ -23,9 +23,8 @@ public class WindowAliveThread implements Runnable{
     public void run() {
         try {
             Thread.sleep(time);
+            manager.addExecutable(window);
         } catch (InterruptedException ex) {
         }
-        
-        manager.addExecutable(window);
     }
 }
