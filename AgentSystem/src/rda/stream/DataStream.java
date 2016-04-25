@@ -24,7 +24,7 @@ import rda.window.WindowController;
 public class DataStream implements Runnable{
     private static final String name = "DataStream";
     private final ScheduledExecutorService schedule = Executors.newSingleThreadScheduledExecutor();
-    private Long time, term;
+    private Long time, term, total=0L;
     private long delay, period;
     private Boolean runnable;
     private WindowController window;
@@ -53,7 +53,7 @@ public class DataStream implements Runnable{
         
         while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
             window.pack(msg);
-            
+            if(msg.data != -1) total++;
             try {
                 if((msgPack = window.get()) == null) continue;
                 
@@ -100,6 +100,7 @@ public class DataStream implements Runnable{
         } catch (InterruptedException ex) {
             schedule.shutdownNow();
         }
-        window.close();    
+        window.close();
+        System.out.println("rda.stream.DataStream.stop() == "+total);
     }
 }
