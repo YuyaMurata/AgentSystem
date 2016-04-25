@@ -70,7 +70,7 @@ public class LogSchedule implements Runnable{
         
         stop = System.currentTimeMillis();
         
-        logging(term);
+        logging(time);
         
         loggerTime("StopTime", String.valueOf(stop));
         
