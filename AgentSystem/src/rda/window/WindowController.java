@@ -17,11 +17,11 @@ public class WindowController{
         
     public WindowController(int limit, Long aliveTime, int poolsize) {
         this.size = limit;
-        //this.aliveThread = Executors.newFixedThreadPool(poolsize);
+        this.aliveThread = Executors.newFixedThreadPool(poolsize);
         this.aliveTime = aliveTime;
     }
         
-    public void pack(MessageObject msg){ 
+    public void pack(MessageObject msg){
         if(windowMap.get(msg.destID) == null)
             windowMap.put(msg.destID, new Window(this, msg.destID, size));
         
@@ -33,10 +33,16 @@ public class WindowController{
     }
     
     public Window get(){
-        return (Window)executableQueue.poll();
+        Window window = (Window)executableQueue.poll();
+        if(window != null) System.out.println(">>WindowContoroller"+check(window.getOrigID()));
+        return window;
     }
     
     public void remove(String id){
         windowMap.remove(id);
+    }
+    
+    public boolean check(String id){
+        return windowMap.get(id) != null;
     }
 }
