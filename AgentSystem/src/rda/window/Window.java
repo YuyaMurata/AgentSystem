@@ -17,11 +17,13 @@ import rda.manager.AgentMessageQueueManager;
 public class Window{
     private String originID;
     private Integer size;
+    private WindowController manager;
     private List win = new CopyOnWriteArrayList();
 
-    public Window(String id, Integer limit) {
+    public Window(WindowController manager, String id, Integer limit) {
         this.originID = id;
         this.size = limit;
+        this.manager = manager;
     }
     
     public String getOrigID(){
@@ -32,12 +34,10 @@ public class Window{
         return AgentMessageQueueManager.getInstance().getIDManager().getDestID(originID);
     }
   
-    public Window pack(MessageObject msg){
+    public void pack(MessageObject msg){
         if(msg.data != -1) win.add(msg);
         
-        if((win.size() >= size) || (msg.data == -1)) return this;
-        
-        return null;
+        if((win.size() >= size) || (msg.data == -1)) manager.addExecutable(this);
     }
     
     public List unpack(){

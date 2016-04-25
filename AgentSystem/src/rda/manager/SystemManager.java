@@ -139,8 +139,9 @@ public class SystemManager implements SetProperty{
         Map map = new HashMap();
         map.put("TIME_RUN", TIME_RUN);
         map.put("TIME_PERIOD", TIME_PERIOD);
-        map.put("TIME_WAIT", TIME_WAIT);
+        map.put("ALIVE_TIME", TIME_WAIT);
         map.put("WINDOW_SIZE", WINDOW_SIZE);
+        map.put("POOLSIZE", POOLSIZE);
         AgentLogPrint.printPropertySettings("Stream", map);
         
         return map;
@@ -150,7 +151,6 @@ public class SystemManager implements SetProperty{
         Map map = new HashMap();
         map.put("TIME_RUN", TIME_RUN);
         map.put("TIME_PERIOD", LOG_PERIOD);
-        map.put("TIME_WAIT", TIME_WAIT);
         AgentLogPrint.printPropertySettings("Logger", map);
         
         return map;

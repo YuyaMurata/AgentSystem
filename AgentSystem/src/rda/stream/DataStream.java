@@ -34,7 +34,9 @@ public class DataStream implements Runnable{
         this.term = (Long)streamMap.get("TIME_RUN");
         this.period = (Long)streamMap.get("TIME_PERIOD");
         
-        window = new WindowController((Integer)streamMap.get("WINDOW_SIZE"));
+        window = new WindowController((Integer)streamMap.get("WINDOW_SIZE"),
+                                          (Long)streamMap.get("ALIVE_TIME"),
+                                          (Integer)streamMap.get("POOLSIZE"));
     }
     
     public void start(){
@@ -50,22 +52,23 @@ public class DataStream implements Runnable{
         Window msgPack;
         
         while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
-            if((msgPack = window.pack(msg)) != null) {
+            window.pack(msg);
+            try {
+                if((msgPack = window.get()) == null) continue;
+                
                 //Get Destination ID
                 String agID = msgPack.getDestID();
                 
                 //Get MessageQueue
                 MessageQueue mq = (MessageQueue)mqMap.get(agID);
                 
-                //MessageSender
-                try {
-                    mq.put(msgPack);
-                    window.remove(agID);
-                } catch (MessageQueueEvent mqev) {
+                //MessageSender              
+                mq.put(msgPack);
+                window.remove(agID);
+            } catch (MessageQueueEvent mqev) {
                     mqev.printEvent();
-                } catch (Exception e){
+            } catch (Exception e){
                     e.printStackTrace();
-                }
             }
         }
     }

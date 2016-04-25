@@ -32,7 +32,7 @@ public class DataGenerateTest extends TestParameter{
         Long msgcnt = 0L;
         long total = 0L;
         long term = 100L;
-        for(long time=0; time < term; time++)
+        for(long time=0; time < term+1; time++)
         while((msg = tcmanager.datagen.generate(time)) != null){
             //System.out.println("Message:"+msgcnt+":["+msg.toString()+"]");
             msgcnt++;
