@@ -34,7 +34,7 @@ public class MountData implements DataType{
     
     @Override
     public String toString(){
-        Long n = (time+1) * 1000 / period;
+        Long n = time * 1000 / period;
         Long result = n * (n-1) / 2 * volume;
         
         return name + " DataN_" + result;

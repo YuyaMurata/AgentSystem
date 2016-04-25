@@ -30,8 +30,11 @@ public class DataGenerateTest extends TestParameter{
         //Data Generate-Test
         MessageObject msg;
         Long msgcnt = 0L;
-        while((msg = tcmanager.datagen.generate(TIME_RUN)) != null){
-            System.out.println("Message:"+msgcnt+":["+msg.toString()+"]");
+        long total = 0L;
+        long term = 100L;
+        for(long time=0; time < term; time++)
+        while((msg = tcmanager.datagen.generate(time)) != null){
+            //System.out.println("Message:"+msgcnt+":["+msg.toString()+"]");
             msgcnt++;
             
             //Validation (ID & Message Data)
@@ -40,6 +43,8 @@ public class DataGenerateTest extends TestParameter{
                 Integer msgValue = (Integer)validate.get(msg.destID) + msg.data;
                 validate.put(msg.destID, msgValue);
             }
+            
+            if(msg.data != -1) total++;
         }
         
         //Output Results
@@ -48,5 +53,7 @@ public class DataGenerateTest extends TestParameter{
             System.out.println("    id="+id+"-"+validate.get(id));
         }
         System.out.println("}");
+        
+        System.out.println("Total:"+total);
     }
 }
