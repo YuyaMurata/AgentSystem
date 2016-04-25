@@ -6,6 +6,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import rda.agent.queue.MessageObject;
 
 public class WindowController{
@@ -48,6 +49,12 @@ public class WindowController{
     }
     
     public void close(){
-        aliveThread.shutdown();
+        try {
+            aliveThread.shutdown();
+            if(!aliveThread.awaitTermination(0, TimeUnit.SECONDS))
+                aliveThread.shutdownNow();
+        } catch (InterruptedException ex) {
+            aliveThread.shutdownNow();
+        }
     }
 }
