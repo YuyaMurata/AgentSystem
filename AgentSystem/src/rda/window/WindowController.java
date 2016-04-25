@@ -33,12 +33,11 @@ public class WindowController{
     }
     
     public Window get(){
-        Window window = (Window)executableQueue.poll();
-        if(window != null) System.out.println(">>WindowContoroller"+check(window.getOrigID()));
-        return window;
+        return (Window)executableQueue.poll();
     }
     
     public void remove(String id){
+        System.out.println(">>WindowCTRL_ExecQS="+executableQueue.size());
         windowMap.remove(id);
     }
     
