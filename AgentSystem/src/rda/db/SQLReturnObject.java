@@ -21,7 +21,7 @@ public class SQLReturnObject {
     }
     
     public Map toMapList(){
-        StringBuilder place = new StringBuilder("Agent");
+        StringBuilder place = new StringBuilder("AgentTransaction");
         List field = new ArrayList(results.keySet());
         List data = new ArrayList(results.values());
         Map map = new HashMap();

@@ -73,7 +73,7 @@ public class LoggerManager {
     }
     
     public Map latencyToMap(){
-        StringBuilder place = new StringBuilder("Message");
+        StringBuilder place = new StringBuilder("MessageLatency");
         List field = new ArrayList(latencyMap.keySet());
         List data = new ArrayList(latencyMap.values());
         Map map = new HashMap();
