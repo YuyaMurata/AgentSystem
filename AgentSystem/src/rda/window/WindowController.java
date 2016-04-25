@@ -41,7 +41,7 @@ public class WindowController{
         return (Window)executableQueue.peek();
     }
     
-    public void remove(String id){
+    public void remove(){
         executableQueue.poll();
     }
     
