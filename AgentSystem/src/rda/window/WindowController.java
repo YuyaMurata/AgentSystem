@@ -34,6 +34,7 @@ public class WindowController{
     
     public void addExecutable(Window window){
         executableQueue.add(window);
+        remove(window.getDestID());
     }
     
     public Window get(){

@@ -26,9 +26,9 @@ public class QueueAndMapTest {
         map.put("test", l);
         
         q.add(map.get("test"));
-        q.poll();
+        map.remove("test");
         
-        System.out.println("Check:"+map.get("test")+" -QS="+q.size());
+        System.out.println("Check:"+map.get("test")+" -QS="+q.poll());
         
     }
 }

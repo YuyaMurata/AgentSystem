@@ -6,7 +6,7 @@ public class MessageObject implements  Serializable{
 
     public String id, destID;
     public int data;
-    private Long time;
+    private Long time, arrive;
 
     public MessageObject(String id, int data, String destID) {
         // TODO 自動生成されたコンストラクター・スタブ

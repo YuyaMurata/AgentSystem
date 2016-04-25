@@ -54,18 +54,18 @@ public class DataStream implements Runnable{
         while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
             window.pack(msg);
             
-            if((msgPack = window.get()) == null) continue;
-                
-            //Get Destination ID
-            String agID = msgPack.getDestID();
-                
-            //Get MessageQueue
-            MessageQueue mq = (MessageQueue)mqMap.get(agID);
-            
             try {
+                if((msgPack = window.get()) == null) continue;
+                
+                //Get Destination ID
+                String agID = msgPack.getDestID();
+                
+                //Get MessageQueue
+                MessageQueue mq = (MessageQueue)mqMap.get(agID);
+            
                 //MessageSender      
                 mq.put(msgPack);
-                window.remove(agID);
+                //window.remove(agID);
             } catch (MessageQueueEvent mqev) {
                     mqev.printEvent();
             } catch (Exception e){
