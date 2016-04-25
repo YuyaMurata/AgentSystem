@@ -37,7 +37,7 @@ public class WindowController{
     }
     
     public void remove(String id){
-        System.out.println(">>WindowCTRL_ExecQS="+executableQueue.size());
+        if(executableQueue.size() > 0)System.out.println(">>WindowCTRL_ExecQS="+executableQueue.size());
         windowMap.remove(id);
     }
     
