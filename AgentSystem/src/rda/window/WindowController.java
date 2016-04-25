@@ -33,16 +33,16 @@ public class WindowController{
     }
     
     public void addExecutable(Window window){
-        executableQueue.add(window);
-        remove(window.getDestID());
+       executableQueue.add(window);
+       windowMap.remove(window.getDestID());
     }
     
     public Window get(){
-        return (Window)executableQueue.poll();
+        return (Window)executableQueue.peek();
     }
     
     public void remove(String id){
-        windowMap.remove(id);
+        executableQueue.poll();
     }
     
     public boolean check(String id){
