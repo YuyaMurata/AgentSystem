@@ -39,10 +39,10 @@ public class LogSchedule implements Runnable{
     
     private void logging(Long time){
         try{
-        LoggerManager.getInstance().printTestcaseData(time);
-        LoggerManager.getInstance().printQueueObserever();
-        LoggerManager.getInstance().printAgentDBTranData();
-        LoggerManager.getInstance().printMessageLatency();
+            LoggerManager.getInstance().printTestcaseData(time);
+            LoggerManager.getInstance().printQueueObserever();
+            LoggerManager.getInstance().printAgentDBTranData();
+            LoggerManager.getInstance().printMessageLatency();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -71,6 +71,7 @@ public class LogSchedule implements Runnable{
         stop = System.currentTimeMillis();
         
         logging(time);
+        LoggerManager.getInstance().printTestcaseData(-1L);
         
         loggerTime("StopTime", String.valueOf(stop));
         

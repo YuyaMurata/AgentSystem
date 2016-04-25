@@ -56,6 +56,7 @@ public class AgentLogPrint {
     }
     
     public static void printTestcaseData(String str, String numdata){
-        logger.printResults(logger.dataMarker, str+"{}", new Object[]{"sec ="+numdata});
+        if(!numdata.contains("-1"))logger.printResults(logger.dataMarker, str+"{}", new Object[]{"sec ="+numdata});
+        else logger.printResults(logger.titleMarker, str+"{}", new Object[]{"sec ="+numdata});
     }
 }
