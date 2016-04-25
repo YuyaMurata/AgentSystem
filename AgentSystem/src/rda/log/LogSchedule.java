@@ -50,7 +50,7 @@ public class LogSchedule implements Runnable{
     
     @Override
     public void run() {
-        if(term-1 > time){
+        if(term > time){
             logging(time);
             time++;
         }

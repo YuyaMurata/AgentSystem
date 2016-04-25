@@ -72,7 +72,7 @@ public class DataStream implements Runnable{
     
     @Override
     public void run() {
-        if(term > time){
+        if(term+1 > time){
             System.out.println("-Time Period = "+time);
             stream(time);
             time++;
