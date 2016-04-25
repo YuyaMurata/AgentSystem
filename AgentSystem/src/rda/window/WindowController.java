@@ -22,8 +22,11 @@ public class WindowController{
     }
         
     public void pack(MessageObject msg){
-        if(windowMap.get(msg.destID) == null)
-            windowMap.put(msg.destID, new Window(this, msg.destID, size));
+        if(windowMap.get(msg.destID) == null){
+            Window window = new Window(this, msg.destID, size);
+            windowMap.put(msg.destID, window);
+            aliveThread.execute(new WindowAliveThread(this, window, aliveTime));
+        }
         
         windowMap.get(msg.destID).pack(msg);
     }
@@ -37,11 +40,14 @@ public class WindowController{
     }
     
     public void remove(String id){
-        if(executableQueue.size() > 0)System.out.println(">>WindowCTRL_ExecQS="+executableQueue.size());
         windowMap.remove(id);
     }
     
     public boolean check(String id){
         return windowMap.get(id) != null;
+    }
+    
+    public void close(){
+        aliveThread.shutdown();
     }
 }
