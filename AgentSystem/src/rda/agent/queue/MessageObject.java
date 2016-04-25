@@ -22,7 +22,7 @@ public class MessageObject implements  Serializable{
     }
     
     public Long latency(){
-        Long arrive = System.currentTimeMillis();
+        arrive = System.currentTimeMillis();
         return arrive - time;
     }
 }
