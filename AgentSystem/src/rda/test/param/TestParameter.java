@@ -17,7 +17,7 @@ public abstract class TestParameter {
     public static final int NUMBER_OF_USER = 100000;
     public static final int NUMBER_OF_AGENTS = 10;
     public static final int NUMBER_DATA = 100000;
-    public static final Long TIME_RUN = 10L;
+    public static final Long TIME_RUN = 100L;
     public static final Long TIME_PERIOD = 1000L;
     public static final Long TIME_WAIT = 10L;
     public static final int VOLUME = 10000;
