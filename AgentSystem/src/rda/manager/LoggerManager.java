@@ -34,8 +34,12 @@ public class LoggerManager {
         this.log = new LogSchedule(loggerMap);
     }
     
-    public LogSchedule getLogSchedule(){
-        return log;
+    public void startLogger(){
+        log.start();
+    }
+    
+    public void stopLogger(){
+        log.stop();
     }
     
     private Map latencyMap = new ConcurrentHashMap();
@@ -70,6 +74,15 @@ public class LoggerManager {
     public void printMessageLatency(){
         System.out.println("> MessageLatency:\n"+latencyToString());
         AgentLogPrint.printMessageLatency(latencyToMap());
+    }
+    
+    public void printAgentTranTotal(){
+        SQLReturnObject obj = db.query("select * from useragent");
+        Map map = new HashMap();
+        List field = (List) obj.toMapList().get("Field");
+        List data = (List) obj.toMapList().get("Data");
+        map.put(field.get(field.size()-1), data.get(data.size()-1));
+        AgentLogPrint.printResults("", latencyMap);
     }
     
     public Map latencyToMap(){

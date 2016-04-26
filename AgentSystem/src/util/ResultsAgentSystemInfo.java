@@ -13,7 +13,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -21,7 +20,7 @@ import java.util.Map;
  * @author kaeru
  */
 public class ResultsAgentSystemInfo {
-    private static String filename ="";
+    private static String filename =".\\logs\\results\\INFO.csv";
     
     public static void main(String[] args) {
         FileInput f = FileInput.getInstance();
@@ -35,11 +34,20 @@ public class ResultsAgentSystemInfo {
             CSVReader data = new CSVReader(new InputStreamReader(fin));
             CSVWriter csv = new CSVWriter(new OutputStreamWriter(fout));
             
-            Map map = new HashMap();
-            
             String line[];
             while((line = data.readNext()) != null){
+                String[] csvLine = null;
                 
+                if(line[1].contains("title"))
+                    csvLine = line[3].split("=");
+                if(line[1].contains("data") && line[2].contains("-1sec")){
+                    csvLine = line[2].split("=")[1].split("_");
+                }
+                
+                if(csvLine != null){
+                    csv.writeNext(csvLine);
+                    csv.flush();
+                }
             }
             
             return csv;

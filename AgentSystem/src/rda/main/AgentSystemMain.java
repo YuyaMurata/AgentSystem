@@ -26,7 +26,7 @@ public class AgentSystemMain {
     }
     
     private static void logger(){
-        manager.logSchedule().start();
+        manager.startLogger();
     }
     
     private static void execute(){
@@ -35,7 +35,7 @@ public class AgentSystemMain {
     
     private static void shutdown(){
         manager.dataStream().stop();
-        manager.logSchedule().stop();
+        manager.stopLogger();
         manager.shutdownSystem();
     }
 }

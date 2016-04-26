@@ -73,8 +73,12 @@ public class SystemManager implements SetProperty{
         LoggerManager.getInstance().initLoggerManager(loggerMap);
     }
     
-    public LogSchedule logSchedule(){
-        return LoggerManager.getInstance().getLogSchedule();
+    public void startLogger(){
+        LoggerManager.getInstance().startLogger();
+    }
+    
+    public void stopLogger(){
+        LoggerManager.getInstance().stopLogger();
     }
     
     private DataStream stream;
