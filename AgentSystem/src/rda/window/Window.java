@@ -25,7 +25,7 @@ public class Window{
         this.size = limit;
         this.manager = manager;
         
-        this.destID = AgentMessageQueueManager.getInstance().getIDManager().getDestID(originID);
+        //this.destID = AgentMessageQueueManager.getInstance().getIDManager().getDestID(originID);
     }
     
     public String getOrigID(){
@@ -33,7 +33,7 @@ public class Window{
     }
     
     public String getDestID(){
-        return destID;
+        return AgentMessageQueueManager.getInstance().getIDManager().getDestID(originID);
     }
     
     public void setDestID(String id){
