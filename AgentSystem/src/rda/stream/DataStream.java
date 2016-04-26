@@ -52,9 +52,10 @@ public class DataStream implements Runnable{
         Window msgPack;
         
         while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
-            window.pack(msg);
             if(msg.data != -1) total++;
             try {
+                window.pack(msg);
+                
                 if((msgPack = window.get()) == null) continue;
                 
                 //Get Destination ID
