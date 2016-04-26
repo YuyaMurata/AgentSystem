@@ -52,7 +52,6 @@ public class DataStream implements Runnable{
         Window msgPack;
         
         while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
-            if(msg.data != -1) total = total+msg.data;
             try {
                 window.pack(msg);
                 
@@ -66,6 +65,9 @@ public class DataStream implements Runnable{
             
                 //MessageSender      
                 mq.put(msgPack);
+                
+                total = total+msgPack.unpack().size();
+                
                 window.remove();
             } catch (MessageQueueEvent mqev) {
                     mqev.printEvent();
