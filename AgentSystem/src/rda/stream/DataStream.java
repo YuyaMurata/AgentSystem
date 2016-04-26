@@ -86,7 +86,7 @@ public class DataStream implements Runnable{
     
     public void stop(){
         try {
-            Thread.sleep(term*1000);
+            Thread.sleep(2*term*1000);
         } catch (InterruptedException ex) {
         }
         
