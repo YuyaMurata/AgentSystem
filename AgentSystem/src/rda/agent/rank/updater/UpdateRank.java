@@ -83,6 +83,10 @@ public class UpdateRank extends AgentType {
                     System.out.println("rda.agent.rank.updater.UpdateRank.sendMessage()"+reply);
                 }
             }
+            
+            //Remove Data
+            data = null;
+            
             agcon.returnConnection(client);
         } catch (AgentException e) {
             e.printStackTrace();
