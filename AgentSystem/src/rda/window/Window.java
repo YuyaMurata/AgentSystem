@@ -35,6 +35,10 @@ public class Window{
     public String getDestID(){
         return destID;
     }
+    
+    public void setDestID(String id){
+        destID = id;
+    }
   
     public void pack(MessageObject msg){
         if(msg.data != -1) win.add(msg);
