@@ -52,7 +52,7 @@ public class DataStream implements Runnable{
         Window msgPack;
         
         while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
-            if(msg.data != -1) total++;
+            if(msg.data != -1) total = total+msg.data;
             try {
                 window.pack(msg);
                 
@@ -102,6 +102,7 @@ public class DataStream implements Runnable{
             schedule.shutdownNow();
         }
         window.close();
+        
         System.out.println("rda.stream.DataStream.stop() == "+total);
     }
 }
