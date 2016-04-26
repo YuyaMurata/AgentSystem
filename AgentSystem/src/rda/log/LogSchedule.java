@@ -78,6 +78,7 @@ public class LogSchedule implements Runnable{
         loggerTime("StopTime", String.valueOf(stop));
         
         LoggerManager.getInstance().printAgentDBLifeData(start);
+        LoggerManager.getInstance().printAgentTranTotal();
         loggerTime("TransactionTime", String.valueOf(stop-start));
     }
     
