@@ -15,7 +15,7 @@ import rda.manager.AgentMessageQueueManager;
  * @author kaeru
  */
 public class Window{
-    private String originID;
+    private String originID, destID;
     private Integer size;
     private WindowController manager;
     private List win = new CopyOnWriteArrayList();
@@ -24,6 +24,8 @@ public class Window{
         this.originID = id;
         this.size = limit;
         this.manager = manager;
+        
+        this.destID = AgentMessageQueueManager.getInstance().getIDManager().getDestID(originID);
     }
     
     public String getOrigID(){
@@ -31,7 +33,7 @@ public class Window{
     }
     
     public String getDestID(){
-        return AgentMessageQueueManager.getInstance().getIDManager().getDestID(originID);
+        return destID;
     }
   
     public void pack(MessageObject msg){
