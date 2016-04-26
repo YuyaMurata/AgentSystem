@@ -67,10 +67,9 @@ public class MessageQueue extends MessageQueueProcess{
         if(agent.getAutoMode() == 1){
             IDManager id = agent.getIDManager();
             agID = id.genID();
-        
             agent.createAgent(agID);
             id.regID(((Window)msgpack).getOrigID(), agID);
-            ((Window)msgpack).setDestID(agID);
+            //((Window)msgpack).setDestID(agID);
         }
         
         throw new MessageQueueEvent(name, agID, msgpack);
