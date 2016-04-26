@@ -26,15 +26,9 @@ public class QueueAndMapTest {
         map.put("test", l);
         
         q.add(map.get("test"));
+        map.remove("test");
         
-        try{
-            q.poll();
-            map.remove("test");
-            throw new IllegalStateException();
-        }catch(IllegalStateException e){
-        }
-        
-        System.out.println("Check:"+map.get("test")+" -QS="+q.poll());
+        System.out.println("Check:"+map.get("test")+" -QS="+q.poll()+" -List="+l);
         
     }
 }

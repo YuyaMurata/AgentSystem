@@ -84,9 +84,6 @@ public class UpdateRank extends AgentType {
                 }
             }
             
-            //Remove Data
-            data = null;
-            
             agcon.returnConnection(client);
         } catch (AgentException e) {
             e.printStackTrace();
