@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import rda.manager.LoggerManager;
+import rda.manager.TestCaseManager;
 
 /**
  *
@@ -43,6 +44,7 @@ public class LogSchedule implements Runnable{
             LoggerManager.getInstance().printQueueObserever();
             LoggerManager.getInstance().printAgentDBTranData();
             LoggerManager.getInstance().printMessageLatency();
+            System.out.println(">> TestGenerate Counts = "+TestCaseManager.getInstance().checkTestGenerateCounts());
         }catch(Exception e){
             e.printStackTrace();
         }

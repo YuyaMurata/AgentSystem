@@ -80,6 +80,7 @@ public class DataStream implements Runnable{
         if(term+1 > time){
             System.out.println("-Time Period = "+time);
             stream(time);
+            tcmanager.debugTestGenerateCounts(total);
             time++;
         }
     }
@@ -103,6 +104,6 @@ public class DataStream implements Runnable{
         }
         window.close();
         
-        System.out.println("rda.stream.DataStream.stop() == "+total);
+        tcmanager.debugTestGenerateCounts(total);
     }
 }

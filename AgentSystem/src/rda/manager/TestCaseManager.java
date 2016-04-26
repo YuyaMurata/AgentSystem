@@ -41,6 +41,15 @@ public class TestCaseManager{
         );
     }
     
+    private Long count;
+    public void debugTestGenerateCounts(Long count){
+        this.count = count;
+    }
+    
+    public Long checkTestGenerateCounts(){
+        return count;
+    }
+    
     private void initData(Map dataParam){
         FlatData ftype = new FlatData(
                 (Long)    dataParam.get("TIME_RUN"), 
