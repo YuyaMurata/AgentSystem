@@ -82,7 +82,7 @@ public class LoggerManager {
         List field = (List) obj.toMapList().get("Field");
         List data = (List) obj.toMapList().get("Data");
         map.put(field.get(field.size()-1), data.get(data.size()-1));
-        AgentLogPrint.printResults("", latencyMap);
+        AgentLogPrint.printResults("", map);
     }
     
     public Map latencyToMap(){
