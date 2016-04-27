@@ -26,7 +26,7 @@ public class WindowController{
         if(windowMap.get(msg.destID) == null){
             Window window = new Window(this, msg.destID, size);
             windowMap.put(msg.destID, window);
-            //aliveThread.execute(new WindowAliveThread(this, window, aliveTime));
+            aliveThread.execute(new WindowAliveThread(this, window, aliveTime));
         }
         
         windowMap.get(msg.destID).pack(msg);
