@@ -34,6 +34,7 @@ public class FileInput {
         System.out.println("> Logs FileList");
         
         for(File key : log){
+            if(!key.toString().contains(".csv")) continue;
             System.out.println(key.toString());
             map.put(key.getName(), key);
         }
