@@ -35,7 +35,7 @@ public class ResultsAgentSystemCPU {
             String line[];
             Boolean flg = false;
             while((line = data.readNext()) != null){
-                if(line[1] == "us") flg = true;
+                if(line[1].contains("us")) flg = true;
                 if(flg){
                     csv.writeNext(line);
                     csv.flush();
