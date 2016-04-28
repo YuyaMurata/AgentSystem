@@ -28,6 +28,9 @@ public class QueueAndMapTest {
         q.add(map.get("test"));
         map.remove("test");
         
+        for(Object m : q)
+            System.out.println("Fore-Each:"+(List)m);
+        
         System.out.println("Check:"+map.get("test")+" -QS="+q.poll()+" -List="+l);
         
     }

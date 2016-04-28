@@ -55,7 +55,7 @@ public class LoggerManager {
     
     public void printQueueObserever(){
         String observe = AgentMessageQueueManager.getInstance().observerToString();
-        System.out.println("> QueueObserver:\n"+observe);
+        //System.out.println("> QueueObserver:\n"+observe);
         AgentLogPrint.printMessageQueueLog(AgentMessageQueueManager.getInstance().observerToMap());
     }
     
@@ -72,7 +72,7 @@ public class LoggerManager {
     }
     
     public void printMessageLatency(){
-        System.out.println("> MessageLatency:\n"+latencyToString());
+        //System.out.println("> MessageLatency:\n"+latencyToString());
         AgentLogPrint.printMessageLatency(latencyToMap());
     }
     

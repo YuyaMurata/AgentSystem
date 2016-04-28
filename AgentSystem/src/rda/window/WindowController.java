@@ -18,7 +18,7 @@ public class WindowController{
         
     public WindowController(int limit, Long aliveTime, int poolsize) {
         this.size = limit;
-        this.aliveThread = Executors.newFixedThreadPool(poolsize);
+        //this.aliveThread = Executors.newFixedThreadPool(poolsize);
         this.aliveTime = aliveTime;
     }
         
@@ -52,12 +52,12 @@ public class WindowController{
     }
     
     public void close(){
-        try {
+        /*try {
             aliveThread.shutdown();
             if(!aliveThread.awaitTermination(0, TimeUnit.SECONDS))
                 aliveThread.shutdownNow();
         } catch (InterruptedException ex) {
             aliveThread.shutdownNow();
-        }
+        }*/
     }
 }

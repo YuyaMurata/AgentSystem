@@ -45,7 +45,7 @@ public class ResultsAgentCloning {
             
             String fline[];
             while((fline = data.readNext()) != null){
-                if(!(fline.length > 3) || !(fline[2].contains("MessageQueue"))) continue;
+                if(!(fline.length > 3) || !(fline[2].contains("MessageQueue")) || !(fline[1].contains("field"))) continue;
                 
                 //Time
                 String time = fline[0];

@@ -27,21 +27,20 @@ public class ResultsMessageQueue {
     public static void main(String[] args) throws IOException {
         FileInput f = FileInput.getInstance();
         
-        CSVWriter csvData = setCSVData(f.getFile("AgentSystem_info_MQLength"));
+        CSVWriter csvData = setCSVData(f.getFile("AgentSystem_info_MQLength"), new File(filename+".tmp"));
         csvData.close();
         
-        CSVWriter csvFields = setCSVField(new File(filename));
+        CSVWriter csvFields = setCSVField(new File(filename+".tmp"), new File(filename));
         csvFields.close();
         
         File file = new File(filename+".tmp");
         file.delete();
     }
     
-    private static CSVWriter setCSVData(File file){
-        File tmpfile = new File(filename+".tmp");
+    private static CSVWriter setCSVData(File in, File out){
         
-        try(FileOutputStream fout = new FileOutputStream(tmpfile);
-            FileInputStream fin = new FileInputStream(file)){
+        try(FileOutputStream fout = new FileOutputStream(out);
+            FileInputStream fin = new FileInputStream(in)){
             CSVReader data = new CSVReader(new InputStreamReader(fin));
             CSVWriter csv = new CSVWriter(new OutputStreamWriter(fout));
             
@@ -70,11 +69,9 @@ public class ResultsMessageQueue {
     }
     
     private static Set<String> field;
-    private static CSVWriter setCSVField(File file){
-        File tmpfile = new File(filename+".tmp");
-        
-        try(FileOutputStream fout = new FileOutputStream(file);
-            FileInputStream fin = new FileInputStream(tmpfile)){
+    private static CSVWriter setCSVField(File in, File out){
+        try(FileOutputStream fout = new FileOutputStream(out);
+            FileInputStream fin = new FileInputStream(in)){
             CSVReader data = new CSVReader(new InputStreamReader(fin));
             CSVWriter csv = new CSVWriter(new OutputStreamWriter(fout));
             

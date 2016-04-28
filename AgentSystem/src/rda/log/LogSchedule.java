@@ -25,8 +25,8 @@ public class LogSchedule implements Runnable{
 
     
     public LogSchedule(Map loggerMap) {
-        this.term = (Long)loggerMap.get("TIME_RUN");
         this.period = (Long)loggerMap.get("TIME_PERIOD");
+        this.term = (Long)loggerMap.get("TIME_RUN") * (1000 / period);
     }
     
     public void start(){
@@ -39,12 +39,13 @@ public class LogSchedule implements Runnable{
     }
     
     private void logging(Long time){
+        long t = time % (1000/period);
         try{
-            LoggerManager.getInstance().printTestcaseData(time);
+            if(t == 0) LoggerManager.getInstance().printTestcaseData(time);
             LoggerManager.getInstance().printQueueObserever();
-            LoggerManager.getInstance().printAgentDBTranData();
-            LoggerManager.getInstance().printMessageLatency();
-            System.out.println(">> TestGenerate Counts = "+TestCaseManager.getInstance().checkTestGenerateCounts());
+            if(t == 0) LoggerManager.getInstance().printAgentDBTranData();
+            if(t == 0) LoggerManager.getInstance().printMessageLatency();
+            //System.out.println(">> TestGenerate Counts = "+TestCaseManager.getInstance().checkTestGenerateCounts());
         }catch(Exception e){
             e.printStackTrace();
         }
