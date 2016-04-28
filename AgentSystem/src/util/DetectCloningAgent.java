@@ -46,7 +46,7 @@ public class DetectCloningAgent {
             //Set Field
             csv.writeNext(data.readNext());
             
-            int i = 4;
+            int i = numhistory+1;
             String line[], beforeLine[];
             BlockingQueue<String[]> history = new ArrayBlockingQueue<>(numhistory);
             beforeLine = data.readNext();

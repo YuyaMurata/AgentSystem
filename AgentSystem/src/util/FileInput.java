@@ -15,10 +15,16 @@ import java.util.Map;
  */
 public class FileInput {
     private static final String path = ".\\logs";
+    private static final File newfile = new File(path+"\\results");
     private static final FileInput fileinput = new FileInput();
     private Map<String, File> map = new HashMap<>();
     
     private FileInput(){
+        if (newfile.mkdir()){
+            System.out.println("ディレクトリの作成に成功しました");
+        }else{
+            System.out.println("ディレクトリの作成に失敗しました");
+        }
         getFileMap();
     }
     
