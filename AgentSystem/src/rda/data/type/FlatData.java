@@ -19,16 +19,16 @@ public class FlatData  implements DataType{
 
     private static Long count;
     
-    private Long time, period;
-    private Integer volume;
+    private Long term, period;
+    private Long volume;
     
     public FlatData(Long time, Long period, int volume, int numberOfUser, int valueOfUser, int datamode, long seed) {
         this.name = "FlatType";
         this.data = new Data();
         
-        this.time = time;
+        this.term = time;
         this.period = period;
-        this.volume = volume;
+        this.volume = (time+1)*volume/2;
         
         //initialise
         data.init(numberOfUser, valueOfUser, datamode, seed);
@@ -38,11 +38,13 @@ public class FlatData  implements DataType{
     
     @Override
     public MessageObject nextData(Long time) {
+        if((time == 0) && (count == -1)) count = volume.longValue()-1; 
+        
         count++;
         MessageObject msg = data.getData();
-        
+                
         if(count == volume.longValue()) msg = data.getPoison();
-        if(count > volume) {
+        if(count > volume.longValue()) {
             msg = null;
             count = -1L;
         }
@@ -57,7 +59,7 @@ public class FlatData  implements DataType{
     
     @Override
     public String toString(){
-        Long n = time * 1000 / period;
+        Long n = term * 1000 / period;
         Long result = n * volume;
         
         return name + " DataN_" + result;

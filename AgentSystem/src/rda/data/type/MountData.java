@@ -10,14 +10,14 @@ public class MountData implements DataType{
 
     private static Long count;
     
-    private Long time, period;
+    private Long term, period;
     private Integer volume;
     
     public MountData(Long time, Long period, int volume, int numberOfUser, int valueOfUser, int datamode, long seed) {
         this.name = "MountType";
         this.data = new Data();
         
-        this.time = time;
+        this.term = time;
         this.period = period;
         this.volume = volume;
         
@@ -34,7 +34,7 @@ public class MountData implements DataType{
     
     @Override
     public String toString(){
-        Long n = (time+1) * 1000 / period;
+        Long n = (term+1) * 1000 / period;
         Long result = n * (n-1) / 2 * volume;
         
         return name + " DataN_" + result;

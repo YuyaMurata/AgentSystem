@@ -6,18 +6,21 @@ import rda.data.DataType;
 
 public class ImpulseData implements DataType{
     private static final Long impulse = 1000000L;
-    private static final Long timing = 60L;
+    private static final Long burst = 10L;
     
     private static Long count;
     private final Data data;
     private final String name;
-    private Long limit;
     
-    private Long time, period, volume;
+    private Long term, period, volume;
 
     public ImpulseData(long time, long period, long volume, int numberOfUser, int valueOfUser, int datamode, long seed) {
         this.name = "ImpulseType";
         this.data = new Data();
+        
+        this.term = time;
+        this.volume = (time+1) * time * volume / 2 / (time / burst + 1) + 1;
+        this.period = period;
         
         //initialise
         data.init(numberOfUser, valueOfUser, datamode, seed);
@@ -31,23 +34,21 @@ public class ImpulseData implements DataType{
     
     @Override
     public String toString(){
-        Long n = time * 1000 / period;
-        Long result = (n - (n / timing + 1)) * volume + (n / timing + 1) * impulse;
+        Long n = (term / burst + 1) * 1000 / period;
+        Long result = n * volume;
         
         return name + " DataN_" + result;
     }
 
     @Override
     public MessageObject nextData(Long time) {
+        if((time % burst != 0) && (count == -1)) count = volume.longValue()-1;
         count++;
         
         MessageObject msg = data.getData();
         
-        if((time % timing) == 0) limit = impulse - 1;
-        else limit = volume - 1;
-        
-        if(count == limit) msg = data.getPoison();
-        if(count > limit) {
+        if(count == volume.longValue()) msg = data.getPoison();
+        if(count > volume.longValue()) {
             msg = null;
             count = -1L;
         }
@@ -58,7 +59,7 @@ public class ImpulseData implements DataType{
     @Override
     public String toString(Long time) {
         if(time == -1L) return toString();
-        if((time % timing) == 0) return String.valueOf(impulse - 1);
-        else return String.valueOf(volume - 1);
+        if((time % burst) == 0) return String.valueOf(volume);
+        else return String.valueOf(0);
     }
 }
