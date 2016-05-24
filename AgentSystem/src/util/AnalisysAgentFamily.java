@@ -22,9 +22,12 @@ import java.util.List;
  */
 public class AnalisysAgentFamily {
     private static final String path = ".\\logs\\results\\";
+    private static final File newfile = new File(".\\logs\\analyze");
     private static final String filename =".\\logs\\analyze\\analisysAgentFamily.csv";
     
-    public static void main(String[] args) throws IOException { 
+    public static void main(String[] args) throws IOException {
+        newfile.mkdir();
+        
         CSVWriter csvData = setCSVData(new File(path+"AGC.csv"), new File(filename));
         csvData.close();
     }

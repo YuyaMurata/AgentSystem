@@ -17,14 +17,14 @@ public abstract class TestParameter {
     public static final int NUMBER_OF_USER = 100000;
     public static final int NUMBER_OF_AGENTS = 10;
     public static final int NUMBER_DATA = 100000;
-    public static final Long TIME_RUN = 60L;
+    public static final Long TIME_RUN = 100L;
     public static final Long TIME_PERIOD = 1000L;
     public static final Long TIME_WAIT = 10L;
     public static final int VOLUME = 10000;
     public static final int VALUE = 1;
     public static final int NUMBER_OF_QUEUE = 1;
     public static final int QUEUE_LENGTH = 1000;
-    public static final int SELECT_DATA_TYPE = 2;
+    public static final int SELECT_DATA_TYPE = 0;
     public static final int WINDOW_SIZE = 100;
     public static final int MODE = 0;
     public static final int PROFILE_MODE = 1;
