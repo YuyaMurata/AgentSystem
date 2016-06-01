@@ -27,7 +27,7 @@ public abstract class TestParameter {
     public static final int SELECT_DATA_TYPE = 0;
     public static final int WINDOW_SIZE = 100;
     public static final int MODE = 0;
-    public static final int PROFILE_MODE = 1;
+    public static final int PROFILE_MODE = 0;
     public static final Long SEED = Long.MAX_VALUE;
     public static final String NAME_RULE = "TEST#";
     
