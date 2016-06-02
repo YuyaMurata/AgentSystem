@@ -31,7 +31,7 @@ public class MessageQueue extends MessageQueueProcess{
         this.size = size;
         this.getwait = agentwait;
         this.putwait = queuewait;
-        this.queue = new LinkedBlockingDeque<>(size+1);
+        this.queue = new ArrayBlockingQueue<>(size+1);
         
         //Message Queue Length @RECORDS
         QueueObserver observe = new QueueObserver(name, queue);
@@ -70,7 +70,7 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     //Only AgnetClone
-    private LinkedBlockingDeque q;
+    private BlockingQueue q;
     public void setOriginalQueue(Queue clone){
         this.q = (LinkedBlockingDeque) clone;
         
