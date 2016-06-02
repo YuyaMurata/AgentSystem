@@ -24,6 +24,7 @@ public class MessageQueue extends MessageQueueProcess{
     private AgentType agent;
     private Integer size;
     private long getwait, putwait;
+    private AgentCloning agentCloning;
     
     public MessageQueue(String name, Integer size, Long queuewait, Long agentwait){
         this.name = name;
@@ -31,6 +32,8 @@ public class MessageQueue extends MessageQueueProcess{
         this.getwait = agentwait;
         this.putwait = queuewait;
         this.queue = new ArrayBlockingQueue<>(size+1);
+        
+        AgentCloning agentCloning = new AgentCloning(this.queue);
         
         //Message Queue Length @RECORDS
         QueueObserver observe = new QueueObserver(name, queue);
@@ -63,19 +66,20 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     public void event(Object msgpack) throws MessageQueueEvent{
-        AgentMessageQueueManager agent = AgentMessageQueueManager.getInstance();
+        /*AgentMessageQueueManager agent = AgentMessageQueueManager.getInstance();
         String agID = "";
         if(agent.getAutoMode() == 1){
-            //if(clone != null)   
-            //    System.out.println(">> Current Agent ["+this.name+"] Before Clone--Original ID = "+clone.originalID + ", Clone ID = "+clone.cloneID);
             IDManager id = agent.getIDManager();
             agID = id.genID();
             agent.createAgent(agID);
             id.regID(((Window)msgpack).getOrigID(), agID);
             //((Window)msgpack).setDestID(agID);
-        }
-        //AgentCloning agentCloning = new AgentCloning(this.queue);
-        //String agID = agentCloning.cloning(((Window)msgpack).getOrigID());
+        }*/
+        
+        //if(clone != null)   
+            //System.out.println(">> Current Agent ["+this.name+"] Before Clone--Original ID = "+clone.originalID + ", Clone ID = "+clone.cloneID);
+            
+        String agID = agentCloning.cloning(((Window)msgpack).getOrigID());
         
         throw new MessageQueueEvent(name, agID, msgpack);
     }
