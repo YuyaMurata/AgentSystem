@@ -23,7 +23,7 @@ public class AgentCloning {
     }
     
     public String cloning(String originalID){
-        if(manager.getAutoMode() == 1) return "";
+        if(manager.getAutoMode() != 1) return "";
         
         this.originalID = originalID;
         
