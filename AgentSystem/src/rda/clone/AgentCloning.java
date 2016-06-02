@@ -22,23 +22,23 @@ public class AgentCloning {
         this.queue = queue;
     }
     
-    public String cloning(String originalID){
+    public static String cloning(String originalID){
         if(mode) return "";
         
         AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
         
-        this.originalID = originalID;
+        //this.originalID = originalID;
         
         IDManager id = manager.getIDManager();
-        this.cloneID = id.genID();
+        String cloneID = id.genID();
         
         manager.createAgent(cloneID);
         id.regID(originalID, cloneID);
         //((Window)msgpack).setDestID(agID);
         
-        MessageQueue agent = (MessageQueue) manager.getMQMap().get(cloneID);
+        //MessageQueue agent = (MessageQueue) manager.getMQMap().get(cloneID);
         
-        agent.setOriginalQueue(this);
+        //agent.setOriginalQueue(this);
         
         return cloneID;
     }
