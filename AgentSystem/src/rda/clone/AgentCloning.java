@@ -44,7 +44,7 @@ public class AgentCloning {
     }
     
     public static void setAutoMode(Integer auto){
-        mode = auto == 1;
+        mode = auto != 1;
     }
     
     public String getOriginalID(){
