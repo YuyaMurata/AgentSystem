@@ -72,7 +72,7 @@ public class MessageQueue extends MessageQueueProcess{
     //Only AgnetClone
     private BlockingQueue q;
     public void setOriginalQueue(Queue clone){
-        this.q = (LinkedBlockingDeque) clone;
+        this.q = (BlockingQueue) clone;
         
         //Work Stealing
         /*Object obj;
