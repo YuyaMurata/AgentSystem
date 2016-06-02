@@ -15,7 +15,7 @@ import rda.manager.IDManager;
  * @author 悠也
  */
 public class AgentCloning {
-    private static Boolean mode = false;
+    public static Boolean mode;
     private final Queue queue;
     private String originalID, cloneID;
     public AgentCloning(Queue queue) {
