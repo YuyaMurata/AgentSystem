@@ -41,7 +41,7 @@ public class AgentMessageQueueManager {
         this.reserveMode = (Integer)agentMQParam.get("RESERVE_MODE");
         this.runnable = true;
         
-        AgentCloning.mode = agentMode == 1;
+        AgentCloning.mode = true;
     }
     
     //IDManager setter, getter
