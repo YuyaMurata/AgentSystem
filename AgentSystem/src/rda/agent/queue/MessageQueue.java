@@ -69,12 +69,12 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     //Only AgnetClone
-    private BlockingQueue q;
+    private LinkedBlockingDeque q;
     public void setOriginalQueue(Queue clone){
-        this.q = (BlockingQueue) clone;
+        this.q =  (LinkedBlockingDeque) clone;
         
         //Work Stealing
-        /*Object obj;
+        Object obj;
         int i= q.size() / 2;
         while((obj = q.pollFirst()) != null)
             try {
@@ -82,7 +82,7 @@ public class MessageQueue extends MessageQueueProcess{
                 if(i <= 0) break;
                 put(obj);
             } catch (MessageQueueEvent ex) {
-            }*/
+            }
     }
     
     //MessageQueue Process Overrides
