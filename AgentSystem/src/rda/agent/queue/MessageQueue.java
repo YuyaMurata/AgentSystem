@@ -66,8 +66,8 @@ public class MessageQueue extends MessageQueueProcess{
         /*AgentMessageQueueManager agent = AgentMessageQueueManager.getInstance();
         String agID = "";
         if(agent.getAutoMode() == 1){*/
-            if(clone != null)   
-                System.out.println(">> Current Agent"+this.name+"Before Clone--"+"Original ID = "+clone.originalID + "Clone ID"+clone.cloneID);
+            //if(clone != null)   
+            //    System.out.println(">> Current Agent ["+this.name+"] Before Clone--Original ID = "+clone.originalID + ", Clone ID = "+clone.cloneID);
             /*IDManager id = agent.getIDManager();
             agID = id.genID();
             agent.createAgent(agID);
