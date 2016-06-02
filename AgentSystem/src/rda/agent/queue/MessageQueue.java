@@ -8,11 +8,13 @@ package rda.agent.queue;
 import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rda.agent.template.AgentType;
 import rda.clone.AgentCloning;
 import rda.manager.AgentMessageQueueManager;
-import rda.manager.IDManager;
 import rda.window.Window;
 
 /**
@@ -70,9 +72,19 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     //Only AgnetClone
-    private Queue q;
+    private LinkedBlockingDeque q;
     public void setOriginalQueue(Queue clone){
-        this.q = clone;
+        this.q = (LinkedBlockingDeque) clone;
+        
+        Object obj;
+        int i= q.size() / 2;
+        while((obj = q.pollFirst()) != null)
+            try {
+                i--;
+                if(i <= 0) break;
+                put(obj);
+            } catch (MessageQueueEvent ex) {
+            }
     }
     
     //MessageQueue Process Overrides
