@@ -10,8 +10,6 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.agent.template.AgentType;
 import rda.clone.AgentCloning;
 import rda.manager.AgentMessageQueueManager;
@@ -76,6 +74,7 @@ public class MessageQueue extends MessageQueueProcess{
     public void setOriginalQueue(Queue clone){
         this.q = (LinkedBlockingDeque) clone;
         
+        //Work Stealing
         Object obj;
         int i= q.size() / 2;
         while((obj = q.pollFirst()) != null)
