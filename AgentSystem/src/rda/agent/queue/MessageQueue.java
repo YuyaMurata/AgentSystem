@@ -65,7 +65,6 @@ public class MessageQueue extends MessageQueueProcess{
     
     public void event(Object msgpack) throws MessageQueueEvent{
         String agID = AgentCloning.cloning(((Window)msgpack).getOrigID(), queue);
-        
         throw new MessageQueueEvent(name, agID, msgpack);
     }
     
