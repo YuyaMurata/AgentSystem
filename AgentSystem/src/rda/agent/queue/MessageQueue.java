@@ -5,6 +5,7 @@
  */
 package rda.agent.queue;
 
+import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
@@ -63,28 +64,15 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     public void event(Object msgpack) throws MessageQueueEvent{
-        /*AgentMessageQueueManager agent = AgentMessageQueueManager.getInstance();
-        String agID = "";
-        if(agent.getAutoMode() == 1){
-            IDManager id = agent.getIDManager();
-            agID = id.genID();
-            agent.createAgent(agID);
-            id.regID(((Window)msgpack).getOrigID(), agID);
-            //((Window)msgpack).setDestID(agID);
-        }*/
-        
-        //if(clone != null)   
-            //System.out.println(">> Current Agent ["+this.name+"] Before Clone--Original ID = "+clone.originalID + ", Clone ID = "+clone.cloneID);
-        //AgentCloning agentCloning = new AgentCloning(this.queue);
-        String agID = AgentCloning.cloning(((Window)msgpack).getOrigID());
+        String agID = AgentCloning.cloning(((Window)msgpack).getOrigID(), queue);
         
         throw new MessageQueueEvent(name, agID, msgpack);
     }
     
     //Only AgnetClone
-    private AgentCloning clone;
-    public void setOriginalQueue(AgentCloning clone){
-        this.clone = clone;
+    private Queue q;
+    public void setOriginalQueue(Queue clone){
+        this.q = clone;
     }
     
     //MessageQueue Process Overrides

@@ -16,13 +16,8 @@ import rda.manager.IDManager;
  */
 public class AgentCloning {
     public static Boolean mode;
-    private final Queue queue;
-    private String originalID, cloneID;
-    public AgentCloning(Queue queue) {
-        this.queue = queue;
-    }
     
-    public static String cloning(String originalID){
+    public static String cloning(String originalID, Queue queue){
         if(mode) return "";
         
         AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
@@ -36,22 +31,14 @@ public class AgentCloning {
         id.regID(originalID, cloneID);
         //((Window)msgpack).setDestID(agID);
         
-        //MessageQueue agent = (MessageQueue) manager.getMQMap().get(cloneID);
+        MessageQueue agent = (MessageQueue) manager.getMQMap().get(cloneID);
         
-        //agent.setOriginalQueue(this);
+        agent.setOriginalQueue(queue);
         
         return cloneID;
     }
     
     public static void setAutoMode(Integer auto){
         mode = auto != 1;
-    }
-    
-    public String getOriginalID(){
-        return this.originalID;
-    }
-    
-    public String getCloneID(){
-        return this.cloneID;
     }
 }
