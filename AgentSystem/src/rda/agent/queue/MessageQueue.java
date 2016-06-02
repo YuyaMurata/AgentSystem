@@ -63,7 +63,7 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     public void event(Object msgpack) throws MessageQueueEvent{
-        /*AgentMessageQueueManager agent = AgentMessageQueueManager.getInstance();
+        AgentMessageQueueManager agent = AgentMessageQueueManager.getInstance();
         String agID = "";
         if(agent.getAutoMode() == 1){
             IDManager id = agent.getIDManager();
@@ -71,12 +71,12 @@ public class MessageQueue extends MessageQueueProcess{
             agent.createAgent(agID);
             id.regID(((Window)msgpack).getOrigID(), agID);
             //((Window)msgpack).setDestID(agID);
-        }*/
+        }
         
         //if(clone != null)   
             //System.out.println(">> Current Agent ["+this.name+"] Before Clone--Original ID = "+clone.originalID + ", Clone ID = "+clone.cloneID);
-        AgentCloning agentCloning = new AgentCloning(this.queue);
-        String agID = agentCloning.cloning(((Window)msgpack).getOrigID());
+        //AgentCloning agentCloning = new AgentCloning(this.queue);
+        //String agID = agentCloning.cloning(((Window)msgpack).getOrigID());
         
         throw new MessageQueueEvent(name, agID, msgpack);
     }
