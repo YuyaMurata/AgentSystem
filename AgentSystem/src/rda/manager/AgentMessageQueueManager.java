@@ -12,6 +12,7 @@ import java.util.Map;
 import rda.agent.queue.MessageQueue;
 import rda.agent.queue.QueueObserver;
 import rda.agent.rank.creator.CreateRankAgent;
+import rda.clone.AgentCloning;
 
 /**
  *
@@ -39,6 +40,8 @@ public class AgentMessageQueueManager {
         this.agentMode = (Integer)agentMQParam.get("AGENT_MODE");
         this.reserveMode = (Integer)agentMQParam.get("RESERVE_MODE");
         this.runnable = true;
+        
+        AgentCloning.setAutoMode(agentMode);
     }
     
     //IDManager setter, getter
