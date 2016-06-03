@@ -63,9 +63,11 @@ public class AgentMessageQueueManager {
     }
     
     //Agentの単生成 e.g.("R#01")
-    public void createAgent(String agID){
+    public Object createAgent(String agID){
         CreateRankAgent rankAgent = new CreateRankAgent();
-        rankAgent.create(agID, queueLength, queuewait, agentwait);
+        Object agent = rankAgent.create(agID, queueLength, queuewait, agentwait);
+        register((MessageQueue)agent);
+        return agent;
     }
     
     //MessageQueueの実行管理
