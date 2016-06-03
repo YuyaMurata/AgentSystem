@@ -31,7 +31,7 @@ public class AgentCloning {
         id.regID(originalID, cloneID);
         //((Window)msgpack).setDestID(agID);
         
-        MessageQueue agent = (MessageQueue) manager.getMQMap().get(cloneID);
+        //MessageQueue agent = (MessageQueue) manager.getMQMap().get(cloneID);
         
         //agent.setOriginalQueue(queue);
         
