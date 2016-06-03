@@ -33,7 +33,7 @@ public class AgentCloning {
         
         MessageQueue agent = (MessageQueue) manager.getMQMap().get(cloneID);
         
-        agent.setOriginalQueue(queue);
+        //agent.setOriginalQueue(queue);
         
         return cloneID;
     }
