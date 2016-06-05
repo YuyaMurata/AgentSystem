@@ -42,12 +42,15 @@ public class MessageQueue extends MessageQueueProcess{
     
     @Override
     public Object get(){
+        Object obj = null;
         try {
-            return queue.poll(getwait, TimeUnit.MILLISECONDS);
+            obj = queue.poll(getwait, TimeUnit.MILLISECONDS);
         } catch (InterruptedException ex) {
         }
         
-        return null;
+        if(isClone() && ((queue.size() + orgQueue.size()) == 0)) System.out.println(">> Clone is Delete");
+        
+        return obj;
     }
     
     @Override
@@ -67,20 +70,27 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     //Only AgnetClone
-    private LinkedBlockingDeque q;
+    private LinkedBlockingDeque orgQueue;
     public void setOriginalQueue(Object originalState){
-        this.q =  (LinkedBlockingDeque) originalState;
+        this.orgQueue =  (LinkedBlockingDeque) originalState;
+        
+        this.checkClone = true;
         
         //Work Stealing
         Object obj;
-        int i= q.size() / 2;
-        while((obj = q.pollFirst()) != null)
+        int i= orgQueue.size() / 2;
+        while((obj = orgQueue.pollFirst()) != null)
             try {
                 i--;
                 if(i <= 0) break;
                 put(obj);
             } catch (MessageQueueEvent ex) {
             }
+    }
+    
+    private Boolean checkClone = false;
+    private Boolean isClone(){
+        return checkClone;
     }
     
     //MessageQueue Process Overrides

@@ -7,6 +7,7 @@ package rda.test.unit;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -24,5 +25,14 @@ public class QueueDequeueTest {
         System.out.println(q2.poll());
         System.out.println(q1.poll());
         System.out.println(q2.poll());
+        
+        Object a = "nasi";
+        try {
+            a = q1.poll(1, TimeUnit.SECONDS);
+        } catch (InterruptedException ex) {
+            System.out.println("Null Time Out ?");
+        }
+        
+        System.out.println(a.toString());
     }
 }
