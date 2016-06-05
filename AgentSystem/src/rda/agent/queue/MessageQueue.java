@@ -48,7 +48,7 @@ public class MessageQueue extends MessageQueueProcess{
         } catch (InterruptedException ex) {
         }
         
-        if(isClone() && ((queue.size() + orgQueue.size()) == 0)) System.out.println(">> Clone is Delete!");
+        if(isClone() && ((queue.size() + orgQueue.size()) == 0)) System.out.println(">> Clone is Delete! name = "+name);
         
         return obj;
     }
