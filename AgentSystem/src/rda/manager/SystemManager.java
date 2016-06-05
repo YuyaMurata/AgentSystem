@@ -5,7 +5,9 @@
  */
 package rda.manager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
 import rda.agent.queue.MessageQueue;
@@ -53,10 +55,12 @@ public class SystemManager implements SetProperty{
         agManager.createNumberOfAgents(numberOfAgents);
         
         if(agManager.getReserveMode() == 1){
+            List<String> reserveID = new ArrayList<>();
             for(int i=0; i < (Integer)agentParam.get("AMOUNT_RESERVE_AGENT"); i++){
                 MessageQueue agent =  (MessageQueue)agManager.createAgent();
-                agManager.reserveAgent(agent.getID());
+                reserveID.add(agent.getID());
             }
+            for(String id : reserveID) agManager.reserveAgent(id);
         }
         
         System.out.println(">>> Finished Set Agents & IDs");
