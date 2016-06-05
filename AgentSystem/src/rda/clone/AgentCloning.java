@@ -8,7 +8,6 @@ package rda.clone;
 import java.util.Queue;
 import rda.agent.queue.MessageQueue;
 import rda.manager.AgentMessageQueueManager;
-import rda.manager.IDManager;
 
 /**
  *
@@ -22,18 +21,13 @@ public class AgentCloning {
         
         AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
         
-        //this.originalID = originalID;
-        
-        IDManager id = manager.getIDManager();
-        String cloneID = id.genID();
-        
-        MessageQueue agent = (MessageQueue) manager.createAgent(cloneID);
-        id.regID(originalID, cloneID);
+        MessageQueue agent = (MessageQueue) manager.createAgent();
+        manager.registerAgentID(originalID, agent.getID());
         //((Window)msgpack).setDestID(agID);
         
         agent.setOriginalQueue(queue);
         
-        return cloneID;
+        return agent.getID();
     }
     
     public static void setAutoMode(Integer auto){

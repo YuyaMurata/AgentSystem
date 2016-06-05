@@ -8,6 +8,7 @@ package rda.manager;
 import java.util.HashMap;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
+import rda.agent.queue.MessageQueue;
 import rda.log.AgentLogPrint;
 import rda.log.LogSchedule;
 import rda.property.SetProperty;
@@ -54,8 +55,8 @@ public class SystemManager implements SetProperty{
         
         if(agManager.getReserveMode() == 1){
             for(int i=0; i < (Integer)agentParam.get("AMOUNT_RESERVE_AGENT"); i++){
-                String agID = idManager.genReserveID();
-                agManager.createAgent(agID);
+                MessageQueue agent =  (MessageQueue)agManager.createAgent();
+                agManager.reserveAgent(agent.getID());
             }
         }
         

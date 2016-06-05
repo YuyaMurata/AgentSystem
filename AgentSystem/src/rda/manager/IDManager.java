@@ -6,10 +6,12 @@
 package rda.manager;
 
 import java.text.DecimalFormat;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
 import java.util.TreeMap;
 
@@ -37,9 +39,13 @@ public class IDManager {
     }
     
     private Integer reserverID;
-    public synchronized String genReserveID(){
-        String agID = rule+dformat.format(reserverID++);
-        return agID;
+    private static Queue<String> reserve = new ArrayDeque();
+    public void setReserveID(String agID){
+        reserve.offer(agID);
+    }
+    
+    public String getReserveID(){
+        return reserve.poll();
     }
     
     //Register InitAgent
@@ -53,7 +59,6 @@ public class IDManager {
             List agList = (List)regAgentMap.get(ageMap.get(((serialID % 10)+1) * 10));
             agList.add(id);
         }
-        reserverID = serialID;
     }
     
     public synchronized void regID(String origID, String id){

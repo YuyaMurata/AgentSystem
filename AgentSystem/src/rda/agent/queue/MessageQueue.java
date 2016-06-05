@@ -19,7 +19,7 @@ import rda.window.Window;
  */
 public class MessageQueue extends MessageQueueProcess{
     private BlockingQueue<Object> queue;
-    public String name;
+    private String name;
     private AgentType agent;
     private Integer size;
     private long getwait, putwait;
@@ -48,7 +48,7 @@ public class MessageQueue extends MessageQueueProcess{
         } catch (InterruptedException ex) {
         }
         
-        if(isClone() && ((queue.size() + orgQueue.size()) == 0)) ;//System.out.println(">> Clone is Delete! name = "+name);
+        if(isClone() && ((queue.size() + orgQueue.size()) == 0)) event();
         
         return obj;
     }
@@ -64,9 +64,15 @@ public class MessageQueue extends MessageQueueProcess{
         if(!success) event(msgpack);
     }
     
+    //Load Balancer Cloning updgrade
     public void event(Object msgpack) throws MessageQueueEvent{
         String agID = AgentCloning.cloning(((Window)msgpack).getOrigID(), queue);
         throw new MessageQueueEvent(name, agID, msgpack);
+    }
+    
+    //Load Balancer Cloning degrade
+    public void event() {
+        //System.out.println(">> Clone is Delete! name = "+name);
     }
     
     //Only AgnetClone
@@ -107,5 +113,9 @@ public class MessageQueue extends MessageQueueProcess{
     @Override
     public AgentType getAgentType() {
         return this.agent;
+    }
+    
+    public String getID(){
+        return name;
     }
 }
