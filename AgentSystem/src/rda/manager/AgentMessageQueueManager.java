@@ -73,6 +73,7 @@ public class AgentMessageQueueManager {
             register((MessageQueue)agent);
         } else {
             agent = getAgent(agID);
+            System.out.println(">> Get Reserve Agent = "+agID);
         }
         
         return agent;
