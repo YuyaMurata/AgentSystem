@@ -72,12 +72,14 @@ public class MessageQueue extends MessageQueueProcess{
     
     //Load Balancer Cloning degrade
     public void event() {
-        //System.out.println(">> Clone is Delete! name = "+name);
+        AgentCloning.delete(originalID, name);
     }
     
     //Only AgnetClone
     private LinkedBlockingDeque orgQueue;
-    public void setOriginalQueue(Object originalState){
+    private String originalID;
+    public void setOriginalQueue(String originalID, Object originalState){
+        this.originalID = originalID;
         this.orgQueue =  (LinkedBlockingDeque) originalState;
         
         this.checkClone = true;

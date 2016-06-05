@@ -87,6 +87,10 @@ public class AgentMessageQueueManager {
         id.setReserveID(reserveID);
     }
     
+    public void deleteAgentID(String primalID, String referID){
+        id.deleteID(primalID, referID);
+    }
+    
     //MessageQueueの実行管理
     public Boolean getState(){
         return runnable;

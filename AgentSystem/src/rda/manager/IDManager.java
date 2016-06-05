@@ -65,6 +65,11 @@ public class IDManager {
         ((List)regAgentMap.get(origID)).add(id);
     }
     
+    public synchronized void deleteID(String origID, String id){
+        ((List)regAgentMap.get(origID)).remove(id);
+        setReserveID(id);
+    }
+    
     public String ageToID(Integer age){
         return (String) ageMap.ceilingEntry(age).getValue();
     }
