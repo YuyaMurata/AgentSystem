@@ -63,12 +63,18 @@ public class AgentMessageQueueManager {
     
     //Agentの単生成 e.g.("R#01")
     public Object createAgent(){
-        String agID = id.genID();
+        String agID;
+        Object agent = null;
         
-        CreateRankAgent rankAgent = new CreateRankAgent();
-        Object agent = rankAgent.create(agID, queueLength, queuewait, agentwait);
+        if((agID = id.getReserveID()) == null){
+            agID = id.genID();
+            CreateRankAgent rankAgent = new CreateRankAgent();
+            agent = rankAgent.create(agID, queueLength, queuewait, agentwait);
+            register((MessageQueue)agent);
+        } else {
+            agent = getAgent(agID);
+        }
         
-        register((MessageQueue)agent);
         return agent;
     }
     
@@ -105,6 +111,10 @@ public class AgentMessageQueueManager {
     public void register(MessageQueue mq){
         messageQueueMap.put(mq.getID(), mq);
         mq.start();
+    }
+    
+    public Object getAgent(String agID){
+        return messageQueueMap.get(agID);
     }
     
     public Map getMQMap(){
