@@ -48,8 +48,6 @@ public class MessageQueue extends MessageQueueProcess{
         } catch (InterruptedException ex) {
         }
         
-        if(isClone() && ((queue.size() + orgQueue.size()) == 0)) event();
-        
         return obj;
     }
     
@@ -62,6 +60,8 @@ public class MessageQueue extends MessageQueueProcess{
         }
         
         if(!success) event(msgpack);
+        
+        if(isClone() && ((queue.size() + orgQueue.size()) == 0)) event();
     }
     
     //Load Balancer Cloning updgrade
