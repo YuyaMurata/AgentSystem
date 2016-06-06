@@ -59,20 +59,25 @@ public class MessageQueue extends MessageQueueProcess{
         } catch (InterruptedException ex) {
         }
         
-        if(!success) event(msgpack);
+        if(!success) eventClone(msgpack);
         
-        if(isClone() && ((queue.size() + orgQueue.size()) == 0)) event();
+        if(isClone() && ((queue.size() + orgQueue.size()) == 0)) eventDelete(msgpack);
     }
     
     //Load Balancer Cloning updgrade
-    public void event(Object msgpack) throws MessageQueueEvent{
+    public void eventClone(Object msgpack) throws MessageQueueEvent{
         String agID = AgentCloning.cloning(((Window)msgpack).getOrigID(), queue);
+        
+        MessageQueueEvent.printState("cloning", ((Window)msgpack).getOrigID(), name);
+        
         throw new MessageQueueEvent(name, agID, msgpack);
     }
     
     //Load Balancer Cloning degrade
-    public void event() {
+    public void eventDelete(Object msgpack) {
         AgentCloning.delete(originalID, name);
+        
+        MessageQueueEvent.printState("delete", ((Window)msgpack).getOrigID(), name);
     }
     
     //Only AgnetClone

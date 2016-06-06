@@ -127,7 +127,7 @@ public class AgentMessageQueueManager {
     }
     
     public Integer getNumAgents(){
-        return messageQueueMap.size();
+        return messageQueueMap.size() - id.getNumReserves();
     }
     
     public Integer getAutoMode(){

@@ -28,6 +28,7 @@ public class AgentSystemLogger {
     public Marker resultMarker = MarkerFactory.getMarker("result");
     public Marker fieldMarker = MarkerFactory.getMarker("field");
     public Marker dataMarker = MarkerFactory.getMarker("data");
+    public Marker stateMarker = MarkerFactory.getMarker("state");
     
     private AgentSystemLogger() {
     }

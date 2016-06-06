@@ -1,7 +1,6 @@
 package rda.agent.queue;
 
 import rda.log.AgentLogPrint;
-import rda.manager.AgentMessageQueueManager;
 import rda.window.Window;
 
 
@@ -23,5 +22,9 @@ public class MessageQueueEvent extends Exception{
             //System.out.println(">MQEvents:"+name+"-msg="+msgpack.toString());
             AgentLogPrint.printAgentLoad(msgpack.getOrigID(), name, clonename);
         //}
+    }
+    
+    public static void printState(String state, String origin, String clone){
+        AgentLogPrint.printAgentState(state, origin, clone);
     }
 }

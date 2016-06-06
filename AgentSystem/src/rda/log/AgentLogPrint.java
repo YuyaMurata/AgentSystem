@@ -41,8 +41,12 @@ public class AgentLogPrint {
     }
     
     public static void printAgentLoad(String origin, String dest, String clone){
+        logger.printMQEvent(logger.dataMarker, "Event,{},{},{}", new Object[]{origin, dest, clone});
+    }
+    
+    public static void printAgentState(String state, String origin, String clone){
         Integer num = AgentMessageQueueManager.getInstance().getNumAgents();
-        logger.printMQEvent(logger.dataMarker, "Event,{},{},{}", new Object[]{origin, dest, clone, num});
+        logger.printMQEvent(logger.stateMarker, "Event,{},{},{},{}", new Object[]{state, origin, clone, num});
     }
     
     public static void printPropertySettings(String str, Map map){

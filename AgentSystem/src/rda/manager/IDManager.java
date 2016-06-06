@@ -48,6 +48,10 @@ public class IDManager {
         return reserve.poll();
     }
     
+    public Integer getNumReserves(){
+        return reserve.size();
+    }
+    
     //Register InitAgent
     public synchronized void initRegID(String id){
         if(serialID-1 < 10){
