@@ -61,7 +61,7 @@ public class MessageQueue extends MessageQueueProcess{
         
         if(!success) eventClone(msgpack);
         
-        if(isClone() && ((queue.size() + orgQueue.size()) == 0)) eventDelete(msgpack);
+        if(isClone() && ((queue.size() + orgQueue.size()) == 0)) eventDelete();
     }
     
     //Load Balancer Cloning updgrade
@@ -74,10 +74,10 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     //Load Balancer Cloning degrade
-    public void eventDelete(Object msgpack) {
+    public void eventDelete() {
         AgentCloning.delete(originalID, name);
         
-        MessageQueueEvent.printState("delete", ((Window)msgpack).getOrigID(), name);
+        MessageQueueEvent.printState("delete", originalID, name);
     }
     
     //Only AgnetClone
