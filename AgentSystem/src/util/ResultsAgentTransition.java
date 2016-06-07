@@ -86,11 +86,11 @@ public class ResultsAgentTransition {
                             
                             if(line[3].contains("cloning")){
                                 if(cloning.length() > 0) cloning = cloning +",";
-                                cloning = cloning + line[5];
+                                cloning = cloning + line[4];
                             }
                             if(line[3].contains("delete")){
                                 if(delete.length() > 0) delete = delete +","; 
-                                delete = delete + line[5];
+                                delete = delete + line[4];
                             }
                             
                             numClone = line[line.length-1];
