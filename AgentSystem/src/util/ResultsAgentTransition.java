@@ -18,8 +18,8 @@ import java.io.OutputStreamWriter;
  *
  * @author kaeru
  */
-public class ResultsAgentCloning {
-    private static final String filename =".\\logs\\results\\AGC.csv";
+public class ResultsAgentTransition {
+    private static final String filename =".\\logs\\results\\AGCT.csv";
     
     public static void main(String[] args) throws IOException {
         FileInput f = FileInput.getInstance();
@@ -41,7 +41,7 @@ public class ResultsAgentCloning {
             CSVReader data = new CSVReader(new InputStreamReader(fin));
             CSVWriter csv = new CSVWriter(new OutputStreamWriter(fout));
             
-            csv.writeNext(new String[]{"F#TIME", "AGENT", "FROM", "TO"});
+            csv.writeNext(new String[]{"F#TIME", "AGENT_NUM", "STATE", "CLONE_ID", "DELETE_ID"});
             
             String fline[];
             while((fline = data.readNext()) != null){
@@ -49,10 +49,8 @@ public class ResultsAgentCloning {
                 
                 //Time
                 String time = fline[0];
-                //Data
-                Integer numClones = fline.length-3;
                 
-                csv.writeNext(new String[]{time, numClones.toString(), "", ""});
+                csv.writeNext(new String[]{time, "", "", "", ""});
                 csv.flush();
             }
             
@@ -74,32 +72,47 @@ public class ResultsAgentCloning {
             csv.writeNext(tmpdata.readNext());
             
             String[] line = data.readNext(), beforeline = tmpdata.readNext(), afterline;
+            String numClone = "10";
             while((afterline = tmpdata.readNext()) != null){
                 if(afterline.length < 1) continue;
                 
-                String cloneFrom = "", cloneTo = "";
+                String state = "", cloning = "", delete = "";
                 while(true){
                     if(line == null) break;
                     if((beforeline[0].compareTo(line[0]) < 0) && (afterline[0].compareTo(line[0]) >= 0)){
-                        if(line[1].contains("data")){ 
-                            if(cloneFrom.length() > 0) cloneFrom = cloneFrom + ",";
-                            if(cloneTo.length() > 0) cloneTo = cloneTo + ",";
-                        
-                            cloneFrom = cloneFrom + "("+line[3] + "->" + line[4]+")";
-                            cloneTo = cloneTo + line[5];
+                        if(line[1].contains("state")){ 
+                            if(state.length() > 0) state = state + ",";
+                            state = state + line[3];
+                            
+                            if(line[3].contains("cloning")){
+                                if(cloning.length() > 0) cloning = cloning +",";
+                                cloning = cloning + line[5];
+                            }
+                            if(line[3].contains("delete")){
+                                if(delete.length() > 0) delete = delete +","; 
+                                delete = delete + line[5];
+                            }
+                            
+                            numClone = line[line.length-1];
                         }
                         line = data.readNext();
                     }
                     else break;
                 }
                 
-                beforeline[2] = cloneFrom;
-                beforeline[3] = cloneTo;
+                beforeline[1] = numClone;
+                beforeline[2] = state;
+                beforeline[3] = cloning;
+                beforeline[4] = delete;
                     
                 csv.writeNext(beforeline);
                 csv.flush();
                 
                 beforeline = afterline;
+                afterline[1] = numClone;
+                afterline[2] = state;
+                afterline[3] = cloning;
+                afterline[4] = delete;
             }
             
             csv.writeNext(beforeline);

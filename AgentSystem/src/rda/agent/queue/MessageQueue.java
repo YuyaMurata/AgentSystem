@@ -67,17 +67,12 @@ public class MessageQueue extends MessageQueueProcess{
     //Load Balancer Cloning updgrade
     public void eventClone(Object msgpack) throws MessageQueueEvent{
         String agID = AgentCloning.cloning(((Window)msgpack).getOrigID(), queue);
-        
-        MessageQueueEvent.printState("cloning", ((Window)msgpack).getOrigID(), name);
-        
         throw new MessageQueueEvent(name, agID, msgpack);
     }
     
     //Load Balancer Cloning degrade
     public void eventDelete() {
         AgentCloning.delete(originalID, name);
-        
-        MessageQueueEvent.printState("delete", originalID, name);
     }
     
     //Only AgnetClone

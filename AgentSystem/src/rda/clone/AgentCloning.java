@@ -7,6 +7,7 @@ package rda.clone;
 
 import java.util.Queue;
 import rda.agent.queue.MessageQueue;
+import rda.agent.queue.MessageQueueEvent;
 import rda.manager.AgentMessageQueueManager;
 
 /**
@@ -19,8 +20,6 @@ public class AgentCloning {
     public static String cloning(String originalID, Queue queue){
         if(mode) return "";
         
-        System.out.println(">> Agent Cloning New Copy From "+ originalID);
-        
         AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
         
         MessageQueue agent = (MessageQueue) manager.createAgent();
@@ -29,13 +28,19 @@ public class AgentCloning {
         
         agent.setOriginalQueue(originalID, queue);
         
-        return agent.getID();
+        String cloneID = agent.getID();
+        
+        System.out.println(">> Agent Cloning New Copy From "+ originalID);
+        MessageQueueEvent.printState("cloning", originalID, cloneID);
+        
+        return cloneID;
     }
     
     public static void delete(String originalID, String cloneID){
         AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
         manager.deleteAgentID(originalID, cloneID);
         System.out.println(">> Agent Cloning Delete "+ cloneID);
+        MessageQueueEvent.printState("delete", originalID, cloneID);
     }
     
     public static void setAutoMode(Integer auto){
