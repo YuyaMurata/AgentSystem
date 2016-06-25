@@ -57,8 +57,8 @@ public class SystemManager implements SetProperty{
         if(agManager.getReserveMode() == 1){
             List<String> reserveID = new ArrayList<>();
             for(int i=0; i < (Integer)agentParam.get("AMOUNT_RESERVE_AGENT"); i++){
-                MessageQueue agent =  (MessageQueue)agManager.createAgent();
-                reserveID.add(agent.getID());
+                String agentID =  agManager.createAgent();
+                reserveID.add(agentID);
             }
             for(String id : reserveID) agManager.reserveAgent(id);
         }

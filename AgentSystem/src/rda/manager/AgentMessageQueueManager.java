@@ -56,13 +56,13 @@ public class AgentMessageQueueManager {
     //Agentの複数生成 e.g.("R#", 10)
     public void createNumberOfAgents(Integer numOfAgents){
         for(int i=0; i < numOfAgents; i++){
-            MessageQueue agent = (MessageQueue)createAgent();
-            id.initRegID(agent.getID());
+            String agentID = createAgent();
+            id.initRegID(agentID);
         }
     }
     
     //Agentの単生成 e.g.("R#01")
-    public Object createAgent(){
+    public String createAgent(){
         String agID;
         Object agent = null;
         
@@ -76,7 +76,27 @@ public class AgentMessageQueueManager {
             System.out.println(">> Get Reserve Agent = "+agID);
         }
         
-        return agent;
+        return agID;
+    }
+    
+    //Agentの複製 e.g.("R#01_Clone")
+    public String createCloneAgent(String originalID, Object originalState){
+        String agID;
+        Object agent = null;
+        
+        if((agID = id.getReserveID()) == null){
+            agID = id.genID();
+            CreateRankAgent rankAgent = new CreateRankAgent();
+            agent = rankAgent.create(agID, queueLength, queuewait, agentwait);
+            register((MessageQueue)agent);
+        } else {
+            agent = getAgent(agID);
+            System.out.println(">> Get Reserve Agent = "+agID);
+        }
+        
+        ((MessageQueue)agent).setOriginalQueue(originalID, originalState);
+        
+        return agID;
     }
     
     public void registerAgentID(String primalID, String referID){
