@@ -20,7 +20,7 @@ public class AgentClientFactory extends BasePooledObjectFactory<AgentClient>{
     
     public AgentClientFactory(String catalog, String dataSource, String serverType) {
         _catalog = catalog;
-        _dataSource = dataSource;
+        _dataSource = dataSource; 
         _serverType = serverType;
         
         //Default Setting
