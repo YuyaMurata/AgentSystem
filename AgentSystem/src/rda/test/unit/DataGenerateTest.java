@@ -38,10 +38,11 @@ public class DataGenerateTest extends TestParameter{
             msgcnt++;
             
             //Validation (ID & Message Data)
-            if(validate.get(msg.destID) == null) validate.put(msg.destID, 0);
-            else if((Integer)validate.get(msg.destID) != -1){
-                Integer msgValue = (Integer)validate.get(msg.destID) + msg.data;
-                validate.put(msg.destID, msgValue);
+            String destID = msg.toID;
+            if(validate.get(destID) == null) validate.put(destID, 0);
+            else if((Integer)validate.get(destID) != -1){
+                Integer msgValue = (Integer)validate.get(destID) + (int)msg.data;
+                validate.put(destID, msgValue);
             }
             
             if(msg.data != -1) total++;

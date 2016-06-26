@@ -45,9 +45,9 @@ public class ImpulseData implements DataType{
         if((time % burst != 0) && (count == -1)) count = volume.longValue()-1;
         count++;
         
-        MessageObject msg = data.getData();
+        MessageObject msg = (MessageObject)data.getData();
         
-        if(count == volume.longValue()) msg = data.getPoison();
+        if(count == volume.longValue()) msg = (MessageObject)data.getPoison();
         if(count > volume.longValue()) {
             msg = null;
             count = -1L;
