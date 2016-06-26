@@ -7,7 +7,6 @@ package rda.data;
 
 import org.apache.commons.math3.random.RandomDataGenerator;
 import rda.agent.queue.MessageObject;
-import rda.agent.template.MessageTemplate;
 import rda.data.profile.ProfileGenerator;
 
 /**
@@ -51,15 +50,15 @@ public class Data{
     }
 
     //Get Data userID = Call % NUMBER_USER_AGENTS
-    public MessageTemplate getData(){
+    public MessageObject getData(){
         String uid = prof.getUser(idNo());
-        MessageTemplate msg = new MessageObject(uid , (String)prof.getProf(uid).get("TargetID"), value, 0);
+        MessageObject msg = new MessageObject(uid , (String)prof.getProf(uid).get("TargetID"), value, 0);
         return msg;
     }
     
-    public MessageTemplate getPoison(){
+    public MessageObject getPoison(){
         String uid = prof.getUser(idNo());
-        MessageTemplate msg = new MessageObject(uid, (String)prof.getProf(uid).get("TargetID"), -1, -1);
+        MessageObject msg = new MessageObject(uid, (String)prof.getProf(uid).get("TargetID"), -1, -1);
         return msg;
     }
     
