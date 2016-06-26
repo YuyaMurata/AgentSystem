@@ -51,6 +51,8 @@ public class DataStream implements Runnable{
         MessageObject msg;
         Window msgPack;
         
+        System.out.println("rda.stream.DataStream.stream() : ");
+        
         while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
             /*try {
                 window.pack(msg);
