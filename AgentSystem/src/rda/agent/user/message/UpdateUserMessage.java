@@ -5,9 +5,10 @@ import java.util.List;
 
 public class UpdateUserMessage extends Message{
 
-	public List data;
+    //Compound Data
+    public List data;
 
-	public void setParams(List data){
-		this.data = data;
-	}
+    public void setParams(List data){
+        this.data = data;
+    }
 }
