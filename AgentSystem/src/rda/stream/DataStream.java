@@ -53,14 +53,14 @@ public class DataStream implements Runnable{
         
         while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
             try {
+                System.out.println(">> rda.stream.DataStream.stream() :"+msg.toString());
+                
                 window.pack(msg);
                 
                 if((msgPack = window.get()) == null) continue;
                 
                 //Get Destination ID
                 String agID = msgPack.getDestID();
-                
-                System.out.println(">> rda.stream.DataStream.stream() : "+agID +", total="+total);
                 
                 //Get MessageQueue
                 MessageQueue mq = (MessageQueue)mqMap.get(agID);
