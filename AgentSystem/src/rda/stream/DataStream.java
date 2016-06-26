@@ -53,7 +53,7 @@ public class DataStream implements Runnable{
         
         System.out.println("rda.stream.DataStream.stream() : ");
         
-        while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
+        //while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
             /*try {
                 window.pack(msg);
                 
@@ -77,8 +77,8 @@ public class DataStream implements Runnable{
                     e.printStackTrace();
             }*/
             
-            System.out.println("rda.stream.DataStream.stream() : "+msg.toString());
-        }
+            //System.out.println("rda.stream.DataStream.stream() : "+msg.toString());
+        //}
     }
     
     @Override
