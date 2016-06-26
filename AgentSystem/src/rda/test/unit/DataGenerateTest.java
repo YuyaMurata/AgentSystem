@@ -34,7 +34,7 @@ public class DataGenerateTest extends TestParameter{
         long term = TIME_RUN;
         for(long time=0; time < term+1; time++)
         while((msg = tcmanager.datagen.generate(time)) != null){
-            //System.out.println("Message:"+msgcnt+":["+msg.toString()+"]");
+            System.out.println("Message:"+msgcnt+":["+msg.toString()+"]");
             msgcnt++;
             
             //Validation (ID & Message Data)
