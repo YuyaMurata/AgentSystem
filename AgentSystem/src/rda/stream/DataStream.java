@@ -51,7 +51,7 @@ public class DataStream implements Runnable{
         MessageObject msg;
         Window msgPack;
         
-        System.out.println("rda.stream.DataStream.stream() : ");
+        System.out.println("> 1 > rda.stream.DataStream.stream() : ");
         
         try{
         while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
@@ -90,7 +90,9 @@ public class DataStream implements Runnable{
         if(term+1 > time){
             System.out.println("-Time Period = "+time);
             stream(time);
+            System.out.println("> 2 > rda.stream.DataStream.stream() : ");
             tcmanager.debugTestGenerateCounts(total);
+            System.out.println("> 3 > rda.stream.DataStream.stream() : ");
             time++;
         }
     }
