@@ -18,6 +18,6 @@ public class MessageObject extends MessageTemplate{
     
     @Override
     public String toString() {
-        return id + "=>" + toID +" ("+data+")";
+        return id + "=>" + toID +" ("+data+")" + "-- state:"+sentinel;
     }
 }

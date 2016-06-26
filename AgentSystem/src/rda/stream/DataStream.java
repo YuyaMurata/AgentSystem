@@ -60,6 +60,8 @@ public class DataStream implements Runnable{
                 //Get Destination ID
                 String agID = msgPack.getDestID();
                 
+                System.out.println(">> rda.stream.DataStream.stream() : "+agID +", total="+total);
+                
                 //Get MessageQueue
                 MessageQueue mq = (MessageQueue)mqMap.get(agID);
             
