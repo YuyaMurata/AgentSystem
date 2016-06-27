@@ -4,14 +4,14 @@
         <!--AggregateAgent Entity define-->
         <entity type="aggregateagent">
             <attribute name="AgentID" type="string" primarykey="true" maxlength="32"/>
-            <attribute name="Condition" type="condition" singleentity="true"/>
+            <attribute name="Condition" type="aggregatecondition" singleentity="true"/>
             <attribute name="Data" type="long" />
             <attribute name="ConnectionCount" type="long" />
             <attribute name="Log" type="log" />
         </entity>
-        <entity type="condition">
+        <entity type="aggregatecondition">
             <attribute name="AgentID" type="string" primarykey="true" relationto="AgentID" maxlength="32"/>
-            <attribute name="AggregateCondition" type="string" maxlength="32"/>
+            <attribute name="Conditions" type="string" maxlength="32"/>
             <attribute name="LastAccessTime" type="timestamp" />
         </entity>
         <entity type="log">
