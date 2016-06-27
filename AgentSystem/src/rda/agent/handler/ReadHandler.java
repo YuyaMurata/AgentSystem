@@ -19,10 +19,10 @@ public class ReadHandler extends MessageHandler{
 		TxID tx = getTx();
 
 		AgentInfo info = new AgentInfo(
-                    /*UserID*/	agent.getAgentID(tx),
+                    /*AgentID*/	agent.getAgentID(tx),
                     /*data*/agent.getData(tx),
                     /*count */agent.getConnectionCount(tx)
-                    );
+                );
 
 		return info;
 	}

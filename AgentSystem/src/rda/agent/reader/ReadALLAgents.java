@@ -11,10 +11,12 @@ import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.TreeMap;
+
 import rda.agent.client.AgentConnection;
 
 /**
@@ -81,8 +83,8 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             //TestPrint
             for(Object key : map.keySet()){
                 System.out.println(key + "[");
-                    System.out.println("    " + ((AgentInfo)map.get(key)).toString());
-                    System.out.println("]");
+                System.out.println("    " + ((AgentInfo)map.get(key)).toString());
+                System.out.println("]");
                 
             }
             
@@ -91,6 +93,5 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             e.printStackTrace();
             return null;
         }
-    }
-    
+    } 
 }

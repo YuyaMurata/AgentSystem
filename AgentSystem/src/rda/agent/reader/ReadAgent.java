@@ -15,7 +15,7 @@ import rda.agent.client.AgentConnection;
 
 public class ReadAgent implements AgentExecutor, Serializable{
     /**
-    　* 
+     * 
      */
     private static final long serialVersionUID = 6385839930575941905L;
 	

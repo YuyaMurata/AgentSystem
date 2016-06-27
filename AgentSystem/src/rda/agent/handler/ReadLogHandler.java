@@ -11,6 +11,7 @@ import rda.Aggregateagent;
 import rda.agent.logger.LogInfo;
 
 public class ReadLogHandler extends MessageHandler{
+    
     @Override
     public Object onMessage(Message msg) throws Exception {
         // TODO 自動生成されたメソッド・スタブ

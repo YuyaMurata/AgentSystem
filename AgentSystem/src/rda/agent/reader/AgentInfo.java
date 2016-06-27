@@ -20,13 +20,13 @@ public class AgentInfo implements Serializable{
     * <attribute name="Log" type="log" />
     */
 
-    String agentID;
+    String id;
     long data;
     long count;
 
-    public AgentInfo(String agentID, long data, long count) {
+    public AgentInfo(String id, long data, long count) {
         // TODO 自動生成されたコンストラクター・スタブ
-        this.agentID = agentID;
+        this.id = id;
         this.data = data;
         this.count = count;
     }
@@ -35,7 +35,7 @@ public class AgentInfo implements Serializable{
     public String toString(){
         StringBuilder sb = new StringBuilder();
 
-        sb.append(agentID);
+        sb.append(id);
         sb.append(",");
         sb.append(data);
         sb.append(",");
@@ -45,7 +45,7 @@ public class AgentInfo implements Serializable{
     }
         
     public String getID(){
-        return this.agentID;
+        return this.id;
     }
         
     public Long getData(){
