@@ -11,7 +11,6 @@ public class DataGenerator {
     }
     
     public MessageObject generate(Long time){
-        System.out.println("rda.stream.DataStream.stream() : generate");
         return type.nextData(time);
     }
     
