@@ -68,11 +68,10 @@ public class CreateAgent implements AgentExecutor, Serializable{
     }
 	
     public Object create(String agID, Integer size, Long queuewait, Long agentwait){
-        AgentConnection ag = AgentConnection.getInstance();            
-        AgentClient client = ag.getConnection();
-            
         try {
-                
+            AgentConnection agconn = AgentConnection.getInstance();            
+            AgentClient client = agconn.getConnection();
+            
             agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
             
             //Create Agent
@@ -81,17 +80,17 @@ public class CreateAgent implements AgentExecutor, Serializable{
             
             System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
             
-            ag.returnConnection(client);
+            agconn.returnConnection(client);
             
             //Create AgentQueue
             MessageQueue mq = new MessageQueue(agID, size, queuewait, agentwait);
             mq.setAgentType(new UpdateAgent(agID));
             
+            agconn.returnConnection(client);
+            
             return mq;
         } catch (AgentException e) {
             return null;
-        } finally {
-            ag.returnConnection(client);
         }
     }
 }
