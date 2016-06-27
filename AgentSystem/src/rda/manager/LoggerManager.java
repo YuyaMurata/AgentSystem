@@ -60,7 +60,7 @@ public class LoggerManager {
     }
     
     public void printAgentDBTranData(){
-        SQLReturnObject obj = db.query("select * from useragent");
+        SQLReturnObject obj = db.query("select * from aggregateagent");
         System.out.println("> DataTransaction:\n"+obj.toString());
         AgentLogPrint.printAgentTransaction(obj.toMapList());
     }
