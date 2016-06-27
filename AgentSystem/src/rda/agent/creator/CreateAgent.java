@@ -1,8 +1,7 @@
-package rda.agent.rank.creator;
+package rda.agent.creator;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.HashMap;
 
 import com.ibm.agent.exa.AgentException;
 import com.ibm.agent.exa.AgentKey;
@@ -10,31 +9,30 @@ import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
-import rda.agent.client.AgentConnection;
-import rda.agent.profile.AgentProfileGenerator;
-import rda.agent.queue.MessageQueue;
-import rda.agent.rank.updater.UpdateRank;
-import rda.agent.user.message.InitUserMessage;
-import rda.manager.AgentMessageQueueManager;
 
-public class CreateRankAgent implements AgentExecutor, Serializable{
+import rda.agent.client.AgentConnection;
+import rda.agent.queue.MessageQueue;
+import rda.agent.updater.UpdateAgent;
+import rda.agent.message.InitMessage;
+
+public class CreateAgent implements AgentExecutor, Serializable{
     /**
     * 
     */
     private static final long serialVersionUID = 856847026370330593L;
-    public static final String AGENT_TYPE = "useragent";
-    static final String MESSAGE_TYPE = "initUserAgent";
+    public static final String AGENT_TYPE = "aggregateagent";
+    static final String MESSAGE_TYPE = "initAgent";
 	
-    public CreateRankAgent() {
+    public CreateAgent() {
         // TODO 自動生成されたコンストラクター・スタブ
     }
 	
     AgentKey agentKey;
-    HashMap<String, String> prof;
-    public CreateRankAgent(AgentKey agentKey, HashMap<String, String> prof) {
+    String condition;
+    public CreateAgent(AgentKey agentKey, String condition) {
         // TODO 自動生成されたコンストラクター・スタブ
         this.agentKey = agentKey;
-        this.prof = prof;
+        this.condition = condition;
     }
 	
     @Override
@@ -56,10 +54,9 @@ public class CreateRankAgent implements AgentExecutor, Serializable{
             agentManager.createAgent(agentKey);
 	
             MessageFactory factory = MessageFactory.getFactory();
-            InitUserMessage msg = (InitUserMessage)factory.getMessage(MESSAGE_TYPE);
+            InitMessage msg = (InitMessage)factory.getMessage(MESSAGE_TYPE);
 		
-            msg.setParams(prof.get("Name"), prof.get("Sex"), 
-                        prof.get("Age"), prof.get("Address"));
+            msg.setParams(condition);
 		
             Object ret = agentManager.sendMessage(agentKey, msg);
 		
@@ -71,19 +68,15 @@ public class CreateRankAgent implements AgentExecutor, Serializable{
     }
 	
     public Object create(String agID, Integer size, Long queuewait, Long agentwait){
-        try {
-            AgentConnection ag = AgentConnection.getInstance();
-            AgentProfileGenerator profileGen = AgentProfileGenerator.getInstance();
+        AgentConnection ag = AgentConnection.getInstance();            
+        AgentClient client = ag.getConnection();
             
-            AgentClient client = ag.getConnection();
+        try {
                 
             agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID});
-            prof = profileGen.genAgentProfile(agID);
-            
-            System.out.println(">Profile:"+prof);
             
             //Create Agent
-            CreateRankAgent executor = new CreateRankAgent(agentKey, prof);
+            CreateAgent executor = new CreateAgent(agentKey, "Aggregate Conditios :"+agID);
             Object reply = client.execute(agentKey, executor);
             
             System.out.println("Agent[" + agentKey + "] was created. Reply is [" + reply + "]");
@@ -92,11 +85,13 @@ public class CreateRankAgent implements AgentExecutor, Serializable{
             
             //Create AgentQueue
             MessageQueue mq = new MessageQueue(agID, size, queuewait, agentwait);
-            mq.setAgentType(new UpdateRank(agID));
+            mq.setAgentType(new UpdateAgent(agID));
             
             return mq;
         } catch (AgentException e) {
             return null;
+        } finally {
+            ag.returnConnection(client);
         }
     }
 }

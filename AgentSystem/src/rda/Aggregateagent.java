@@ -9,35 +9,35 @@ import com.ibm.agent.exa.entity.Entity;
 import java.util.Iterator;
 
 /**
- * Generated code for useragent.
+ * Generated code for aggregateagent.
  *
- * <p>entity type="useragent tablename="useragent <br>
- * attribute name="UserID" type="STRING" primarykey="true" <br>
- * attribute name="Profile" type="profile" <br>
+ * <p>entity type="aggregateagent tablename="aggregateagent <br>
+ * attribute name="AgentID" type="STRING" primarykey="true" <br>
+ * attribute name="Condition" type="condition" <br>
  * attribute name="Data" type="LONG" <br>
  * attribute name="ConnectionCount" type="LONG" <br>
  * attribute name="Log" type="log" <br>
 **/
-public class Useragent extends HPAEntity {
+public class Aggregateagent extends HPAEntity {
     /**
     * Primary key size
     **/
     public static final int PKINDEXSIZE = 1;
 
     /**
-    * Primary key index of UserID
+    * Primary key index of AgentID
     **/
-    public static final int PKINDEX_USERID = 0;
+    public static final int PKINDEX_AGENTID = 0;
 
     /**
-    * Column index of UserID
+    * Column index of AgentID
     **/
-    public static final int USERID = 0;
+    public static final int AGENTID = 0;
 
     /**
-    * Column index of Profile
+    * Column index of Condition
     **/
-    public static final int PROFILE = 1;
+    public static final int CONDITION = 1;
 
     /**
     * Column index of Data
@@ -58,7 +58,7 @@ public class Useragent extends HPAEntity {
      * This constructor is used by the runtime.
      * An application should not create an instance with this constructor
     **/
-    public Useragent() {
+    public Aggregateagent() {
         super();
     }
 
@@ -70,50 +70,50 @@ public class Useragent extends HPAEntity {
     }
 
     /**
-     * Get a value of UserID. 
-     * The setter method of UserID is not generated because this attribute is a primarykey. 
-     * @return UserID
+     * Get a value of AgentID. 
+     * The setter method of AgentID is not generated because this attribute is a primarykey. 
+     * @return AgentID
      **/
-    public final String getUserID(TxID tx) {
+    public final String getAgentID(TxID tx) {
         // generated code
         return getString(tx,0);
     }
 
     /**
-     * Get a set of Profile. 
-     * Entity type of this entity set is profile.
+     * Get a set of Condition. 
+     * Entity type of this entity set is condition.
      * A returned entity set has a single entity.
-     * The setter method of Profile is not generated because this attribute is a EntitySet. 
-     * @return an entity set containing Profile
+     * The setter method of Condition is not generated because this attribute is a EntitySet. 
+     * @return an entity set containing Condition
      * @throws AgentException
      **/
-    public final EntitySet getProfileSet(TxID tx) throws AgentException {
+    public final EntitySet getConditionSet(TxID tx) throws AgentException {
         // generated code
         return getEntitySet(tx,1);
     }
 
     /**
-     * Get a value of Profile. 
+     * Get a value of Condition. 
      * @param tx a transaction context
-     * @return Profile
+     * @return Condition
      * @throws AgentException
      **/
-    public final Profile getProfile(TxID tx) throws AgentException {
+    public final Condition getCondition(TxID tx) throws AgentException {
         // generated code
         EntitySet es = getEntitySet(tx,1);
         if (es == null) return null;
-        return (Profile)es.getSingleEntity();
+        return (Condition)es.getSingleEntity();
     }
 
     /**
-     * Create a value of Profile. 
+     * Create a value of Condition. 
      * @param tx a transaction context
-     * @return Profile
+     * @return Condition
      **/
-    public final Profile createProfile(TxID tx) throws AgentException {
+    public final Condition createCondition(TxID tx) throws AgentException {
         // generated code
         EntitySet es = getEntitySet(tx,1);
-        Profile entity = (Profile)es.createEntity(tx,new Object[1]);
+        Condition entity = (Condition)es.createEntity(tx,new Object[1]);
         return entity;
     }
 

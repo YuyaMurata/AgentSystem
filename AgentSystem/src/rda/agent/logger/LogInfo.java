@@ -1,4 +1,4 @@
-package rda.agent.user.logger;
+package rda.agent.logger;
 
 import java.io.Serializable;
 

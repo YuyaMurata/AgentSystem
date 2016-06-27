@@ -1,4 +1,4 @@
-package rda.agent.rank.updater;
+package rda.agent.updater;
 
 import java.util.Collection;
 
@@ -10,20 +10,20 @@ import com.ibm.agent.exa.client.AgentClient;
 import java.util.List;
 import rda.agent.client.AgentConnection;
 import rda.agent.template.AgentType;
-import rda.agent.user.message.UpdateUserMessage;
+import rda.agent.message.UpdateMessage;
 import rda.manager.LoggerManager;
 
-public class UpdateRank extends AgentType {
+public class UpdateAgent extends AgentType {
     /**
     *
     */
     private static final long serialVersionUID = -4245098133759745980L;
-    private static final String AGENT_TYPE = "useragent";
-    private static final String MESSAGE_TYPE = "updateUserAgent";
+    private static final String AGENT_TYPE = "aggregateagent";
+    private static final String MESSAGE_TYPE = "updateAgent";
     private static AgentConnection agcon;
     private String agID;
         
-    public UpdateRank(String agID){
+    public UpdateAgent(String agID){
         this.agID = agID;
         this.agcon = AgentConnection.getInstance();
         this.agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
@@ -31,7 +31,7 @@ public class UpdateRank extends AgentType {
 
     AgentKey agentKey;
     List data;
-    public UpdateRank(AgentKey agentKey, List data) {
+    public UpdateAgent(AgentKey agentKey, List data) {
         // TODO 自動生成されたコンストラクター・スタブ
         this.agentKey = agentKey;
         this.data = data;
@@ -51,7 +51,7 @@ public class UpdateRank extends AgentType {
             AgentManager agentManager = AgentManager.getAgentManager();
                 
             MessageFactory factory = MessageFactory.getFactory();
-            UpdateUserMessage msg = (UpdateUserMessage)factory.getMessage(MESSAGE_TYPE);
+            UpdateMessage msg = (UpdateMessage)factory.getMessage(MESSAGE_TYPE);
             msg.setParams(data);
 
             //Sync Message
@@ -72,7 +72,7 @@ public class UpdateRank extends AgentType {
         try {
             AgentClient client = agcon.getConnection();
                 
-            UpdateRank executor = new UpdateRank(agentKey, (List)data);
+            UpdateAgent executor = new UpdateAgent(agentKey, (List)data);
             
             Object reply = client.execute(agentKey, executor);
             if(reply != null){

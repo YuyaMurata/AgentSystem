@@ -2,53 +2,48 @@
 -- create table of ranksys
 -- -----------------------------
 
---		<!--UserAgent Entity define-->
---		<entity type="useragent">
---			<attribute name="UserID" type="string" primarykey="true" maxlength="16"/>
---			<attribute name="Profile" type="profile" singleentity="true"/>
---			<attribute name="Data" type="long" />
---			<attribute name="ConnectionCount" type="long" />
---			<attribute name="Log" type="log" />
---		</entity>
---		<entity type="profile">
---			<attribute name="UserID" type="string" primarykey="true" relationto="UserID" maxlength="16"/>
---			<attribute name="Name" type="string" maxlength="32"/>
---			<attribute name="Sex" type="string" maxlength="2"/>
---			<attribute name="Age" type="string" maxlength="4"/>
---			<attribute name="Address" type="string" maxlength="64"/>
---			<attribute name="LastAccessTime" type="timestamp" />
---		</entity>
---		<entity type="log">
---			<attribute name="UserID" type="string" primarykey="true" relationto="UserID" maxlength="16"/>
---			<attribute name="AccessID" type="string" primarykey="true" maxlength="16"/>
---			<attribute name="LastAccessTime" type="timestamp" />
---		</entity>
+-- <!--UserAgent Entity define-->
+-- <entity type="aggregateagent">
+--      <attribute name="AgentID" type="string" primarykey="true" maxlength="32"/>
+--      <attribute name="Condition" type="condition" singleentity="true"/>
+--	<attribute name="Data" type="long" />
+--	<attribute name="ConnectionCount" type="long" />
+--	<attribute name="Log" type="log" />
+--</entity>
+--<entity type="condition">
+--      <attribute name="AgentID" type="string" primarykey="true" relationto="UserID" maxlength="32"/>
+--	<attribute name="AggregateCondition" type="string" maxlength="32"/>
+--	<attribute name="LastAccessTime" type="timestamp" />
+--</entity>
+--<entity type="log">
+--	<attribute name="AgentID" type="string" primarykey="true" relationto="UserID" maxlength="32"/>
+--	<attribute name="AccessID" type="string" primarykey="true" maxlength="16"/>
+--	<attribute name="CurrentTime" type="long"/>
+--      <attribute name="LastAccessTime" type="timestamp" />
+--</entity>
 
-CREATE TRANSIENT TABLE useragent (
-	UserID VARCHAR(64) NOT NULL,
+CREATE TRANSIENT TABLE aggregateagent (
+	AgentID VARCHAR(64) NOT NULL,
 	Data BIGINT,
 	ConnectionCount BIGINT,
-	PRIMARY KEY(UserID)
+	PRIMARY KEY(AgentID)
 );
 COMMIT WORK;
 
-CREATE TRANSIENT TABLE profile(
-	UserID VARCHAR(64) NOT NULL,
-	Name WVARCHAR(64),
-	Sex WVARCHAR(4),
-	Age WVARCHAR(8),
-	Address WVARCHAR(128),
+CREATE TRANSIENT TABLE condition(
+	AgentID VARCHAR(64) NOT NULL,
+	AggregateCondition WVARCHAR(64),
 	LastAccessTime TIMESTAMP,
-	PRIMARY KEY(UserID)
+	PRIMARY KEY(AgentID)
 );
 COMMIT WORK;
 
 CREATE TRANSIENT TABLE log(
-	UserID VARCHAR(64) NOT NULL,
+	AgentID VARCHAR(64) NOT NULL,
 	AccessID VARCHAR(16) NOT NULL,
         CurrentTime BIGINT,
 	LastAccessTime TIMESTAMP,
-	PRIMARY KEY(UserID, AccessID)
+	PRIMARY KEY(AgentID, AccessID)
 );
 COMMIT WORK;
 

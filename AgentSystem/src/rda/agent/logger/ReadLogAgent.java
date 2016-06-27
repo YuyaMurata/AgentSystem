@@ -1,4 +1,4 @@
-package rda.agent.user.reader;
+package rda.agent.logger;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -9,24 +9,22 @@ import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
-import java.util.ArrayList;
 import rda.agent.client.AgentConnection;
 
-public class ReadUser implements AgentExecutor, Serializable{
+public class ReadLogAgent implements AgentExecutor, Serializable{
     /**
-    　* 
-     */
-    private static final long serialVersionUID = 6385839930575941905L;
-	
-    private static final String AGENT_TYPE = "useragent";
-    private static final String MESSAGE_TYPE = "readUserAgent";
+     * 
+    */
+    private static final long serialVersionUID = 1803475224433854533L;
+    private static final String AGENT_TYPE = "aggregateagent";
+    private static final String MESSAGE_TYPE = "readLogAgent";
 
-    public ReadUser() {
+    public ReadLogAgent() {
         // TODO 自動生成されたコンストラクター・スタブ
     }
 
     AgentKey agentKey;
-    public ReadUser(AgentKey agentKey) {
+    public ReadLogAgent(AgentKey agentKey) {
         // TODO 自動生成されたコンストラクター・スタブ
         this.agentKey = agentKey;
     }
@@ -34,8 +32,10 @@ public class ReadUser implements AgentExecutor, Serializable{
     @Override
     public Object complete(Collection<Object> results) {
         // TODO 自動生成されたメソッド・スタブ
-        if (results == null) return null;
-        
+        if (results == null) {
+            return null;
+        }
+    
         Object[] ret = results.toArray();
         return ret[0];
     }
@@ -57,38 +57,33 @@ public class ReadUser implements AgentExecutor, Serializable{
         }
     }
 
-    public ArrayList<UserInfo> read(int numOfAgents) {
+    public LogInfo get(String id) {
         AgentConnection ag = AgentConnection.getInstance();
         AgentClient client = ag.getConnection();
-            
+        
         try{
-            ArrayList<UserInfo> list = new ArrayList<>();
+            agentKey = new AgentKey(AGENT_TYPE, new Object[]{id});
 
-            for(int i=0; i < numOfAgents; i++){
-                String userID = "U#00"+i;
-                agentKey = new AgentKey(AGENT_TYPE, new Object[]{userID});
+            ReadLogAgent executor = new ReadLogAgent(agentKey);
 
-                ReadUser executor = new ReadUser(agentKey);
+            Object reply = client.execute(agentKey, executor);
 
-                Object reply = client.execute(agentKey, executor);
-
-                if (reply != null) {
-                    UserInfo info = (UserInfo)reply;
-                    System.out.println(agentKey + "[");
-                    System.out.println("    " + info.toString());
-                    System.out.println("]");
-                                
-                    list.add(info);
-                } else {
-                    System.out.println(userID + " was not found");
-                }
-            }                  
-            return list;
+            LogInfo info = null;
+            if (reply != null) {
+                info = (LogInfo)reply;
+    				
+                System.out.println(agentKey + "[");
+                System.out.println("    " + info.toString());
+                System.out.println("]");
+            } else {
+                System.out.println(id + " was not found");
+            }
+            
+            return info;
         }catch(Exception e){
             return null;
-        } finally {
+        }finally {
             ag.returnConnection(client);
         }
     }
-
 }

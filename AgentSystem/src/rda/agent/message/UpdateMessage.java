@@ -1,9 +1,9 @@
-package rda.agent.user.message;
+package rda.agent.message;
 
 import com.ibm.agent.exa.Message;
 import java.util.List;
 
-public class UpdateUserMessage extends Message{
+public class UpdateMessage extends Message{
 
     //Compound Data
     public List messageData;

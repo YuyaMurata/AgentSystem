@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import rda.agent.queue.MessageQueue;
 import rda.agent.queue.QueueObserver;
-import rda.agent.rank.creator.CreateRankAgent;
+import rda.agent.creator.CreateAgent;
 import rda.clone.AgentCloning;
 
 /**
@@ -68,7 +68,7 @@ public class AgentMessageQueueManager {
         
         if((agID = id.getReserveID()) == null){
             agID = id.genID();
-            CreateRankAgent rankAgent = new CreateRankAgent();
+            CreateAgent rankAgent = new CreateAgent();
             agent = rankAgent.create(agID, queueLength, queuewait, agentwait);
             register((MessageQueue)agent);
         } else {
@@ -86,7 +86,7 @@ public class AgentMessageQueueManager {
         
         if((agID = id.getReserveID()) == null){
             agID = id.genID();
-            CreateRankAgent rankAgent = new CreateRankAgent();
+            CreateAgent rankAgent = new CreateAgent();
             agent = rankAgent.create(agID, queueLength, queuewait, agentwait);
             register((MessageQueue)agent);
         } else {

@@ -2,23 +2,20 @@
 <agentdef package="rda" version="rda1.0">
 	<entities>
 		<!--UserAgent Entity define-->
-		<entity type="useragent">
-			<attribute name="UserID" type="string" primarykey="true" maxlength="32"/>
-			<attribute name="Profile" type="profile" singleentity="true"/>
+		<entity type="aggregateagent">
+			<attribute name="AgentID" type="string" primarykey="true" maxlength="32"/>
+			<attribute name="Condition" type="condition" singleentity="true"/>
 			<attribute name="Data" type="long" />
 			<attribute name="ConnectionCount" type="long" />
 			<attribute name="Log" type="log" />
 		</entity>
-		<entity type="profile">
-			<attribute name="UserID" type="string" primarykey="true" relationto="UserID" maxlength="32"/>
-			<attribute name="Name" type="string" maxlength="32"/>
-			<attribute name="Sex" type="string" maxlength="2"/>
-			<attribute name="Age" type="string" maxlength="4"/>
-			<attribute name="Address" type="string" maxlength="64"/>
+		<entity type="condition">
+			<attribute name="AgentID" type="string" primarykey="true" relationto="AgentID" maxlength="32"/>
+			<attribute name="AggregateCondition" type="string" maxlength="32"/>
 			<attribute name="LastAccessTime" type="timestamp" />
 		</entity>
 		<entity type="log">
-			<attribute name="UserID" type="string" primarykey="true" relationto="UserID" maxlength="32"/>
+			<attribute name="AgentID" type="string" primarykey="true" relationto="AgentID" maxlength="32"/>
 			<attribute name="AccessID" type="string" primarykey="true" maxlength="16"/>
 			<attribute name="CurrentTime" type="long"/>
                         <attribute name="LastAccessTime" type="timestamp" />
@@ -27,10 +24,10 @@
 	<messages>
 		<!--system define-->
 		<!--UserAgent Messages -->
-		<message type="initUserAgent" class="rda.agent.user.message.InitUserMessage"/>
-		<message type="readUserAgent" />
-		<message type="updateUserAgent" class="rda.agent.user.message.UpdateUserMessage"/>
-		<message type="readLogUserAgent"/>
+		<message type="initAgent" class="rda.agent.message.InitMessage"/>
+		<message type="readAgent" />
+		<message type="updateAgent" class="rda.agent.message.UpdateMessage"/>
+		<message type="readLogAgent"/>
 
 		<!--agent system define-->
 		<message type="dispose" />
@@ -38,10 +35,10 @@
 	<agents>
 		<!--system define-->
 		<agent type="useragent">
-			<handler message="initUserAgent" class="rda.agent.user.handler.InitUserHandler"/>
-			<handler message="readUserAgent" class="rda.agent.user.handler.ReadUserHandler"/>
-			<handler message="updateUserAgent" class="rda.agent.user.handler.UpdateUserHandler"/>
-			<handler message="readLogUserAgent" class="rda.agent.user.handler.ReadLogUserHandler"/>
+			<handler message="initAgent" class="rda.agent.handler.InitHandler"/>
+			<handler message="readAgent" class="rda.agent.handler.ReadHandler"/>
+			<handler message="updateAgent" class="rda.agent.handler.UpdateHandler"/>
+			<handler message="readLogAgent" class="rda.agent.handler.ReadLogHandler"/>
 
 			<handler message="dispose" class="rda.agent.disposer.handler.DisposeHandler"/>
 		</agent>

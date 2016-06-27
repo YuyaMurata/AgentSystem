@@ -5,19 +5,18 @@ import com.ibm.agent.exa.impl.HPAEntity;
 import com.ibm.agent.exa.TxID;
 
 /**
- * Generated code for log.
+ * Generated code for condition.
  *
- * <p>entity type="log tablename="log <br>
+ * <p>entity type="condition tablename="condition <br>
  * attribute name="AgentID" type="STRING" primarykey="true" relationto="AgentID" <br>
- * attribute name="AccessID" type="STRING" primarykey="true" <br>
- * attribute name="CurrentTime" type="LONG" <br>
+ * attribute name="AggregateCondition" type="STRING" <br>
  * attribute name="LastAccessTime" type="TIMESTAMP" <br>
 **/
-public class Log extends HPAEntity {
+public class Condition extends HPAEntity {
     /**
     * Primary key size
     **/
-    public static final int PKINDEXSIZE = 2;
+    public static final int PKINDEXSIZE = 1;
 
     /**
     * Primary key index of AgentID
@@ -25,35 +24,25 @@ public class Log extends HPAEntity {
     public static final int PKINDEX_AGENTID = 0;
 
     /**
-    * Primary key index of AccessID
-    **/
-    public static final int PKINDEX_ACCESSID = 1;
-
-    /**
     * Column index of AgentID
     **/
     public static final int AGENTID = 0;
 
     /**
-    * Column index of AccessID
+    * Column index of AggregateCondition
     **/
-    public static final int ACCESSID = 1;
-
-    /**
-    * Column index of CurrentTime
-    **/
-    public static final int CURRENTTIME = 2;
+    public static final int AGGREGATECONDITION = 1;
 
     /**
     * Column index of LastAccessTime
     **/
-    public static final int LASTACCESSTIME = 3;
+    public static final int LASTACCESSTIME = 2;
 
     /**
      * This constructor is used by the runtime.
      * An application should not create an instance with this constructor
     **/
-    public Log() {
+    public Condition() {
         super();
     }
 
@@ -75,31 +64,24 @@ public class Log extends HPAEntity {
     }
 
     /**
-     * Get a value of AccessID. 
-     * The setter method of AccessID is not generated because this attribute is a primarykey. 
-     * @return AccessID
+     * @return AggregateCondition
      **/
-    public final String getAccessID(TxID tx) {
+    public final String getAggregateCondition(TxID tx) {
         // generated code
         return getString(tx,1);
     }
 
     /**
-     * @return CurrentTime
-     **/
-    public final long getCurrentTime(TxID tx) {
-        // generated code
-        return getLong(tx,2);
-    }
-
-    /**
-     * Set a value to CurrentTime. 
+     * Set a value to AggregateCondition. 
      * @param tx a transaction context
-     * @param value a value to be set to CurrentTime
+     * @param value a value to be set to AggregateCondition
      **/
-    public final void  setCurrentTime(TxID tx, long value) throws AgentException {
+    public final void  setAggregateCondition(TxID tx, String value) throws AgentException {
         // generated code
-        setLong(tx,2,value);
+        if (value != null && value.length() > 32) {
+            throw new AgentException("AggregateCondition > maxlength(32)");
+        }
+        setString(tx,1,value);
     }
 
     /**
@@ -107,7 +89,7 @@ public class Log extends HPAEntity {
      **/
     public final java.sql.Timestamp getLastAccessTime(TxID tx) {
         // generated code
-        return getTimestamp(tx,3);
+        return getTimestamp(tx,2);
     }
 
     /**
@@ -117,7 +99,7 @@ public class Log extends HPAEntity {
      **/
     public final void  setLastAccessTime(TxID tx, java.sql.Timestamp value) throws AgentException {
         // generated code
-        setTimestamp(tx,3,value);
+        setTimestamp(tx,2,value);
     }
 
 }

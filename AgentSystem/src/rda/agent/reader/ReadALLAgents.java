@@ -16,14 +16,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.TreeMap;
 import rda.agent.client.AgentConnection;
-import rda.agent.user.reader.UserInfo;
 
 /**
  *
  * @author kaeru
  */
 public class ReadALLAgents implements AgentExecutor, Serializable{
-    private static final String MESSAGE_TYPE = "readUserAgent";
+    private static final String MESSAGE_TYPE = "readAgent";
 
     public ReadALLAgents() {
     }
@@ -48,7 +47,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
         return results;
     }
     
-    public Collection<UserInfo> read() {
+    public Collection<AgentInfo> read() {
         // エージェントクライアント
         AgentConnection ag = AgentConnection.getInstance();
         
@@ -72,7 +71,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
                 // 処理結果はHashMapとなる．
                 HashMap<AgentKey, Object> retFromAgents = (HashMap<AgentKey, Object>)obj;
                 for(AgentKey agentKey : retFromAgents.keySet()) {
-                    UserInfo info = (UserInfo)retFromAgents.get(agentKey);
+                    AgentInfo info = (AgentInfo)retFromAgents.get(agentKey);
                     map.put(agentKey.toString(), info);
                 }
             }
@@ -82,7 +81,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
             //TestPrint
             for(Object key : map.keySet()){
                 System.out.println(key + "[");
-                    System.out.println("    " + ((UserInfo)map.get(key)).toString());
+                    System.out.println("    " + ((AgentInfo)map.get(key)).toString());
                     System.out.println("]");
                 
             }
