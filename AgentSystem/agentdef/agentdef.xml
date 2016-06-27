@@ -1,46 +1,46 @@
 <?xml version="1.0"?>
 <agentdef package="rda" version="rda1.0">
-	<entities>
-		<!--UserAgent Entity define-->
-		<entity type="aggregateagent">
-			<attribute name="AgentID" type="string" primarykey="true" maxlength="32"/>
-			<attribute name="Condition" type="condition" singleentity="true"/>
-			<attribute name="Data" type="long" />
-			<attribute name="ConnectionCount" type="long" />
-			<attribute name="Log" type="log" />
-		</entity>
-		<entity type="condition">
-			<attribute name="AgentID" type="string" primarykey="true" relationto="AgentID" maxlength="32"/>
-			<attribute name="AggregateCondition" type="string" maxlength="32"/>
-			<attribute name="LastAccessTime" type="timestamp" />
-		</entity>
-		<entity type="log">
-			<attribute name="AgentID" type="string" primarykey="true" relationto="AgentID" maxlength="32"/>
-			<attribute name="AccessID" type="string" primarykey="true" maxlength="16"/>
-			<attribute name="CurrentTime" type="long"/>
-                        <attribute name="LastAccessTime" type="timestamp" />
-		</entity>
-	</entities>
-	<messages>
-		<!--system define-->
-		<!--UserAgent Messages -->
-		<message type="initAgent" class="rda.agent.message.InitMessage"/>
-		<message type="readAgent" />
-		<message type="updateAgent" class="rda.agent.message.UpdateMessage"/>
-		<message type="readLogAgent"/>
+    <entities>
+        <!--AggregateAgent Entity define-->
+        <entity type="aggregateagent">
+            <attribute name="AgentID" type="string" primarykey="true" maxlength="32"/>
+            <attribute name="Condition" type="aggregatecondition" singleentity="true"/>
+            <attribute name="Data" type="long" />
+            <attribute name="ConnectionCount" type="long" />
+            <attribute name="Log" type="log" />
+        </entity>
+        <entity type="aggregatecondition">
+            <attribute name="AgentID" type="string" primarykey="true" relationto="AgentID" maxlength="32"/>
+            <attribute name="Conditions" type="string" maxlength="32"/>
+            <attribute name="LastAccessTime" type="timestamp" />
+        </entity>
+        <entity type="log">
+            <attribute name="AgentID" type="string" primarykey="true" relationto="AgentID" maxlength="32"/>
+            <attribute name="AccessID" type="string" primarykey="true" maxlength="16"/>
+            <attribute name="CurrentTime" type="long"/>
+            <attribute name="LastAccessTime" type="timestamp" />
+        </entity>
+    </entities>
+    <messages>
+        <!--system define-->
+        <!--AggregateAgent Messages -->
+        <message type="initAgent" class="rda.agent.message.InitMessage"/>
+        <message type="readAgent" />
+        <message type="updateAgent" class="rda.agent.message.UpdateMessage"/>
+        <message type="readLogAgent"/>
 
-		<!--agent system define-->
-		<message type="dispose" />
-	</messages>
-	<agents>
-		<!--system define-->
-		<agent type="useragent">
-			<handler message="initAgent" class="rda.agent.handler.InitHandler"/>
-			<handler message="readAgent" class="rda.agent.handler.ReadHandler"/>
-			<handler message="updateAgent" class="rda.agent.handler.UpdateHandler"/>
-			<handler message="readLogAgent" class="rda.agent.handler.ReadLogHandler"/>
+        <!--agent system define-->
+        <message type="dispose" />
+    </messages>
+    <agents>
+        <!--system define-->
+        <agent type="useragent">
+            <handler message="initAgent" class="rda.agent.handler.InitHandler"/>
+            <handler message="readAgent" class="rda.agent.handler.ReadHandler"/>
+            <handler message="updateAgent" class="rda.agent.handler.UpdateHandler"/>
+            <handler message="readLogAgent" class="rda.agent.handler.ReadLogHandler"/>
 
-			<handler message="dispose" class="rda.agent.disposer.handler.DisposeHandler"/>
-		</agent>
-	</agents>
+            <handler message="dispose" class="rda.agent.disposer.handler.DisposeHandler"/>
+        </agent>
+    </agents>
 </agentdef>
