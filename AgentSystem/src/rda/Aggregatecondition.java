@@ -5,14 +5,14 @@ import com.ibm.agent.exa.impl.HPAEntity;
 import com.ibm.agent.exa.TxID;
 
 /**
- * Generated code for condition.
+ * Generated code for aggregatecondition.
  *
- * <p>entity type="condition tablename="condition <br>
+ * <p>entity type="aggregatecondition tablename="aggregatecondition <br>
  * attribute name="AgentID" type="STRING" primarykey="true" relationto="AgentID" <br>
- * attribute name="AggregateCondition" type="STRING" <br>
+ * attribute name="Conditions" type="STRING" <br>
  * attribute name="LastAccessTime" type="TIMESTAMP" <br>
 **/
-public class Condition extends HPAEntity {
+public class Aggregatecondition extends HPAEntity {
     /**
     * Primary key size
     **/
@@ -29,9 +29,9 @@ public class Condition extends HPAEntity {
     public static final int AGENTID = 0;
 
     /**
-    * Column index of AggregateCondition
+    * Column index of Conditions
     **/
-    public static final int AGGREGATECONDITION = 1;
+    public static final int CONDITIONS = 1;
 
     /**
     * Column index of LastAccessTime
@@ -42,7 +42,7 @@ public class Condition extends HPAEntity {
      * This constructor is used by the runtime.
      * An application should not create an instance with this constructor
     **/
-    public Condition() {
+    public Aggregatecondition() {
         super();
     }
 
@@ -64,22 +64,22 @@ public class Condition extends HPAEntity {
     }
 
     /**
-     * @return AggregateCondition
+     * @return Conditions
      **/
-    public final String getAggregateCondition(TxID tx) {
+    public final String getConditions(TxID tx) {
         // generated code
         return getString(tx,1);
     }
 
     /**
-     * Set a value to AggregateCondition. 
+     * Set a value to Conditions. 
      * @param tx a transaction context
-     * @param value a value to be set to AggregateCondition
+     * @param value a value to be set to Conditions
      **/
-    public final void  setAggregateCondition(TxID tx, String value) throws AgentException {
+    public final void  setConditions(TxID tx, String value) throws AgentException {
         // generated code
         if (value != null && value.length() > 32) {
-            throw new AgentException("AggregateCondition > maxlength(32)");
+            throw new AgentException("Conditions > maxlength(32)");
         }
         setString(tx,1,value);
     }

@@ -9,7 +9,7 @@ import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;
 import com.ibm.agent.exa.TxID;
 import rda.Aggregateagent;
-import rda.Condition;
+import rda.Aggregatecondition;
 
 /**
  *　INITメッセージのメッセージハンドラ．エージェントのデータの初期化を行う．
@@ -25,10 +25,10 @@ public class InitHandler extends MessageHandler {
 
             // トランザクションIDを取得
             TxID tx = getTx();
-            Condition cond = agent.createCondition(tx);
+            Aggregatecondition cond = agent.createCondition(tx);
 
             // 集約条件をセット
-            cond.setAggregateCondition(tx, initMsg.condition);
+            cond.setConditions(tx, initMsg.condition);
                         
             // 登録日
             Long time = System.currentTimeMillis();

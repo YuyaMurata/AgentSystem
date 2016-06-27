@@ -13,7 +13,7 @@ import java.util.Iterator;
  *
  * <p>entity type="aggregateagent tablename="aggregateagent <br>
  * attribute name="AgentID" type="STRING" primarykey="true" <br>
- * attribute name="Condition" type="condition" <br>
+ * attribute name="Condition" type="aggregatecondition" <br>
  * attribute name="Data" type="LONG" <br>
  * attribute name="ConnectionCount" type="LONG" <br>
  * attribute name="Log" type="log" <br>
@@ -81,10 +81,10 @@ public class Aggregateagent extends HPAEntity {
 
     /**
      * Get a set of Condition. 
-     * Entity type of this entity set is condition.
+     * Entity type of this entity set is aggregatecondition.
      * A returned entity set has a single entity.
      * The setter method of Condition is not generated because this attribute is a EntitySet. 
-     * @return an entity set containing Condition
+     * @return an entity set containing Aggregatecondition
      * @throws AgentException
      **/
     public final EntitySet getConditionSet(TxID tx) throws AgentException {
@@ -95,25 +95,25 @@ public class Aggregateagent extends HPAEntity {
     /**
      * Get a value of Condition. 
      * @param tx a transaction context
-     * @return Condition
+     * @return Aggregatecondition
      * @throws AgentException
      **/
-    public final Condition getCondition(TxID tx) throws AgentException {
+    public final Aggregatecondition getCondition(TxID tx) throws AgentException {
         // generated code
         EntitySet es = getEntitySet(tx,1);
         if (es == null) return null;
-        return (Condition)es.getSingleEntity();
+        return (Aggregatecondition)es.getSingleEntity();
     }
 
     /**
-     * Create a value of Condition. 
+     * Create a value of Aggregatecondition. 
      * @param tx a transaction context
-     * @return Condition
+     * @return Aggregatecondition
      **/
-    public final Condition createCondition(TxID tx) throws AgentException {
+    public final Aggregatecondition createCondition(TxID tx) throws AgentException {
         // generated code
         EntitySet es = getEntitySet(tx,1);
-        Condition entity = (Condition)es.createEntity(tx,new Object[1]);
+        Aggregatecondition entity = (Aggregatecondition)es.createEntity(tx,new Object[1]);
         return entity;
     }
 
