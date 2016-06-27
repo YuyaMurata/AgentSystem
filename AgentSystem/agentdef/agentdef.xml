@@ -34,7 +34,7 @@
     </messages>
     <agents>
         <!--system define-->
-        <agent type="useragent">
+        <agent type="aggregateagent">
             <handler message="initAgent" class="rda.agent.handler.InitHandler"/>
             <handler message="readAgent" class="rda.agent.handler.ReadHandler"/>
             <handler message="updateAgent" class="rda.agent.handler.UpdateHandler"/>
