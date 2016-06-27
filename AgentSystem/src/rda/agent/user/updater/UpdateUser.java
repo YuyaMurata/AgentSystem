@@ -9,7 +9,7 @@ import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
-import java.util.ArrayList;
+import java.util.List;
 import rda.agent.client.AgentConnection;
 import rda.agent.user.message.UpdateUserMessage;
 
@@ -24,11 +24,11 @@ public class UpdateUser implements AgentExecutor, Serializable{
         public UpdateUser(){}
 
 	AgentKey agentKey;
-	ArrayList data;
-	public UpdateUser(AgentKey agentKey, ArrayList data) {
+	List messageData;
+	public UpdateUser(AgentKey agentKey, List messageData) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		this.agentKey = agentKey;
-		this.data = data;
+		this.messageData = messageData;
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class UpdateUser implements AgentExecutor, Serializable{
 			MessageFactory factory = MessageFactory.getFactory();
 			UpdateUserMessage msg;
 			msg = (UpdateUserMessage)factory.getMessage(MESSAGE_TYPE);
-			msg.setParams(data);
+			msg.setParams(messageData);
 
 			//Sync Message
 			Object ret = agentManager.sendMessage(agentKey, msg);
@@ -60,14 +60,14 @@ public class UpdateUser implements AgentExecutor, Serializable{
 		}
 	}
 
-	public void sendUpdateMessage(String agID, ArrayList data){
+	public void sendUpdateMessage(String agID, List messageData){
             try {
                 AgentConnection ag = AgentConnection.getInstance();
                 AgentClient client = ag.getConnection();
                 
                 agentKey = new AgentKey(AGENT_TYPE,new Object[]{agID}); 
                     
-                UpdateUser executor = new UpdateUser(agentKey, data);
+                UpdateUser executor = new UpdateUser(agentKey, messageData);
                 Object reply = client.execute(agentKey, executor);
                 //if(reply == null) System.err.println("Cannot Find Agent : "+agentKey);
                 //System.out.println("A message from the agent[" + agentKey + "]: " + reply);

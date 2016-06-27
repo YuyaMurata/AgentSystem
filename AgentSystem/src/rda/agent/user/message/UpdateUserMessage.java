@@ -6,9 +6,9 @@ import java.util.List;
 public class UpdateUserMessage extends Message{
 
     //Compound Data
-    public List data;
+    public List messageData;
 
-    public void setParams(List data){
-        this.data = data;
+    public void setParams(List messageData){
+        this.messageData = messageData;
     }
 }
