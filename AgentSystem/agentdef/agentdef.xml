@@ -10,12 +10,12 @@
 			<attribute name="Log" type="log" />
 		</entity>
 		<entity type="condition">
-			<attribute name="AgentID" type="string" primarykey="true" relationto="UserID" maxlength="32"/>
+			<attribute name="AgentID" type="string" primarykey="true" relationto="AgentID" maxlength="32"/>
 			<attribute name="AggregateCondition" type="string" maxlength="32"/>
 			<attribute name="LastAccessTime" type="timestamp" />
 		</entity>
 		<entity type="log">
-			<attribute name="AgentID" type="string" primarykey="true" relationto="UserID" maxlength="32"/>
+			<attribute name="AgentID" type="string" primarykey="true" relationto="AgentID" maxlength="32"/>
 			<attribute name="AccessID" type="string" primarykey="true" maxlength="16"/>
 			<attribute name="CurrentTime" type="long"/>
                         <attribute name="LastAccessTime" type="timestamp" />
