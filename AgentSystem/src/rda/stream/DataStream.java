@@ -50,14 +50,9 @@ public class DataStream implements Runnable{
         Map mqMap = AgentMessageQueueManager.getInstance().getMQMap();
         MessageObject msg;
         Window msgPack;
-        
-        System.out.println("rda.stream.DataStream.stream() : ");
-        
-        msg = tcmanager.datagen.generate(t);
-        System.out.println("rda.stream.DataStream.stream() : " + msg);
-        
-        //while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
-            /*try {
+
+        while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
+            try {
                 window.pack(msg);
                 
                 if((msgPack = window.get()) == null) continue;
@@ -78,9 +73,8 @@ public class DataStream implements Runnable{
                     mqev.printEvent();
             } catch (Exception e){
                     e.printStackTrace();
-            }*/
-            
-        //}
+            }    
+        }
     }
     
     @Override

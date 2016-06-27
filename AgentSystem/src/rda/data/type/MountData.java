@@ -44,9 +44,9 @@ public class MountData implements DataType{
     public MessageObject nextData(Long time) {
         count++;
         
-        MessageObject msg = (MessageObject)data.getData();
+        MessageObject msg = data.getData();
         
-        if(count == (time * volume)) msg = (MessageObject)data.getPoison();
+        if(count == (time * volume)) msg = data.getPoison();
         if(count > (time * volume)) {
             msg = null;
             count = -1L;

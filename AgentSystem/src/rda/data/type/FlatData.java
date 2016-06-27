@@ -40,8 +40,6 @@ public class FlatData  implements DataType{
     public MessageObject nextData(Long time) {
         if((time == 0) && (count == -1)) count = volume.longValue()-1; 
         
-        System.out.println("rda.stream.DataStream.stream() : " + "nextdata");
-        
         count++;
         MessageObject msg = data.getData();
                 
