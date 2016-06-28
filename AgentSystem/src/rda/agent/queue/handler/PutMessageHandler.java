@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rda.agent.queue;
+package rda.agent.queue.handler;
 
 import com.ibm.agent.exa.Message;
 import com.ibm.agent.exa.MessageHandler;
 import com.ibm.agent.exa.TxID;
 import rda.Aggregateagent;
+import rda.agent.queue.MessageQueue;
+import rda.agent.queue.MessageQueueEvent;
+import rda.agent.queue.PutMessage;
 import rda.manager.AgentMessageQueueManager;
 
 /**
