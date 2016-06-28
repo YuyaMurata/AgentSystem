@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import rda.agent.queue.MessageObject;
 import rda.agent.queue.MessageQueue;
 import rda.agent.queue.MessageQueueEvent;
+import rda.agent.sender.SendAgentMessage;
 import rda.manager.AgentMessageQueueManager;
 import rda.manager.TestCaseManager;
 import rda.window.Window;
@@ -50,6 +51,7 @@ public class DataStream implements Runnable{
         Map mqMap = AgentMessageQueueManager.getInstance().getMQMap();
         MessageObject msg;
         Window msgPack;
+        SendAgentMessage agent = new SendAgentMessage();
 
         while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
             try {
@@ -58,19 +60,21 @@ public class DataStream implements Runnable{
                 if((msgPack = window.get()) == null) continue;
                 
                 //Get Destination ID
-                String agID = msgPack.getDestID();
+                //String agID = msgPack.getDestID();
                 
                 //Get MessageQueue
-                MessageQueue mq = (MessageQueue)mqMap.get(agID);
+                //MessageQueue mq = (MessageQueue)mqMap.get(agID);
             
                 //MessageSender      
-                mq.put(msgPack);
+                //mq.put(msgPack);
+                
+                agent.sendMessage(msgPack);
                 
                 total = total+msgPack.unpack().size();
                 
                 window.remove();
-            } catch (MessageQueueEvent mqev) {
-                    mqev.printEvent();
+            //} catch (MessageQueueEvent mqev) {
+            //        mqev.printEvent();
             } catch (Exception e){
                     e.printStackTrace();
             }    
