@@ -86,8 +86,6 @@ public class CreateAgent implements AgentExecutor, Serializable{
             MessageQueue mq = new MessageQueue(agID, size, queuewait, agentwait);
             mq.setAgentType(new UpdateAgent(agID));
             
-            agconn.returnConnection(client);
-            
             return mq;
         } catch (AgentException e) {
             return null;
