@@ -72,7 +72,7 @@ public class SendAgentMessage extends AgentType{
             AgentClient client = agconn.getConnection();
                 
             agentKey = new AgentKey(AGENT_TYPE,new Object[]{((Window)data).getDestID()});
-            SendAgentMessage executor = new SendAgentMessage(agentKey, data);
+            SendAgentMessage executor = new SendAgentMessage(agentKey, ((Window)data).unpack());
             
             //Async Message
             client.execute(agentKey, executor);
