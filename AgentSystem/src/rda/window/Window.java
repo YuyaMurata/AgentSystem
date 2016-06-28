@@ -5,6 +5,7 @@
  */
 package rda.window;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import rda.agent.template.MessageTemplate;
@@ -14,7 +15,7 @@ import rda.manager.AgentMessageQueueManager;
  *
  * @author kaeru
  */
-public class Window{
+public class Window implements Serializable{
     private String originID, destID;
     private Integer size;
     private WindowController manager;
