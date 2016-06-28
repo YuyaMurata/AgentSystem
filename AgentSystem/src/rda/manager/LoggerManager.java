@@ -77,7 +77,7 @@ public class LoggerManager {
     }
     
     public void printAgentTranTotal(){
-        SQLReturnObject obj = db.query("select * from useragent");
+        SQLReturnObject obj = db.query("select * from aggregateagent");
         Map map = new HashMap();
         List field = (List) obj.toMapList().get("Field");
         List data = (List) obj.toMapList().get("Data");

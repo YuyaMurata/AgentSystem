@@ -77,7 +77,6 @@ public class DBAccess implements AgentExecutor, Serializable {
             if(sqlstmt.contains("agent")){
                 while(rs.next()){
                      results.put(rs.getString(1), rs.getLong(2));
-                     System.out.println(" >> SQL ::"+"rs.getString(1)="+rs.getString(1) +",rs.getLong(2)="+rs.getLong(2));
                 }
                 
                 return results;
