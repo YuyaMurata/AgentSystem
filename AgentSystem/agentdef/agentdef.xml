@@ -31,6 +31,7 @@
 
         <!--agent system define-->
         <message type="dispose" />
+        <message type="putmessage" class="rda.agent.queue.PutMessage"/>
     </messages>
     <agents>
         <!--system define-->
@@ -41,6 +42,7 @@
             <handler message="readLogAgent" class="rda.agent.handler.ReadLogHandler"/>
 
             <handler message="dispose" class="rda.agent.disposer.handler.DisposeHandler"/>
+            <handler message="putmessage" class="rda.agent.queue.handler.PutMessageHandler"/>
         </agent>
     </agents>
 </agentdef>
