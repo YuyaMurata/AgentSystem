@@ -12,8 +12,6 @@ import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.agent.client.AgentConnection;
 import rda.agent.queue.PutMessage;
 import rda.agent.template.AgentType;
@@ -58,16 +56,13 @@ public class SendAgentMessage extends AgentType{
             msg.setParams(msgPack);
 
             //ASync Message
-            //Object ret = agentManager.sendMessage(agentKey, msg);
-            agentManager.putMessage(agentKey, msg);
+            Object ret = agentManager.sendMessage(agentKey, msg);
+            //agentManager.putMessage(agentKey, msg);
             
-            //return ret;
+            return ret;
         } catch (IllegalAccessException | InstantiationException ex) {
             return 0L;
-        } catch (AgentException ex) {
         }
-        
-        return 0L;
     }
     
     @Override
@@ -90,8 +85,8 @@ public class SendAgentMessage extends AgentType{
             //Async Message
             Object reply = client.execute(agentKey, executor);
             
-            //if(reply != null)
-            //    System.out.println(" >> PutMessage Reply = "+agentKey +":"+ reply);
+            if(reply != null)
+                System.out.println(" >> PutMessage Reply = "+agentKey +":"+ reply);
             
             agconn.returnConnection(client);
         } catch (AgentException e) {

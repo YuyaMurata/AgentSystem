@@ -41,6 +41,6 @@ public class PutMessageHandler extends MessageHandler{
             mqev.printEvent();
         }
         
-        return id + " : success put messages";
+        return mq.getID() + " : success put messages = "+putMsg.msgPack.size();
     } 
 }
