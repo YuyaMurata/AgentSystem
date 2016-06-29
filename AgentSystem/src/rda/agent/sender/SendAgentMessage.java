@@ -11,6 +11,7 @@ import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
 import java.util.Collection;
+import java.util.List;
 import rda.agent.client.AgentConnection;
 import rda.agent.queue.PutMessage;
 import rda.agent.template.AgentType;
@@ -30,8 +31,8 @@ public class SendAgentMessage extends AgentType{
     }
 
     AgentKey agentKey;
-    Object msgPack;
-    public SendAgentMessage(AgentKey agentKey, Object msgPack) {
+    List msgPack;
+    public SendAgentMessage(AgentKey agentKey, List msgPack) {
         this.agentKey = agentKey;
         this.msgPack = msgPack;
     }
@@ -78,12 +79,12 @@ public class SendAgentMessage extends AgentType{
             SendAgentMessage executor = new SendAgentMessage(agentKey, win.unpack());
             
             //Test
-            System.out.println(" >> SendMessage Agent = " + win.getDestID() + " : " + win.unpack().size());
+            //System.out.println(" >> SendMessage Agent = " + win.getDestID() + " : " + win.unpack().size());
             
             //Async Message
             Object reply = client.execute(agentKey, executor);
             
-            if(reply != null)
+            //if(reply != null)
                 System.out.println(" >> PutMessage Reply = "+agentKey +":"+ reply);
             
             agconn.returnConnection(client);

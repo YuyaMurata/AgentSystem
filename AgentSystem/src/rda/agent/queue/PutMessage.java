@@ -14,10 +14,10 @@ import java.util.List;
  */
 public class PutMessage extends Message {
     
-    public Object msgPack;
+    public List msgPack;
 	
     // パラメータをセット
-    public void setParams(Object msgPack) {
+    public void setParams(List msgPack) {
         this.msgPack = msgPack;
     }
     
