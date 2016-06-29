@@ -66,7 +66,7 @@ public class DataStream implements Runnable{
                 MessageQueue mq = (MessageQueue)mqMap.get(agID);
             
                 //MessageSender      
-                mq.put(msgPack);
+                mq.put(msgPack.unpack());
                 
                 //agent.sendMessage(msgPack);
                 
