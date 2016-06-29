@@ -24,6 +24,7 @@ public class SendAgentMessage extends AgentType{
     
     private static final String MESSAGE_TYPE = "putmessage";
     private static final String AGENT_TYPE = "aggregateagent";
+    private String agID;
 
     public SendAgentMessage() {
     }
@@ -67,6 +68,7 @@ public class SendAgentMessage extends AgentType{
         if(data == null) return;
         
         Window win = (Window) data;
+        this.agID = win.getDestID();
         
         try {
             AgentConnection agconn = AgentConnection.getInstance();
@@ -92,6 +94,6 @@ public class SendAgentMessage extends AgentType{
 
     @Override
     public String getID() {
-        return "";
+        return this.agID;
     }
 }
