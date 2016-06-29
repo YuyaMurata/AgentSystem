@@ -22,7 +22,7 @@ import rda.window.Window;
  * @author kaeru
  */
 public class SendAgentMessage extends AgentType{
-    private static final long serialVersionUID = -868098133759745980L;
+    private static final long serialVersionUID = -853123152041L;
     
     private static final String MESSAGE_TYPE = "putmessage";
     private static final String AGENT_TYPE = "aggregateagent";
@@ -76,7 +76,7 @@ public class SendAgentMessage extends AgentType{
             AgentConnection agconn = AgentConnection.getInstance();
             AgentClient client = agconn.getConnection();
             
-            agentKey = new AgentKey(AGENT_TYPE,new  Object[]{win.getDestID()});
+            agentKey = new AgentKey(AGENT_TYPE, new Object[]{win.getDestID()});
             SendAgentMessage executor = new SendAgentMessage(agentKey, win.unpack());
             
             //Test
