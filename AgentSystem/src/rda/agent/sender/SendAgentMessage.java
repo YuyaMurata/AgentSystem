@@ -57,10 +57,8 @@ public class SendAgentMessage extends AgentType{
             //agentManager.putMessage(agentKey, msg);
             
             return ret;
-        } catch (IllegalAccessException ex) {
-            return ex;
-        } catch (InstantiationException ex) {
-            return ex;
+        } catch (IllegalAccessException | InstantiationException ex) {
+            return 0L;
         }
     }
     
@@ -80,7 +78,8 @@ public class SendAgentMessage extends AgentType{
             //Async Message
             Object reply = client.execute(agentKey, executor);
             
-            System.out.println(" >> PutMessage Reply = "+(String)reply);
+            if(reply != null)
+                System.out.println(" >> PutMessage Reply = "+agentKey +":"+ reply);
             
             agconn.returnConnection(client);
         } catch (AgentException e) {
