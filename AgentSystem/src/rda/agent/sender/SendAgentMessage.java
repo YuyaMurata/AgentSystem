@@ -22,6 +22,7 @@ import rda.window.Window;
  * @author kaeru
  */
 public class SendAgentMessage extends AgentType{
+    private static final long serialVersionUID = -868098133759745980L;
     
     private static final String MESSAGE_TYPE = "putmessage";
     private static final String AGENT_TYPE = "aggregateagent";
