@@ -60,15 +60,15 @@ public class DataStream implements Runnable{
                 if((msgPack = window.get()) == null) continue;
                 
                 //Get Destination ID
-                String agID = msgPack.getDestID();
+                //String agID = msgPack.getDestID();
                 
                 //Get MessageQueue
-                MessageQueue mq = (MessageQueue)mqMap.get(agID);
+                //MessageQueue mq = (MessageQueue)mqMap.get(agID);
             
                 //MessageSender      
-                mq.put(msgPack.unpack());
+                //mq.put(msgPack.unpack());
                 
-                //agent.sendMessage(msgPack);
+                agent.sendMessage(msgPack);
                 
                 total = total+msgPack.unpack().size();
                 
