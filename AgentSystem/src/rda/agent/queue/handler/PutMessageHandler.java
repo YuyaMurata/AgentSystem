@@ -35,11 +35,11 @@ public class PutMessageHandler extends MessageHandler{
         //System.out.println(" >> Agent Put MessageQueue Check!! "+ id +" - "+putMsg.toString());
         
         //Put Message
-        try{
-            mq.put(putMsg.msgPack);
-        } catch (MessageQueueEvent mqev) {
-            mqev.printEvent();
-        }
+        //try{
+        //    mq.put(putMsg.msgPack);
+        //} catch (MessageQueueEvent mqev) {
+        //    mqev.printEvent();
+        //}
         
         return mq.getID() + " : success put messages = "+putMsg.msgPack.size();
     } 
