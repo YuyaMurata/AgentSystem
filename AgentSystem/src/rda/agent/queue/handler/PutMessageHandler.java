@@ -12,6 +12,7 @@ import rda.Aggregateagent;
 import rda.agent.queue.MessageQueue;
 import rda.agent.queue.MessageQueueEvent;
 import rda.agent.queue.PutMessage;
+import rda.agent.updater.UpdateAgent;
 import rda.manager.AgentMessageQueueManager;
 
 /**
@@ -37,18 +38,17 @@ public class PutMessageHandler extends MessageHandler{
         //System.out.println(" >> Agent Put MessageQueue Check!! "+ id +" - "+putMsg.toString());
         
         //Put Message
-        String mqState = "";
         if(mq == null){
             mq = new MessageQueue(id, 1000, 100L, 100L);
-            mqState = "Create MQ";
-        } else
-            mqState = "Exists MQ";
-        //try{
-        //    mq.put(putMsg.msgPack);
-        //} catch (MessageQueueEvent mqev) {
-        //    mqev.printEvent();
-        //}
+            mq.setAgentType(new UpdateAgent(id));
+        }
+
+        try{
+            mq.put(putMsg.msgPack);
+        } catch (MessageQueueEvent mqev) {
+            mqev.printEvent();
+        }
         
-        return mqState + " : success put messages = "+putMsg.msgPack.size();
+        return mq.getID() + " : success put messages = "+mq.getQueueLenght();
     } 
 }

@@ -123,4 +123,8 @@ public class MessageQueue extends MessageQueueProcess{
     public String getID(){
         return name;
     }
+    
+    public Integer getQueueLenght(){
+        return queue.size();
+    }
 }
