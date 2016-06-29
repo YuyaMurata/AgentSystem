@@ -51,7 +51,6 @@ public class DataStream implements Runnable{
         Map mqMap = AgentMessageQueueManager.getInstance().getMQMap();
         MessageObject msg;
         Window msgPack;
-        SendAgentMessage agent = new SendAgentMessage();
 
         while(((msg = tcmanager.datagen.generate(t)) != null) && runnable){
             try {
@@ -68,7 +67,7 @@ public class DataStream implements Runnable{
                 //MessageSender      
                 //mq.put(msgPack.unpack());
                 
-                agent.sendMessage(msgPack);
+                new SendAgentMessage().sendMessage(msgPack);
                 
                 total = total+msgPack.unpack().size();
                 
