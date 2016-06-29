@@ -19,7 +19,7 @@ import rda.manager.AgentMessageQueueManager;
  * @author kaeru
  */
 public class PutMessageHandler extends MessageHandler{
-    //private static AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
+    private static AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
     
     @Override
     public Object onMessage(Message msg) throws Exception {
@@ -30,16 +30,16 @@ public class PutMessageHandler extends MessageHandler{
         String id = agent.getAgentID(tx);
         
         //Get MessageQueue
-        //MessageQueue mq = (MessageQueue)manager.getMQMap().get(id);
+        MessageQueue mq = (MessageQueue)manager.getMQMap().get(id);
         
         //System.out.println(" >> Agent Put MessageQueue Check!! "+ id +" - "+putMsg.toString());
         
         //Put Message
-        //try{
-        //    mq.put(putMsg.msgPack);
-        //} catch (MessageQueueEvent mqev) {
-        //    mqev.printEvent();
-        //}
+        try{
+            mq.put(putMsg.msgPack);
+        } catch (MessageQueueEvent mqev) {
+            mqev.printEvent();
+        }
         
         return id + " : success put messages";
     } 
