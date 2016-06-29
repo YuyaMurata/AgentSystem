@@ -74,6 +74,9 @@ public class SendAgentMessage extends AgentType{
             agentKey = new AgentKey(AGENT_TYPE,new Object[]{((Window)data).getDestID()});
             SendAgentMessage executor = new SendAgentMessage(agentKey, ((Window)data).unpack());
             
+            //Test Print
+            System.out.println(" >> Sender :: "+agentKey + " List["+((Window)data).unpack().get(0));
+            
             //Async Message
             client.execute(agentKey, executor);
             

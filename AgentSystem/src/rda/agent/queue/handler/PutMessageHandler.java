@@ -32,7 +32,7 @@ public class PutMessageHandler extends MessageHandler{
         //Get MessageQueue
         MessageQueue mq = (MessageQueue)manager.getMQMap().get(id);
         
-        System.out.println(" >> Agent Put MessageQueue Check!! "+ id +" - "+putMsg.toString());
+        //System.out.println(" >> Agent Put MessageQueue Check!! "+ id +" - "+putMsg.toString());
         
         //Put Message
         try{
