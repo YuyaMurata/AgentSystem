@@ -80,7 +80,7 @@ public class SendAgentMessage extends AgentType{
             //Async Message
             Object reply = client.execute(agentKey, executor);
             
-            System.out.println(" >> PutMessage Reply = "+reply);
+            System.out.println(" >> PutMessage Reply = "+(String)reply);
             
             agconn.returnConnection(client);
         } catch (AgentException e) {
