@@ -19,10 +19,11 @@ import rda.manager.AgentMessageQueueManager;
  * @author kaeru
  */
 public class PutMessageHandler extends MessageHandler{
-   
+    private MessageQueue mq;
+    
     @Override
     public Object onMessage(Message msg) throws Exception {
-        AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
+        //AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
         
         PutMessage putMsg = (PutMessage)msg;
         
@@ -36,12 +37,18 @@ public class PutMessageHandler extends MessageHandler{
         //System.out.println(" >> Agent Put MessageQueue Check!! "+ id +" - "+putMsg.toString());
         
         //Put Message
+        String mqState = "";
+        if(mq == null){
+            mq = new MessageQueue(id, 1000, 100L, 100L);
+            mqState = "Create MQ";
+        } else
+            mqState = "Exists MQ";
         //try{
         //    mq.put(putMsg.msgPack);
         //} catch (MessageQueueEvent mqev) {
         //    mqev.printEvent();
         //}
         
-        return manager.observerToString() + " : success put messages = "+putMsg.msgPack.size();
+        return mqState + " : success put messages = "+putMsg.msgPack.size();
     } 
 }
