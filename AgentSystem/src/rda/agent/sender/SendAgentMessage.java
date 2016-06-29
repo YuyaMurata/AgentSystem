@@ -67,15 +67,17 @@ public class SendAgentMessage extends AgentType{
     public void sendMessage(Object data) {
         if(data == null) return;
         
+        Window win = (Window) data;
+        
         try {
             AgentConnection agconn = AgentConnection.getInstance();
             AgentClient client = agconn.getConnection();
-                
-            agentKey = new AgentKey(AGENT_TYPE,new Object[]{((Window)data).getDestID()});
-            SendAgentMessage executor = new SendAgentMessage(agentKey, ((Window)data).unpack());
+            
+            agentKey = new AgentKey(AGENT_TYPE,new Object[]{win.getDestID()});
+            SendAgentMessage executor = new SendAgentMessage(agentKey, win.unpack());
             
             //Test Print
-            System.out.println(" >> Sender :: "+agentKey + " List["+((Window)data).unpack().get(0));
+            System.out.println(" >> Sender :: "+agentKey + " List["+win.unpack().get(0)+"]");
             
             //Async Message
             client.execute(agentKey, executor);
