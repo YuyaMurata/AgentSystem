@@ -31,7 +31,7 @@ public class PutMessageHandler extends MessageHandler{
         String id = agent.getAgentID(tx);
         
         //Get MessageQueue
-        //MessageQueue mq = (MessageQueue)manager.getMQMap().get(id);
+        MessageQueue mq = (MessageQueue)manager.getMQMap().get(id);
         
         //System.out.println(" >> Agent Put MessageQueue Check!! "+ id +" - "+putMsg.toString());
         
@@ -42,6 +42,6 @@ public class PutMessageHandler extends MessageHandler{
         //    mqev.printEvent();
         //}
         
-        return id + " : success put messages = "+putMsg.msgPack.size();
+        return mq.getID() + " : success put messages = "+putMsg.msgPack.size();
     } 
 }
