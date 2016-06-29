@@ -19,10 +19,11 @@ import rda.manager.AgentMessageQueueManager;
  * @author kaeru
  */
 public class PutMessageHandler extends MessageHandler{
-    //private static AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
-    
+   
     @Override
     public Object onMessage(Message msg) throws Exception {
+        AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
+        
         PutMessage putMsg = (PutMessage)msg;
         
         Aggregateagent agent = (Aggregateagent)getEntity();
