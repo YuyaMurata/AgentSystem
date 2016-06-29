@@ -58,10 +58,10 @@ public class SendAgentMessage extends AgentType{
             
             return ret;
         } catch (IllegalAccessException ex) {
+            return ex;
         } catch (InstantiationException ex) {
+            return ex;
         }
-        
-        return 0L;
     }
     
     @Override
