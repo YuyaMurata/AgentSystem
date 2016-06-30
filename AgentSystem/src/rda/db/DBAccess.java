@@ -140,8 +140,9 @@ public class DBAccess implements AgentExecutor, Serializable {
             for(Object o : col) {
                 int i=0;
                 for(Map m : (List<Map>)o){
-                    if(results.get(i++) == null) results.add(i, new HashMap());
-                    results.get(i++).putAll(m);
+                    if(results.get(i) == null) results.add(i, new HashMap());
+                    results.get(i).putAll(m);
+                    i++;
                 }
             }
             
