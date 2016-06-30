@@ -15,7 +15,7 @@ public class AgentCloning {
     public static Boolean mode;
     
     public static String cloning(String originalID, Object originalState){
-        if(mode) return "";
+        //if(mode) return "";
         
         AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
         
