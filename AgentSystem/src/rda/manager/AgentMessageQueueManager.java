@@ -188,8 +188,10 @@ public class AgentMessageQueueManager {
             sbsize.append(",");
         }
         
-        sb.deleteCharAt(sb.length()-1);
-        sbsize.deleteCharAt(sbsize.length()-1);
+        if(sb.length() > 0){
+            sb.deleteCharAt(sb.length()-1);
+            sbsize.deleteCharAt(sbsize.length()-1);
+        }
         
         sb.append("\n");
         sb.append(sbsize);
