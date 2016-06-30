@@ -24,7 +24,7 @@ public class PutMessageHandler extends MessageHandler{
     
     @Override
     public Object onMessage(Message msg) throws Exception {
-        //AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
+        AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
         
         PutMessage putMsg = (PutMessage)msg;
         
@@ -41,6 +41,7 @@ public class PutMessageHandler extends MessageHandler{
         if(mq == null){
             mq = new MessageQueue(id, 1000, 100L, 100L);
             mq.setAgentType(new UpdateAgent(id));
+            manager.register(mq);
         }
 
         try{
