@@ -8,6 +8,7 @@
 --      <attribute name="Condition" type="aggregatecondition" singleentity="true"/>
 --	<attribute name="Data" type="long" />
 --	<attribute name="ConnectionCount" type="long" />
+--      <attribute name="MessageLatency" type="long" />
 --	<attribute name="Log" type="log" />
 --</entity>
 --<entity type="aggregatecondition">
@@ -26,6 +27,7 @@ CREATE TRANSIENT TABLE aggregateagent (
     AgentID VARCHAR(64) NOT NULL,
     Data BIGINT,
     ConnectionCount BIGINT,
+    MessageLatency BIGINT,
     PRIMARY KEY(AgentID)
 );
 COMMIT WORK;

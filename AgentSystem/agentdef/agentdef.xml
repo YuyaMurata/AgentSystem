@@ -7,6 +7,7 @@
             <attribute name="Condition" type="aggregatecondition" singleentity="true"/>
             <attribute name="Data" type="long" />
             <attribute name="ConnectionCount" type="long" />
+            <attribute name="MessageLatency" type="long" />
             <attribute name="Log" type="log" />
         </entity>
         <entity type="aggregatecondition">
