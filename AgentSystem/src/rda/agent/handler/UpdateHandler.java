@@ -33,9 +33,8 @@ public class UpdateHandler extends MessageHandler{
         if(avgLatency > 0) avgLatency = avgLatency / updateMsg.messageData.size();
         
         agent.setData(tx, agent.getData(tx)+updateData);
-
-        long updateCount = agent.getConnectionCount(tx) + 1;
-        agent.setConnectionCount(tx, updateCount);
+        agent.setConnectionCount(tx, agent.getConnectionCount(tx) + 1);
+        agent.setMessageLatency(tx, avgLatency);
 
         // Update Log Records
         Log log = agent.getLog(tx, "update");
@@ -48,8 +47,8 @@ public class UpdateHandler extends MessageHandler{
         log.setLastAccessTime(tx, updateTime);
         log.setCurrentTime(tx, time);
         
-        Long message = avgLatency;
+        //Long message = avgLatency;
         
-        return message;
+        return 0L;
     }
 }

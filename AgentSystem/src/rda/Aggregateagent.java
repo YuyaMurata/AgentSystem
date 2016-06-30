@@ -16,6 +16,7 @@ import java.util.Iterator;
  * attribute name="Condition" type="aggregatecondition" <br>
  * attribute name="Data" type="LONG" <br>
  * attribute name="ConnectionCount" type="LONG" <br>
+ * attribute name="MessageLatency" type="LONG" <br>
  * attribute name="Log" type="log" <br>
 **/
 public class Aggregateagent extends HPAEntity {
@@ -50,9 +51,14 @@ public class Aggregateagent extends HPAEntity {
     public static final int CONNECTIONCOUNT = 3;
 
     /**
+    * Column index of MessageLatency
+    **/
+    public static final int MESSAGELATENCY = 4;
+
+    /**
     * Column index of Log
     **/
-    public static final int LOG = 4;
+    public static final int LOG = 5;
 
     /**
      * This constructor is used by the runtime.
@@ -154,6 +160,24 @@ public class Aggregateagent extends HPAEntity {
     }
 
     /**
+     * @return MessageLatency
+     **/
+    public final long getMessageLatency(TxID tx) {
+        // generated code
+        return getLong(tx,4);
+    }
+
+    /**
+     * Set a value to MessageLatency. 
+     * @param tx a transaction context
+     * @param value a value to be set to MessageLatency
+     **/
+    public final void  setMessageLatency(TxID tx, long value) throws AgentException {
+        // generated code
+        setLong(tx,4,value);
+    }
+
+    /**
      * Get a set of Log. 
      * Entity type of this entity set is log.
      * The setter method of Log is not generated because this attribute is a EntitySet. 
@@ -162,7 +186,7 @@ public class Aggregateagent extends HPAEntity {
      **/
     public final EntitySet getLog(TxID tx) throws AgentException {
         // generated code
-        return getEntitySet(tx,4);
+        return getEntitySet(tx,5);
     }
 
     /**
@@ -174,7 +198,7 @@ public class Aggregateagent extends HPAEntity {
      **/
     public final Log getLog(TxID tx,String AccessID) throws AgentException {
         // generated code
-        EntitySet es = getEntitySet(tx,4);
+        EntitySet es = getEntitySet(tx,5);
         Entity parent = es.getParent();
         Object[] primaryKeys = new Object[]{parent.getObject(tx,0),AccessID};
         EntityKey ek = new EntityKey("log", primaryKeys);
@@ -193,7 +217,7 @@ public class Aggregateagent extends HPAEntity {
         if (AccessID.length() > 16) {
             throw new AgentException("AccessID > maxlength(16)");
         }
-        EntitySet es = getEntitySet(tx,4);
+        EntitySet es = getEntitySet(tx,5);
         Object[] primaryKeys = new Object[]{null,AccessID};
         Log entity = (Log)es.createEntity(tx,primaryKeys);
         return entity;
@@ -205,7 +229,7 @@ public class Aggregateagent extends HPAEntity {
      **/
     public final Iterator<Entity> getLogIterator(TxID tx) throws AgentException {
         // generated code
-        EntitySet es = getEntitySet(tx,4);
+        EntitySet es = getEntitySet(tx,5);
         return es.iterator(tx);
     }
 

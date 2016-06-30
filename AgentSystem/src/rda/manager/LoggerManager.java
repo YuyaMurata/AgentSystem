@@ -59,33 +59,39 @@ public class LoggerManager {
         AgentLogPrint.printMessageQueueLog(AgentMessageQueueManager.getInstance().observerToMap());
     }
     
-    public void printAgentDBTranData(){
+    public void printAgentDBData(){
         SQLReturnObject obj = db.query("select * from aggregateagent");
-        System.out.println("> DataTransaction:\n"+obj.toString());
-        AgentLogPrint.printAgentTransaction(obj.toMapList());
+        
+        Map map = obj.toMap("Transaction", 0);
+        System.out.println("> DataTransaction:\n"+obj.toString(map));
+        AgentLogPrint.printAgentTransaction(map);
+        
+        map = obj.toMap("Latency", 1);
+        System.out.println("> MessageLatency:\n"+obj.toString(map));
+        AgentLogPrint.printMessageLatency(map);
     }
     
     public void printAgentDBLifeData(Long time){
         SQLReturnObject obj = db.query("select * from log");
-        System.out.println("> AgentLifeTime:\n"+obj.toString(time));
-        AgentLogPrint.printAgentTransaction(obj.toMapList(time));
-    }
-    
-    public void printMessageLatency(){
-        //System.out.println("> MessageLatency:\n"+latencyToString());
-        AgentLogPrint.printMessageLatency(latencyToMap());
+        
+        Map map = obj.toMap("Time", time);
+        System.out.println("> AgentLifeTime:\n"+obj.toString(map));
+        AgentLogPrint.printAgentTransaction(map);
     }
     
     public void printAgentTranTotal(){
         SQLReturnObject obj = db.query("select * from aggregateagent");
-        Map map = new HashMap();
-        List field = (List) obj.toMapList().get("Field");
-        List data = (List) obj.toMapList().get("Data");
+        
+        Map map = obj.toMap("Transaction", 0);
+        
+        List field = (List) map.get("Field");
+        List data = (List) map.get("Data");
+        
         map.put(field.get(field.size()-1), data.get(data.size()-1));
         AgentLogPrint.printResults("", map);
     }
     
-    public Map latencyToMap(){
+    public Map xxlatencyToMap(){
         StringBuilder place = new StringBuilder("MessageLatency");
         List field = new ArrayList(latencyMap.keySet());
         List data = new ArrayList(latencyMap.values());
@@ -101,7 +107,7 @@ public class LoggerManager {
         return map;
     }
     
-    public String latencyToString(){
+    public String xxlatencyToString(){
         if(latencyMap.size() < 1) return "";
         
         StringBuilder sb = new StringBuilder();

@@ -16,7 +16,9 @@ import java.util.Properties;
 import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.client.AgentClient;
 import com.ibm.agent.exa.client.AgentExecutor;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
 
@@ -73,20 +75,28 @@ public class DBAccess implements AgentExecutor, Serializable {
             ResultSet rs = stmt.executeQuery();
             
             //IDとDataを取得
-            Map results = new HashMap();
+            List<Map> results = new ArrayList<>();
             if(sqlstmt.contains("agent")){
+                Map tran = new HashMap();
+                Map late = new HashMap();
                 while(rs.next()){
-                     results.put(rs.getString(1), rs.getLong(2));
+                    tran.put(rs.getString(1), rs.getLong(2));
+                    late.put(rs.getString(1), rs.getLong(4));
                 }
+                results.add(tran);
+                results.add(late);
                 
                 return results;
             }
             
             if(sqlstmt.contains("log")){
+                Map life = new HashMap();
                 while(rs.next()){
                     if(rs.getString(2).contains("update"))
-                        results.put(rs.getString(1), rs.getLong(3));
+                        life.put(rs.getString(1), rs.getLong(3));
                 }
+                results.add(life);
+                
                 return results;
             }
             
@@ -127,7 +137,7 @@ public class DBAccess implements AgentExecutor, Serializable {
             
             SQLReturnObject sqlResults = new SQLReturnObject();
             for(Object o : col) {
-                sqlResults.setResultSet((Map)o);
+                sqlResults.setResultSet((List)o);
             }
             
             con.returnConnection(client);
