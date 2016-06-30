@@ -39,9 +39,11 @@ public class PutMessageHandler extends MessageHandler{
         
         //Put Message
         if(mq == null){
-            mq = new MessageQueue(id, 1000, 100L, 100L);
+            mq = new MessageQueue(id, 1000, 100L, 10L);
             mq.setAgentType(new UpdateAgent(id));
             manager.register(mq);
+            
+            System.out.println(">> Manager : AutoMode = "+manager.getAutoMode());
         }
 
         try{
