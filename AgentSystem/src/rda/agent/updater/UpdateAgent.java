@@ -20,13 +20,10 @@ public class UpdateAgent extends AgentType {
     private static final long serialVersionUID = -4245098133759745980L;
     private static final String AGENT_TYPE = "aggregateagent";
     private static final String MESSAGE_TYPE = "updateAgent";
-    private static AgentConnection agcon;
     private String agID;
         
     public UpdateAgent(String agID){
         this.agID = agID;
-        this.agcon = AgentConnection.getInstance();
-        this.agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
     }
 
     AgentKey agentKey;
@@ -68,9 +65,12 @@ public class UpdateAgent extends AgentType {
     @Override
     public void sendMessage(Object data){
         if(data == null) return;
-            
+        
         try {
+            AgentConnection agcon = AgentConnection.getInstance();
             AgentClient client = agcon.getConnection();
+            
+            agentKey = new AgentKey(AGENT_TYPE, new Object[]{agID});
                 
             UpdateAgent executor = new UpdateAgent(agentKey, (List)data);
             
