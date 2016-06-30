@@ -87,51 +87,8 @@ public class LoggerManager {
         List field = (List) map.get("Field");
         List data = (List) map.get("Data");
         
-        map.put(field.get(field.size()-1), data.get(data.size()-1));
-        AgentLogPrint.printResults("", map);
-    }
-    
-    public Map xxlatencyToMap(){
-        StringBuilder place = new StringBuilder("MessageLatency");
-        List field = new ArrayList(latencyMap.keySet());
-        List data = new ArrayList(latencyMap.values());
-        Map map = new HashMap();
-        
-        for(int i=0; i < field.size(); i++)
-            place.append(",{}");
-        
-        map.put("Place", place.toString());
-        map.put("Field", field);
-        map.put("Data", data);
-        
-        return map;
-    }
-    
-    public String xxlatencyToString(){
-        if(latencyMap.size() < 1) return "";
-        
-        StringBuilder sb = new StringBuilder();
-        StringBuilder sblat = new StringBuilder();
-        Long avg = 0L;
-        for(Object agID : latencyMap.keySet()){
-            sb.append(agID);
-            sb.append(",");
-            
-            Long latency = (Long)latencyMap.get(agID);
-            
-            sblat.append(latency);
-            sblat.append(",");
-            
-            avg = avg + latency;
-        }
-        avg = avg / latencyMap.size();
-        
-        sb.append("Avg.");
-        sblat.append(avg);
-        
-        sb.append("\n");
-        sb.append(sblat);
-        
-        return sb.toString();
+        Map resultMap = new HashMap();
+        resultMap.put(field.get(field.size()-1), data.get(data.size()-1));
+        AgentLogPrint.printResults("", resultMap);
     }
 }
