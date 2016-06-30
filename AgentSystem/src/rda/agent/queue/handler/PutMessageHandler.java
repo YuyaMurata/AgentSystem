@@ -42,13 +42,12 @@ public class PutMessageHandler extends MessageHandler{
             mq = new MessageQueue(id, 1000, 100L, 10L);
             mq.setAgentType(new UpdateAgent(id));
             manager.register(mq);
-            
-            System.out.println(">> Manager : AutoMode = "+manager.getAutoMode());
         }
 
         try{
             mq.put(putMsg.msgPack);
         } catch (MessageQueueEvent mqev) {
+            System.out.println(">> Manager : AutoMode = "+manager.getAutoMode());
             mqev.printEvent();
         }
         
