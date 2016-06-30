@@ -75,7 +75,7 @@ public class DBAccess implements AgentExecutor, Serializable {
             ResultSet rs = stmt.executeQuery();
             
             //IDとDataを取得
-            List<Map> results = new ArrayList<>();
+            List<Map> result = new ArrayList<>();
             if(sqlstmt.contains("agent")){
                 Map tran = new HashMap();
                 Map late = new HashMap();
@@ -83,10 +83,10 @@ public class DBAccess implements AgentExecutor, Serializable {
                     tran.put(rs.getString(1), rs.getLong(2));
                     late.put(rs.getString(1), rs.getLong(4));
                 }
-                results.add(tran);
-                results.add(late);
+                result.add(tran);
+                result.add(late);
                 
-                return results;
+                return result;
             }
             
             if(sqlstmt.contains("log")){
@@ -95,9 +95,9 @@ public class DBAccess implements AgentExecutor, Serializable {
                     if(rs.getString(2).contains("update"))
                         life.put(rs.getString(1), rs.getLong(3));
                 }
-                results.add(life);
+                result.add(life);
                 
-                return results;
+                return result;
             }
             
             return null;
@@ -136,9 +136,16 @@ public class DBAccess implements AgentExecutor, Serializable {
             Collection<Object> col = (Collection<Object>)ret;
             
             SQLReturnObject sqlResults = new SQLReturnObject();
+            List<Map> results = new ArrayList<>();
             for(Object o : col) {
-                sqlResults.setResultSet((List)o);
+                int i=0;
+                for(Map m : (List<Map>)o){
+                    if(results.get(i++) == null) results.add(i, new HashMap());
+                    results.get(i++).putAll(m);
+                }
             }
+            
+            sqlResults.setResultSet(results);
             
             con.returnConnection(client);
             
