@@ -20,7 +20,7 @@ import rda.clone.AgentCloning;
  */
 public class AgentMessageQueueManager {
     private static AgentMessageQueueManager manager = new AgentMessageQueueManager();
-    private Boolean runnable;
+    private Boolean runnable = true;
     private Integer queueLength;
     private Long queuewait, agentwait;
     private Integer agentMode, reserveMode;
@@ -39,7 +39,7 @@ public class AgentMessageQueueManager {
         this.agentwait = (Long)agentMQParam.get("AGENT_WAIT");
         this.agentMode = (Integer)agentMQParam.get("AGENT_MODE");
         this.reserveMode = (Integer)agentMQParam.get("RESERVE_MODE");
-        this.runnable = true;
+        //this.runnable = true;
         
         AgentCloning.setAutoMode(agentMode);
     }
