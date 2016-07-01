@@ -7,6 +7,9 @@ import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.List;
 import rda.agent.client.AgentConnection;
 import rda.agent.template.AgentType;
@@ -32,6 +35,18 @@ public class UpdateAgent extends AgentType {
         // TODO 自動生成されたコンストラクター・スタブ
         this.agentKey = agentKey;
         this.data = data;
+    }
+    
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(agentKey);
+        out.writeObject(data);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        this.agentKey = (AgentKey) in.readObject();
+        this.data = (List) in.readObject();
     }
 
     @Override

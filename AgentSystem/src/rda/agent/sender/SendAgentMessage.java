@@ -10,10 +10,11 @@ import com.ibm.agent.exa.AgentKey;
 import com.ibm.agent.exa.AgentManager;
 import com.ibm.agent.exa.MessageFactory;
 import com.ibm.agent.exa.client.AgentClient;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.agent.client.AgentConnection;
 import rda.agent.queue.PutMessage;
 import rda.agent.template.AgentType;
@@ -40,6 +41,18 @@ public class SendAgentMessage extends AgentType{
         this.msgPack = msgPack;
     }
 
+    @Override
+    public void writeExternal(ObjectOutput out) throws IOException {
+        out.writeObject(agentKey);
+        out.writeObject(msgPack);
+    }
+
+    @Override
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        this.agentKey = (AgentKey) in.readObject();
+        this.msgPack = (List) in.readObject();
+    }
+    
     @Override
     public Object complete(Collection<Object> results) {
         // TODO 自動生成されたメソッド・スタブ
