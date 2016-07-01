@@ -135,7 +135,7 @@ public class AgentMessageQueueManager {
     private static Map messageQueueMap = new HashMap();
     public void register(MessageQueue mq){
         messageQueueMap.put(mq.getID(), mq);
-        //mq.start();
+        mq.start();
     }
     
     public Object getAgent(String agID){
