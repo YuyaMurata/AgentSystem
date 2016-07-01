@@ -70,7 +70,7 @@ public class LoggerManager {
         AgentLogPrint.printMessageLatency(map);
         
         map = obj.toMap("Length", 2);
-        System.out.println("> MessageLatency:\n"+obj.toString(map));
+        System.out.println("> QueueLength:\n"+obj.toString(map));
     }
     
     public void printAgentDBLifeData(Long time){
