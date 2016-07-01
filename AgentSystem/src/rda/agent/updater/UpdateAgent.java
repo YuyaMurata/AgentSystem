@@ -24,7 +24,10 @@ public class UpdateAgent extends AgentType {
     private static final String AGENT_TYPE = "aggregateagent";
     private static final String MESSAGE_TYPE = "updateAgent";
     private String agID;
-        
+
+    public UpdateAgent() {
+    }
+    
     public UpdateAgent(String agID){
         this.agID = agID;
     }
@@ -90,14 +93,14 @@ public class UpdateAgent extends AgentType {
             UpdateAgent executor = new UpdateAgent(agentKey, (List)data);
             
             Object reply = client.execute(agentKey, executor);
-            if(reply != null){
-                try{
-                    LoggerManager.getInstance().putMSGLatency(agID, (Long)reply);
-                }catch(Exception e){
-                    e.printStackTrace();
-                    System.out.println("rda.agent.rank.updater.UpdateRank.sendMessage()"+reply);
-                }
-            }
+            //if(reply != null){
+            //    try{
+                    //LoggerManager.getInstance().putMSGLatency(agID, (Long)reply);
+            //    }catch(Exception e){
+            //        e.printStackTrace();
+            //        System.out.println("rda.agent.rank.updater.UpdateRank.sendMessage()"+reply);
+            //    }
+            //}
             
             agcon.returnConnection(client);
         } catch (AgentException e) {
