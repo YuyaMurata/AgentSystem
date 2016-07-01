@@ -44,12 +44,7 @@ public class PutMessageHandler extends MessageHandler{
             manager.register(mq);
         }
 
-        try{
-            mq.put(putMsg.msgPack);
-        } catch (MessageQueueEvent mqev) {
-            System.out.println(">> Manager : AutoMode = "+manager.getAutoMode());
-            mqev.printEvent();
-        }
+        mq.put(putMsg.msgPack);
         
         return mq.getID() + " : success put messages = "+mq.getQueueLenght();
     } 

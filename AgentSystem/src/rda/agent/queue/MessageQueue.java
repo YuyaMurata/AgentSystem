@@ -52,7 +52,7 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     @Override
-    public void put(Object msgpack) throws MessageQueueEvent{
+    public void put(Object msgpack){
         boolean success = false;
         try {
             success = queue.offer(msgpack, putwait, TimeUnit.MILLISECONDS);
@@ -65,11 +65,11 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     //Load Balancer Cloning updgrade
-    public void eventClone(Object msgpack) throws MessageQueueEvent{
+    public void eventClone(Object msgpack){
         String cloneID = AgentCloning.cloning(((Window)msgpack).getOrigID(), queue);
         MessageQueueEvent.printState("cloning", originalID, cloneID);
         
-        throw new MessageQueueEvent(name, cloneID, msgpack);
+        (new MessageQueueEvent(name, cloneID, msgpack)).printEvent();
     }
     
     //Load Balancer Cloning degrade
@@ -90,13 +90,11 @@ public class MessageQueue extends MessageQueueProcess{
         //Work Stealing
         Object obj;
         int i= orgQueue.size() / 2;
-        while((obj = orgQueue.pollFirst()) != null)
-            try {
-                i--;
-                if(i <= 0) break;
-                put(obj);
-            } catch (MessageQueueEvent ex) {
-            }
+        while((obj = orgQueue.pollFirst()) != null){
+            i--;
+            if(i <= 0) break;
+            put(obj);
+        }
     }
     
     private Boolean checkClone = false;
