@@ -16,7 +16,7 @@ public abstract class MessageQueueProcess extends Thread{
     abstract public Boolean getRunnable();
     
     abstract public Object get();
-    abstract public void put(Object message) throws MessageQueueEvent;
+    abstract public void put(Object message);
     
     abstract public void setAgentType(AgentType type);
     abstract public AgentType getAgentType();
