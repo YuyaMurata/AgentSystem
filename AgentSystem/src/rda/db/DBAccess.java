@@ -79,12 +79,15 @@ public class DBAccess implements AgentExecutor, Serializable {
             if(sqlstmt.contains("agent")){
                 Map tran = new HashMap();
                 Map late = new HashMap();
+                Map length = new HashMap();
                 while(rs.next()){
                     tran.put(rs.getString(1), rs.getLong(2));
                     late.put(rs.getString(1), rs.getLong(4));
+                    length.put(rs.getString(1), rs.getLong(5));
                 }
                 result.add(tran);
                 result.add(late);
+                result.add(length);
                 
                 return result;
             }

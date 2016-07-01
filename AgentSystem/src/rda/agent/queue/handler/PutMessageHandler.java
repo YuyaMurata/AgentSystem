@@ -43,6 +43,8 @@ public class PutMessageHandler extends MessageHandler{
             mq.setAgentType(new UpdateAgent(id));
             manager.register(mq);
         }
+        
+        agent.setMessageQueueLength(tx, mq.getQueueLenght());
 
         mq.put(putMsg.msgPack);
         

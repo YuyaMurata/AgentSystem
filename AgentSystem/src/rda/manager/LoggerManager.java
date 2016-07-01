@@ -68,6 +68,9 @@ public class LoggerManager {
         map = obj.toMap("Latency", 1);
         System.out.println("> MessageLatency:\n"+obj.toString(map));
         AgentLogPrint.printMessageLatency(map);
+        
+        map = obj.toMap("Length", 2);
+        System.out.println("> MessageLatency:\n"+obj.toString(map));
     }
     
     public void printAgentDBLifeData(Long time){
