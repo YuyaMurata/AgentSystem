@@ -8,6 +8,8 @@ package rda.agent.queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rda.agent.template.AgentType;
 import rda.clone.AgentCloning;
 import rda.manager.AgentMessageQueueManager;
@@ -52,7 +54,7 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     @Override
-    public void put(Object msgpack){
+    public void put(Object msgpack) throws MessageQueueEvent{
         boolean success = false;
         try {
             success = queue.offer(msgpack, putwait, TimeUnit.MILLISECONDS);
@@ -65,11 +67,11 @@ public class MessageQueue extends MessageQueueProcess{
     }
     
     //Load Balancer Cloning updgrade
-    public void eventClone(Object msgpack){
+    public void eventClone(Object msgpack)  throws MessageQueueEvent{
         String cloneID = AgentCloning.cloning(((Window)msgpack).getOrigID(), queue);
         MessageQueueEvent.printState("cloning", originalID, cloneID);
         
-        (new MessageQueueEvent(name, cloneID, msgpack)).printEvent();
+        throw new MessageQueueEvent(name, cloneID, msgpack);
     }
     
     //Load Balancer Cloning degrade
@@ -93,7 +95,11 @@ public class MessageQueue extends MessageQueueProcess{
         while((obj = orgQueue.pollFirst()) != null){
             i--;
             if(i <= 0) break;
-            put(obj);
+            try {
+                put(obj);
+            } catch (MessageQueueEvent mqev) {
+                mqev.printEvent();
+            }
         }
     }
     

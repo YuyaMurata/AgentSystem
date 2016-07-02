@@ -69,8 +69,7 @@ public class AgentMessageQueueManager {
         if((agID = id.getReserveID()) == null){
             agID = id.genID();
             CreateAgent rankAgent = new CreateAgent();
-            /*agent = */rankAgent.create(agID, queueLength, queuewait, agentwait);
-            //register((MessageQueue)agent);
+            rankAgent.create(agID, queueLength, queuewait, agentwait);
         } else {
             agent = getAgent(agID);
             System.out.println(">> Get Reserve Agent = "+agID);
@@ -87,14 +86,13 @@ public class AgentMessageQueueManager {
         if((agID = id.getReserveID()) == null){
             agID = id.genID();
             CreateAgent rankAgent = new CreateAgent();
-            //agent = rankAgent.create(agID, queueLength, queuewait, agentwait);
-            register((MessageQueue)agent);
+            rankAgent.create(agID, queueLength, queuewait, agentwait);
         } else {
             agent = getAgent(agID);
             System.out.println(">> Get Reserve Agent = "+agID);
         }
         
-        ((MessageQueue)agent).setOriginalQueue(originalID, originalState);
+        ((MessageQueue)getAgent(agID)).setOriginalQueue(originalID, originalState);
         
         return agID;
     }

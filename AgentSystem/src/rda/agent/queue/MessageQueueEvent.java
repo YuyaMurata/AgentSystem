@@ -4,7 +4,7 @@ import rda.log.AgentLogPrint;
 import rda.window.Window;
 
 
-public class MessageQueueEvent{
+public class MessageQueueEvent extends Exception{
     /**
     *
     */

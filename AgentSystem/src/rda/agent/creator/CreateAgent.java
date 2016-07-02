@@ -14,6 +14,7 @@ import rda.agent.client.AgentConnection;
 import rda.agent.queue.MessageQueue;
 import rda.agent.updater.UpdateAgent;
 import rda.agent.message.InitMessage;
+import rda.manager.AgentMessageQueueManager;
 
 public class CreateAgent implements AgentExecutor, Serializable{
     /**
@@ -83,8 +84,9 @@ public class CreateAgent implements AgentExecutor, Serializable{
             agconn.returnConnection(client);
             
             //Create AgentQueue
-            //MessageQueue mq = new MessageQueue(agID, size, queuewait, agentwait);
-            //mq.setAgentType(new UpdateAgent(agID));
+            MessageQueue mq = new MessageQueue(agID, size, queuewait, agentwait);
+            mq.setAgentType(new UpdateAgent(agID));
+            AgentMessageQueueManager.getInstance().register(mq);
             
             //return mq;
         } catch (AgentException e) {
