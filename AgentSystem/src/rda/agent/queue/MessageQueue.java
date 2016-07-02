@@ -8,8 +8,6 @@ package rda.agent.queue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rda.agent.template.AgentType;
 import rda.clone.AgentCloning;
 import rda.manager.AgentMessageQueueManager;
@@ -68,7 +66,8 @@ public class MessageQueue extends MessageQueueProcess{
     
     //Load Balancer Cloning updgrade
     public void eventClone(Object msgpack)  throws MessageQueueEvent{
-        String cloneID = AgentCloning.cloning(((Window)msgpack).getOrigID(), queue);
+        String id = AgentMessageQueueManager.getInstance().getIDManager().getOrigID(name);
+        String cloneID = AgentCloning.cloning(id , queue);
         MessageQueueEvent.printState("cloning", originalID, cloneID);
         
         throw new MessageQueueEvent(name, cloneID, msgpack);
