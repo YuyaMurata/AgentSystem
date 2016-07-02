@@ -59,13 +59,13 @@ public class MessageQueue extends MessageQueueProcess{
         } catch (InterruptedException ex) {
         }
         
-        if(!success) eventClone(msgpack);
+        if(!success) eventClone();
         
         if(isClone() && ((queue.size() + orgQueue.size()) == 0)) eventDelete();
     }
     
     //Load Balancer Cloning updgrade
-    public void eventClone(Object msgpack)  throws MessageQueueEvent{
+    public void eventClone()  throws MessageQueueEvent{
         String id = AgentMessageQueueManager.getInstance().getIDManager().getOrigID(name);
         String cloneID = AgentCloning.cloning(id , queue);
         MessageQueueEvent.printState("cloning", originalID, cloneID);

@@ -71,7 +71,6 @@ public class AgentMessageQueueManager {
             CreateAgent rankAgent = new CreateAgent();
             rankAgent.create(agID, queueLength, queuewait, agentwait);
         } else {
-            agent = getAgent(agID);
             System.out.println(">> Get Reserve Agent = "+agID);
         }
         
@@ -81,14 +80,12 @@ public class AgentMessageQueueManager {
     //Agentの複製 e.g.("R#01_Clone")
     public String createCloneAgent(String originalID, Object originalState){
         String agID;
-        Object agent = null;
         
         if((agID = id.getReserveID()) == null){
             agID = id.genID();
             CreateAgent rankAgent = new CreateAgent();
             rankAgent.create(agID, queueLength, queuewait, agentwait);
         } else {
-            agent = getAgent(agID);
             System.out.println(">> Get Reserve Agent = "+agID);
         }
         
