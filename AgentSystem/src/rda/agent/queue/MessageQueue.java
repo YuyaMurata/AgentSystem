@@ -70,7 +70,7 @@ public class MessageQueue extends MessageQueueProcess{
         String cloneID = AgentCloning.cloning(id , queue);
         MessageQueueEvent.printState("cloning", originalID, cloneID);
         
-        throw new MessageQueueEvent(name, cloneID, msgpack);
+        throw new MessageQueueEvent(name, cloneID, id);
     }
     
     //Load Balancer Cloning degrade
