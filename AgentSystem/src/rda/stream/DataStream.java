@@ -66,6 +66,7 @@ public class DataStream implements Runnable{
             
                 //Translation Window To Message
                 MessageObject msg = new MessageObject(agID, window.unpack());
+                msg.setLength(mq.getQueueLenght());
                 
                 //MessageSender
                 mq.put(msg);

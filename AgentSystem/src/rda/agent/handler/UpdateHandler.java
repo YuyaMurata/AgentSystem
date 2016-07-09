@@ -31,8 +31,14 @@ public class UpdateHandler extends MessageHandler{
         }
         
         agent.setData(tx, agent.getData(tx)+updateData);
+        
+        //Agent Status
+        //Connection
         agent.setConnectionCount(tx, agent.getConnectionCount(tx) + 1);
+        //Message Latency
         agent.setMessageLatency(tx, msgObj.latency());
+        //Agent Message Queue
+        agent.setMessageQueueLength(tx, msgObj.getLength());
 
         // Update Log Records
         Log log = agent.getLog(tx, "update");
