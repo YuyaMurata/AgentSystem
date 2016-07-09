@@ -18,23 +18,21 @@ public class UpdateHandler extends MessageHandler{
     public Object onMessage(Message msg) throws Exception {
         // TODO 自動生成されたメソッド・スタブ
         UpdateMessage updateMsg = (UpdateMessage) msg;
-
+        MessageObject msgObj = (MessageObject) updateMsg.messageData;
+        
         // マスターエンティティを取得
         Aggregateagent agent = (Aggregateagent)getEntity();
         
         // トランザクションIDを取得
         TxID tx = getTx();
         long updateData = 0;
-        Long avgLatency = 0L;        
-        for(MessageObject msgobj : (List<MessageObject>)updateMsg.messageData){
-            updateData =  updateData + msgobj.data;
-            avgLatency = avgLatency + msgobj.latency();
+        for(Object data : (List)msgObj.data){
+            updateData =  updateData + (int)data;
         }
-        if(avgLatency > 0) avgLatency = avgLatency / updateMsg.messageData.size();
         
         agent.setData(tx, agent.getData(tx)+updateData);
         agent.setConnectionCount(tx, agent.getConnectionCount(tx) + 1);
-        agent.setMessageLatency(tx, avgLatency);
+        agent.setMessageLatency(tx, msgObj.latency());
 
         // Update Log Records
         Log log = agent.getLog(tx, "update");
