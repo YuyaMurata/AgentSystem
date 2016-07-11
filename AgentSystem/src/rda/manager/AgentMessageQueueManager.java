@@ -80,7 +80,7 @@ public class AgentMessageQueueManager {
     //Agentの複製 e.g.("R#01_Clone")
     public String createCloneAgent(String originalID, Object originalState){
         String agID = createAgent();
-        ((MessageQueue)getAgent(agID)).setOriginalQueue(originalID, originalState);
+        ((MessageQueue)getAgent(agID)).setOriginalQueue(originalState);
         
         return agID;
     }
