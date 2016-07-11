@@ -14,13 +14,13 @@ import rda.manager.IDManager;
  */
 public class AgentCloning {
     public static Boolean mode;
-    private static IDManager id = AgentMessageQueueManager.getInstance().getIDManager();
     
     public static String cloning(String sourceID, Object originalState){
         if(mode) return "";
         
-        String originalID = id.getOrigID(sourceID);
         AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
+        IDManager id = manager.getIDManager();
+        String originalID = id.getOrigID(sourceID);
         
         String cloneID = manager.createCloneAgent(originalID, originalState);
         manager.registerAgentID(originalID, cloneID);
@@ -34,8 +34,9 @@ public class AgentCloning {
     public static String delete(String deleteID){
         if(mode) return "";
         
-        String originalID = id.getOrigID(deleteID);
         AgentMessageQueueManager manager = AgentMessageQueueManager.getInstance();
+        IDManager id = manager.getIDManager();
+        String originalID = id.getOrigID(deleteID);
         
         manager.deleteAgentID(originalID, deleteID);
         System.out.println(">> Agent Cloning Delete "+ deleteID);
