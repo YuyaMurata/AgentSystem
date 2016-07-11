@@ -79,16 +79,7 @@ public class AgentMessageQueueManager {
     
     //Agentの複製 e.g.("R#01_Clone")
     public String createCloneAgent(String originalID, Object originalState){
-        String agID;
-        
-        if((agID = id.getReserveID()) == null){
-            agID = id.genID();
-            CreateAgent rankAgent = new CreateAgent();
-            rankAgent.create(agID, queueLength, queuewait, agentwait);
-        } else {
-            System.out.println(">> Get Reserve Agent = "+agID);
-        }
-        
+        String agID = createAgent();
         ((MessageQueue)getAgent(agID)).setOriginalQueue(originalID, originalState);
         
         return agID;
