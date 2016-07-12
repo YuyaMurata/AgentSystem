@@ -48,10 +48,7 @@ public class SystemManager implements SetProperty{
         agconn.setPoolSize(poolsize);
         
         AgentMessageQueueManager agManager = AgentMessageQueueManager.getInstance();
-        IDManager idManager = new IDManager(idParam);
-        
-        agManager.initAgentMessageQueueManager(agentParam);
-        agManager.setIDManager(idManager);
+        agManager.initAgentMessageQueueManager(agentParam, idParam);
         agManager.createNumberOfAgents(numberOfAgents);
         
         if(agManager.getReserveMode() == 1){

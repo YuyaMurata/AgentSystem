@@ -33,7 +33,7 @@ public class AgentMessageQueueManager {
         return manager;
     }
     
-    public void initAgentMessageQueueManager(Map agentMQParam){
+    public void initAgentMessageQueueManager(Map agentMQParam, Map idParam){
         this.queueLength = (Integer)agentMQParam.get("QUEUE_LENGTH");
         this.queuewait = (Long)agentMQParam.get("QUEUE_WAIT");
         this.agentwait = (Long)agentMQParam.get("AGENT_WAIT");
@@ -41,13 +41,17 @@ public class AgentMessageQueueManager {
         this.reserveMode = (Integer)agentMQParam.get("RESERVE_MODE");
         //this.runnable = true;
         
+        //Init IDManager
+        this.id = new IDManager(idParam);
+        
+        //Init AgentCloning
         AgentCloning.setAutoMode(agentMode);
     }
     
     //IDManager setter, getter
-    public void setIDManager(IDManager id){
+    /*public void setIDManager(IDManager id){
         this.id = id;
-    }
+    }*/
     
     public IDManager getIDManager(){
         return id;
