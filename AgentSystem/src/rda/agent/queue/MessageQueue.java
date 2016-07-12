@@ -73,8 +73,8 @@ public class MessageQueue extends MessageQueueProcess{
     
     //Load Balancer Cloning degrade
     public void eventDelete() {
+        MessageQueueEvent.printState("delete", name);
         String deleteID = AgentCloning.delete(name);
-        MessageQueueEvent.printState("delete", deleteID);
     }
     
     //Only AgnetClone
