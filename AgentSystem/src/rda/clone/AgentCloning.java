@@ -24,7 +24,7 @@ public class AgentCloning {
         
         //Clone
         String cloneID = manager.createCloneAgent(originalID, originalState);
-        manager.registerAgentID(originalID, cloneID);
+        id.regID(originalID, cloneID);
         
         System.out.println(">> Agent Cloning New Copy From "+ originalID);
         
@@ -39,7 +39,7 @@ public class AgentCloning {
         String originalID = id.getOrigID(deleteID);
         
         //Delete
-        manager.deleteAgentID(originalID, deleteID);
+        id.deleteID(originalID, deleteID);
         
         System.out.println(">> Agent Cloning Delete "+ deleteID);
         

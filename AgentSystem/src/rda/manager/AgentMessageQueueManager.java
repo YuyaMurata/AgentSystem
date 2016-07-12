@@ -85,7 +85,7 @@ public class AgentMessageQueueManager {
         return agID;
     }
     
-    public void registerAgentID(String primalID, String referID){
+/*    public void registerAgentID(String primalID, String referID){
         id.regID(primalID, referID);
     }
     
@@ -96,7 +96,7 @@ public class AgentMessageQueueManager {
     public void deleteAgentID(String primalID, String referID){
         id.deleteID(primalID, referID);
     }
-    
+*/    
     //MessageQueueの実行管理
     public Boolean getState(){
         return runnable;

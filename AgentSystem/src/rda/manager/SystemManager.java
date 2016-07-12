@@ -60,7 +60,7 @@ public class SystemManager implements SetProperty{
                 String agentID =  agManager.createAgent();
                 reserveID.add(agentID);
             }
-            for(String id : reserveID) agManager.reserveAgent(id);
+            for(String id : reserveID) agManager.getIDManager().setReserveID(id);
         }
         
         System.out.println(">>> Finished Set Agents & IDs");
