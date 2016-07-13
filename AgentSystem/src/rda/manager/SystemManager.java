@@ -29,8 +29,8 @@ public class SystemManager implements SetProperty{
     public void launchSystem(){
         System.out.println(">>Launch System");
         
-        dataSettings(preDataMap(), preProfMap());
         agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap(), preIDMap(), POOLSIZE);
+        dataSettings(preDataMap(), preProfMap());
         loggerSettings(preLoggerMap());
         streamSettings(preStreamMap());
     }
