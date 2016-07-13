@@ -29,8 +29,8 @@ public class SystemManager implements SetProperty{
     public void launchSystem(){
         System.out.println(">>Launch System");
         
-        agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap(), preIDMap(), POOLSIZE);
         dataSettings(preDataMap(), preProfMap());
+        agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap(), preIDMap(), POOLSIZE);
         loggerSettings(preLoggerMap());
         streamSettings(preStreamMap());
     }
@@ -58,6 +58,10 @@ public class SystemManager implements SetProperty{
             }
             for(String id : reserveID) agManager.getIDManager().setReserveID(id);
         }
+        
+        //User Set SendMessage Destination
+        TestCaseManager tcManager = TestCaseManager.getInstance();
+        tcManager.profgen.addUserProfileToAgent();
         
         System.out.println(">>> Finished Set Agents & IDs");
     }

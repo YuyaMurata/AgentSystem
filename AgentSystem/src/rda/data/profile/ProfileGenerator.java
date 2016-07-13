@@ -97,10 +97,16 @@ public class ProfileGenerator {
         //Address
         prof.put("Address", "Address-" + id);
         
-        //TargetID
-        prof.put("TargetID", 
-        AgentMessageQueueManager.getInstance().getIDManager().ageToID((Integer)prof.get("Age")));
-       
         return prof;
+    }
+    
+    public void addUserProfileToAgent(){
+        for(String userID : userList){
+            HashMap prof = profMap.get(userID);
+            
+            //TargetID
+            prof.put("TargetID", 
+            AgentMessageQueueManager.getInstance().getIDManager().ageToID((Integer)prof.get("Age")));
+        }
     }
 }
