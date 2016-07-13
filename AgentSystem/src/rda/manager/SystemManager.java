@@ -29,8 +29,8 @@ public class SystemManager implements SetProperty{
     public void launchSystem(){
         System.out.println(">>Launch System");
         
+        dataSettings(preDataMap(), preProfMap());
         agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap(), preIDMap(), POOLSIZE);
-        dataSettings(NUMBER_OF_USERS, preDataMap(), preProfMap());
         loggerSettings(preLoggerMap());
         streamSettings(preStreamMap());
     }
@@ -62,7 +62,7 @@ public class SystemManager implements SetProperty{
         System.out.println(">>> Finished Set Agents & IDs");
     }
     
-    private void dataSettings(Integer numberOfUsers, Map dataParam, Map profParam){
+    private void dataSettings(Map dataParam, Map profParam){
         TestCaseManager tcManager = TestCaseManager.getInstance();
         tcManager.initTestCase(dataParam, profParam);
         
