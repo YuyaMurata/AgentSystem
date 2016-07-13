@@ -35,13 +35,12 @@ public class IDManager {
         for(int i=0; i < n.toString().length()+1; i++)
             digit.append("0");
         
-        System.out.println("RULE="+rule+" , "+digit);
-        
         DecimalFormat dformat= new DecimalFormat(digit.toString());
     }
     
     private Integer serialID = 0;
     public synchronized String genID(){      
+        System.out.println("RULE="+rule+" , "+dformat.format(0));
         String agID = rule+dformat.format(serialID++);
         return agID;
     }
