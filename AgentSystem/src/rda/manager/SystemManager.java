@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import rda.agent.client.AgentConnection;
-import rda.agent.queue.MessageQueue;
 import rda.log.AgentLogPrint;
 import rda.property.SetProperty;
 import rda.stream.DataStream;
@@ -108,6 +107,7 @@ public class SystemManager implements SetProperty{
     
     private Map preIDMap(){
         Map map = new HashMap();
+        map.put("AMOUNT_OF_AGENTS", NUMBER_OF_RANK_AGENTS);
         map.put("RULE", NAME_RULE);
         map.put("SEED", ID_SEED);
         AgentLogPrint.printPropertySettings("ID", map);
@@ -119,6 +119,7 @@ public class SystemManager implements SetProperty{
         Map map = new HashMap();
         map.put("AMOUNT_USER", NUMBER_OF_USERS);
         map.put("MODE", DATA_MODE_PROFILE);
+        map.put("RULE", NAME_RULE_USER);
         map.put("SEED", PROF_SEED);
         AgentLogPrint.printPropertySettings("UserProfile", map);
         

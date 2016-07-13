@@ -8,6 +8,7 @@ public interface SetProperty {
 	public static final String AGENT_TYPE = "aggregateagent";
         
         public static final String NAME_RULE = "R#";
+        public static final String NAME_RULE_USER = "uid-";
         
 	//Server Property
 	/**
