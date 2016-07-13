@@ -35,6 +35,8 @@ public class IDManager {
         for(int i=0; i < n.toString().length()+1; i++)
             digit.append("0");
         
+        System.out.println("RULE="+rule+" , "+digit);
+        
         DecimalFormat dformat= new DecimalFormat(digit.toString());
     }
     
