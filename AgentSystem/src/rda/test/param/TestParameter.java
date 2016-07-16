@@ -31,12 +31,15 @@ public abstract class TestParameter {
     public static final Long SEED = Long.MAX_VALUE;
     public static final String NAME_RULE = "TEST#";
     
+    public static final String NAME_RULE_USER="tid-";
+    
     public static final String AGENT_TYPE = "aggregateagent";
     
     public static final Map profParam = 
         new HashMap<Object, Object>() {{
         put("AMOUNT_USER", NUMBER_OF_USER);
         put("MODE", PROFILE_MODE);
+        put("RULE", NAME_RULE_USER);
         put("SEED", SEED);
     }};
     
@@ -54,6 +57,7 @@ public abstract class TestParameter {
     
     public static final Map agentMQParam = 
         new HashMap() {{
+        put("AMOUNT_OF_AGENTS", NUMBER_OF_AGENTS);
         put("QUEUE_LENGTH", QUEUE_LENGTH);
         put("QUEUE_WAIT", TIME_WAIT);
         put("AGENT_WAIT", TIME_WAIT);
@@ -64,6 +68,7 @@ public abstract class TestParameter {
     
     public static final Map idParam =
         new HashMap<Object, Object>(){{
+        put("AMOUNT_OF_AGENTS", NUMBER_OF_AGENTS);
         put("RULE", NAME_RULE);
         put("SEED", SEED);
     }};

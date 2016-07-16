@@ -37,7 +37,7 @@ public class TestCaseManager{
         profgen.initProfile(
                 (Integer) profParam.get("AMOUNT_USER"),
                 (Integer) profParam.get("MODE"),
-                (String)  profParam.get("NAME_RULE"),
+                (String)  profParam.get("RULE"),
                 (Long)    profParam.get("SEED")
         );
     }

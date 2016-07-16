@@ -109,4 +109,16 @@ public class ProfileGenerator {
             AgentMessageQueueManager.getInstance().getIDManager().ageToID((Integer)prof.get("Age")));
         }
     }
+    
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for(String userID : userList){
+            HashMap prof = profMap.get(userID);
+            
+            sb.append(userID);
+            sb.append(", ");
+        }
+        
+        return sb.toString();
+    }
 }
