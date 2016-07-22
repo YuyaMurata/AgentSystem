@@ -38,7 +38,7 @@ public class PutMessageHandler extends MessageHandler{
         //System.out.println(" >> Agent Put MessageQueue Check!! "+ id +" - "+putMsg.toString());
         
         //Put Message
-        if(mq == null){
+        /*if(mq == null){
             mq = new MessageQueue(id, 1000, 100L, 10L);
             mq.setAgentType(new UpdateAgent(id));
             manager.register(mq);
@@ -47,7 +47,7 @@ public class PutMessageHandler extends MessageHandler{
         agent.setMessageQueueLength(tx, mq.getQueueLenght());
 
         mq.put(putMsg.msgPack);
-        
-        return mq.getID() + " : success put messages = "+mq.getQueueLenght();
+        */
+        return 0L;//mq.getID() + " : success put messages = "+mq.getQueueLenght();
     } 
 }

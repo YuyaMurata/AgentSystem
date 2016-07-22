@@ -71,39 +71,24 @@ public class DBAccess implements AgentExecutor, Serializable {
             con = DriverManager.getConnection("jdbc:ceta:rda", props);
 
             // AgentDataを得るSQLを生成し，検索を行う．
-            stmt = con.prepareStatement(sqlstmt);
+            stmt = con.prepareStatement("select * from aggregateagent");
             ResultSet rs = stmt.executeQuery();
             
             //IDとDataを取得
             List<Map> result = new ArrayList<>();
-            if(sqlstmt.contains("agent")){
-                Map tran = new HashMap();
-                Map late = new HashMap();
-                Map length = new HashMap();
-                while(rs.next()){
-                    tran.put(rs.getString(1), rs.getLong(2));
-                    late.put(rs.getString(1), rs.getLong(4));
-                    length.put(rs.getString(1), rs.getLong(5));
-                }
-                result.add(tran);
-                result.add(late);
-                result.add(length);
-                
-                return result;
+            Map tran = new HashMap();
+            Map late = new HashMap();
+            Map length = new HashMap();
+            while(rs.next()){
+                tran.put(rs.getString(1), rs.getLong(2));
+                late.put(rs.getString(1), rs.getLong(4));
+                length.put(rs.getString(1), rs.getLong(5));
             }
-            
-            if(sqlstmt.contains("log")){
-                Map life = new HashMap();
-                while(rs.next()){
-                    if(rs.getString(2).contains("update"))
-                        life.put(rs.getString(1), rs.getLong(3));
-                }
-                result.add(life);
+            result.add(tran);
+            result.add(late);
+            result.add(length);
                 
-                return result;
-            }
-            
-            return null;
+            return result;
             
         } catch(Exception e) {
             e.printStackTrace();
@@ -126,14 +111,14 @@ public class DBAccess implements AgentExecutor, Serializable {
         }
     }
     
-    public SQLReturnObject query(String sql) {        
+    public SQLReturnObject query() {        
         try {
             //System.out.println("region names:" + RegionCatalog.getInstance("localhost:2809").getRegionNameList());
             //System.out.println("SQL{"+sql+"}");
             AgentConnection con = AgentConnection.getInstance();
             AgentClient client = con.getConnection();
             
-            DBAccess executor = new DBAccess(sql);
+            DBAccess executor = new DBAccess();
             
             Object ret = client.execute(executor);
             Collection<Object> col = (Collection<Object>)ret;

@@ -12,19 +12,24 @@ import java.util.Map;
 import rda.agent.queue.MessageQueue;
 import rda.agent.queue.QueueObserver;
 import rda.agent.creator.CreateAgent;
-import rda.clone.AgentCloning;
+import rda.agent.logger.AggregateAgentLogPrinter;
+import rda.window.WindowController;
 
 /**
  *
  * @author 悠也
  */
-public class AgentMessageQueueManager {
+public class AgentMessageQueueManager extends AgentManager{
     private static AgentMessageQueueManager manager = new AgentMessageQueueManager();
     private Boolean runnable = true;
     private Integer queueLength;
     private Long queuewait, agentwait;
     private Integer agentMode, reserveMode;
+    
     private IDManager id;
+    private WindowController windowCTRL;
+    
+    private List<QueueObserver> observes = new ArrayList<>();
     
     //Singleton
     private void AgentMessageQueueManager(){}
@@ -33,26 +38,30 @@ public class AgentMessageQueueManager {
         return manager;
     }
     
-    public void initAgentMessageQueueManager(Map agentMQParam, Map idParam){
+    public void initAgentMessageQueueManager(Map agentMQParam, Map idParam, Map windowParam){
         this.queueLength = (Integer)agentMQParam.get("QUEUE_LENGTH");
         this.queuewait = (Long)agentMQParam.get("QUEUE_WAIT");
         this.agentwait = (Long)agentMQParam.get("AGENT_WAIT");
-        this.agentMode = (Integer)agentMQParam.get("AGENT_MODE");
         this.reserveMode = (Integer)agentMQParam.get("RESERVE_MODE");
         //this.runnable = true;
         
         //Init IDManager
         this.id = new IDManager(idParam);
         
+        //Init LogPrinter
+        AggregateAgentLogPrinter log = new AggregateAgentLogPrinter("aggregateagent");
+        LoggerManager.getInstance().setLogPrinter(log);
+        
         //Init AgentCloning
-        AgentCloning.setAutoMode(agentMode);
+        this.agentMode = (Integer)agentMQParam.get("AGENT_MODE");
+        
+        //Init WindowController
+        this.windowCTRL = new WindowController((Integer)windowParam.get("WINDOW_SIZE"),
+                                          (Long)windowParam.get("ALIVE_TIME"),
+                                          (Integer)windowParam.get("POOLSIZE"));
     }
     
-    //IDManager setter, getter
-    /*public void setIDManager(IDManager id){
-        this.id = id;
-    }*/
-    
+    @Override
     public IDManager getIDManager(){
         return id;
     }
@@ -82,6 +91,7 @@ public class AgentMessageQueueManager {
     }
     
     //Agentの複製 e.g.("R#01_Clone")
+    @Override
     public String createCloneAgent(String originalID, Object originalState){
         String agID = createAgent();
         ((MessageQueue)getAgent(agID)).setOriginalQueue(originalState);
@@ -102,6 +112,7 @@ public class AgentMessageQueueManager {
     }
 */    
     //MessageQueueの実行管理
+    @Override
     public Boolean getState(){
         return runnable;
     }
@@ -112,17 +123,17 @@ public class AgentMessageQueueManager {
     }
     
     //Logger用にMQの監視オブジェクトを登録
-    private static List<QueueObserver> observeList = new ArrayList<>();
-    public void add(Object observe){
-       observeList.add((QueueObserver) observe);
+    @Override
+    public void add(QueueObserver observe){
+       observes.add((QueueObserver) observe);
     }
     
     public List<QueueObserver> getObserver(){
-        return observeList;
+        return observes;
     }
     
     //ManagerにMessageQueueを登録
-    private static Map messageQueueMap = new HashMap();
+    private Map messageQueueMap = new HashMap();
     public void register(MessageQueue mq){
         messageQueueMap.put(mq.getID(), mq);
         mq.start();
@@ -132,60 +143,27 @@ public class AgentMessageQueueManager {
         return messageQueueMap.get(agID);
     }
     
+    @Override
     public Map getMQMap(){
         return messageQueueMap;
     }
     
+    @Override
     public Integer getNumAgents(){
         return messageQueueMap.size() - id.getNumReserves();
     }
     
-    public Integer getAutoMode(){
-        return agentMode;
+    @Override
+    public Boolean getAutoMode(){
+        return agentMode == 0;
     }
     
     public Integer getReserveMode(){
         return reserveMode;
     }
-    
-    public Map observerToMap(){
-        StringBuilder place = new StringBuilder("MessageQueue");
-        List field = new ArrayList();
-        List data = new ArrayList();
-        Map map = new HashMap();
-        
-        for(int i=0; i < observeList.size(); i++){
-            place.append(",{}");
-            field.add(observeList.get(i).getName());
-            data.add(observeList.get(i).notifyState());
-        }
-        
-        map.put("Place", place.toString());
-        map.put("Field", field);
-        map.put("Data", data);
-        
-        return map;
-    }
-    
-    public String observerToString(){
-        StringBuilder sb = new StringBuilder();
-        StringBuilder sbsize = new StringBuilder();
-        for(int i=0; i < observeList.size(); i++){
-            sb.append(observeList.get(i).getName());
-            sb.append(",");
-            
-            sbsize.append(observeList.get(i).notifyState());
-            sbsize.append(",");
-        }
-        
-        if(sb.length() > 0){
-            sb.deleteCharAt(sb.length()-1);
-            sbsize.deleteCharAt(sbsize.length()-1);
-        }
-        
-        sb.append("\n");
-        sb.append(sbsize);
-        
-        return sb.toString();
+
+    @Override
+    public WindowController getWindowController() {
+        return this.windowCTRL;
     }
 }

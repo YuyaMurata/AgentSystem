@@ -13,10 +13,9 @@ import rda.agent.queue.MessageObject;
 import rda.agent.queue.MessageQueue;
 import rda.agent.queue.MessageQueueEvent;
 import rda.data.test.TestData;
-import rda.manager.AgentMessageQueueManager;
+import rda.manager.AgentManager;
 import rda.manager.TestCaseManager;
 import rda.window.Window;
-import rda.window.WindowController;
 
 /**
  *
@@ -28,16 +27,14 @@ public class DataStream implements Runnable{
     private Long time, term, total=0L;
     private long delay, period;
     private Boolean runnable;
-    private WindowController windowCTRL;
+    
     private static TestCaseManager tcmanager = TestCaseManager.getInstance();
-
-    public DataStream(Map streamMap) {
+    private AgentManager manager;
+    
+    public DataStream(AgentManager manager, Map streamMap) {
         this.term = (Long)streamMap.get("TIME_RUN");
         this.period = (Long)streamMap.get("TIME_PERIOD");
-        
-        windowCTRL = new WindowController((Integer)streamMap.get("WINDOW_SIZE"),
-                                          (Long)streamMap.get("ALIVE_TIME"),
-                                          (Integer)streamMap.get("POOLSIZE"));
+        this.manager = manager;
     }
     
     public void start(){
@@ -48,15 +45,15 @@ public class DataStream implements Runnable{
     }
     
     private void stream(Long t){
-        Map mqMap = AgentMessageQueueManager.getInstance().getMQMap();
+        Map mqMap = manager.getMQMap();
         TestData data;
         Window window;
 
         while(((data = tcmanager.datagen.generate(t)) != null) && runnable){
             try {
-                windowCTRL.pack(data);
+                manager.getWindowController().pack(data);
                 
-                if((window = windowCTRL.get()) == null) continue;
+                if((window = manager.getWindowController().get()) == null) continue;
                 
                 //Get Destination ID
                 String agID = window.getDestID();
@@ -75,7 +72,7 @@ public class DataStream implements Runnable{
                 
                 total = total+window.unpack().size();
                 
-                windowCTRL.remove();
+                manager.getWindowController().remove();
             } catch (MessageQueueEvent mqev) {
                     mqev.printEvent();
             } catch (Exception e){
@@ -111,7 +108,6 @@ public class DataStream implements Runnable{
         } catch (InterruptedException ex) {
             schedule.shutdownNow();
         }
-        windowCTRL.close();
         
         tcmanager.debugTestGenerateCounts(total);
     }

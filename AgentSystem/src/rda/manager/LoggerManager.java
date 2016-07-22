@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import rda.db.DBAccess;
+import rda.agent.template.AgentLogPrinterTemplate;
 import rda.db.SQLReturnObject;
 import rda.log.AgentLogPrint;
 import rda.log.LogSchedule;
@@ -20,7 +20,6 @@ import rda.log.LogSchedule;
  */
 public class LoggerManager {
     private static final LoggerManager manager = new LoggerManager();
-    private DBAccess db;
     private LogSchedule log;
     private LoggerManager(){}
     
@@ -29,8 +28,11 @@ public class LoggerManager {
     }
     
     public void initLoggerManager(Map loggerMap){
-        this.db = new DBAccess();
         this.log = new LogSchedule(loggerMap);
+    }
+    
+    public void setLogPrinter(AgentLogPrinterTemplate logPrinter){
+        log.setLogPrinter(logPrinter);
     }
     
     public void startLogger(){
@@ -41,10 +43,10 @@ public class LoggerManager {
         log.stop();
     }
     
-    private Map latencyMap = new ConcurrentHashMap();
-    public void putMSGLatency(String agID, Long latency){
-        latencyMap.put(agID, latency);
-    }
+    //private Map latencyMap = new ConcurrentHashMap();
+    //public void putMSGLatency(String agID, Long latency){
+    //    latencyMap.put(agID, latency);
+    //}
     
     public void printTestcaseData(Long time){
         String n = TestCaseManager.getInstance().datagen.toString(time);
@@ -52,7 +54,7 @@ public class LoggerManager {
         AgentLogPrint.printTestcaseData(time.toString(), n);
     }
     
-    public void printQueueObserever(){
+    /*public void printQueueObserever(){
         String observe = AgentMessageQueueManager.getInstance().observerToString();
         //System.out.println("> QueueObserver:\n"+observe);
         AgentLogPrint.printMessageQueueLog(AgentMessageQueueManager.getInstance().observerToMap());
@@ -98,5 +100,5 @@ public class LoggerManager {
         Map resultMap = new HashMap();
         resultMap.put(field.get(field.size()-1), data.get(data.size()-1));
         AgentLogPrint.printResults("", resultMap);
-    }
+    }*/
 }

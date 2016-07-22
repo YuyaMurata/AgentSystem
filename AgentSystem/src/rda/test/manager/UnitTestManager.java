@@ -22,7 +22,7 @@ public class UnitTestManager extends TestParameter{
     
     public void prepareManager(){
         AgentMessageQueueManager ag = AgentMessageQueueManager.getInstance();
-        ag.initAgentMessageQueueManager(agentMQParam, idParam);
+        ag.initAgentMessageQueueManager(agentMQParam, idParam, null);
         this.id = ag.getIDManager();
     }
     

@@ -30,7 +30,7 @@ public class SystemManager implements SetProperty{
         System.out.println(">>Launch System");
         
         dataSettings(preDataMap(), preProfMap());
-        agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap(), preIDMap(), POOLSIZE);
+        agentSettings(NAME_RULE, NUMBER_OF_RANK_AGENTS, preAgentMap(), preIDMap(), preWindowMap(), POOLSIZE);
         loggerSettings(preLoggerMap());
         streamSettings(preStreamMap());
     }
@@ -42,12 +42,12 @@ public class SystemManager implements SetProperty{
         System.out.println(">> Shutdown System...");
     }
     
-    private void agentSettings(String rule, Integer numberOfAgents, Map agentParam, Map idParam, Integer poolsize){
+    private void agentSettings(String rule, Integer numberOfAgents, Map agentParam, Map idParam, Map windowParam, Integer poolsize){
         AgentConnection agconn = AgentConnection.getInstance();
         agconn.setPoolSize(poolsize);
         
         AgentMessageQueueManager agManager = AgentMessageQueueManager.getInstance();
-        agManager.initAgentMessageQueueManager(agentParam, idParam);
+        agManager.initAgentMessageQueueManager(agentParam, idParam, windowParam);
         agManager.createNumberOfAgents(numberOfAgents);
         
         if(agManager.getReserveMode() == 1){
@@ -87,7 +87,7 @@ public class SystemManager implements SetProperty{
     
     private DataStream stream;
     private void streamSettings(Map streamMap){
-        this.stream = new DataStream(streamMap);
+        this.stream = new DataStream(AgentMessageQueueManager.getInstance(), streamMap);
     }
     
     public DataStream dataStream(){
@@ -115,6 +115,15 @@ public class SystemManager implements SetProperty{
         map.put("RULE", NAME_RULE);
         map.put("SEED", ID_SEED);
         AgentLogPrint.printPropertySettings("ID", map);
+        
+        return map;
+    }
+    
+    private Map preWindowMap(){
+        Map map = new HashMap();
+        map.put("ALIVE_TIME", TIME_WAIT);
+        map.put("WINDOW_SIZE", WINDOW_SIZE);
+        map.put("POOLSIZE", POOLSIZE);
         
         return map;
     }
@@ -149,9 +158,6 @@ public class SystemManager implements SetProperty{
         Map map = new HashMap();
         map.put("TIME_RUN", TIME_RUN);
         map.put("TIME_PERIOD", TIME_PERIOD);
-        map.put("ALIVE_TIME", TIME_WAIT);
-        map.put("WINDOW_SIZE", WINDOW_SIZE);
-        map.put("POOLSIZE", POOLSIZE);
         AgentLogPrint.printPropertySettings("Stream", map);
         
         return map;
