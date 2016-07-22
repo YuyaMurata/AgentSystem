@@ -50,4 +50,8 @@ public class Window{
     public List unpack(){
         return this.win;
     }
+    
+    public Integer getSize(){
+        return this.win.size();
+    }
 }

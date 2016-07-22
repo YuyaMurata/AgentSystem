@@ -49,11 +49,13 @@ public class WindowAliveThread implements Runnable{
         Collection collect = ctrl.getWindows();
         if(collect == null) return;
         
-        //Test
-        AgentSystemLogger.getInstance().print(AgentSystemLogger.getInstance().titleMarker, name, new String[]{" : Window -> ControllerQueue"});
+        
         //System.out.println(" > "+ name + " : Window -> ControllerQueue");
         
         for(Window win : (Collection<Window>)collect){
+            //Test
+            AgentSystemLogger.getInstance().print(AgentSystemLogger.getInstance().titleMarker, name,
+                    new String[]{" : Window -> ControllerQueue ","ws = "+win.getSize()});
             ctrl.addExecutable(win);
         }
         }catch(Exception e){
