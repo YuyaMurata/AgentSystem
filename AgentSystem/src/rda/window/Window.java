@@ -44,7 +44,7 @@ public class Window{
         DataTemplate data = (DataTemplate) obj; 
         if(data.sentinel != -1) win.add(data.getData());
         
-        if((win.size() >= size)/* || (data.sentinel == -1)*/) manager.addExecutable(this);
+        //if((win.size() >= size)/* || (data.sentinel == -1)*/) manager.addExecutable(this);
     }
     
     public List unpack(){

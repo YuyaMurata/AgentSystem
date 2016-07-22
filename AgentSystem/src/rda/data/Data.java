@@ -59,7 +59,7 @@ public class Data{
     
     public Object getPoison(){
         String uid = prof.getUser(idNo());
-        TestData data = new TestData(uid , (String)prof.getProf(uid).get("TargetID"), -1);
+        TestData data = null;//new TestData(uid , (String)prof.getProf(uid).get("TargetID"), -1);
         return data;
     }
     
