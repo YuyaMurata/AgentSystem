@@ -24,8 +24,6 @@ public class Window{
         this.originID = id;
         this.size = limit;
         this.manager = manager;
-        
-        //this.destID = AgentMessageQueueManager.getInstance().getIDManager().getDestID(originID);
     }
     
     public String getOrigID(){
@@ -42,9 +40,9 @@ public class Window{
   
     public void pack(Object obj){
         DataTemplate data = (DataTemplate) obj; 
-        if(data.sentinel != -1) win.add(data.getData());
+        win.add(data.getData());
         
-        //if((win.size() >= size)/* || (data.sentinel == -1)*/) manager.addExecutable(this);
+        if(win.size() >= size) manager.addExecutable(this);
     }
     
     public List unpack(){
