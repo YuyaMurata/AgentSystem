@@ -30,7 +30,13 @@ public class WindowController{
             windowMap.put(destID, window);
         }
         
-        windowMap.get(destID).pack(data);
+        try{
+            windowMap.get(destID).pack(data);
+        }catch(NullPointerException e){
+            Window window = new Window(this, destID, size);
+            windowMap.put(destID, window);
+            windowMap.get(destID).pack(data);
+        }
         
     }
     
