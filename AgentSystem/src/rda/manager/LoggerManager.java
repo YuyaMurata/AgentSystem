@@ -5,12 +5,8 @@
  */
 package rda.manager;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import rda.agent.template.AgentLogPrinterTemplate;
-import rda.db.SQLReturnObject;
 import rda.log.AgentLogPrint;
 import rda.log.LogSchedule;
 

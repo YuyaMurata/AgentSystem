@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import rda.log.AgentSystemLogger;
 
 /**
  *
@@ -47,8 +48,10 @@ public class WindowAliveThread implements Runnable{
         Collection collect = ctrl.getWindows();
         if(collect == null) return;
         
+        //Test
+        AgentSystemLogger.getInstance().print(AgentSystemLogger.getInstance().titleMarker, name, new String[]{" : Window -> ControllerQueue"});
+        //System.out.println(" > "+ name + " : Window -> ControllerQueue");
         
-        System.out.println(" > "+ name + " : Window -> ControllerQueue");
         for(Window win : (Collection<Window>)collect){
             ctrl.addExecutable(win);
         }
