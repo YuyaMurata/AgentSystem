@@ -25,14 +25,13 @@ public class WindowController{
     public void pack(Object data){
         String destID = ((DataTemplate)data).toID;
         
-        synchronized(windowMap){
-            if(windowMap.get(destID) == null){
-                Window window = new Window(this, destID, size);
-                windowMap.put(destID, window);
-            }
-        
-            windowMap.get(destID).pack(data);
+        if(windowMap.get(destID) == null){
+            Window window = new Window(this, destID, size);
+            windowMap.put(destID, window);
         }
+        
+        windowMap.get(destID).pack(data);
+        
     }
     
     public Collection getWindows(){
