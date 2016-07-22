@@ -1,25 +1,24 @@
 package rda.window;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import rda.data.test.DataTemplate;
 
 public class WindowController{
-    private ExecutorService aliveThread;
+    private WindowAliveThread aliveThread;
     private Map<String, Window> windowMap = new HashMap<>();
     private Queue executableQueue = new ConcurrentLinkedQueue<>();
     private Integer size;
-    private Long aliveTime;
-        
+    
     public WindowController(int limit, Long aliveTime, int poolsize) {
         this.size = limit;
-        //this.aliveThread = Executors.newFixedThreadPool(poolsize);
-        this.aliveTime = aliveTime;
+        
+        //Alive Thread
+        this.aliveThread = new WindowAliveThread(this, aliveTime);
+        this.aliveThread.start();
     }
         
     public void pack(Object data){
@@ -32,6 +31,10 @@ public class WindowController{
         }
         
         windowMap.get(destID).pack(data);
+    }
+    
+    public Collection getWindows(){
+        return windowMap.values();
     }
     
     public void addExecutable(Window window){
@@ -54,12 +57,6 @@ public class WindowController{
     }
     
     public void close(){
-        /*try {
-            aliveThread.shutdown();
-            if(!aliveThread.awaitTermination(0, TimeUnit.SECONDS))
-                aliveThread.shutdownNow();
-        } catch (InterruptedException ex) {
-            aliveThread.shutdownNow();
-        }*/
+        aliveThread.stop();
     }
 }

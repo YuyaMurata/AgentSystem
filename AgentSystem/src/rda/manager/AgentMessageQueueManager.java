@@ -120,6 +120,7 @@ public class AgentMessageQueueManager extends AgentManager{
     //全てのMessageQueueを終了する
     public void doShutdown(){
         runnable = false;
+        windowCTRL.close();
     }
     
     //Logger用にMQの監視オブジェクトを登録

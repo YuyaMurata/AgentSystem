@@ -14,7 +14,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import rda.agent.template.AgentLogPrinterTemplate;
 import rda.manager.LoggerManager;
-import rda.manager.TestCaseManager;
 
 /**
  *
