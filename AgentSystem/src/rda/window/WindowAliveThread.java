@@ -45,6 +45,7 @@ public class WindowAliveThread implements Runnable{
     
     @Override
     public void run() {
+        try{
         Collection collect = ctrl.getWindows();
         if(collect == null) return;
         
@@ -54,6 +55,9 @@ public class WindowAliveThread implements Runnable{
         
         for(Window win : (Collection<Window>)collect){
             ctrl.addExecutable(win);
+        }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 }
