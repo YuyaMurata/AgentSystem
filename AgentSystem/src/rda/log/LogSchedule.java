@@ -51,7 +51,7 @@ public class LogSchedule implements Runnable{
         long t = time % (1000/period);
         try{
             
-            //if(t == 0) LoggerManager.getInstance().printTestcaseData(time);
+            if(t == 0) LoggerManager.getInstance().printTestcaseData(time);
             //LoggerManager.getInstance().printQueueObserever();
             //if(t == 0) LoggerManager.getInstance().printAgentDBData();
             for(AgentLogPrinterTemplate l : log) l.printer();
