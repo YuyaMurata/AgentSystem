@@ -47,6 +47,8 @@ public class WindowAliveThread implements Runnable{
         Collection collect = ctrl.getWindows();
         if(collect == null) return;
         
+        
+        System.out.println(" > "+ name + " : Window -> ControllerQueue");
         for(Window win : (Collection<Window>)collect){
             ctrl.addExecutable(win);
         }
