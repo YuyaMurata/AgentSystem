@@ -4,12 +4,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import rda.data.test.DataTemplate;
 
 public class WindowController{
     private WindowAliveThread aliveThread;
-    private Map<String, Window> windowMap = new HashMap<>();
+    private Map<String, Window> windowMap = new ConcurrentHashMap<>();
     private Queue executableQueue = new ConcurrentLinkedQueue<>();
     private Integer size;
     
