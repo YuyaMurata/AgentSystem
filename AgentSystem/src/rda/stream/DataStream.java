@@ -57,14 +57,14 @@ public class DataStream implements Runnable{
                 
                 //Get Destination ID
                 String agID = window.getDestID();
-                
-                //Get MessageQueue
-                MessageQueue mq = (MessageQueue)mqMap.get(agID);
             
                 //Translation Window To Message
                 MessageObject msg = new MessageObject(agID, window.unpack());
                 
-                //MessageSender
+                //Get MessageQueue
+                MessageQueue mq = (MessageQueue)mqMap.get(agID);
+                
+                //Message Sender
                 mq.put(msg);
                 
                 //Agent Put Handler
