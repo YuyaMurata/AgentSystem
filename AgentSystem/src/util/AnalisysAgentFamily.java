@@ -49,7 +49,7 @@ public class AnalisysAgentFamily {
             field.add("TIME");
             datarow.add(fline[0]);
             for(int i=0; i < Integer.valueOf(fline[1]); i++){
-                field.add("R#000"+i);
+                field.add("R#00"+i);
                 datarow.add("1");
             }
             csv.writeNext(field.toArray(new String[field.size()]));

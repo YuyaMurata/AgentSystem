@@ -56,7 +56,7 @@ public class ResultsMessageLatency {
             
             while((fline = data.readNext()) != null){
                 dline = data.readNext(); 
-                if(!((fline.length > 3) || (dline.length > 3)) || !(fline[2].contains("MessageLatency"))) continue;
+                if(!((fline.length > 3) || (dline.length > 3)) || !(fline[2].contains("Latency"))) continue;
                 
                 //Time
                 map.put("F#TIME", fline[0]);

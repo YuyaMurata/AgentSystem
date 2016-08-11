@@ -56,7 +56,7 @@ public class ResultsAgentTransaction {
             String fline[], dline[];
             while((fline = data.readNext()) != null){
                 dline = data.readNext(); 
-                if(!((fline.length > 3) || (dline.length > 3)) || !(fline[2].contains("AgentTransaction"))) continue;
+                if(!((fline.length > 3) || (dline.length > 3)) || !(fline[2].contains("Transaction"))) continue;
                 
                 //Time
                 map.put("F#TIME", fline[0]);
@@ -72,6 +72,7 @@ public class ResultsAgentTransaction {
             
             return csv;
         } catch (IOException ex) {
+            ex.printStackTrace();
             return null;
         }
     }
@@ -107,6 +108,7 @@ public class ResultsAgentTransaction {
             
             return csv;
         } catch (IOException ex) {
+            ex.printStackTrace();
             return null;
         }
     }
@@ -151,6 +153,7 @@ public class ResultsAgentTransaction {
             
             return csv;
         } catch (IOException ex) {
+            ex.printStackTrace();
             return null;
         }
     }
