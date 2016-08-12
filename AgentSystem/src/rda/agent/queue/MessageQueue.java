@@ -64,7 +64,7 @@ public class MessageQueue extends MessageQueueProcess{
         
         if(!success) eventClone();
         
-        if(isClone() && ((queue.size() + orgQueue.size()) < size)) eventDelete();
+        if(isClone() && ((queue.size() + orgQueue.size()) < size/2)) eventDelete();
     }
     
     //Load Balancer Cloning updgrade
