@@ -103,5 +103,13 @@ public class AggregateAgentLogPrinter extends AgentLogPrinterTemplate {
         printAgentLatency();
         printAgentObserver();
     }
+    
+    public String printOut() {
+        SQLReturnObject obj = db.query();
 
+        Map map = obj.toMap("Transaction", 0);
+        Long tran = ((List<Long>) map.get("Data")).get(((List<Long>) map.get("Data")).size());
+        
+        return tran.toString();
+    }
 }
