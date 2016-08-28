@@ -8,6 +8,8 @@ source ./set_classpath.sh
 
 #{1..10}
 #Experimental
+for i in {1..5}
+do
 
 java -cp $CLASSPATH -Xms4096m -Xmx4096m rda.agent.disposer.Dispose
 
@@ -35,4 +37,4 @@ mv $CETA_HOME/App/dropbox_log/*.zip $CETA_HOME/App/dropbox_log/old/
 rm -fr *_logs
 rm -f *_logs.zip
 
-#done
+done

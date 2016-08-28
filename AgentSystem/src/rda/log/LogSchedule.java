@@ -14,6 +14,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import rda.agent.logger.AggregateAgentLogPrinter;
 import rda.agent.template.AgentLogPrinterTemplate;
+import rda.data.fileout.OutputData;
 import rda.manager.LoggerManager;
 
 /**
@@ -91,8 +92,11 @@ public class LogSchedule implements Runnable{
         //LoggerManager.getInstance().printAgentDBLifeData(start);
         
         //LoggerManager.getInstance().printAgentTranTotal();
-        logging(-1L);
         System.out.println("Total : "+(new AggregateAgentLogPrinter("aggregateagent")).printOut());
+        OutputData outData = new OutputData("Results.csv");
+        outData.write((new AggregateAgentLogPrinter("aggregateagent")).printOut());
+        outData.close();
+        
         loggerTime("TransactionTime", String.valueOf(stop-start));
     }
     
