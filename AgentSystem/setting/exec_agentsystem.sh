@@ -7,7 +7,7 @@ source ./set_classpath.sh
 
 #{1..10}
 #Experimental
-for i in {1..5}
+for i in {1..100}
 do
 
 java -cp $CLASSPATH -Xms4096m -Xmx4096m rda.agent.disposer.Dispose
