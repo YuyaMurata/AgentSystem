@@ -1,5 +1,4 @@
 #Initialise
-source ./git-remote.sh
 mkdir -p logs/history
 rm -f vmstat.log
 
@@ -35,13 +34,18 @@ rm -fr *_logs
 
 done
 
-cp *_logs.zip $CETA_HOME/App/dropbox_log
+mkdir logsfd
+mv *_logs.zip logsfd/
+zip -r `hostname`_`date +%Y%m%d%H%M%S`_logsfd.zip logsfd
+rm -fr logsfd
+
+cp *_logsfd.zip $CETA_HOME/App/dropbox_log
 dropbox upload $CETA_HOME/App/dropbox_log/*.zip logs/
 mv $CETA_HOME/App/dropbox_log/*.zip $CETA_HOME/App/dropbox_log/old/
-rm -f *_logs.zip
+rm -f *_logsfd.zip
 
 mv Results.csv `hostname`_`date +%Y%m%d%H%M%S`_results.csv
 cp *_results.csv $CETA_HOME/App/dropbox_log
-dropbox upload $CETA_HOME/App/dropbox_log/*.csv
+dropbox upload $CETA_HOME/App/dropbox_log/*.csv logs/
 mv $CETA_HOME/App/dropbox_log/*.csv $CETA_HOME/App/dropbox_log/old/
 rm -f *_results.csv
