@@ -108,7 +108,8 @@ public class AggregateAgentLogPrinter extends AgentLogPrinterTemplate {
         SQLReturnObject obj = db.query();
 
         Map map = obj.toMap("Transaction", 0);
-        Long tran = ((List<Long>) map.get("Data")).get(((List<Long>) map.get("Data")).size()-1);
+        List temp = (List<Long>) map.get("Data");
+        Long tran = (Long) temp.get(temp.size()-1);
         
         return tran.toString();
     }
