@@ -10,6 +10,8 @@ source ./set_classpath.sh
 for i in {1..100}
 do
 
+echo "$i 回目の実験." 
+
 java -cp $CLASSPATH -Xms4096m -Xmx4096m rda.agent.disposer.Dispose
 
 # Change Property (System Parameter)
