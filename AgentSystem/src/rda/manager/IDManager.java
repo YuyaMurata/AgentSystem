@@ -28,7 +28,8 @@ public class IDManager {
     
     public IDManager(Map idParam){
         this.rule = (String)idParam.get("RULE");
-        rand.setSeed((Long)idParam.get("SEED"));
+        if((Long)idParam.get("SEED") != -1L)
+            rand.setSeed((Long)idParam.get("SEED"));
         
         StringBuilder digit = new StringBuilder();
         Integer n = (Integer) idParam.get("AMOUNT_OF_AGENTS");
