@@ -62,9 +62,9 @@ public interface SetProperty {
         public static final Integer DATA_MODE_PROFILE = Integer.valueOf(prop.getValue("agent", "data.mode.profile"));
         public static final Integer NUMBER_OF_RESERVE = Integer.valueOf(prop.getValue("agent", "number.mode.reserve"));
         
-        public static final Long ID_SEED = Long.MAX_VALUE;
-        public static final Long DATA_SEED = Long.MAX_VALUE;
-        public static final Long PROF_SEED = Long.MAX_VALUE;
+        public static final Long ID_SEED = -1L;//Long.MAX_VALUE;
+        public static final Long DATA_SEED = -1L;//Long.MAX_VALUE;
+        public static final Long PROF_SEED = -1L;//Long.MAX_VALUE;
         
         //Log Property
         /**
