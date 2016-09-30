@@ -104,7 +104,6 @@ public class AggregateAgentLogPrinter extends AgentLogPrinterTemplate {
 
     @Override
     public void printer() {
-        System.out.println(agenttype + " - Log Printer : ");
         AgentLogPrint.printAgentTransaction(printAgentTransaction());
         AgentLogPrint.printMessageLatency(printAgentLatency());
         AgentLogPrint.printMessageQueueLog(printAgentObserver());
@@ -112,6 +111,7 @@ public class AggregateAgentLogPrinter extends AgentLogPrinterTemplate {
     
     @Override
     public void console(){
+        System.out.println(agenttype + " - Log Printer : ");
         System.out.println("> DataTransaction:\n" + mapToString(printAgentTransaction()));
         System.out.println("> QueueLength:\n" + mapToString(printAgentObserver()));
         System.out.println("> MessageLatency:\n" + mapToString(printAgentLatency()));
