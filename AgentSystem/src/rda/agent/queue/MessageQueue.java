@@ -65,7 +65,8 @@ public class MessageQueue extends MessageQueueProcess{
         if(!success) eventClone();
         
         try{
-        if(isClone() && ((queue.size() + orgQueue.size()) < size/2)) eventDelete();
+            if(isClone() && ((queue.size() + orgQueue.size()) < size/2)) eventDelete();
+            if(isClone())System.out.println("rda.agent.queue.MessageQueue.put() = "+queue.size() +", Original="+ orgQueue.size());
         }catch(Exception e){
             e.printStackTrace();
         }
