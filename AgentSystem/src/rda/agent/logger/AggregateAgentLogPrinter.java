@@ -32,7 +32,7 @@ public class AggregateAgentLogPrinter extends AgentLogPrinterTemplate {
     }
 
     //RankAgent MessageQueue Status
-    private void printAgentObserver() {
+    private Map printAgentObserver() {
         StringBuilder place = new StringBuilder("MessageQueue");
         List field = new ArrayList();
         List data = new ArrayList();
@@ -49,31 +49,37 @@ public class AggregateAgentLogPrinter extends AgentLogPrinterTemplate {
         map.put("Data", data);
 
         //MessageQueue Observer QueueLength
-        System.out.println("> QueueLength:\n" + mapToString(map));
-        AgentLogPrint.printMessageQueueLog(map);
+        //System.out.println("> QueueLength:\n" + mapToString(map));
+        //AgentLogPrint.printMessageQueueLog(map);
 
         //Agent Inner QueueLength
         //SQLReturnObject obj = db.query();
         //Map map = obj.toMap("Length", 2);
         //System.out.println("> QueueLength:\n"+obj.toString(map));
+        
+        return map;
     }
 
     //RankAgent Database Transaction
-    private void printAgentTransaction() {
+    private Map printAgentTransaction() {
         SQLReturnObject obj = db.query();
 
         Map map = obj.toMap("Transaction", 0);
-        System.out.println("> DataTransaction:\n" + mapToString(map));
-        AgentLogPrint.printAgentTransaction(map);
+        //System.out.println("> DataTransaction:\n" + mapToString(map));
+        //AgentLogPrint.printAgentTransaction(map);
+        
+        return map;
     }
 
     //RankAgent Database MessageLatency
-    private void printAgentLatency() {
+    private Map printAgentLatency() {
         SQLReturnObject obj = db.query();
 
         Map map = obj.toMap("Latency", 1);
-        System.out.println("> MessageLatency:\n" + mapToString(map));
-        AgentLogPrint.printMessageLatency(map);
+        //System.out.println("> MessageLatency:\n" + mapToString(map));
+        //AgentLogPrint.printMessageLatency(map);
+        
+        return map;
     }
 
     //String Print Out
@@ -99,9 +105,16 @@ public class AggregateAgentLogPrinter extends AgentLogPrinterTemplate {
     @Override
     public void printer() {
         System.out.println(agenttype + " - Log Printer : ");
-        printAgentTransaction();
-        printAgentLatency();
-        printAgentObserver();
+        AgentLogPrint.printAgentTransaction(printAgentTransaction());
+        AgentLogPrint.printMessageLatency(printAgentLatency());
+        AgentLogPrint.printMessageQueueLog(printAgentObserver());
+    }
+    
+    @Override
+    public void console(){
+        System.out.println("> DataTransaction:\n" + mapToString(printAgentTransaction()));
+        System.out.println("> QueueLength:\n" + mapToString(printAgentObserver()));
+        System.out.println("> MessageLatency:\n" + mapToString(printAgentLatency()));
     }
     
     public String printOut() {
