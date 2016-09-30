@@ -52,7 +52,7 @@ public class LogSchedule implements Runnable{
         long t = time % (1000/period);
         try{
             
-            if(t == 0) {
+            if(time%1000== 0) {
                 LoggerManager.getInstance().printTestcaseData(time);
                 for(AgentLogPrinterTemplate l : log) l.console();
             }
