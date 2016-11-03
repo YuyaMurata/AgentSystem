@@ -1,7 +1,6 @@
 package rda.window;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
