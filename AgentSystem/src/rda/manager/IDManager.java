@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -106,6 +107,10 @@ public class IDManager {
     
     public String getOrigID(String agID){
         return (String)idMap.get(agID);
+    }
+    
+    public Map getIDandDestLists(){
+        return regAgentMap;
     }
     
     //Test Print
