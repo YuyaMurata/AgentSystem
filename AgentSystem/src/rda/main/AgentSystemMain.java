@@ -5,7 +5,9 @@
  */
 package rda.main;
 
+import rda.manager.AgentMessageQueueManager;
 import rda.manager.SystemManager;
+import rda.query.AgentQuerySchedule;
 
 /**
  * 
@@ -36,6 +38,13 @@ public class AgentSystemMain {
     private static void shutdown(){
         manager.dataStream().stop();
         manager.stopLogger();
+        agent.runnable = false;
         manager.shutdownSystem();
+    }
+    
+    private static AgentQuerySchedule agent;
+    private static void query(){
+        agent = new AgentQuerySchedule(AgentMessageQueueManager.getInstance());
+        agent.start();
     }
 }

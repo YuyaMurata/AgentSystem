@@ -23,10 +23,11 @@ public class AgentQuerySchedule extends Thread{
     public AgentQuerySchedule(AgentManager manager) {
         IDManager id = manager.getIDManager();
         ReadAgent agent = new ReadAgent();
-        OutputData out = new OutputData("AppCountQuery");
+        OutputData out = new OutputData("AppCountQuery.txt");
     }
     
-    public static Boolean runnable = true;
+    public Boolean runnable = true;
+    
     public void run(){
         while(runnable){
             Long start = System.currentTimeMillis();
