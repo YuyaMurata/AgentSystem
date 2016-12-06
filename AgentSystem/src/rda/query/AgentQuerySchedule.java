@@ -42,8 +42,13 @@ public class AgentQuerySchedule extends Thread{
             }
             
             StringBuilder sb = new StringBuilder();
-            for(Object agID : aggMap.keySet())
+            for(Object agID : aggMap.keySet()){
                 sb.append(agID);
+            }
+            
+            for(Object agID : aggMap.keySet()){
+                sb.append(aggMap.get(agID));
+            }
             
             Long sleep = System.currentTimeMillis() - start;
             
