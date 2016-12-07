@@ -20,10 +20,12 @@ public class AgentCloning {
         String originalID = id.getOrigID(sourceID);
         
         //Clone
+        Long start = System.currentTimeMillis();
         String cloneID = manager.createCloneAgent(originalID, originalState);
         id.regID(originalID, cloneID);
+        Long stop = System.currentTimeMillis();
         
-        System.out.println(">> Agent Cloning New Copy From "+ originalID);
+        System.out.println(">> Agent Cloning New Copy From "+ originalID+" - "+(stop-start));
         
         return cloneID;
     }
