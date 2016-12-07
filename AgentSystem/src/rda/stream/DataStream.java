@@ -82,9 +82,9 @@ public class DataStream implements Runnable{
             } catch (Exception e){
                     e.printStackTrace();
             }
-            
-            System.out.println(idcheckLog);
         }
+        
+        System.out.println(idcheckLog);
     }
     
     @Override
