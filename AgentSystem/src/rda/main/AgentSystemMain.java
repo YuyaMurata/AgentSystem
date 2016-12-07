@@ -19,7 +19,7 @@ public class AgentSystemMain {
     public static void main(String[] args) {
         prepare();
         execute();
-        query();
+        //query();
         logger();
         shutdown();
     }
@@ -39,7 +39,7 @@ public class AgentSystemMain {
     private static void shutdown(){
         manager.dataStream().stop();
         manager.stopLogger();
-        agent.runnable = false;
+        //agent.runnable = false;
         manager.shutdownSystem();
     }
     
