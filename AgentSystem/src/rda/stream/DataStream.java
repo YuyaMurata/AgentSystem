@@ -47,7 +47,7 @@ public class DataStream implements Runnable{
         Window window;
         
         //Roulette
-        ((RouletteData)tcmanager.datagen.getType()).roulette(rand.nextInt(100));
+        ((RouletteData)tcmanager.datagen.getType()).roulette(10);
         idcheckLog = new TreeMap();
         
         while(((data = tcmanager.datagen.generate(t)) != null) && runnable){
