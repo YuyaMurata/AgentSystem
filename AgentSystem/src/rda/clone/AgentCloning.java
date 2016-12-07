@@ -25,7 +25,7 @@ public class AgentCloning {
         id.regID(originalID, cloneID);
         Long stop = System.currentTimeMillis();
         
-        System.out.println(">> Agent Cloning New Copy From "+ originalID+" - "+(stop-start));
+        System.out.println(">> Agent Cloning New Copy From "+ originalID+" , "+(stop-start));
         
         return cloneID;
     }

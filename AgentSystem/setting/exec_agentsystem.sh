@@ -7,7 +7,7 @@ source ./set_classpath.sh
 
 #{1..10}
 #Experimental
-for i in {1..100}
+for i in {1..10}
 do
 
 echo "$i 回目の実験." 
@@ -19,7 +19,7 @@ java -cp $CLASSPATH -Xms4096m -Xmx4096m rda.agent.disposer.Dispose
 
 vmstat -n -S m -a 1 | awk '{print strftime("%Y-%m-%d %H:%M:%S.000"), $0} { system(":") }' > vmstat.log &
 
-java -cp $CLASSPATH -Xms4096m -Xmx4096m rda.main.AgentSystemMain
+java -cp $CLASSPATH -Xms4096m -Xmx4096m rda.main.AgentSystemMain > consolelog.csv
 
 killall vmstat
 cat vmstat.log | awk '{print $1 " " $2 "," $15 "," $16}' > vmstat.csv
@@ -27,6 +27,7 @@ cat vmstat.log | awk '{print $1 " " $2 "," $15 "," $16}' > vmstat.csv
 cp -r ../property logs/
 
 mv vmstat.* logs/
+mv consolelog.* logs/
 
 #zip & dropbox
 mv logs `hostname`_`date +%Y%m%d%H%M%S`_logs
