@@ -7,7 +7,7 @@ source ./set_classpath.sh
 
 #{1..10}
 #Experimental
-for i in {1..100}
+for i in {1..2}
 do
 
 echo "$i 回目の実験." 
