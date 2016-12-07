@@ -54,13 +54,13 @@ public class DataStream implements Runnable{
             try {
                 manager.getWindowController().pack(data);
                 
+                if(idcheckLog.get(data.toID) == null) idcheckLog.put(data.toID, 0);
+                idcheckLog.put(data.toID, (int)idcheckLog.get(data.toID)+1);
+                
                 if((window = manager.getWindowController().get()) == null) continue;
                 
                 //Get Destination ID
                 String agID = window.getDestID();
-                
-                if(idcheckLog.get(agID) == null) idcheckLog.put(agID, 0);
-                idcheckLog.put(agID, (int)idcheckLog.get(agID)+1);
             
                 //Translation Window To Message
                 MessageObject msg = new MessageObject(agID, window.unpack());
