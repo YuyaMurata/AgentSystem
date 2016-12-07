@@ -7,9 +7,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
 /**
- * Output Log File Not Use
- *
- * @author kaeru
+ * Output Log File
  */
 public class OutputData {
 

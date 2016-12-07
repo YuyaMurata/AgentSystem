@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rda.agent.reader;
 
 import com.ibm.agent.exa.AgentKey;
@@ -19,10 +14,6 @@ import java.util.TreeMap;
 
 import rda.agent.client.AgentConnection;
 
-/**
- *
- * @author kaeru
- */
 public class ReadALLAgents implements AgentExecutor, Serializable{
     private static final String MESSAGE_TYPE = "readAgent";
 
@@ -33,7 +24,7 @@ public class ReadALLAgents implements AgentExecutor, Serializable{
     public Object execute() {
         try {
             AgentManager agentManager = AgentManager.getAgentManager();
-            // DISPOSEメッセージの生成
+            
             MessageFactory factory = MessageFactory.getFactory();
             Message msg = factory.getMessage(MESSAGE_TYPE);
 

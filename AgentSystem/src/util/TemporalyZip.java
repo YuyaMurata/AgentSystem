@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package util;
 
 import java.io.BufferedOutputStream;
@@ -14,10 +9,6 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-/**
- *
- * @author kaeru
- */
 public class TemporalyZip {
     String zipFile;
     public TemporalyZip(String inputZipFile) {

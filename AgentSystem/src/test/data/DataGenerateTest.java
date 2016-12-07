@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package test.data;
 
 import java.util.HashMap;
@@ -11,10 +6,6 @@ import rda.data.test.TestData;
 import rda.manager.TestCaseManager;
 import rda.property.SetProperty;
 
-/**
- *
- * @author kaeru
- */
 public class DataGenerateTest implements SetProperty{
     public static void main(String[] args) {
         TestCaseManager tcmanager = TestCaseManager.getInstance();

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rda.manager;
 
 import java.util.ArrayList;
@@ -15,10 +10,6 @@ import rda.agent.creator.CreateAgent;
 import rda.agent.logger.AggregateAgentLogPrinter;
 import rda.window.WindowController;
 
-/**
- *
- * @author 悠也
- */
 public class AgentMessageQueueManager extends AgentManager{
     private static AgentMessageQueueManager manager = new AgentMessageQueueManager();
     private Boolean runnable = true;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package util;
 
 import com.ibm.ws.xs.jdk5.java.util.Arrays;
@@ -17,10 +12,6 @@ import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author 悠也
- */
 public class ResultsAgentSystemCPU {
     private static String filename =".\\logs\\results\\CPU.csv";
     

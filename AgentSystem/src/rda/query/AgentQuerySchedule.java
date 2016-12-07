@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rda.query;
 
 import java.util.HashMap;
@@ -13,10 +8,6 @@ import rda.data.fileout.OutputData;
 import rda.manager.AgentManager;
 import rda.manager.IDManager;
 
-/**
- *
- * @author 悠也
- */
 public class AgentQuerySchedule extends Thread{
     IDManager id;
     ReadAgent agent;

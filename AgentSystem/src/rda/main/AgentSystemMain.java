@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rda.main;
 
 import rda.manager.AgentMessageQueueManager;
 import rda.manager.SystemManager;
 import rda.query.AgentQuerySchedule;
 
-/**
- * 
- * @author 悠也
- */
 public class AgentSystemMain {
     private static SystemManager manager = SystemManager.getInstance();
     

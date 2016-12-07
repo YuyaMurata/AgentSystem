@@ -3,9 +3,6 @@ package rda.agent.reader;
 import java.io.Serializable;
 
 public class AgentInfo implements Serializable{
-    /**
-     * 
-     */
     private static final long serialVersionUID = 4117317861801053417L;
 	
     public AgentInfo() {

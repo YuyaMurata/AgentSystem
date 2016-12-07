@@ -1,6 +1,5 @@
 package rda.agent.queue;
 
-import java.util.List;
 import rda.agent.template.MessageTemplate;
 
 public class MessageObject extends MessageTemplate{

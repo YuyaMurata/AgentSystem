@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rda.manager;
 
 import java.util.ArrayList;
@@ -14,10 +9,6 @@ import rda.log.AgentLogPrint;
 import rda.property.SetProperty;
 import rda.stream.DataStream;
 
-/**
- *
- * @author 悠也
- */
 public class SystemManager implements SetProperty{
     private static SystemManager manager = new SystemManager();
     private SystemManager(){}

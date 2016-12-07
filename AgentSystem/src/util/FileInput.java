@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package util;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author kaeru
- */
 public class FileInput {
     private static final String path = ".\\logs";
     private static final File newfile = new File(path+"\\results");
