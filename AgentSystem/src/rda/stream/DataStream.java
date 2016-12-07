@@ -1,6 +1,9 @@
 package rda.stream;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+import java.util.TreeMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -8,6 +11,7 @@ import rda.agent.queue.MessageObject;
 import rda.agent.queue.MessageQueue;
 import rda.agent.queue.MessageQueueEvent;
 import rda.data.test.TestData;
+import rda.data.type.RouletteData;
 import rda.manager.AgentManager;
 import rda.manager.TestCaseManager;
 import rda.window.Window;
@@ -35,11 +39,17 @@ public class DataStream implements Runnable{
         schedule.scheduleAtFixedRate(this, delay, period, TimeUnit.MILLISECONDS);
     }
     
+    private Random rand = new Random();
+    private Map idcheckLog = new HashMap();
     private void stream(Long t){
         Map mqMap = manager.getMQMap();
         TestData data;
         Window window;
-
+        
+        //Roulette
+        ((RouletteData)tcmanager.datagen.getType()).roulette(rand.nextInt(100));
+        idcheckLog = new TreeMap();
+        
         while(((data = tcmanager.datagen.generate(t)) != null) && runnable){
             try {
                 manager.getWindowController().pack(data);
@@ -48,6 +58,9 @@ public class DataStream implements Runnable{
                 
                 //Get Destination ID
                 String agID = window.getDestID();
+                
+                if(idcheckLog.get(agID) == null) idcheckLog.put(agID, 0);
+                idcheckLog.put(agID, (long)idcheckLog.get(agID)+1);
             
                 //Translation Window To Message
                 MessageObject msg = new MessageObject(agID, window.unpack());
@@ -68,7 +81,9 @@ public class DataStream implements Runnable{
                     mqev.printEvent();
             } catch (Exception e){
                     e.printStackTrace();
-            }    
+            }
+            
+            System.out.println(idcheckLog);
         }
     }
     
