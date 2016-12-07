@@ -60,7 +60,7 @@ public class DataStream implements Runnable{
                 String agID = window.getDestID();
                 
                 if(idcheckLog.get(agID) == null) idcheckLog.put(agID, 0);
-                idcheckLog.put(agID, (long)idcheckLog.get(agID)+1);
+                idcheckLog.put(agID, (int)idcheckLog.get(agID)+1);
             
                 //Translation Window To Message
                 MessageObject msg = new MessageObject(agID, window.unpack());
