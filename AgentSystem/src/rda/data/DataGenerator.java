@@ -18,6 +18,10 @@ public class DataGenerator {
         return type.getName();
     }
     
+    public DataType getType(){
+        return type;
+    }
+    
     @Override
     public String toString(){
         return type.toString();

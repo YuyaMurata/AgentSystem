@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import org.apache.commons.math3.random.RandomDataGenerator;
 import rda.manager.AgentMessageQueueManager;
 
@@ -107,6 +108,21 @@ public class ProfileGenerator {
             //TargetID
             prof.put("TargetID", 
             AgentMessageQueueManager.getInstance().getIDManager().ageToID((Integer)prof.get("Age")));
+        }
+    }
+    
+    public void addDummyUserProfileToAgent(){
+        List toIDList = new ArrayList();
+        for(int i=0; i < 10; i++){
+            toIDList.add("R#00"+i);
+        }
+        
+        Random rand = new Random();
+        for(String userID : userList){
+            HashMap prof = profMap.get(userID);
+            
+            //TargetID
+            prof.put("TargetID", toIDList.get(rand.nextInt(10)));
         }
     }
 }

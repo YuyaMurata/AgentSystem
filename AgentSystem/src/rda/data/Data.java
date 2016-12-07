@@ -46,5 +46,5 @@ public class Data{
         TestData data = new TestData(uid , (String)prof.getProf(uid).get("TargetID"));
         data.setData(value);
         return data;
-    }   
+    }
 }
