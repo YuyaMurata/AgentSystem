@@ -16,14 +16,11 @@ public class UpdateHandler extends MessageHandler{
 
     @Override
     public Object onMessage(Message msg) throws Exception {
-        // TODO 自動生成されたメソッド・スタブ
         UpdateMessage updateMsg = (UpdateMessage) msg;
         MessageObject msgObj = (MessageObject) updateMsg.messageData;
         
-        // マスターエンティティを取得
         Aggregateagent agent = (Aggregateagent)getEntity();
         
-        // トランザクションIDを取得
         TxID tx = getTx();
         long updateData = 0;
         for(Object data : (List)msgObj.data){

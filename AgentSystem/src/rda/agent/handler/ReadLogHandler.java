@@ -14,11 +14,8 @@ public class ReadLogHandler extends MessageHandler{
     
     @Override
     public Object onMessage(Message msg) throws Exception {
-        // TODO 自動生成されたメソッド・スタブ
-        // マスターエンティティを取得
         Aggregateagent agent = (Aggregateagent)getEntity();
 
-        // トランザクションIDを取得
         TxID tx = getTx();
 
         StringBuilder accessIDList = new StringBuilder();
@@ -26,11 +23,11 @@ public class ReadLogHandler extends MessageHandler{
         Iterator<Entity> it = agent.getLogIterator(tx);
         while(it.hasNext()){
             Log log = (Log) it.next();
-            //AccessLogの取得
+            
             accessIDList.append(log.getAccessID(tx));
             accessIDList.append(",");
 
-            //AccessTimeの取得
+            
             accessTimeList.append(log.getLastAccessTime(tx));
             accessTimeList.append(",");
         }
